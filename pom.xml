@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.lukacupic.irius.client</groupId>
-    <artifactId>IriusAPIClient</artifactId>
+    <groupId>com.iriusrisk.cli</groupId>
+    <artifactId>irius-cli</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -27,4 +27,19 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.iriusrisk.cli.Irius</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
