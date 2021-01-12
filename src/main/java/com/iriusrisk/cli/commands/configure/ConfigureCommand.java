@@ -23,7 +23,7 @@ public class ConfigureCommand implements Runnable {
     public ConfigureCommand() {
     }
 
-    @CommandLine.Command(name = "list", description = "List all products")
+    @CommandLine.Command(name = "list", description = "List the configuration")
     void listCommand() {
         Credentials credentials = CredentialUtils.readCredentials();
         if (credentials == null) {

@@ -11,7 +11,7 @@ import picocli.CommandLine;
 
 import java.util.List;
 
-@CommandLine.Command(name = "product", description = "Display product-related information")
+@CommandLine.Command(name = "product", description = "Display product related information")
 public class ProductCommand implements Runnable{
 
     /**

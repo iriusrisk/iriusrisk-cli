@@ -39,10 +39,10 @@ public class CountermeasureCommand implements Runnable {
     @CommandLine.Parameters(paramLabel = "<product unique ID>", description = "Product ID")
     private String id;
 
-    @CommandLine.Option(names = {"--required"}, description = "Required countermeasure")
+    @CommandLine.Option(names = {"--required"}, description = "Only display required countermeasures")
     boolean required;
 
-    @CommandLine.Option(names = {"--implemented"}, description = "Implemented countermeasure")
+    @CommandLine.Option(names = {"--implemented"}, description = "Only display Implemented countermeasures")
     boolean implemented;
 
     @Override

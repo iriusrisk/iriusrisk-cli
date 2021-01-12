@@ -10,7 +10,7 @@ import picocli.CommandLine;
 
 import java.util.List;
 
-@CommandLine.Command(name = "threat", description = "Display threat information")
+@CommandLine.Command(name = "threat", description = "Display threats for a given product")
 public class ThreatCommand implements Runnable {
 
     /**

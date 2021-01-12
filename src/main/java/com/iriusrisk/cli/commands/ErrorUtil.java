@@ -22,7 +22,7 @@ public class ErrorUtil {
     public static void apiTokenError(CommandLine.Model.CommandSpec spec) {
         throw new CommandLine.ParameterException(spec.commandLine(), "No API token found. To configure your API token please use command:\n" +
                 "  irius configure token set <api token>\n" +
-                "If you do not have an api token please contact your administrator.\n");
+                "If you do not have an api token please contact your IriusRisk administrator.\n");
     }
 
     /**

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
-@CommandLine.Command(name = "Irius CLI", version = "Irius CLI v1.0", mixinStandardHelpOptions = true, subcommands = {
+@CommandLine.Command(name = "irius", version = "1.0", mixinStandardHelpOptions = true, subcommands = {
         CommandLine.HelpCommand.class, ProductCommand.class, ThreatCommand.class, CountermeasureCommand.class,
         ConfigureCommand.class
 })
@@ -34,7 +34,7 @@ public class Irius implements Runnable {
     /**
      * The API url.
      */
-    private static final String API_URL = "https://demo.iriusrisk.com/api/v1";
+    private static final String API_URL = null;
 
     /**
      * The API handler.

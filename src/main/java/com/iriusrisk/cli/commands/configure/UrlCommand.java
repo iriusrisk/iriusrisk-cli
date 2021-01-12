@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "url", description = "Manage url configuration properties")
+@CommandLine.Command(name = "url", description = "Manage URL configuration properties")
 public class UrlCommand implements Runnable {
 
     /**
@@ -20,7 +20,7 @@ public class UrlCommand implements Runnable {
     public UrlCommand() {
     }
 
-    @CommandLine.Command(name = "set", description = "Sets the url to be used by iriusrusk-cli")
+    @CommandLine.Command(name = "set", description = "Sets the URL to the IriusRisk instance")
     void setCommand(@CommandLine.Parameters(paramLabel = "<url>", description = "url") String url) {
         if (url.isEmpty()) {
             ErrorUtil.customError(spec, "URL cannot be empty");
@@ -29,7 +29,7 @@ public class UrlCommand implements Runnable {
         try {
             CredentialUtils.writeUrlCredentials(url);
         } catch (IOException e) {
-            ErrorUtil.customError(spec, "Error while writing to credentials file");
+            ErrorUtil.customError(spec, "Error while writing to the configuration file");
         }
     }
 
