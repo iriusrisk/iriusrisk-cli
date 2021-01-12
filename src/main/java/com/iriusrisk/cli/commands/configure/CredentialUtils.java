@@ -1,14 +1,18 @@
 package com.iriusrisk.cli.commands.configure;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iriusrisk.cli.Irius;
+import com.iriusrisk.cli.commands.IriusMapper;
 import com.iriusrisk.cli.commands.ErrorUtil;
-import picocli.CommandLine;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 
+import picocli.CommandLine;
+
 public class CredentialUtils {
+
+    private static final IriusMapper iriusMapper = IriusMapper.getInstance();
 
     /**
      * Writes the API token to the credentials.
@@ -18,6 +22,13 @@ public class CredentialUtils {
     public static void writeTokenCredential(String token) throws IOException {
         Credentials credentials = CredentialUtils.createCredentials();
         credentials.setApiToken(token);
+
+        CredentialUtils.writeCredentials(credentials);
+    }
+    
+    public static void writeUrlCredentials(String url) throws IOException {
+        Credentials credentials =   CredentialUtils.createCredentials();
+        credentials.setUrl(url);
 
         CredentialUtils.writeCredentials(credentials);
     }
@@ -74,8 +85,7 @@ public class CredentialUtils {
         String iriusPath = Irius.getIriusPath();
         String credentialsPath = iriusPath + File.separator + Irius.getCredentialsFile();
 
-        ObjectMapper jackson = new ObjectMapper();
-        jackson.writeValue(Paths.get(credentialsPath).toFile(), credentials);
+        iriusMapper.writeValue(Paths.get(credentialsPath).toFile(), credentials);
     }
 
     /**
@@ -84,9 +94,8 @@ public class CredentialUtils {
     public static Credentials readCredentials() {
         String credentialsPath = Irius.getIriusPath() + File.separator + Irius.getCredentialsFile();
 
-        ObjectMapper jackson = new ObjectMapper();
         try {
-            return jackson.readValue(Paths.get(credentialsPath).toFile(), Credentials.class);
+            return iriusMapper.readValue(Paths.get(credentialsPath).toFile(), Credentials.class);
         } catch (IOException e) {
             return new Credentials();
         }
