@@ -32,11 +32,6 @@ public class Irius implements Runnable {
     private static final String CREDENTIALS_FILE = "credentials";
 
     /**
-     * The API url.
-     */
-    private static final String API_URL = null;
-
-    /**
      * The API handler.
      */
     private static final ProductsApi API = new ProductsApi();
@@ -45,6 +40,8 @@ public class Irius implements Runnable {
      * The API token.
      */
     private static String apiToken;
+
+    private static String url;
 
     /**
      * Command line Spec for handling missing subcommands.
@@ -71,14 +68,15 @@ public class Irius implements Runnable {
             httpClient.setProxy(proxy);
         }
 
-        API.getApiClient().setBasePath(API_URL);
         API.getApiClient().setHttpClient(httpClient);
         API.getApiClient().setVerifyingSsl(false);
 
         Credentials c = CredentialUtils.readCredentials();
         if (c != null) {
             apiToken = c.getApiToken();
+            url = c.getUrl();
         }
+        API.getApiClient().setBasePath(url);
     }
 
     @Override

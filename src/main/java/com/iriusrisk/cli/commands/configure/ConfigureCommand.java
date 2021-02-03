@@ -5,8 +5,8 @@ import com.iriusrisk.cli.commands.IriusMapper;
 import com.iriusrisk.cli.commands.ErrorUtil;
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "configure", description = "Manage configuration properties", subcommands = {
-        TokenCommand.class
+@CommandLine.Command(name = "configure", description = "Manage configuration", subcommands = {
+        TokenCommand.class, UrlCommand.class
 })
 public class ConfigureCommand implements Runnable {
 
@@ -27,13 +27,13 @@ public class ConfigureCommand implements Runnable {
     void listCommand() {
         Credentials credentials = CredentialUtils.readCredentials();
         if (credentials == null) {
-            ErrorUtil.customError(spec, "Error while reading credentials. Does the file exist?");
+            ErrorUtil.customError(spec, "Error while reading configuration. Does the file exist?");
         }
 
         try {
             System.out.println(iriusMapper.writeValueAsString(credentials));
         } catch (JsonProcessingException e) {
-            ErrorUtil.customError(spec, "Error while printing the credentials.");
+            ErrorUtil.customError(spec, "Error while printing the configuration.");
         }
     }
 
