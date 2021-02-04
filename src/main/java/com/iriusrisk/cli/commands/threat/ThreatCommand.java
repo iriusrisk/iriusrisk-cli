@@ -39,14 +39,16 @@ public class ThreatCommand implements Runnable {
     @CommandLine.Command(name = "list", description = "List all threats for a given product")
     void listCommand(@CommandLine.Parameters(paramLabel = "id", description = "Product ID") String id) {
         CredentialUtils.checkToken(spec);
-
         try {
             List<ComponentUseCaseThreatShort> threats = api.productsRefThreatsGet(token, id);
             System.out.println(threats);
 
         } catch (ApiException e) {
-            ErrorUtil.apiError(spec, e.getMessage());
+            ErrorUtil.apiError(spec, e.getResponseBody());
+
         }
+        System.out.println("done");
+
     }
 
     @Override

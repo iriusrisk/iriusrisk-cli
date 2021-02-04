@@ -30,7 +30,7 @@ public class TokenCommand implements Runnable {
             Irius.setApiToken(token);
             CredentialUtils.writeTokenCredential(token);
         } catch (IOException e) {
-            ErrorUtil.customError(spec, "Error while writing to credentials file");
+            ErrorUtil.customError(spec, "Error while writing to credentials file: "+e.getMessage());
         }
     }
 

@@ -1,12 +1,13 @@
 package com.iriusrisk.cli.commands.product;
 
+
 import com.iriusrisk.ApiException;
 import com.iriusrisk.api.ProductsApi;
 import com.iriusrisk.cli.Irius;
+import com.iriusrisk.cli.commands.ErrorUtil;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
 import com.iriusrisk.model.Product;
 import com.iriusrisk.model.ProductShort;
-import com.iriusrisk.cli.commands.ErrorUtil;
 import picocli.CommandLine;
 
 import java.util.List;
@@ -37,7 +38,6 @@ public class ProductCommand implements Runnable{
         this.token = Irius.getApiToken();
     }
 
-
     @CommandLine.Command(name = "list", description = "List all products")
     void listCommand() {
         CredentialUtils.checkToken(spec);
@@ -45,9 +45,8 @@ public class ProductCommand implements Runnable{
         try {
             List<ProductShort> products = api.productsGet(token, null, null, null);
             products.forEach(System.out::println);
-
         } catch (ApiException e) {
-            ErrorUtil.apiError(spec, e.getMessage());
+            ErrorUtil.apiError(spec, e.getResponseBody());
         }
     }
 
@@ -58,9 +57,8 @@ public class ProductCommand implements Runnable{
         try {
             Product product = api.productsRefGet(token, id);
             System.out.println(product);
-
         } catch (ApiException e) {
-            ErrorUtil.apiError(spec, e.getMessage());
+            ErrorUtil.apiError(spec, e.getResponseBody());
         }
     }
 
