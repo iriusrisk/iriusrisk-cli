@@ -6,7 +6,7 @@
 
     <groupId>com.iriusrisk.cli</groupId>
     <artifactId>irius-cli</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
 
     <properties>
@@ -18,8 +18,8 @@
     <dependencies>
         <dependency>
             <groupId>com.iriusrisk</groupId>
-            <artifactId>iriusrisk-client-lib</artifactId>
-            <version>0.3-SNAPSHOT</version>
+            <artifactId>irius-api-client</artifactId>
+            <version>1.1</version>
         </dependency>
 
         <dependency>
@@ -54,11 +54,6 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.mageddo.nativeimage</groupId>
-            <artifactId>reflection-config-generator</artifactId>
-            <version>2.3.4</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -114,8 +109,7 @@
                     <skip>false</skip>
                     <imageName>irius</imageName>
                     <buildArgs>
-                        --no-fallback
-                        --enable-https
+
                     </buildArgs>
                 </configuration>
             </plugin>

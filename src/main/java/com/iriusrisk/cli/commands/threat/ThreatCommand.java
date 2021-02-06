@@ -1,11 +1,12 @@
 package com.iriusrisk.cli.commands.threat;
 
-import com.iriusrisk.ApiException;
-import com.iriusrisk.api.ProductsApi;
+
+import com.iriusrisk.api.client.ProductsApi;
+import com.iriusrisk.api.client.model.ComponentUseCaseThreatShort;
 import com.iriusrisk.cli.Irius;
 import com.iriusrisk.cli.commands.ErrorUtil;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
-import com.iriusrisk.model.ComponentUseCaseThreatShort;
+import org.springframework.web.client.RestClientException;
 import picocli.CommandLine;
 
 import java.util.List;
@@ -43,8 +44,8 @@ public class ThreatCommand implements Runnable {
             List<ComponentUseCaseThreatShort> threats = api.productsRefThreatsGet(token, id);
             System.out.println(threats);
 
-        } catch (ApiException e) {
-            ErrorUtil.apiError(spec, e.getResponseBody());
+        } catch (RestClientException e) {
+            ErrorUtil.apiError(spec, e.getMessage());
 
         }
         System.out.println("done");

@@ -1,11 +1,8 @@
 package com.iriusrisk.cli.commands.configure;
 
-import nativeimage.Reflection;
-
 /**
  * The credentials class.
  */
-@Reflection(declaredConstructors = true, declaredFields = true)
 public class Credentials {
 
     /**

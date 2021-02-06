@@ -1,19 +1,15 @@
 package com.iriusrisk.cli;
 
-import com.iriusrisk.api.ProductsApi;
-import com.iriusrisk.cli.commands.configure.Credentials;
-import com.squareup.okhttp.OkHttpClient;
+import com.iriusrisk.api.client.ProductsApi;
 import com.iriusrisk.cli.commands.configure.ConfigureCommand;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
+import com.iriusrisk.cli.commands.configure.Credentials;
 import com.iriusrisk.cli.commands.countermeasure.CountermeasureCommand;
 import com.iriusrisk.cli.commands.product.ProductCommand;
 import com.iriusrisk.cli.commands.threat.ThreatCommand;
 import picocli.CommandLine;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 @CommandLine.Command(name = "irius", version = "1.0", mixinStandardHelpOptions = true, subcommands = {
         CommandLine.HelpCommand.class, ProductCommand.class, ThreatCommand.class, CountermeasureCommand.class,
@@ -59,18 +55,6 @@ public class Irius implements Runnable {
      * Performs API initialization.
      */
     private void initialize() {
-        OkHttpClient httpClient = new OkHttpClient();
-        String proxyHost = System.getProperty("proxy.host");
-
-        if (proxyHost != null) {
-            int proxyPort = Integer.parseInt(System.getProperty("proxy.port"));
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
-            httpClient.setProxy(proxy);
-        }
-
-        API.getApiClient().setHttpClient(httpClient);
-        API.getApiClient().setVerifyingSsl(false);
-
         Credentials c = CredentialUtils.readCredentials();
         if (c != null) {
             apiToken = c.getApiToken();

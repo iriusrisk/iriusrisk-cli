@@ -1,11 +1,12 @@
 package com.iriusrisk.cli.commands.countermeasure;
 
-import com.iriusrisk.ApiException;
-import com.iriusrisk.api.ProductsApi;
+
+import com.iriusrisk.api.client.ProductsApi;
+import com.iriusrisk.api.client.model.ComponentControl;
 import com.iriusrisk.cli.Irius;
 import com.iriusrisk.cli.commands.ErrorUtil;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
-import com.iriusrisk.model.ComponentControl;
+import org.springframework.web.client.RestClientException;
 import picocli.CommandLine;
 
 import java.util.List;
@@ -63,8 +64,8 @@ public class CountermeasureCommand implements Runnable {
 
             System.out.println(countermeasures);
 
-        } catch (ApiException e) {
-            ErrorUtil.apiError(spec, e.getResponseBody());
+        } catch (RestClientException e) {
+            ErrorUtil.apiError(spec, e.getMessage());
         }
     }
 }

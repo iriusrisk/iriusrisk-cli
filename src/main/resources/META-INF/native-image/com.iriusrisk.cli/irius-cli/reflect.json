@@ -1,0 +1,11 @@
+[
+  {
+    "name" : "com.iriusrisk.cli.commands.configure.Credentials",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : false,
+    "allDeclaredMethods" : false,
+    "allPublicMethods" : false,
+    "allPublicFields" : false,
+    "allDeclaredFields" : true
+  }
+]
