@@ -11,7 +11,8 @@ import picocli.CommandLine;
 
 import java.io.File;
 
-@CommandLine.Command(name = "irius", version = "1.0", mixinStandardHelpOptions = true, subcommands = {
+@CommandLine.Command(name = "irius", version = "1.0", mixinStandardHelpOptions = true,
+        footer  = "Copyright (c) 2021 IriusRisk",subcommands = {
         CommandLine.HelpCommand.class, ProductCommand.class, ThreatCommand.class, CountermeasureCommand.class,
         ConfigureCommand.class
 })
