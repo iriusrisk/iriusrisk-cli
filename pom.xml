@@ -131,7 +131,8 @@
                     <includePluginDependencies>true</includePluginDependencies>
                     <mainClass>picocli.codegen.docgen.manpage.ManPageGenerator</mainClass>
                     <arguments>
-                        <argument>--outdir=${project.build.directory}/docs/asciidoc</argument>
+                        <argument>--outdir=${project.build.directory}/generated-docs</argument>
+                        <argument>-v</argument>
                         <argument>com.iriusrisk.cli.Irius</argument>
                     </arguments>
                 </configuration>
@@ -151,17 +152,35 @@
                 <executions>
                     <execution>
                         <id>output-html</id>
-                        <phase>generate-resources</phase>
+                        <!--            <phase>prepare-package</phase>-->
+                        <phase>process-classes</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
+                            <sourceHighlighter>coderay</sourceHighlighter>
                             <backend>html5</backend>
+                            <attributes>
+                                <toc>left</toc>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>output-manpage</id>
+                        <!--            <phase>prepare-package</phase>-->
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <backend>manpage</backend>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <sourceDirectory>${project.build.directory}/docs/asciidoc</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/html</outputDirectory>
+                    <sourceDirectory>${project.build.directory}/generated-docs</sourceDirectory>
                 </configuration>
             </plugin>
         </plugins>
