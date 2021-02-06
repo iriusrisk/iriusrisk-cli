@@ -10,8 +10,8 @@
 
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <jackson.version>2.12.1</jackson.version>
     </properties>
 
@@ -111,6 +111,57 @@
                     <buildArgs>
 
                     </buildArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generateManPages</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeProjectDependencies>true</includeProjectDependencies>
+                    <includePluginDependencies>true</includePluginDependencies>
+                    <mainClass>picocli.codegen.docgen.manpage.ManPageGenerator</mainClass>
+                    <arguments>
+                        <argument>--outdir=${project.build.directory}/docs/asciidoc</argument>
+                        <argument>com.iriusrisk.cli.Irius</argument>
+                    </arguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>info.picocli</groupId>
+                        <artifactId>picocli-codegen</artifactId>
+                        <version>4.6.1</version>
+                        <type>jar</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.1.0</version>
+                <executions>
+                    <execution>
+                        <id>output-html</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html5</backend>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDirectory>${project.build.directory}/docs/asciidoc</sourceDirectory>
                 </configuration>
             </plugin>
         </plugins>
