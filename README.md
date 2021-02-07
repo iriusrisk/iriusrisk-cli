@@ -1,4 +1,4 @@
-![](https://iriusrisk.com/wp-content/uploads/2020/10/logo-iriusrisk.svg =200x)
+<img width="200" alt="portfolio_view" src="https://iriusrisk.com/wp-content/uploads/2020/10/logo-iriusrisk.svg"
 # irius-cli - Command Line Interface for the IriusRisk threat modeling platform
 
 This CLI utility calls the IriusRisk API to perform key operations on your threat model.  It's available as a single JAR and a compiled Linux binary.
