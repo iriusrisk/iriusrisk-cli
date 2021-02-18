@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-classpath %classpath com.iriusrisk.cli.Irius product create product_name product_id  "home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/yaml/Example4.yaml"  "/home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/mapping/iriusrisk-mapping.yaml"</exec.args>
+                <exec.executable>java</exec.executable>
+            </properties>
+        </action>
+        <action>
+            <actionName>debug</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.iriusrisk.cli.Irius product create product_name product_id  "home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/yaml/Example4.yaml"  "/home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/mapping/iriusrisk-mapping.yaml"</exec.args>
+                <exec.executable>java</exec.executable>
+                <jpda.listen>true</jpda.listen>
+            </properties>
+        </action>
+        <action>
+            <actionName>profile</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-classpath %classpath com.iriusrisk.cli.Irius product create product_name product_id  "home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/yaml/Example4.yaml"  "/home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/mapping/iriusrisk-mapping.yaml"</exec.args>
+                <exec.executable>java</exec.executable>
+            </properties>
+        </action>
+    </actions>

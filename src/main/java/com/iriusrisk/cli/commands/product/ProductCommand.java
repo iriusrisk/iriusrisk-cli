@@ -1,12 +1,14 @@
 package com.iriusrisk.cli.commands.product;
 
 import com.iriusrisk.api.client.ProductsApi;
+import com.iriusrisk.api.client.model.CreateProduct;
 import com.iriusrisk.api.client.model.Product;
 import com.iriusrisk.api.client.model.ProductShort;
 import com.iriusrisk.cli.Irius;
 import com.iriusrisk.cli.commands.ErrorUtil;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
 import com.iriusrisk.iac.CfImport;
+import java.io.File;
 import org.springframework.web.client.RestClientException;
 import picocli.CommandLine;
 
@@ -64,7 +66,7 @@ public class ProductCommand implements Runnable {
   }
 
   //product create -n product_name -i product_id -cf ./my-cf-template [-mf xxxxx]
-  @CommandLine.Command(name = "show", description = "Display product details")
+  @CommandLine.Command(name = "create", description = "Create product from Template")
   void createCommand(@CommandLine.Parameters(paramLabel = "<product name>", description = "Product Name") String name,
           @CommandLine.Parameters(paramLabel = "<product unique ID>", description = "Product ID") String id,
           @CommandLine.Parameters(paramLabel = "<CF Template>", description = "Cloudformation Template") String template,
@@ -74,13 +76,34 @@ public class ProductCommand implements Runnable {
     try {
       CfImport cfImport = new CfImport();
       cfImport.setMappingFileName(template);
-      cfImport.setMappingFileName(mapping);
-      
-      Product product = api.productsRefGet(token, id);
-      System.out.println(product);
+      if (!mapping.isEmpty()) {
+        cfImport.setMappingFileName(mapping);
+      } else {
+        cfImport.setMappingFileName("~/.irius/cf-iriusrisk-mapping.yaml");
+      }
+      cfImport.setDrawIoOutputFileName("~/.irius/cf-iriusrisk-output.drawio");
+      cfImport.run();
+
+      CreateProduct cp = new CreateProduct();
+      cp.setName(name);
+      cp.setRef(id);
+      ProductShort ps = api.productsUploadPost(token, id, name, new File("~/.irius/cf-iriusrisk-output.drawio"), name);
+      System.out.println("ps.toString() " + ps.toString());
+
+      api.rulesProductRefPut(token, id, "false");
+
+      //This will call https://app.swaggerhub.com/apis/iriusrisk/IriusRisk/1#/Products/post_products_upload
+      //to create a new product with the generated draw.io diagram embedded. 
+      //AND it should call the API: 
+      //https://app.swaggerhub.com/apis/iriusrisk/IriusRisk/1#/Products/put_rules_product__ref_ 
+      //which will generate the model associated with the draw.io diagram.
+      //should look in the folder ~/.irius for a file called cf-iriusrisk-mapping.yaml t
     } catch (RestClientException e) {
       ErrorUtil.apiError(spec, e.getMessage());
+    } catch (Exception e) {
+      ErrorUtil.apiError(spec, e.getMessage());
     }
+
   }
 
   @Override
