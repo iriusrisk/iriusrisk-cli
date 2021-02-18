@@ -8,7 +8,6 @@
     <artifactId>irius-cli</artifactId>
     <version>1.0</version>
 
-
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -17,9 +16,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.iriusrisk.iac</groupId>
+            <artifactId>cf-import</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.iriusrisk</groupId>
-            <artifactId>irius-api-client</artifactId>
-            <version>1.1</version>
+            <artifactId>api-client</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>
@@ -53,6 +57,7 @@
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        
 
     </dependencies>
 
@@ -93,7 +98,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.graalvm.nativeimage</groupId>
                 <artifactId>native-image-maven-plugin</artifactId>
                 <version>21.0.0</version>
@@ -113,6 +118,7 @@
                     </buildArgs>
                 </configuration>
             </plugin>
+-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
