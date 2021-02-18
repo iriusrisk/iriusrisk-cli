@@ -9,6 +9,11 @@ import com.iriusrisk.cli.commands.ErrorUtil;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
 import com.iriusrisk.iac.CfImport;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import org.springframework.web.client.RestClientException;
 import picocli.CommandLine;
 
@@ -65,29 +70,41 @@ public class ProductCommand implements Runnable {
     }
   }
 
-  //product create -n product_name -i product_id -cf ./my-cf-template [-mf xxxxx]
+  //product create product_name product_id ./my-cf-template mapping-file
   @CommandLine.Command(name = "create", description = "Create product from Template")
   void createCommand(@CommandLine.Parameters(paramLabel = "<product name>", description = "Product Name") String name,
           @CommandLine.Parameters(paramLabel = "<product unique ID>", description = "Product ID") String id,
           @CommandLine.Parameters(paramLabel = "<CF Template>", description = "Cloudformation Template") String template,
-          @CommandLine.Parameters(paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping) {
+          @CommandLine.Parameters(paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping,
+          @CommandLine.Parameters(paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
     CredentialUtils.checkToken(spec);
 
     try {
+
       CfImport cfImport = new CfImport();
-      cfImport.setMappingFileName(template);
+      cfImport.setTemplateFileName(template);
       if (!mapping.isEmpty()) {
         cfImport.setMappingFileName(mapping);
       } else {
-        cfImport.setMappingFileName("~/.irius/cf-iriusrisk-mapping.yaml");
+        cfImport.setMappingFileName(Irius.getIriusPath() + "cf-iriusrisk-mapping.yaml");
       }
-      cfImport.setDrawIoOutputFileName("~/.irius/cf-iriusrisk-output.drawio");
+      if (!parameters.isEmpty()) {
+        cfImport.setParameters(parameters);
+      }
+      cfImport.setDrawIoOutputFileName(Irius.getIriusPath() + "/" + "cf-iriusrisk-output.drawio");
       cfImport.run();
+      System.out.println("cfImport.run()");
 
       CreateProduct cp = new CreateProduct();
       cp.setName(name);
       cp.setRef(id);
-      ProductShort ps = api.productsUploadPost(token, id, name, new File("~/.irius/cf-iriusrisk-output.drawio"), name);
+
+      String productXML = createProductXML(id, name, Irius.getIriusPath() + "/" + "cf-iriusrisk-output.drawio");
+      Files.write(Paths.get(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), productXML.getBytes());
+
+      System.out.println("ps.toString() before ");
+      
+      ProductShort ps = api.productsUploadPost(token, id, name, new File(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), "STANDARD");
       System.out.println("ps.toString() " + ps.toString());
 
       api.rulesProductRefPut(token, id, "false");
@@ -104,6 +121,29 @@ public class ProductCommand implements Runnable {
       ErrorUtil.apiError(spec, e.getMessage());
     }
 
+  }
+
+  /**
+   * Embed the drawio diagram into a product xml
+   *
+   * @param ref
+   * @param name
+   * @param drawioFile
+   */
+  public String createProductXML(String ref, String name, String drawioFile) throws IOException {
+
+    StringBuilder xml = new StringBuilder();
+    xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    xml.append("<project ref=\"");
+    xml.append(ref);
+    xml.append("\" name=\"");
+    xml.append(name);
+    xml.append("\" revision=\"1\" type=\"STANDARD\" status=\"OPEN\" enabled=\"true\" priority=\"0\" tags=\"\" workflowState=\"\">\n");
+    xml.append("<desc/><diagram draft=\"true\"><schema>");
+    xml.append(Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get(drawioFile))));
+    xml.append("</schema></diagram><trustZones><trustZone ref=\"30c638b5-8620-485c-8d69-aaed40c2b04e\" name=\"Internet\"/>");
+    xml.append("</trustZones><questions/><assets/><settings/><dataflows></dataflows><udts></udts><components></components></project>");
+    return xml.toString();
   }
 
   @Override
