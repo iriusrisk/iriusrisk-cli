@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.Base64.Encoder;
 import org.springframework.web.client.RestClientException;
 import picocli.CommandLine;
 
@@ -70,25 +69,32 @@ public class ProductCommand implements Runnable {
     }
   }
 
-  //product create product_name product_id ./my-cf-template mapping-file
+  //product create -n productXYZ -i 1382892308 -cf  "/home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/yaml/Example4.yaml" -mf "/home/vmdovs/NetBeansProjects/cf-import/contentTests/Example4/mapping/iriusrisk-mapping.yaml" -p "CustomerName=My Customer Name,FQDN=domain.com,RemoteAccessCIDR=67.0.8.19/0,VPCID=vpc-f7e21s5s7845s5zc9,PrivateSubnet1ID=subnet-a0246dcd,PrivateSubnet2ID=subnet-a0246dcd4,PublicSubnet1ID= subnet-9bc642ac,PublicSubnet2ID= subnet-9bc742ac,KeyName=SecureKey,DBUrl=db.com,DBPassword=sH34Iyuy238"
   @CommandLine.Command(name = "create", description = "Create product from Template")
-  void createCommand(@CommandLine.Parameters(paramLabel = "<product name>", description = "Product Name") String name,
-          @CommandLine.Parameters(paramLabel = "<product unique ID>", description = "Product ID") String id,
-          @CommandLine.Parameters(paramLabel = "<CF Template>", description = "Cloudformation Template") String template,
-          @CommandLine.Parameters(paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping,
-          @CommandLine.Parameters(paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
+  void createCommand(@CommandLine.Option(names = {"-n"}, paramLabel = "<product name>", description = "Product Name") String name,
+          @CommandLine.Option(names = {"-i"}, paramLabel = "<product unique ID>", description = "Product ID") String id,
+          @CommandLine.Option(names = {"-cf"}, paramLabel = "<CF Template>", description = "Cloudformation Template") String template,
+          @CommandLine.Option(names = {"-mf"}, paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping,
+          @CommandLine.Option(names = {"-p"}, paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
+
     CredentialUtils.checkToken(spec);
+
+    System.out.println("name " + name);
+    System.out.println("id " + id);
+    System.out.println("template " + template);
+    System.out.println("mapping " + mapping);
+    System.out.println("parameters " + parameters);
 
     try {
 
       CfImport cfImport = new CfImport();
       cfImport.setTemplateFileName(template);
-      if (!mapping.isEmpty()) {
+      if (mapping != null && !mapping.isEmpty()) {
         cfImport.setMappingFileName(mapping);
       } else {
         cfImport.setMappingFileName(Irius.getIriusPath() + "cf-iriusrisk-mapping.yaml");
       }
-      if (!parameters.isEmpty()) {
+      if (parameters != null && !parameters.isEmpty()) {
         cfImport.setParameters(parameters);
       }
       cfImport.setDrawIoOutputFileName(Irius.getIriusPath() + "/" + "cf-iriusrisk-output.drawio");
@@ -103,7 +109,7 @@ public class ProductCommand implements Runnable {
       Files.write(Paths.get(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), productXML.getBytes());
 
       System.out.println("ps.toString() before ");
-      
+
       ProductShort ps = api.productsUploadPost(token, id, name, new File(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), "STANDARD");
       System.out.println("ps.toString() " + ps.toString());
 
