@@ -110,6 +110,10 @@ public class ProductCommand implements Runnable {
 
       System.out.println("ps.toString() before ");
 
+      //try {
+      //  api.productsRefDelete(token, id);
+      //} catch (Exception e) {
+      //}
       ProductShort ps = api.productsUploadPost(token, id, name, new File(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), "STANDARD");
       System.out.println("ps.toString() " + ps.toString());
 
