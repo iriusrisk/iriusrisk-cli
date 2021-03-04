@@ -75,6 +75,7 @@ public class ProductCommand implements Runnable {
           @CommandLine.Option(names = {"-i"}, paramLabel = "<product unique ID>", description = "Product ID") String id,
           @CommandLine.Option(names = {"-cf"}, paramLabel = "<CF Template>", description = "Cloudformation Template") String template,
           @CommandLine.Option(names = {"-mf"}, paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping,
+          @CommandLine.Option(names = {"-d"}, paramLabel = "<Delete>", description = "Delete product if true") String delete,
           @CommandLine.Option(names = {"-p"}, paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
 
     CredentialUtils.checkToken(spec);
@@ -107,15 +108,15 @@ public class ProductCommand implements Runnable {
 
       String productXML = createProductXML(id, name, Irius.getIriusPath() + "/" + "cf-iriusrisk-output.drawio");
       Files.write(Paths.get(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), productXML.getBytes());
-
-      System.out.println("ps.toString() before ");
-
-      //try {
-      //  api.productsRefDelete(token, id);
-      //} catch (Exception e) {
-      //}
+  
+      if (delete != null && delete.equalsIgnoreCase("true")) {
+        try {
+          api.productsRefDelete(token, id);
+        } catch (Exception e) {
+          System.out.println("Delete product exception " + e.getMessage());
+        }
+      }
       ProductShort ps = api.productsUploadPost(token, id, name, new File(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), "STANDARD");
-      System.out.println("ps.toString() " + ps.toString());
 
       api.rulesProductRefPut(token, id, "false");
 
