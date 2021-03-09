@@ -79,7 +79,7 @@ public class ProductCommand implements Runnable {
           @CommandLine.Option(names = {"-tzw"}, paramLabel = "<TrustZone Width>", description = "TrustZone Width") String trustZoneWidth,
           @CommandLine.Option(names = {"-tzh"}, paramLabel = "<TrustZone Height>", description = "TrustZone Height") String trustZoneHeight,
           @CommandLine.Option(names = {"-gw"}, paramLabel = "<Graph Width>", description = "Graph Width") String graphWidth,
-          @CommandLine.Option(names = {"-gh"}, paramLabel = "<Graph Height>", description = "Graph Width") String graphHeight,
+          @CommandLine.Option(names = {"-gh"}, paramLabel = "<Graph Height>", description = "Graph Height") String graphHeight,
           @CommandLine.Option(names = {"-p"}, paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
 
     CredentialUtils.checkToken(spec);
