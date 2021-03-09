@@ -76,6 +76,10 @@ public class ProductCommand implements Runnable {
           @CommandLine.Option(names = {"-cf"}, paramLabel = "<CF Template>", description = "Cloudformation Template") String template,
           @CommandLine.Option(names = {"-mf"}, paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping,
           @CommandLine.Option(names = {"-d"}, paramLabel = "<Delete>", description = "Delete product if true") String delete,
+          @CommandLine.Option(names = {"-tzw"}, paramLabel = "<TrustZone Width>", description = "TrustZone Width") String trustZoneWidth,
+          @CommandLine.Option(names = {"-tzh"}, paramLabel = "<TrustZone Height>", description = "TrustZone Height") String trustZoneHeight,
+          @CommandLine.Option(names = {"-gw"}, paramLabel = "<Graph Width>", description = "Graph Width") String graphWidth,
+          @CommandLine.Option(names = {"-gh"}, paramLabel = "<Graph Height>", description = "Graph Width") String graphHeight,
           @CommandLine.Option(names = {"-p"}, paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
 
     CredentialUtils.checkToken(spec);
@@ -90,6 +94,20 @@ public class ProductCommand implements Runnable {
 
       CfImport cfImport = new CfImport();
       cfImport.setTemplateFileName(template);
+      
+      if (trustZoneWidth != null && !trustZoneWidth.isEmpty()){
+        cfImport.setTrustZoneWidth(Integer.parseInt(trustZoneWidth));
+      }
+      if (trustZoneHeight != null && !trustZoneHeight.isEmpty()){
+        cfImport.setTrustZoneHeight(Integer.parseInt(trustZoneHeight));
+      }
+      if (graphHeight != null && !graphHeight.isEmpty()){
+        cfImport.setGraphHeight(Integer.parseInt(graphHeight));
+      }
+       if (graphWidth != null && !graphWidth.isEmpty()){
+        cfImport.setGraphWidth(Integer.parseInt(graphWidth));
+      }
+      
       if (mapping != null && !mapping.isEmpty()) {
         cfImport.setMappingFileName(mapping);
       } else {
@@ -108,7 +126,7 @@ public class ProductCommand implements Runnable {
 
       String productXML = createProductXML(id, name, Irius.getIriusPath() + "/" + "cf-iriusrisk-output.drawio");
       Files.write(Paths.get(Irius.getIriusPath() + "/" + "cf-iriusrisk-product.xml"), productXML.getBytes());
-  
+
       if (delete != null && delete.equalsIgnoreCase("true")) {
         try {
           api.productsRefDelete(token, id);
