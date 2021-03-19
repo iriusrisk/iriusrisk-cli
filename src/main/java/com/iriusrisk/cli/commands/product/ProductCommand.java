@@ -8,6 +8,7 @@ import com.iriusrisk.cli.Irius;
 import com.iriusrisk.cli.commands.ErrorUtil;
 import com.iriusrisk.cli.commands.configure.CredentialUtils;
 import com.iriusrisk.iac.CfImport;
+import com.iriusrisk.iac.Mode;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -81,6 +82,7 @@ public class ProductCommand implements Runnable {
           @CommandLine.Option(names = {"-tzh"}, paramLabel = "<TrustZone Height>", description = "TrustZone Height") String trustZoneHeight,
           @CommandLine.Option(names = {"-gw"}, paramLabel = "<Graph Width>", description = "Graph Width") String graphWidth,
           @CommandLine.Option(names = {"-gh"}, paramLabel = "<Graph Height>", description = "Graph Height") String graphHeight,
+          @CommandLine.Option(names = {"-mode"}, paramLabel = "<Mode>", description = "Run the cli in a ttrict or lax mode") String mode,
           @CommandLine.Option(names = {"-p"}, paramLabel = "<Parameters>", description = "Template parameters") String parameters) {
 
     CredentialUtils.checkToken(spec);
@@ -96,6 +98,9 @@ public class ProductCommand implements Runnable {
         CfImport cfImport = new CfImport();
         cfImport.setTemplateFileName(template);
 
+        if (mode != null && !mode.isEmpty() && mode.equalsIgnoreCase("strict")) {
+            cfImport.setMode(Mode.STRICT);
+        }
         if (trustZoneWidth != null && !trustZoneWidth.isEmpty()) {
           cfImport.setTrustZoneWidth(Integer.parseInt(trustZoneWidth));
         }
