@@ -77,6 +77,8 @@ public class ProductCommand implements Runnable {
           @CommandLine.Option(names = {"-i"}, required = true, paramLabel = "<product unique ID>", description = "Product ID") String id,
           @CommandLine.Option(names = {"-f"}, required = true, paramLabel = "<Template>", description = "Template") String template,
           @CommandLine.Option(names = {"-mf"}, paramLabel = "<Mapping File>", description = "Iriusrisk Mapping File") String mapping,
+          @CommandLine.Option(names = {"-rmf"}, paramLabel = "<Reference Mapping File>", description = "Iriusrisk Reference Mapping File") String reference,
+          @CommandLine.Option(names = {"-gmf"}, paramLabel = "<Generated Mapping File>", description = "Generated Mapping File") String generatedMapping,
           @CommandLine.Option(names = {"-d"}, paramLabel = "<Delete>", description = "Delete product if true") String delete,
           @CommandLine.Option(names = {"-tzw"}, paramLabel = "<TrustZone Width>", description = "TrustZone Width") String trustZoneWidth,
           @CommandLine.Option(names = {"-tzh"}, paramLabel = "<TrustZone Height>", description = "TrustZone Height") String trustZoneHeight,
@@ -99,7 +101,7 @@ public class ProductCommand implements Runnable {
         cfImport.setTemplateFileName(template);
 
         if (mode != null && !mode.isEmpty() && mode.equalsIgnoreCase("strict")) {
-            cfImport.setMode(Mode.STRICT);
+          cfImport.setMode(Mode.STRICT);
         }
         if (trustZoneWidth != null && !trustZoneWidth.isEmpty()) {
           cfImport.setTrustZoneWidth(Integer.parseInt(trustZoneWidth));
@@ -113,7 +115,12 @@ public class ProductCommand implements Runnable {
         if (graphWidth != null && !graphWidth.isEmpty()) {
           cfImport.setGraphWidth(Integer.parseInt(graphWidth));
         }
-
+        if (reference != null && !reference.isEmpty()) {
+          cfImport.setReferenceFileName(reference);
+        }
+        if (generatedMapping != null && !generatedMapping.isEmpty()) {
+          cfImport.setGeneratedMappingFileName (generatedMapping);
+        }
         if (mapping != null && !mapping.isEmpty()) {
           cfImport.setMappingFileName(mapping);
         } else {
