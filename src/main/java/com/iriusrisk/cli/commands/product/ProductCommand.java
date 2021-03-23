@@ -119,7 +119,7 @@ public class ProductCommand implements Runnable {
           cfImport.setReferenceFileName(reference);
         }
         if (generatedMapping != null && !generatedMapping.isEmpty()) {
-          cfImport.setGeneratedMappingFileName (generatedMapping);
+          cfImport.setGeneratedMappingFileName(generatedMapping);
         }
         if (mapping != null && !mapping.isEmpty()) {
           cfImport.setMappingFileName(mapping);
