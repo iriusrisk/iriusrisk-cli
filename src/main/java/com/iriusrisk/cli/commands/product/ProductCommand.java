@@ -117,8 +117,10 @@ public class ProductCommand implements Runnable {
           cfImport.setGraphWidth(Integer.parseInt(graphWidth));
         }
 
-        if (generatedMapping != null && !generatedMapping.isEmpty() && (reference == null || (reference != null && !reference.isEmpty()))) {
-          System.out.println("Iriusrisk Mapping File is specified with -gmf so the Reference Mapping File is then required to be specified with -rmf");
+        if (generatedMapping != null && !generatedMapping.isEmpty() &&
+                (reference == null || (reference != null && reference.isEmpty()))) {
+          System.out.println("Iriusrisk Generated Mapping File is specified with -gmf so"
+                  + " the Reference Mapping File is then required to be specified with -rmf");
           System.exit(0);
         }
 
