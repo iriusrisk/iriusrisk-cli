@@ -1,0 +1,9 @@
+Trustzones:
+   AWS::EC2::VPC : dbb0d900-b2d7-4209-a2f7-e2a00244c455
+Component_definitions:
+   AWS::EC2::VPC : VPC
+   AWS::EC2::InternetGateway : API-Gateway
+Icon_definitions:
+   AWS::EC2::VPC : mxgraph.aws4.vpc
+   AWS::EC2::InternetGateway : mxgraph.aws4.api_gateway
+Cidr_to_irius_components:

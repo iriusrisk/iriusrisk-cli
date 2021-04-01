@@ -112,23 +112,37 @@ public class ProductCommand implements Runnable {
         if (graphHeight != null && !graphHeight.isEmpty()) {
           cfImport.setGraphHeight(Integer.parseInt(graphHeight));
         }
+
         if (graphWidth != null && !graphWidth.isEmpty()) {
           cfImport.setGraphWidth(Integer.parseInt(graphWidth));
         }
+
+        if (generatedMapping != null && !generatedMapping.isEmpty() && (reference == null || (reference != null && !reference.isEmpty()))) {
+          System.out.println("Iriusrisk Mapping File is specified with -gmf so the Reference Mapping File is then required to be specified with -rmf");
+          System.exit(0);
+        }
+
         if (reference != null && !reference.isEmpty()) {
           cfImport.setReferenceFileName(reference);
-        }
-        if (generatedMapping != null && !generatedMapping.isEmpty()) {
-          cfImport.setGeneratedMappingFileName(generatedMapping);
-        }
-        if (mapping != null && !mapping.isEmpty()) {
-          cfImport.setMappingFileName(mapping);
+          if (generatedMapping != null && !generatedMapping.isEmpty()) {
+            cfImport.setGeneratedMappingFileName(generatedMapping);
+          } else {
+            System.out.println("Auto Generated Iriusrisk Mapping File is not specified with -gmf. Mapping File auto-gen-cf-iriusrisk-mapping.yaml will be auto generated");
+            cfImport.setGeneratedMappingFileName("auto-gen-cf-iriusrisk-mapping.yaml");
+          }
         } else {
-          cfImport.setMappingFileName(Irius.getIriusPath() + "cf-iriusrisk-mapping.yaml");
+          if (mapping != null && !mapping.isEmpty()) {
+            cfImport.setMappingFileName(mapping);
+          } else {
+            System.out.println("Iriusrisk Mapping File is not provided. Default Mapping File cf-iriusrisk-mapping.yaml is then required");
+            cfImport.setMappingFileName(Irius.getIriusPath() + "cf-iriusrisk-mapping.yaml");
+          }
         }
+        
         if (parameters != null && !parameters.isEmpty()) {
           cfImport.setParameters(parameters);
         }
+
         cfImport.setDrawIoOutputFileName(Irius.getIriusPath() + "/" + "cf-iriusrisk-output.drawio");
         cfImport.run();
         System.out.println("cfImport.run()");
