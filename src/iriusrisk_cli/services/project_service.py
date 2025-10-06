@@ -171,30 +171,13 @@ class ProjectService:
         logger.info(f"Retrieving project diagram for '{project_id}' (size: {size})")
         
         try:
-            # Handle UUID vs reference ID conversion
-            final_project_id = project_id
-            logger.debug(f"Attempting to resolve project ID: {project_id}")
+            # Resolve project ID to UUID for V2 API (upfront, no fallback mechanism)
+            logger.debug(f"Resolving project ID to UUID: {project_id}")
+            final_project_id = resolve_project_id_to_uuid(project_id)
+            logger.debug(f"Resolved to UUID: {final_project_id}")
             
-            try:
-                # First try to get artifacts directly (assuming it's a UUID)
-                logger.debug(f"Trying direct artifact lookup for project: {project_id}")
-                artifacts_response = self.project_repository.get_artifacts(project_id, page=0, size=100)
-            except Exception as direct_error:
-                # If direct lookup fails, try to find the project by reference ID first
-                if "404" in str(direct_error) or "Not Found" in str(direct_error):
-                    logger.debug(f"Direct lookup failed, resolving project by reference ID: {project_id}")
-                    # Get project by reference ID to get the actual UUID
-                    project_data = self.project_repository.get_by_id(project_id)
-                    final_project_id = project_data.get('id')  # This is the actual UUID
-                    project_name = project_data.get('name', 'Unknown')
-                    logger.debug(f"Resolved project '{project_name}' to UUID: {final_project_id}")
-                    
-                    # Now try to get artifacts with the actual UUID
-                    artifacts_response = self.project_repository.get_artifacts(final_project_id, page=0, size=100)
-                else:
-                    # Re-raise the original error if it's not a 404
-                    raise direct_error
-            
+            # Get artifacts with the resolved UUID
+            artifacts_response = self.project_repository.get_artifacts(final_project_id, page=0, size=100)
             artifacts = artifacts_response.get('artifacts', [])
             logger.debug(f"Found {len(artifacts)} artifacts for project")
             

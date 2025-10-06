@@ -13,10 +13,13 @@ class ProjectRepository(BaseRepository):
     """Repository for project data access operations."""
     
     def get_by_id(self, project_id: str) -> Dict[str, Any]:
-        """Get a project by ID or reference ID.
+        """Get a project by UUID.
+        
+        Note: This method expects a UUID. If you have a reference ID, resolve it to UUID
+        first using resolve_project_id_to_uuid() at the service layer.
         
         Args:
-            project_id: Project UUID or reference ID
+            project_id: Project UUID
             
         Returns:
             Project data dictionary
@@ -24,42 +27,12 @@ class ProjectRepository(BaseRepository):
         Raises:
             IriusRiskError: If project not found or API request fails
         """
-        logger.debug(f"Retrieving project by ID: {project_id}")
+        logger.debug(f"Retrieving project by UUID: {project_id}")
         
         try:
-            # First try to get project directly (assuming it's a UUID)
-            try:
-                logger.debug(f"Attempting direct project lookup for ID: {project_id}")
-                project_data = self.api_client.get_project(project_id)
-                logger.debug(f"Successfully retrieved project '{project_data.get('name', 'Unknown')}' by direct lookup")
-                return project_data
-            except Exception as direct_error:
-                logger.debug(f"Direct lookup failed: {direct_error}")
-                # If direct lookup fails, it might be a reference ID
-                if "400" in str(direct_error) or "Bad Request" in str(direct_error):
-                    logger.debug(f"Attempting reference ID lookup for: {project_id}")
-                    # Search for project by reference ID
-                    filter_expr = f"'referenceId'='{project_id}'"
-                    logger.debug(f"Using filter expression: {filter_expr}")
-                    response = self.api_client.get_projects(page=0, size=1, filter_expression=filter_expr)
-                    
-                    projects = self._extract_items_from_response(response)
-                    logger.debug(f"Reference ID search returned {len(projects)} project(s)")
-                    
-                    if not projects:
-                        logger.warning(f"No project found with reference ID '{project_id}'")
-                        raise IriusRiskError(f"No project found with reference ID '{project_id}'")
-                    elif len(projects) > 1:
-                        logger.error(f"Multiple projects found with reference ID '{project_id}' - this shouldn't happen")
-                        raise IriusRiskError(f"Multiple projects found with reference ID '{project_id}'. This shouldn't happen.")
-                    
-                    project_data = projects[0]
-                    logger.debug(f"Successfully retrieved project '{project_data.get('name', 'Unknown')}' by reference ID")
-                    return project_data
-                else:
-                    # Re-raise the original error if it's not a 400
-                    logger.debug(f"Re-raising non-400 error: {direct_error}")
-                    raise direct_error
+            project_data = self.api_client.get_project(project_id)
+            logger.debug(f"Successfully retrieved project '{project_data.get('name', 'Unknown')}'")
+            return project_data
                     
         except IriusRiskError:
             raise

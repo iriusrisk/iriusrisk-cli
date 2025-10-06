@@ -1100,37 +1100,14 @@ Remember: You are helping users understand and act on IriusRisk's professional s
             results.append(f"📏 Size: {size}")
             results.append("")
             
-            # Handle UUID vs reference ID conversion using container API client
-            final_project_id = resolved_project_id
-            try:
-                # First try to get artifacts directly (assuming it's a UUID)
-                artifacts_response = api_client.get_project_artifacts(resolved_project_id, page=0, size=100)
-            except Exception as direct_error:
-                # If direct lookup fails, try to find the project by reference ID first
-                if "404" in str(direct_error) or "Not Found" in str(direct_error):
-                    results.append(f"🔍 Searching by reference ID: {resolved_project_id}")
-                    
-                    # Search for project by reference ID to get the actual UUID
-                    filter_expr = f"'referenceId'='{resolved_project_id}'"
-                    response = api_client.get_projects(page=0, size=1, filter_expression=filter_expr)
-                    
-                    projects = response.get('_embedded', {}).get('items', [])
-                    if not projects:
-                        error_msg = f"❌ No project found with ID or reference: {resolved_project_id}"
-                        logger.error(error_msg)
-                        return error_msg
-                    
-                    project_data = projects[0]
-                    final_project_id = project_data.get('id')  # This is the actual UUID
-                    project_name = project_data.get('name', 'Unknown')
-                    results.append(f"✅ Found project: {project_name}")
-                    
-                    # Now try to get artifacts with the actual UUID
-                    artifacts_response = api_client.get_project_artifacts(final_project_id, page=0, size=100)
-                else:
-                    # Re-raise the original error if it's not a 404
-                    raise direct_error
+            # Resolve project ID to UUID for V2 API (upfront, no fallback mechanism)
+            from ..utils.project_resolution import resolve_project_id_to_uuid
+            logger.debug(f"Resolving project ID to UUID: {resolved_project_id}")
+            final_project_id = resolve_project_id_to_uuid(resolved_project_id, api_client)
+            logger.debug(f"Resolved to UUID: {final_project_id}")
             
+            # Get artifacts with the resolved UUID
+            artifacts_response = api_client.get_project_artifacts(final_project_id, page=0, size=100)
             artifacts = artifacts_response.get('_embedded', {}).get('items', [])
             
             if not artifacts:
