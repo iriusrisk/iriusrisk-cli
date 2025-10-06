@@ -1,0 +1,245 @@
+{
+  "endpoint": "/projects/{id}/diagram/metadata/trust-zones",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/trust-zones?page=0&size=2000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/diagram/metadata/trust-zones",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "2000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "3c555b5b-42e6-4502-9ea3-6249176cc423",
+                "referenceId": "google-cloud-availability-zone",
+                "name": "Google Cloud Availability Zone",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "f400731e-b0ba-4848-a8e3-a7eb1fe54849",
+                "referenceId": "76692-trustzone",
+                "name": "76692_TrustZone",
+                "trustRating": 61,
+                "description": "Ut saepe cupiditate cupiditate."
+              },
+              {
+                "id": "b61d6911-338d-46a8-9f39-8dcd24abfe91",
+                "referenceId": "public-cloud",
+                "name": "Public Cloud",
+                "trustRating": 60,
+                "description": "Public cloud services"
+              },
+              {
+                "id": "a7ad781b-556a-45a9-89dc-2c5eda78a0ac",
+                "referenceId": "AWS-Env",
+                "name": "AWS Env",
+                "trustRating": 1,
+                "description": null
+              },
+              {
+                "id": "2ab4effa-40b7-4cd2-ba81-8247d29a6f2d",
+                "referenceId": "private-secured",
+                "name": "Private Secured",
+                "trustRating": 100,
+                "description": "A secured zone within a trusted private zone"
+              },
+              {
+                "id": "80f12233-bf15-49a8-87be-c9d356034c81",
+                "referenceId": "aws",
+                "name": "AWS",
+                "trustRating": 60,
+                "description": ""
+              },
+              {
+                "id": "741f1950-077d-45f0-8b4b-0b4415380acf",
+                "referenceId": "iec62443-sl1",
+                "name": "iec62443-sl1",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "a4ada984-0d91-40a2-8ca0-1ea53ea47efc",
+                "referenceId": "aws-cloud",
+                "name": "AWS Cloud",
+                "trustRating": 80,
+                "description": "Amazon Web Services"
+              },
+              {
+                "id": "1de3ea98-4ec7-4184-9dd5-224177ea186d",
+                "referenceId": "wwww",
+                "name": "wwww",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "d8196a76-0775-446c-a49b-db100d102966",
+                "referenceId": "pedrooo11",
+                "name": "pedrooo1123 updated 2",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "e2dd344a-ca47-497a-8c3c-12bdbea229f3",
+                "referenceId": "private-subnet",
+                "name": "Private Subnet",
+                "trustRating": 80,
+                "description": "feee"
+              },
+              {
+                "id": "b4a6aa9f-8643-4604-8733-4c6d568e492d",
+                "referenceId": "out-of-scope",
+                "name": "Out of scope",
+                "trustRating": 1,
+                "description": null
+              },
+              {
+                "id": "9b71c0a2-4158-4def-9851-54974a0c5d58",
+                "referenceId": "TrustZoneF0kd4-updated",
+                "name": "TrustZoneF0kd4-name-updated",
+                "trustRating": 53,
+                "description": "TrustZoneF0kd4-description-updated"
+              },
+              {
+                "id": "9fe124ae-6ea1-4b8d-94ea-e5f3950328ba",
+                "referenceId": "trust-4.42-1",
+                "name": "trust 4.42 1 update 3",
+                "trustRating": 89,
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec leo erat. Ut hendrerit porttitor dui ac fringilla. Nam bibendum elit lectus, sit amet vehicula augue vulputate sit amet. Sed ex purus, porta quis blandit vitae, blandit id elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ultricies arcu sit amet libero sodales fermentum. Proin ullamcorper risus vel turpis ultrices, vulputate ullamcorper magna cursus. Aenean vel nisi elit. Aliquam sapien mauris, hendrerit quis faucibus non, vestibulum id tellus."
+              },
+              {
+                "id": "ca191bc3-5bb2-40cb-962a-82eb708d0f58",
+                "referenceId": "TrustZonePB6yZ-updated",
+                "name": "TrustZonePB6yZ-name-updated",
+                "trustRating": 57,
+                "description": "TrustZonePB6yZ-description-updated"
+              },
+              {
+                "id": "933d2939-ea8c-470a-8bdd-dd26cea8e61d",
+                "referenceId": "tz-release-4.47-1",
+                "name": "tz release 4.47 1",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "a2170b86-2476-4c31-a19e-766d7208dfc0",
+                "referenceId": "apr-tz",
+                "name": "apr-tz",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "d210e807-2761-4f84-a9ef-e16187b908b7",
+                "referenceId": "TrustZoneU5Ssl-updated",
+                "name": "TrustZoneU5Ssl-name-updated",
+                "trustRating": 97,
+                "description": "TrustZoneU5Ssl-description-updated"
+              },
+              {
+                "id": "32d41573-c5fb-4a93-a148-18b68a213d4c",
+                "referenceId": "azure-cloud",
+                "name": "Azure Cloud",
+                "trustRating": 60,
+                "description": ""
+              },
+              {
+                "id": "531315a7-41a2-40ed-ab87-22c3a4c3c7ff",
+                "referenceId": "trusted-partner",
+                "name": "Trusted Partner",
+                "trustRating": 80,
+                "description": "Vetted and trusted partner"
+              },
+              {
+                "id": "f0ba7722-39b6-4c81-8290-a30a248bb8d9",
+                "referenceId": "internet",
+                "name": "Internet",
+                "trustRating": 1,
+                "description": "Untrusted Internet public zone 33"
+              },
+              {
+                "id": "5b3327eb-9140-4251-ab69-759d2d744cb7",
+                "referenceId": "TrustZone8Quxl",
+                "name": "TrustZone8Quxl-name",
+                "trustRating": 81,
+                "description": ""
+              },
+              {
+                "id": "64163da0-307a-4e35-b4fa-17cc745b6558",
+                "referenceId": "pedro-exploratory-4.42",
+                "name": "pedro exploratory 4.42",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "21c3ddfc-cc79-47b6-9df0-e09fa9d56713",
+                "referenceId": "47171-trustzone",
+                "name": "47171_TrustZone",
+                "trustRating": 53,
+                "description": "Fugit ipsum non vel modi eveniet blanditiis eius ad et. Facilis ullam hic autem ex. Doloribus eaque doloribus non omnis minus."
+              },
+              {
+                "id": "91c2a3ae-a512-4071-8a51-63097ad07942",
+                "referenceId": "pedro-release-4.44",
+                "name": "pedro release 4.44",
+                "trustRating": 1,
+                "description": ""
+              },
+              {
+                "id": "6376d53e-6461-412b-8e04-7b3fe2b397de",
+                "referenceId": "public",
+                "name": "Public",
+                "trustRating": 1,
+                "description": "Untrusted public zone"
+              },
+              {
+                "id": "f71cd5cd-0fe0-4050-8d7a-2cfc94cceb53",
+                "referenceId": "TrustZoneuK6RV",
+                "name": "TrustZoneuK6RV-name",
+                "trustRating": 57,
+                "description": "TrustZoneuK6RV-description"
+              },
+              {
+                "id": "9078c35e-88de-4e25-938d-091f24e1181f",
+                "referenceId": "TrustZonepVf0n",
+                "name": "TrustZonepVf0n-name",
+                "trustRating": 33,
+                "description": ""
+              },
+              {
+                "id": "3112fe37-9193-4bf8-9c4f-0eb4b480c24b",
+                "referenceId": "on-premise",
+                "name": "On-Premise",
+                "trustRating": 50,
+                "description": "A private local zone implemented in an organization."
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/trust-zones?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 29,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:13.991Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

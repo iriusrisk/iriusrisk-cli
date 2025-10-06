@@ -1,0 +1,281 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/references",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "id": null,
+                "name": "CWE-89: CWE-89",
+                "url": "http://cwe.mitre.org/data/definitions/89.html"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.772Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "id": null,
+                "name": "CWE-89: CWE-89",
+                "url": "http://cwe.mitre.org/data/definitions/89.html"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:31.375Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "id": "b4345e6b-5f3c-42d3-880e-f8fcade0f9fd",
+                "name": "OWASP Authorization Cheat Sheet",
+                "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/b4345e6b-5f3c-42d3-880e-f8fcade0f9fd"
+                  }
+                }
+              },
+              {
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "id": null,
+                "name": "CWE-639: CWE-639",
+                "url": "http://cwe.mitre.org/data/definitions/639.html"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.270Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "id": "b4345e6b-5f3c-42d3-880e-f8fcade0f9fd",
+                "name": "OWASP Authorization Cheat Sheet",
+                "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/b4345e6b-5f3c-42d3-880e-f8fcade0f9fd"
+                  }
+                }
+              },
+              {
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "id": null,
+                "name": "CWE-639: CWE-639",
+                "url": "http://cwe.mitre.org/data/definitions/639.html"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.265Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "id": "573182c0-d8c0-4be9-93f1-07c3624be92c",
+                "name": "OSA CM-02 Baseline Configuration",
+                "url": "https://www.opensecurityarchitecture.org/cms/library/08_02_control-catalogue/153-08_02_CM-02",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/573182c0-d8c0-4be9-93f1-07c3624be92c"
+                  }
+                }
+              },
+              {
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "id": "bdf9c672-811e-4cda-9242-780c5c154f39",
+                "name": "OSA CM-06 Configuration Settings",
+                "url": "https://www.opensecurityarchitecture.org/cms/library/08_02_control-catalogue/157-08_02_CM-06",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/bdf9c672-811e-4cda-9242-780c5c154f39"
+                  }
+                }
+              },
+              {
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "id": "8c3a153e-f49f-4b14-97ea-29755c2fa4b7",
+                "name": "OWASP Secure Headers Project",
+                "url": "https://www.owasp.org/index.php/OWASP_Secure_Headers_Project",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/8c3a153e-f49f-4b14-97ea-29755c2fa4b7"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.528Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

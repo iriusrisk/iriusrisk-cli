@@ -1,0 +1,804 @@
+{
+  "endpoint": "/templates/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/templates/summary?page=0&size=50&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/templates/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "dcf56f8a-1f37-4aa2-bc96-90ab907d6bef",
+                "referenceId": "0000-0000-000-111-lucia-release443",
+                "name": "0000-0000-000-111-lucia-release443",
+                "state": "synced",
+                "tags": "fsd",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/dcf56f8a-1f37-4aa2-bc96-90ab907d6bef"
+                  }
+                }
+              },
+              {
+                "id": "cac8d03a-67be-4a27-9d22-d4eda5347800",
+                "referenceId": "0007-anna-custome-fields",
+                "name": "0007 anna custome fields",
+                "state": "draft",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/cac8d03a-67be-4a27-9d22-d4eda5347800"
+                  }
+                }
+              },
+              {
+                "id": "e134d466-663d-4f31-9cfc-e38898afdce7",
+                "referenceId": "0007_template1",
+                "name": "0007_template1",
+                "state": "synced",
+                "tags": "tag",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/e134d466-663d-4f31-9cfc-e38898afdce7"
+                  }
+                }
+              },
+              {
+                "id": "a8e8eca0-c857-425d-b10a-e14726537413",
+                "referenceId": "009-_anna_temp",
+                "name": "009-_anna_temp",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/a8e8eca0-c857-425d-b10a-e14726537413"
+                  }
+                }
+              },
+              {
+                "id": "0aa468c5-bf7f-4fdc-ae94-de414afa3a63",
+                "referenceId": "123456",
+                "name": "123456",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/0aa468c5-bf7f-4fdc-ae94-de414afa3a63"
+                  }
+                }
+              },
+              {
+                "id": "8b0f362b-452c-426a-9a6e-e0f820a18204",
+                "referenceId": "123annatemplate",
+                "name": "123annatemplate",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/8b0f362b-452c-426a-9a6e-e0f820a18204"
+                  }
+                }
+              },
+              {
+                "id": "ee62c4fb-9326-477d-9a96-5528c05a5b81",
+                "referenceId": "4.45-template",
+                "name": "4.45 template",
+                "state": "synced",
+                "tags": "tag",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/ee62c4fb-9326-477d-9a96-5528c05a5b81"
+                  }
+                }
+              },
+              {
+                "id": "48a189dc-fd1c-4734-b3e7-0a10157115d2",
+                "referenceId": "4.47 template",
+                "name": "4.47 template",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/48a189dc-fd1c-4734-b3e7-0a10157115d2"
+                  }
+                }
+              },
+              {
+                "id": "fb3e5e5d-5921-40f9-b313-bae9b64fa20b",
+                "referenceId": "88888",
+                "name": "88888",
+                "state": "draft",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/fb3e5e5d-5921-40f9-b313-bae9b64fa20b"
+                  }
+                }
+              },
+              {
+                "id": "1a899f44-810a-49b0-aed6-bcc53cde655b",
+                "referenceId": "aaaaaaaaaaaaaassssssssssss",
+                "name": "aaaaaaaaaaaaaassssssssssss",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/1a899f44-810a-49b0-aed6-bcc53cde655b"
+                  }
+                }
+              },
+              {
+                "id": "e1d43433-fa23-4b8c-96a0-de9d1171eebd",
+                "referenceId": "anna22",
+                "name": "anna22",
+                "state": "synced",
+                "tags": "123",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/e1d43433-fa23-4b8c-96a0-de9d1171eebd"
+                  }
+                }
+              },
+              {
+                "id": "66aa0ef3-4710-4615-99a2-96273efdbf89",
+                "referenceId": "anna-teemplate",
+                "name": "anna teemplate",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/66aa0ef3-4710-4615-99a2-96273efdbf89"
+                  }
+                }
+              },
+              {
+                "id": "fc35528c-4f81-4ae8-b3e2-8e99d1fd93c6",
+                "referenceId": "aws-vpcs",
+                "name": "AWS VPCs",
+                "state": "synced",
+                "tags": "Community",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/fc35528c-4f81-4ae8-b3e2-8e99d1fd93c6"
+                  }
+                }
+              },
+              {
+                "id": "a9e67004-22b0-49e2-98c4-36f267855ebf",
+                "referenceId": "cbernal-release-testing-template",
+                "name": "cbernal-release-testing-template",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/a9e67004-22b0-49e2-98c4-36f267855ebf"
+                  }
+                }
+              },
+              {
+                "id": "c746b272-b33a-4cf0-b87d-8a546ebd048e",
+                "referenceId": "collestemp",
+                "name": "collestemp",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/c746b272-b33a-4cf0-b87d-8a546ebd048e"
+                  }
+                }
+              },
+              {
+                "id": "c3867790-3ade-48a5-937a-5858641bc5af",
+                "referenceId": "complex-template",
+                "name": "Complex template",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/c3867790-3ade-48a5-937a-5858641bc5af"
+                  }
+                }
+              },
+              {
+                "id": "99c2fb2d-1f12-434e-82e3-072235567a17",
+                "referenceId": "3 Tier Web Application and API behind load balancer",
+                "name": "Example - 3 Tier Web Application and API behind load balancer",
+                "state": "synced",
+                "tags": "Community",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/99c2fb2d-1f12-434e-82e3-072235567a17"
+                  }
+                }
+              },
+              {
+                "id": "91ca0590-876b-4d89-acab-d436756e40d9",
+                "referenceId": "_hhg-temp",
+                "name": "_hhg-temp",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/91ca0590-876b-4d89-acab-d436756e40d9"
+                  }
+                }
+              },
+              {
+                "id": "30492390-a49a-4866-a2aa-992e9bfdbc7c",
+                "referenceId": "iriusrisk-e-commerce-platform-template",
+                "name": "IriusRisk - E-Commerce Platform Template",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/30492390-a49a-4866-a2aa-992e9bfdbc7c"
+                  }
+                }
+              },
+              {
+                "id": "7030aa8c-8625-4c9e-bb8b-99fde16fc29c",
+                "referenceId": "jdelriotemplate",
+                "name": "jdelrioTemplate",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/7030aa8c-8625-4c9e-bb8b-99fde16fc29c"
+                  }
+                }
+              },
+              {
+                "id": "c9ef942f-4a30-4765-a897-56f9fa69e962",
+                "referenceId": "jmblanco-template",
+                "name": "jmblanco template",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/c9ef942f-4a30-4765-a897-56f9fa69e962"
+                  }
+                }
+              },
+              {
+                "id": "0c030e2d-3b7a-4b1b-be7c-f71c52efcf4e",
+                "referenceId": "lucia445",
+                "name": "lucia445",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/0c030e2d-3b7a-4b1b-be7c-f71c52efcf4e"
+                  }
+                }
+              },
+              {
+                "id": "4fb9b84d-14ff-45c3-a37a-7f5c5e921130",
+                "referenceId": "lucia445-2",
+                "name": "lucia445-2",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/4fb9b84d-14ff-45c3-a37a-7f5c5e921130"
+                  }
+                }
+              },
+              {
+                "id": "1a99cad2-3a57-4a0b-a3bd-817449964b77",
+                "referenceId": "lucia445-2-test",
+                "name": "lucia445-2-test",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/1a99cad2-3a57-4a0b-a3bd-817449964b77"
+                  }
+                }
+              },
+              {
+                "id": "e1b2bd75-28f7-487f-8126-b1f6917f8cc5",
+                "referenceId": "lucia445testtemplate",
+                "name": "lucia445testtemplate",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/e1b2bd75-28f7-487f-8126-b1f6917f8cc5"
+                  }
+                }
+              },
+              {
+                "id": "3d376b80-2300-4d87-9d5d-3b1d21437e8b",
+                "referenceId": "luciaimported",
+                "name": "luciaimported",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/3d376b80-2300-4d87-9d5d-3b1d21437e8b"
+                  }
+                }
+              },
+              {
+                "id": "f53749f3-f694-4ada-b60a-b35d2f04e62a",
+                "referenceId": "lucianewtemplatefromproject",
+                "name": "lucianewtemplatefromproject",
+                "state": "synced",
+                "tags": "fsadfasd",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/f53749f3-f694-4ada-b60a-b35d2f04e62a"
+                  }
+                }
+              },
+              {
+                "id": "789ad9e0-4bae-4f5e-970c-61ec7e082a9f",
+                "referenceId": "luciatemplate443test",
+                "name": "luciatemplate443test",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/789ad9e0-4bae-4f5e-970c-61ec7e082a9f"
+                  }
+                }
+              },
+              {
+                "id": "c7ac483f-5803-4df1-b044-2ba97a4def03",
+                "referenceId": "luciatemplatetoexport445",
+                "name": "luciatemplatetoexport445",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/c7ac483f-5803-4df1-b044-2ba97a4def03"
+                  }
+                }
+              },
+              {
+                "id": "ab15de23-b58f-49b0-9323-ff6e926ed666",
+                "referenceId": "lucia-test-3-445",
+                "name": "lucia-test-3-445",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/ab15de23-b58f-49b0-9323-ff6e926ed666"
+                  }
+                }
+              },
+              {
+                "id": "772a7aca-0c6b-441a-9dea-879e83557100",
+                "referenceId": "luciatest500",
+                "name": "luciatest500",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/772a7aca-0c6b-441a-9dea-879e83557100"
+                  }
+                }
+              },
+              {
+                "id": "9caaa55a-bb52-40fc-81fa-ea94703efdf3",
+                "referenceId": "nodataflows",
+                "name": "nodataflows",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/9caaa55a-bb52-40fc-81fa-ea94703efdf3"
+                  }
+                }
+              },
+              {
+                "id": "2d8e89a2-f050-4f1a-b21c-cb1f0daee612",
+                "referenceId": "pedrotem",
+                "name": "PEDROTEM",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/2d8e89a2-f050-4f1a-b21c-cb1f0daee612"
+                  }
+                }
+              },
+              {
+                "id": "f78a45de-10c0-40eb-b005-6859e4516ba3",
+                "referenceId": "project-template2",
+                "name": "project template2",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/f78a45de-10c0-40eb-b005-6859e4516ba3"
+                  }
+                }
+              },
+              {
+                "id": "09ef351b-2b92-4dd6-9115-7911d51c62c0",
+                "referenceId": "project-template22",
+                "name": "project template22",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/09ef351b-2b92-4dd6-9115-7911d51c62c0"
+                  }
+                }
+              },
+              {
+                "id": "ed29aaf0-7839-4501-9538-9f8cd4894e2a",
+                "referenceId": "pruebajj2",
+                "name": "pruebajj2",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/ed29aaf0-7839-4501-9538-9f8cd4894e2a"
+                  }
+                }
+              },
+              {
+                "id": "88630df3-3c2e-466a-b24b-d83928f315de",
+                "referenceId": "rramon-t1",
+                "name": "rramon-t1",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/88630df3-3c2e-466a-b24b-d83928f315de"
+                  }
+                }
+              },
+              {
+                "id": "22f1a283-3cae-4c55-968a-4516c11ab84d",
+                "referenceId": "template007",
+                "name": "template007",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/22f1a283-3cae-4c55-968a-4516c11ab84d"
+                  }
+                }
+              },
+              {
+                "id": "f37e4012-ebb6-404b-9870-fa8674cc1197",
+                "referenceId": "template2",
+                "name": "template123",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/f37e4012-ebb6-404b-9870-fa8674cc1197"
+                  }
+                }
+              },
+              {
+                "id": "0211a347-cc09-4b6e-acba-c3e065fb356a",
+                "referenceId": "template222",
+                "name": "template222",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/0211a347-cc09-4b6e-acba-c3e065fb356a"
+                  }
+                }
+              },
+              {
+                "id": "e64a65c9-5130-46c8-b8be-09c62ce8a076",
+                "referenceId": "ref-id",
+                "name": "Template 4.40 testing",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/e64a65c9-5130-46c8-b8be-09c62ce8a076"
+                  }
+                }
+              },
+              {
+                "id": "cb5f4115-ec03-4c32-8afc-08e5d2662494",
+                "referenceId": "accc3a51-0c6e-449f-aa1f-8ce24fbfb569",
+                "name": "Template Fresh payment Home",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/cb5f4115-ec03-4c32-8afc-08e5d2662494"
+                  }
+                }
+              },
+              {
+                "id": "174e55a0-2d43-4e90-861c-6903586df1da",
+                "referenceId": "templatefromproject",
+                "name": "templatefromproject",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/174e55a0-2d43-4e90-861c-6903586df1da"
+                  }
+                }
+              },
+              {
+                "id": "a5de8cd2-e4d4-438f-91ac-633437747588",
+                "referenceId": "template-gg2",
+                "name": "template-gg2",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/a5de8cd2-e4d4-438f-91ac-633437747588"
+                  }
+                }
+              },
+              {
+                "id": "da2382a7-0b41-4598-a4fd-711e450df824",
+                "referenceId": "template-testing",
+                "name": "template-testing",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/da2382a7-0b41-4598-a4fd-711e450df824"
+                  }
+                }
+              },
+              {
+                "id": "872ef09f-6640-4042-afb9-bbe2294f66d3",
+                "referenceId": "template-topera",
+                "name": "template-topera",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/872ef09f-6640-4042-afb9-bbe2294f66d3"
+                  }
+                }
+              },
+              {
+                "id": "ce7a4ec9-0db5-47f4-91a4-b8037713f1b9",
+                "referenceId": "test123",
+                "name": "test123",
+                "state": "synced",
+                "tags": null,
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/ce7a4ec9-0db5-47f4-91a4-b8037713f1b9"
+                  }
+                }
+              },
+              {
+                "id": "ffdf09d7-0a98-49c4-b33c-fb8147a79579",
+                "referenceId": "test-22",
+                "name": "test-22",
+                "state": "synced",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/ffdf09d7-0a98-49c4-b33c-fb8147a79579"
+                  }
+                }
+              },
+              {
+                "id": "03696a63-fa94-4b37-ab12-481a79df0df7",
+                "referenceId": "test-dfv",
+                "name": "test dfv",
+                "state": "draft",
+                "tags": "",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/03696a63-fa94-4b37-ab12-481a79df0df7"
+                  }
+                }
+              },
+              {
+                "id": "d9ddb63b-5ce5-49b8-920c-a1c931e79053",
+                "referenceId": "testtt33",
+                "name": "testtt33",
+                "state": "draft",
+                "tags": "ttt",
+                "modelUpdated": null,
+                "operation": "none",
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/templates/d9ddb63b-5ce5-49b8-920c-a1c931e79053"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/templates/summary?page=0&size=50&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/templates/summary?page=0&size=50&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/templates/summary?page=1&size=50&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/templates/summary?page=1&size=50&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 56,
+            "totalPages": 2,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.563Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

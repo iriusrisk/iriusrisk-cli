@@ -1,0 +1,93 @@
+{
+  "endpoint": "/projects/countermeasures/{id}",
+  "method": "PUT",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "PUT",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "{\"referenceId\":\"C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES\",\"name\":\"Implement proper authorization checks\",\"description\":\"<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\\n<ul>\\n <li>Assign users to roles based on their job functions.</li>\\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\\n <li>Example: In your code, you might check if a user role is \\\"admin\\\" before allowing them to access administrative functions.</li>\\n</ul>\\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\\n<ul>\\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\\n</ul>\\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\\n<ul>\\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\\n</ul>\\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\\n<ul>\\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\\n</ul>\\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\\n<ul>\\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\\n</ul>\\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\\n<ul>\\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\\n</ul>\\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\\n<ul>\\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\\n</ul>\\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\\n<ul>\\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\\n</ul>\\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>\",\"issueId\":null,\"risk\":57,\"cost\":\"medium\",\"priority\":\"calculated\",\"edited\":true,\"customFields\":{\"99b48c79-f6f7-4045-be5d-8000f59db5a2\":\"\",\"4c933b73-580a-45f8-8e6c-fb5c2ea9014a\":\"Application Security\",\"93673647-28fe-4d1e-8ffa-ce01b0a19c99\":\"ASVS\",\"a5e3187c-d617-415b-9d2d-c383675c109c\":\"V4.1.2\",\"5a38cacc-a279-4cb9-91c5-f32ee78b9167\":\"\"},\"owner\":\"fscott\"}",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "required",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": "",
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:44.094Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

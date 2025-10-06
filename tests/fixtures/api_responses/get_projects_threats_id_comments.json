@@ -1,0 +1,232 @@
+{
+  "endpoint": "/projects/threats/{id}/comments",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/ebe98c53-4113-48ea-9317-4194fb8ae1d5/comments?page=0&size=50&sort=date,DESC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/comments",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "date,DESC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "threat": {
+                  "id": "ebe98c53-4113-48ea-9317-4194fb8ae1d5",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/threats/ebe98c53-4113-48ea-9317-4194fb8ae1d5"
+                    }
+                  }
+                },
+                "comment": "<p>This is a threat comment</p>",
+                "date": "2025-09-25T22:02:03.933+00:00",
+                "user": {
+                  "username": "fscott"
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/ebe98c53-4113-48ea-9317-4194fb8ae1d5/comments?page=0&size=50&sort=date,desc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T22:02:03.950Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/comments?page=0&size=50&sort=date,DESC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/comments",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "date,DESC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/comments?page=0&size=50&sort=date,desc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:28.972Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/comments?page=0&size=50&sort=date,DESC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/comments",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "date,DESC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "threat": {
+                  "id": "e29deb79-ae4d-4c42-8180-56e79149d180",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180"
+                    }
+                  }
+                },
+                "comment": "Threat Risk Accepted: yolo",
+                "date": "2025-09-25T10:39:34.384+00:00",
+                "user": {
+                  "username": "fscott"
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/comments?page=0&size=50&sort=date,desc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:35.187Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/comments?page=0&size=50&sort=date,DESC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/comments",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "date,DESC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/comments?page=0&size=50&sort=date,desc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:44.896Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/comments?page=0&size=50&sort=date,DESC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/comments",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "date,DESC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "threat": {
+                  "id": "9ccb7db4-ac19-4200-902a-e38e3181e9d9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9"
+                    }
+                  }
+                },
+                "comment": "<p>hello, this is a threat comment</p>",
+                "date": "2025-09-25T18:40:56.023+00:00",
+                "user": {
+                  "username": "fscott"
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/comments?page=0&size=50&sort=date,desc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:56.174Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

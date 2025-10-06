@@ -1,0 +1,89 @@
+{
+  "endpoint": "/features/settings",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/features/settings",
+        "method": "GET",
+        "endpoint_pattern": "/features/settings",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "enableCustomFields": true,
+          "enableThreatDeletion": true,
+          "enableModelWithAi": true,
+          "showImportTemplateOnMainQuestionnaire": true,
+          "enableMarkCountermeasureAsImplementedWhenTestPass": false,
+          "enableMarkCountermeasureAsImplementedWhenTestRun": false,
+          "defaultOwnerForThreatsAndCountermeasures": null,
+          "maxRetentionForAuditLogsInDays": 365,
+          "externalUrl": null,
+          "enableAutomaticRemovalOfThreatAndCountermeasuresNotApplying": true,
+          "enableAutomaticRemovalOfWeaknessesWithoutCountermeasures": false,
+          "ignoreRulesWithErrors": false,
+          "useProjectRiskProfile": false,
+          "maxRiskProfile": 5,
+          "minRiskProfile": 0,
+          "autoGenerateProjectRef": true,
+          "projectRefValidationPattern": "",
+          "searchableLibrariesWhitelist": [],
+          "ignoreCustomFieldsValuesWhenImportingThreatsOrCountermeasures": false,
+          "enableEmbeddedProjects": true,
+          "allowedExternalSitesToEmbedProjects": "iriusrisk.atlassian.net",
+          "allowComponentsWithoutTrustZone": true,
+          "autoAddNewProjectsToCreatorBusinessUnit": true,
+          "enableArchiveProjects": true,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/features/settings"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.563Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/features/settings",
+        "method": "GET",
+        "endpoint_pattern": "/features/settings",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "enableCustomFields": true,
+          "enableThreatDeletion": true,
+          "enableModelWithAi": true,
+          "showImportTemplateOnMainQuestionnaire": true,
+          "enableMarkCountermeasureAsImplementedWhenTestPass": false,
+          "enableMarkCountermeasureAsImplementedWhenTestRun": false,
+          "defaultOwnerForThreatsAndCountermeasures": null,
+          "maxRetentionForAuditLogsInDays": 365,
+          "externalUrl": null,
+          "enableAutomaticRemovalOfThreatAndCountermeasuresNotApplying": true,
+          "enableAutomaticRemovalOfWeaknessesWithoutCountermeasures": false,
+          "ignoreRulesWithErrors": false,
+          "useProjectRiskProfile": false,
+          "maxRiskProfile": 5,
+          "minRiskProfile": 0,
+          "autoGenerateProjectRef": true,
+          "projectRefValidationPattern": "",
+          "searchableLibrariesWhitelist": [],
+          "ignoreCustomFieldsValuesWhenImportingThreatsOrCountermeasures": false,
+          "enableEmbeddedProjects": true,
+          "allowedExternalSitesToEmbedProjects": "iriusrisk.atlassian.net",
+          "allowComponentsWithoutTrustZone": true,
+          "autoAddNewProjectsToCreatorBusinessUnit": true,
+          "enableArchiveProjects": true,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/features/settings"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.508Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

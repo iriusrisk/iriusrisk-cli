@@ -1,0 +1,258 @@
+{
+  "endpoint": "/projects/{id}/issue-trackers/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/issue-trackers/summary?page=0&size=9999",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/issue-trackers/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "9999"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "0331de4d-f802-40c6-b469-ae92458ca8f6",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "lucia442",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/0331de4d-f802-40c6-b469-ae92458ca8f6"
+                  }
+                }
+              },
+              {
+                "id": "84be6a90-9592-4b4c-ad9f-533a5b2eda1b",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "Fraser",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/84be6a90-9592-4b4c-ad9f-533a5b2eda1b"
+                  }
+                }
+              },
+              {
+                "id": "6d7d18c8-5298-4836-a954-c3e96dfbe2ce",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "Test Raul",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/6d7d18c8-5298-4836-a954-c3e96dfbe2ce"
+                  }
+                }
+              },
+              {
+                "id": "8238306e-368d-4cce-8cee-b413aabf0213",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "Issue tracker Jira 4.45",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/8238306e-368d-4cce-8cee-b413aabf0213"
+                  }
+                }
+              },
+              {
+                "id": "3dd4d915-c836-4502-93bf-866f138c7772",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "Jira Cloud - Tmateu",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/3dd4d915-c836-4502-93bf-866f138c7772"
+                  }
+                }
+              },
+              {
+                "id": "d660a03d-35b5-4327-8bed-4cfe51528260",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "release 4.47",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/d660a03d-35b5-4327-8bed-4cfe51528260"
+                  }
+                }
+              },
+              {
+                "id": "8bc17bd8-b021-45aa-8f46-9c5cd9514efd",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "anna 4.43 not mapped",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/8bc17bd8-b021-45aa-8f46-9c5cd9514efd"
+                  }
+                }
+              },
+              {
+                "id": "4088ba3e-ce91-4ab8-b9e8-28641be03889",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "rgarcia testing mappings",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/4088ba3e-ce91-4ab8-b9e8-28641be03889"
+                  }
+                }
+              },
+              {
+                "id": "5c88406c-77de-4b2b-a5a3-5b486200d096",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "azure-dev-ops",
+                "name": "azure release 4.47 1",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/5c88406c-77de-4b2b-a5a3-5b486200d096"
+                  }
+                }
+              },
+              {
+                "id": "2943abe2-6c34-465b-b5fa-cb553a16e8c8",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "Releasejj-4.44",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/2943abe2-6c34-465b-b5fa-cb553a16e8c8"
+                  }
+                }
+              },
+              {
+                "id": "b8e678ca-aac0-4d3a-bcad-156fabb486c4",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "service-now",
+                "name": "RejeasejjSeviceNow-4.44",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/b8e678ca-aac0-4d3a-bcad-156fabb486c4"
+                  }
+                }
+              },
+              {
+                "id": "567ce503-5298-47be-8e0d-be6826504e21",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "azure-dev-ops",
+                "name": "New issue tracker profile (8)",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/567ce503-5298-47be-8e0d-be6826504e21"
+                  }
+                }
+              },
+              {
+                "id": "e830b6d7-041d-4896-acf5-dd96a570084e",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "rally-software",
+                "name": "ReleaseRallyjj-4.44",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/e830b6d7-041d-4896-acf5-dd96a570084e"
+                  }
+                }
+              },
+              {
+                "id": "a9f8b232-8855-4bc9-9bd0-f4843d699215",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "anna 4.44 mapped",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/a9f8b232-8855-4bc9-9bd0-f4843d699215"
+                  }
+                }
+              },
+              {
+                "id": "3c8e14da-070f-487f-a6ab-2522d5d4020e",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "lucia-test",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/3c8e14da-070f-487f-a6ab-2522d5d4020e"
+                  }
+                }
+              },
+              {
+                "id": "5a897345-5225-46ef-b373-2a343b66ba3c",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "jira",
+                "name": "Jira 4.46",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/5a897345-5225-46ef-b373-2a343b66ba3c"
+                  }
+                }
+              },
+              {
+                "id": "a49fdc62-73a7-4f18-98c2-a691bb94b917",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "azure-dev-ops",
+                "name": "👓🔬📷 Carl Zeiss Demo",
+                "default": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/a49fdc62-73a7-4f18-98c2-a691bb94b917"
+                  }
+                }
+              },
+              {
+                "id": "46196425-df36-4d67-9ef9-4b4617bdd8f1",
+                "issueTrackerAssignmentType": "profile",
+                "issueTrackerType": "azure-dev-ops",
+                "name": "ReleaseAzure-4-45",
+                "default": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/46196425-df36-4d67-9ef9-4b4617bdd8f1"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/issue-trackers/summary?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 18,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:21.957Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

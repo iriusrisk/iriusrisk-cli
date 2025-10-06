@@ -1,0 +1,492 @@
+{
+  "endpoint": "/user-profile",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.821Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-19T11:12:12.686Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:28.973Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:35.187Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.303Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:40:44.896Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/user-profile",
+        "method": "GET",
+        "endpoint_pattern": "/user-profile",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+          "username": "fscott",
+          "firstName": "Fraser",
+          "lastName": "Scott",
+          "email": "fscott@iriusrisk.com",
+          "passwordExpired": false,
+          "enabled": true,
+          "apiToken": {
+            "hint": "0a2e",
+            "_links": {
+              "regenerateApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token/generate"
+              },
+              "deleteApiToken": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/api-token"
+              }
+            }
+          },
+          "businessUnits": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/business-units"
+              }
+            }
+          },
+          "sessions": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/sessions"
+              }
+            }
+          },
+          "globalRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/global-roles"
+              }
+            }
+          },
+          "projectRoles": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/project-roles"
+              }
+            }
+          },
+          "avatar": {
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/user-profile/avatar"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/user-profile"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.590Z"
+      }
+    ]
+  },
+  "total_responses": 7
+}

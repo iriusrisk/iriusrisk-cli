@@ -1,0 +1,92 @@
+{
+  "endpoint": "/projects/threats/{id}/state",
+  "method": "PUT",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/state",
+        "method": "PUT",
+        "endpoint_pattern": "/projects/threats/{id}/state",
+        "query_params": {},
+        "request_body": "{\"stateTransition\":\"accept\",\"reason\":\"yolo\"}",
+        "status": 200,
+        "response_data": {
+          "availability": 75,
+          "confidentiality": 100,
+          "description": "<p><strong>General Threat Description</strong></p>\n<p>Denial of Service (DoS) by API abuse or flooding is a targeted attack where malicious actors overwhelm an API endpoint with a high volume of requests. This type of attack is designed to exhaust the system's resources, such as bandwidth, server processing capacity, or database connections, thereby rendering the service slow or completely unresponsive to legitimate users. This can be particularly damaging in environments where APIs are critical components of business operations and services.</p>\n<p>Threat Agents/Attack Vectors</p>\n<ol>\n <li><strong>Volume-Based Attacks</strong>: The attacker floods the API with a very high volume of requests in a short period, exceeding the system’s ability to handle them.</li>\n <li><strong>Application Layer Attacks</strong>: Targeted at exhausting specific functionalities or features of the API (e.g., complex query processing), which can consume more resources than simpler requests.</li>\n <li><strong>Automated Tools</strong>: Use of scripted tools or botnets to automate the sending of requests at a scale difficult to achieve manually.</li>\n <li><strong>Exploitation of API Vulnerabilities</strong>: Utilizing known vulnerabilities within the API, such as inefficient handling of inputs or misconfigurations, to amplify the impact of the attack.</li>\n</ol>\n<p>Impacts</p>\n<ol>\n <li><strong>Service Disruption</strong>: Legitimate users cannot access the service, leading to a loss of availability and potential customer dissatisfaction.</li>\n <li><strong>Resource Drain</strong>: Server resources are consumed by handling the flood of malicious requests, potentially causing slowdowns or crashes.</li>\n <li><strong>Increased Operational Costs</strong>: Costs may increase due to extra bandwidth usage, need for additional infrastructure to manage the load, and labor costs associated with mitigating the attack.</li>\n <li><strong>Reputation Damage</strong>: Frequent and severe outages can damage the reputation of a service, leading to loss of user trust and potential revenue declines.</li>\n</ol>\n<p>Example Attack Scenarios</p>\n<p><strong>Scenario 1</strong>: An attacker targets a financial service provider's API, which handles customer transaction requests. Using a distributed botnet, the attacker sends thousands of transaction requests per second to the API. This flood overwhelms the server, causing legitimate transaction requests to time out, leading to frustration among customers and disruption of financial activities.</p>\n<p><strong>Scenario 2</strong>: In another case, a competitor uses automated scripts to continuously submit complex queries to a real estate listing service's API. These queries are designed to retrieve large amounts of data with each call, maxing out the database's capacity. The excessive load results in legitimate users experiencing delays and errors when attempting to view listings, significantly degrading service quality during peak house-hunting seasons.</p>\n<p>To combat these threats, it is crucial to implement rate limiting, employ robust monitoring and alerting systems to detect unusual traffic patterns, and possibly use Web Application Firewalls (WAFs) to filter out malicious traffic. Additionally, designing APIs to handle failures gracefully and scale dynamically in response to high traffic can mitigate the impact of such attacks.</p>",
+          "easeOfExploitation": 50,
+          "edited": false,
+          "effectiveMitigation": 0,
+          "expiryDate": null,
+          "id": "e29deb79-ae4d-4c42-8180-56e79149d180",
+          "inherentRisk": 60,
+          "integrity": 100,
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "library": {
+            "id": "78edd477-0777-4556-91af-c93ca599cd50",
+            "name": "Service side - Components"
+          },
+          "mitigation": 0,
+          "name": "Attackers carry out denial of service by API abuse/flooding",
+          "owner": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "projectedRisk": 60,
+          "referenceId": "T-ATTACKERS-CARRY-OUT-DENIAL-OF-SERVICE-BY-API-ABUSEFLOODING",
+          "risk": 60,
+          "source": "rules",
+          "state": "accept",
+          "useCase": {
+            "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+            "name": "Denial of Service",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "customFields": null,
+          "countermeasuresTestsSummary": "not-tested",
+          "weaknessesTestsSummary": "not-tested",
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180"
+            },
+            "weaknesses": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/weaknesses"
+            },
+            "countermeasures": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/countermeasures"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/references"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/settings"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.120Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

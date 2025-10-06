@@ -1,0 +1,135 @@
+{
+  "endpoint": "/metadata",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/metadata",
+        "method": "GET",
+        "endpoint_pattern": "/metadata",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "projectsLimitReached": false,
+          "archiveProjectsLimitReached": true,
+          "licenseAllowsArchivedProjects": true,
+          "vulnerabilityTrackersEnabled": true,
+          "showMainQuestionnaireEnabled": true,
+          "threatDeletionEnabled": true,
+          "issueTrackersEnabled": true,
+          "enableModelWithAi": true,
+          "helpUrl": "https://enterprise-support.iriusrisk.com/",
+          "allowComponentsWithoutTrustZone": true
+        },
+        "timestamp": "2025-09-28T07:57:09.279Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/metadata",
+        "method": "GET",
+        "endpoint_pattern": "/metadata",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "projectsLimitReached": false,
+          "archiveProjectsLimitReached": true,
+          "licenseAllowsArchivedProjects": true,
+          "vulnerabilityTrackersEnabled": true,
+          "showMainQuestionnaireEnabled": true,
+          "threatDeletionEnabled": true,
+          "issueTrackersEnabled": true,
+          "enableModelWithAi": true,
+          "helpUrl": "https://enterprise-support.iriusrisk.com/",
+          "allowComponentsWithoutTrustZone": true
+        },
+        "timestamp": "2025-09-28T07:57:11.562Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/metadata",
+        "method": "GET",
+        "endpoint_pattern": "/metadata",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "projectsLimitReached": false,
+          "archiveProjectsLimitReached": false,
+          "licenseAllowsArchivedProjects": true,
+          "vulnerabilityTrackersEnabled": true,
+          "showMainQuestionnaireEnabled": true,
+          "threatDeletionEnabled": true,
+          "issueTrackersEnabled": true,
+          "enableModelWithAi": true,
+          "helpUrl": "https://enterprise-support.iriusrisk.com/",
+          "allowComponentsWithoutTrustZone": true
+        },
+        "timestamp": "2025-09-19T11:12:01.334Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/metadata",
+        "method": "GET",
+        "endpoint_pattern": "/metadata",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "projectsLimitReached": false,
+          "archiveProjectsLimitReached": false,
+          "licenseAllowsArchivedProjects": true,
+          "vulnerabilityTrackersEnabled": true,
+          "showMainQuestionnaireEnabled": true,
+          "threatDeletionEnabled": true,
+          "issueTrackersEnabled": true,
+          "enableModelWithAi": true,
+          "helpUrl": "https://enterprise-support.iriusrisk.com/",
+          "allowComponentsWithoutTrustZone": true
+        },
+        "timestamp": "2025-09-19T11:12:12.676Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/metadata",
+        "method": "GET",
+        "endpoint_pattern": "/metadata",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "projectsLimitReached": false,
+          "archiveProjectsLimitReached": false,
+          "licenseAllowsArchivedProjects": true,
+          "vulnerabilityTrackersEnabled": true,
+          "showMainQuestionnaireEnabled": true,
+          "threatDeletionEnabled": true,
+          "issueTrackersEnabled": true,
+          "enableModelWithAi": true,
+          "helpUrl": "https://enterprise-support.iriusrisk.com/",
+          "allowComponentsWithoutTrustZone": true
+        },
+        "timestamp": "2025-09-19T11:13:49.076Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/metadata",
+        "method": "GET",
+        "endpoint_pattern": "/metadata",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "projectsLimitReached": false,
+          "archiveProjectsLimitReached": true,
+          "licenseAllowsArchivedProjects": true,
+          "vulnerabilityTrackersEnabled": true,
+          "showMainQuestionnaireEnabled": true,
+          "threatDeletionEnabled": true,
+          "issueTrackersEnabled": true,
+          "enableModelWithAi": true,
+          "helpUrl": "https://enterprise-support.iriusrisk.com/",
+          "allowComponentsWithoutTrustZone": true
+        },
+        "timestamp": "2025-09-25T10:31:21.507Z"
+      }
+    ]
+  },
+  "total_responses": 6
+}

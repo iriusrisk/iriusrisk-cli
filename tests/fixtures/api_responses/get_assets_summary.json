@@ -1,0 +1,223 @@
+{
+  "endpoint": "/assets/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/assets/summary?size=50",
+        "method": "GET",
+        "endpoint_pattern": "/assets/summary",
+        "query_params": {
+          "size": [
+            "50"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "879abfb8-e387-47d0-bb7e-25432c61bbdd",
+                "name": "qa test 4.42 1 update 3"
+              },
+              {
+                "id": "97f68857-b87f-4fb1-82dc-0299661c292e",
+                "name": "srrtrt"
+              },
+              {
+                "id": "bffa45e9-9010-4119-bfa8-87a1513b9b72",
+                "name": "Pedro Exploratory 2 442 13/053"
+              },
+              {
+                "id": "45126326-1464-4337-a075-8823a2b33470",
+                "name": "AssetFexIK-name"
+              },
+              {
+                "id": "5cc15315-dc35-4218-9ace-aa87258a3b19",
+                "name": "pedro release 4.46"
+              },
+              {
+                "id": "fa8e8d14-105a-4290-ad45-2287460d3603",
+                "name": "pedro33 3"
+              },
+              {
+                "id": "0e525761-b87e-4348-8c56-4b2e719c5a22",
+                "name": "Personally Identifiable Information"
+              },
+              {
+                "id": "43190c19-98c0-4852-982a-dfa8993883f4",
+                "name": "pedro release 4.44"
+              },
+              {
+                "id": "a98384ec-b767-4620-9e53-5ff36a1526fd",
+                "name": "asset qa 2 update"
+              },
+              {
+                "id": "ee7c7676-9a49-4a3e-815a-3fa74fe0e319",
+                "name": "🫶 User address"
+              },
+              {
+                "id": "038eb37f-f8a6-4c87-b5c9-97700b7a42dc",
+                "name": "Asset7Ja9H-name"
+              },
+              {
+                "id": "988e3f62-36ce-4849-9fd4-3216642eb21a",
+                "name": "Asset_58172"
+              },
+              {
+                "id": "c94e1bd8-5566-4267-a926-b6b809b97632",
+                "name": "AssetsUTmE-name"
+              },
+              {
+                "id": "2d78722b-8075-48f9-93e1-52dbb5ee8bca",
+                "name": "lucia-test"
+              },
+              {
+                "id": "6b07ab84-27e7-4f2e-be9c-83d25b2f5736",
+                "name": "Asset_79082"
+              },
+              {
+                "id": "f9df95e8-d38e-4473-a609-551f9bc5472b",
+                "name": "Asset_60994"
+              },
+              {
+                "id": "68767979-d4d5-4c2a-99c3-3ddeb295ac1d",
+                "name": "eth"
+              },
+              {
+                "id": "5f20b892-290b-4f4f-bd8f-e0b017e365eb",
+                "name": "ddij"
+              },
+              {
+                "id": "672f5392-c1de-41d0-bf3a-b798c9ad7528",
+                "name": "AssetyEbm8-name"
+              },
+              {
+                "id": "1ae12699-e73b-4730-86be-576781a6de7d",
+                "name": "asset qa 3 update"
+              },
+              {
+                "id": "c29a2670-e05e-4c03-b506-9ffcb573d71a",
+                "name": "release 4.45 pedro"
+              },
+              {
+                "id": "a7973b2c-16ab-4703-9f8d-581514089142",
+                "name": "passet"
+              },
+              {
+                "id": "f6e2e10e-b935-45b8-998b-ab1ccb9d37b4",
+                "name": "setrh"
+              },
+              {
+                "id": "fb353d65-5bdf-4d08-a74b-4ad23ea7dd87",
+                "name": "36t54y"
+              },
+              {
+                "id": "31c4f213-6993-4daf-b35e-4fe3bb7cea65",
+                "name": "release 4.47 1"
+              },
+              {
+                "id": "0e6fe407-18dd-4736-b2cf-d464047c9363",
+                "name": "Pedro3"
+              },
+              {
+                "id": "443db3a5-b738-4511-8344-570ee4dd8a08",
+                "name": "zzzz qa test"
+              },
+              {
+                "id": "2d68b3b6-1099-446f-ac51-21bc2591f258",
+                "name": "Assetkwmcu-name"
+              },
+              {
+                "id": "baf32730-28fc-48da-87b7-3265385b9920",
+                "name": "Customer Data"
+              },
+              {
+                "id": "3d56ba42-8df1-4af4-89df-0fe49ce15eb8",
+                "name": "Asset_85838"
+              },
+              {
+                "id": "53231da6-a955-437c-9171-64670b61bf10",
+                "name": "zzzz qa test 1"
+              },
+              {
+                "id": "d2ff75b6-c5f5-42f6-8a19-291b5f9c538a",
+                "name": "qa test 4.31 update"
+              },
+              {
+                "id": "4f4294c4-b8df-4730-aa84-66088cd63838",
+                "name": "AssetXQrcv-name"
+              },
+              {
+                "id": "82095a34-52cd-44e7-97df-a1be01ebb24d",
+                "name": "Pedro Exploratory 2 442 13/053 2"
+              },
+              {
+                "id": "edfe99ca-d8f2-4cfc-a008-a75f1ce6fb62",
+                "name": "Pedro"
+              },
+              {
+                "id": "3975ebe9-381a-4ea1-8167-a822e87997c1",
+                "name": "Assetbiw9Q-name-updated"
+              },
+              {
+                "id": "230be6eb-a3db-4c7a-91be-c4ba9d57849f",
+                "name": "Protected Health Information"
+              },
+              {
+                "id": "90403ca5-5d76-419f-97f9-582bb13dae97",
+                "name": "Asset_99795"
+              },
+              {
+                "id": "5a782d44-1b48-4f59-bc01-129065274ce0",
+                "name": "Credit Card Data"
+              },
+              {
+                "id": "2374e405-cdc7-401d-8a7b-1506d5a50a05",
+                "name": "pedro exploratory 4.42"
+              },
+              {
+                "id": "9fee0b3c-7ed7-4d68-9b6f-4cf39964f1f1",
+                "name": "zzzz qa test 2 updated 3"
+              },
+              {
+                "id": "7ef43c79-cb12-47b4-a783-1551e0fdf6b6",
+                "name": "qa release 4.38 3"
+              },
+              {
+                "id": "c28eebd0-6dad-43ce-96fd-a046d73c4edb",
+                "name": "Asset_2405"
+              },
+              {
+                "id": "16601404-2d36-48f7-86fa-8b4ef4eb2928",
+                "name": "Pedr2"
+              },
+              {
+                "id": "9df4d830-840b-490f-9219-1222474016c0",
+                "name": "Asset_76381"
+              },
+              {
+                "id": "ca3a3f5a-5634-4d17-b65d-ab99038a92b1",
+                "name": "asset qa 4.39"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/assets/summary?page=0&size=50"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 46,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.563Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

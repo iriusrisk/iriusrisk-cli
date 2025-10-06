@@ -1,0 +1,689 @@
+{
+  "endpoint": "/projects/{id}/reports/types",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T22:57:53.999Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T22:58:06.513Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T22:58:06.513Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T23:27:19.624Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T23:27:19.625Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T23:27:21.789Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T23:27:31.028Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/types",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports/types",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "Compliance report",
+                "id": "compliance-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical countermeasure report",
+                "id": "technical-countermeasure-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Technical threat report",
+                "id": "technical-threat-report",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": []
+              },
+              {
+                "name": "Current risk summary report",
+                "id": "residual-risk",
+                "formatsAllowed": [
+                  "pdf",
+                  "xls",
+                  "xlsx",
+                  "csv",
+                  "html"
+                ],
+                "filters": [
+                  {
+                    "name": "currentRisks",
+                    "values": [
+                      "critical",
+                      "high"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigation",
+                    "values": [
+                      "mitigated",
+                      "unmitigated"
+                    ]
+                  },
+                  {
+                    "name": "riskMitigationPlanned",
+                    "values": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-27T23:27:31.029Z"
+      }
+    ]
+  },
+  "total_responses": 8
+}

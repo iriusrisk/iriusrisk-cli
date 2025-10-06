@@ -1,0 +1,315 @@
+{
+  "endpoint": "/projects/threats/{id}/countermeasures",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/countermeasures?page=0&size=2000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/countermeasures",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "2000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "7561b25d-38dc-41c3-92b1-424c520a843b",
+                "referenceId": "C-IMPLEMENT-RATE-LIMITING",
+                "name": "Implement rate limiting and robust load balancing",
+                "description": "<p>To implement rate limiting and robust load balancing for your API endpoint, follow these detailed and actionable steps designed to control traffic flow and ensure service availability:</p>\n<p><strong>Implement Rate Limiting</strong>:</p>\n<ul>\n <li><strong>Define Limits</strong>: Decide on the maximum number of requests a user or IP address can make in a given period (e.g., 100 requests per minute). Consider different limits for different types of users or endpoints depending on their load characteristics and importance.</li>\n <li><strong>Choose a Rate Limiting Algorithm</strong>: Use algorithms like Token Bucket or Leaky Bucket for implementing rate limiting. These algorithms allow for flexibility in handling bursts of requests and smoothing out the inflow of data.</li>\n <li><strong>Use Middleware for Rate Limiting</strong>: If using frameworks like Express.js, Django, or Flask, leverage middleware specifically designed for rate limiting (e.g., express-rate-limit for Node.js, django-ratelimit for Django).</li>\n <li><strong>Provide Feedback</strong>: Inform users when they are nearing their request limit via headers in the response (e.g., <strong>X-RateLimit-Remaining</strong>) and return a 429 Too Many Requests HTTP status code if the limit is exceeded.</li>\n</ul>\n<p><strong>Implement Robust Load Balancing</strong>:</p>\n<ul>\n <li><strong>Choose a Load Balancer Type</strong>: Depending on your infrastructure, select either a hardware or software load balancer. Software load balancers (e.g., NGINX, HAProxy) can be more flexible and easier to integrate into cloud environments.</li>\n <li><strong>Set Up Load Balancing Strategies</strong>: Implement different load balancing strategies such as round-robin, least connections, or IP hash, depending on your specific use case and traffic patterns.</li>\n <li><strong>Configure Health Checks</strong>: Set up health checks that automatically remove unhealthy servers from the pool to ensure traffic is only directed to healthy instances of your application.</li>\n <li><strong>Enable SSL Termination</strong>: Offload SSL processing to the load balancer to reduce the load on your application servers and simplify SSL certificate management.</li>\n</ul>\n<p><strong>Integrate Rate Limiting with Load Balancing</strong>:</p>\n<ul>\n <li><strong>Synchronize Rate Limiting Across Servers</strong>: Ensure that your rate limiting configuration is shared across all servers in your load-balanced environment. This can be achieved using a centralized store like Redis to keep track of request counts in real-time.</li>\n <li><strong>Adaptive Load Balancing</strong>: Adjust your load balancing strategy based on current load and traffic patterns. For example, during peak times, increase the weight of servers with higher capacity or adjust the rate limits dynamically based on server response times.</li>\n</ul>\n<p><strong>Monitor and Optimize</strong>:</p>\n<ul>\n <li><strong>Real-Time Monitoring</strong>: Implement real-time monitoring tools (e.g., Prometheus, Grafana) to visualize traffic flow and rate limiting status across all nodes of your application.</li>\n <li><strong>Logs and Metrics</strong>: Collect and analyze logs and metrics to understand traffic patterns and identify potential bottlenecks or security threats.</li>\n <li><strong>Adjust Policies as Needed</strong>: Regularly review rate limits and load balancing configurations to optimize for changes in traffic patterns or business requirements.</li>\n</ul>\n<p><strong>Educate and Inform Stakeholders</strong>:</p>\n<ul>\n <li><strong>Document Policies and Practices</strong>: Clearly document your rate limiting and load balancing policies and share these documents with your development team and stakeholders.</li>\n <li><strong>Train Your Team</strong>: Educate your team about the importance of rate limiting and load balancing as part of your overall traffic management and security strategies.</li>\n</ul>\n<p>By effectively implementing rate limiting and robust load balancing, you can prevent server overload, enhance the user experience by reducing latency and downtime, and increase the overall resilience of your application against traffic spikes and distributed denial-of-service (DDoS) attacks. This proactive approach to infrastructure management ensures your services remain reliable and performant under various load conditions.</p>",
+                "state": "recommended",
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 60,
+                "cost": "medium",
+                "priority": {
+                  "manual": null,
+                  "calculated": "high"
+                },
+                "source": "rules",
+                "mitigation": 100,
+                "edited": false,
+                "templateName": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "name": "API Endpoint",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b"
+                  },
+                  "comments": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b/comments"
+                  },
+                  "implementations": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b/implementations"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/7561b25d-38dc-41c3-92b1-424c520a843b"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b/settings"
+                  },
+                  "test": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/e050bcfd-5d02-4b55-9d69-1fe065989dd1"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/countermeasures?page=0&size=2000&sort=id,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:28.134Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/countermeasures?page=0&size=2000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/countermeasures",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "2000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "7561b25d-38dc-41c3-92b1-424c520a843b",
+                "referenceId": "C-IMPLEMENT-RATE-LIMITING",
+                "name": "Implement rate limiting and robust load balancing",
+                "description": "<p>To implement rate limiting and robust load balancing for your API endpoint, follow these detailed and actionable steps designed to control traffic flow and ensure service availability:</p>\n<p><strong>Implement Rate Limiting</strong>:</p>\n<ul>\n <li><strong>Define Limits</strong>: Decide on the maximum number of requests a user or IP address can make in a given period (e.g., 100 requests per minute). Consider different limits for different types of users or endpoints depending on their load characteristics and importance.</li>\n <li><strong>Choose a Rate Limiting Algorithm</strong>: Use algorithms like Token Bucket or Leaky Bucket for implementing rate limiting. These algorithms allow for flexibility in handling bursts of requests and smoothing out the inflow of data.</li>\n <li><strong>Use Middleware for Rate Limiting</strong>: If using frameworks like Express.js, Django, or Flask, leverage middleware specifically designed for rate limiting (e.g., express-rate-limit for Node.js, django-ratelimit for Django).</li>\n <li><strong>Provide Feedback</strong>: Inform users when they are nearing their request limit via headers in the response (e.g., <strong>X-RateLimit-Remaining</strong>) and return a 429 Too Many Requests HTTP status code if the limit is exceeded.</li>\n</ul>\n<p><strong>Implement Robust Load Balancing</strong>:</p>\n<ul>\n <li><strong>Choose a Load Balancer Type</strong>: Depending on your infrastructure, select either a hardware or software load balancer. Software load balancers (e.g., NGINX, HAProxy) can be more flexible and easier to integrate into cloud environments.</li>\n <li><strong>Set Up Load Balancing Strategies</strong>: Implement different load balancing strategies such as round-robin, least connections, or IP hash, depending on your specific use case and traffic patterns.</li>\n <li><strong>Configure Health Checks</strong>: Set up health checks that automatically remove unhealthy servers from the pool to ensure traffic is only directed to healthy instances of your application.</li>\n <li><strong>Enable SSL Termination</strong>: Offload SSL processing to the load balancer to reduce the load on your application servers and simplify SSL certificate management.</li>\n</ul>\n<p><strong>Integrate Rate Limiting with Load Balancing</strong>:</p>\n<ul>\n <li><strong>Synchronize Rate Limiting Across Servers</strong>: Ensure that your rate limiting configuration is shared across all servers in your load-balanced environment. This can be achieved using a centralized store like Redis to keep track of request counts in real-time.</li>\n <li><strong>Adaptive Load Balancing</strong>: Adjust your load balancing strategy based on current load and traffic patterns. For example, during peak times, increase the weight of servers with higher capacity or adjust the rate limits dynamically based on server response times.</li>\n</ul>\n<p><strong>Monitor and Optimize</strong>:</p>\n<ul>\n <li><strong>Real-Time Monitoring</strong>: Implement real-time monitoring tools (e.g., Prometheus, Grafana) to visualize traffic flow and rate limiting status across all nodes of your application.</li>\n <li><strong>Logs and Metrics</strong>: Collect and analyze logs and metrics to understand traffic patterns and identify potential bottlenecks or security threats.</li>\n <li><strong>Adjust Policies as Needed</strong>: Regularly review rate limits and load balancing configurations to optimize for changes in traffic patterns or business requirements.</li>\n</ul>\n<p><strong>Educate and Inform Stakeholders</strong>:</p>\n<ul>\n <li><strong>Document Policies and Practices</strong>: Clearly document your rate limiting and load balancing policies and share these documents with your development team and stakeholders.</li>\n <li><strong>Train Your Team</strong>: Educate your team about the importance of rate limiting and load balancing as part of your overall traffic management and security strategies.</li>\n</ul>\n<p>By effectively implementing rate limiting and robust load balancing, you can prevent server overload, enhance the user experience by reducing latency and downtime, and increase the overall resilience of your application against traffic spikes and distributed denial-of-service (DDoS) attacks. This proactive approach to infrastructure management ensures your services remain reliable and performant under various load conditions.</p>",
+                "state": "recommended",
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 60,
+                "cost": "medium",
+                "priority": {
+                  "manual": null,
+                  "calculated": "high"
+                },
+                "source": "rules",
+                "mitigation": 100,
+                "edited": false,
+                "templateName": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "name": "API Endpoint",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b"
+                  },
+                  "comments": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b/comments"
+                  },
+                  "implementations": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b/implementations"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/7561b25d-38dc-41c3-92b1-424c520a843b"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/7561b25d-38dc-41c3-92b1-424c520a843b/settings"
+                  },
+                  "test": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/e050bcfd-5d02-4b55-9d69-1fe065989dd1"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/countermeasures?page=0&size=2000&sort=id,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.447Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/countermeasures?page=0&size=2000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/threats/{id}/countermeasures",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "2000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "afa9bc35-6602-461c-9d9b-eb413afce1e8",
+                "referenceId": "C-AWS-ELASTICACHE-FOR-REDIS-CNT-06",
+                "name": "Enable automatic backups on AWS ElastiCache clusters running Redis",
+                "description": "<p>To ensure data resilience and quick recovery in case of data loss or corruption, enable automatic backups on AWS ElastiCache clusters running Redis. Automatic backups provide a reliable way to periodically capture snapshots of your data, allowing you to restore the cluster to a specific point in time. This feature is essential for maintaining data integrity and continuity of operations.</p>\n<p><strong>Implementation Steps:</strong></p>\n<ol>\n <li><strong>Enable Automatic Backups:</strong> In the ElastiCache management console, configure your Redis cluster to enable automatic backups. Specify the backup retention period based on your recovery point objective (RPO) requirements.</li>\n <li><strong>Set Backup Window:</strong> Choose an appropriate backup window during off-peak hours to minimize performance impact on your cluster. Ensure that the backup window aligns with your operational needs.</li>\n <li><strong>Monitor Backup Status:</strong> Regularly monitor the backup process and status in the AWS Management Console to ensure backups are completing successfully. Set up alerts for any backup failures or issues.</li>\n <li><strong>Test Backup Restoration:</strong> Periodically perform test restores from backups to validate that your backup and recovery process works as expected and that data can be accurately restored.</li>\n</ol>",
+                "state": "recommended",
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 65,
+                "cost": "medium",
+                "priority": {
+                  "manual": null,
+                  "calculated": "high"
+                },
+                "source": "rules",
+                "mitigation": 100,
+                "edited": false,
+                "templateName": null,
+                "project": {
+                  "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+                  "name": "Badger app",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "072d06ed-7cca-42e9-bdd1-2a2f12dd6b72",
+                  "name": "Redis Cache",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/072d06ed-7cca-42e9-bdd1-2a2f12dd6b72"
+                    }
+                  }
+                },
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/afa9bc35-6602-461c-9d9b-eb413afce1e8"
+                  },
+                  "comments": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/afa9bc35-6602-461c-9d9b-eb413afce1e8/comments"
+                  },
+                  "implementations": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/afa9bc35-6602-461c-9d9b-eb413afce1e8/implementations"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/afa9bc35-6602-461c-9d9b-eb413afce1e8"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/afa9bc35-6602-461c-9d9b-eb413afce1e8/settings"
+                  },
+                  "test": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5aa021f8-3983-4e57-b37b-c04bc345e3c8"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/countermeasures?page=0&size=2000&sort=id,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:43.979Z"
+      }
+    ]
+  },
+  "total_responses": 3
+}

@@ -1,0 +1,43 @@
+{
+  "endpoint": "/projects/countermeasures/tests/{id}",
+  "method": "PUT",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+        "method": "PUT",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "{\"testResult\":\"not-tested\",\"resultSource\":\"manual\",\"expiryDate\":\"\",\"steps\":null,\"notes\":null,\"customFields\":{}}",
+        "status": 200,
+        "response_data": {
+          "id": "2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:46.428Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

@@ -1,0 +1,3052 @@
+{
+  "endpoint": "/projects",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects?page=0&size=1",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "016cb55c-d0d3-4af1-af7f-5e6d3f419e3a",
+                "name": "005_anna.copy",
+                "referenceId": "005_anna-copy",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": true,
+                "modelUpdated": "2025-07-31T10:17:44.683+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?page=0&size=1&sort=modelUpdated,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?page=0&size=1&sort=modelUpdated,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?page=1&size=1&sort=modelUpdated,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?page=436&size=1&sort=modelUpdated,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 437,
+            "totalPages": 437,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:09.190Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects?page=0&size=50&sort=name,ASC&filter=(%27isArchived%27=%27false%27)",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "50"
+          ],
+          "sort": [
+            "name,ASC"
+          ],
+          "filter": [
+            "('isArchived'='false')"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "b8c79c11-e2ca-4a9d-ba36-f586adce41ef",
+                "name": "000-000-446-lucia-import-template",
+                "referenceId": "000-000-446-lucia-import-template",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-22T07:46:58.652+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/b8c79c11-e2ca-4a9d-ba36-f586adce41ef"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/b8c79c11-e2ca-4a9d-ba36-f586adce41ef/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/b8c79c11-e2ca-4a9d-ba36-f586adce41ef/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/b8c79c11-e2ca-4a9d-ba36-f586adce41ef/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "2d0df986-4f6f-463d-a75b-96d164fd6771",
+                "name": "000000 anna project",
+                "referenceId": "000000-anna-project",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:19.399+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/2d0df986-4f6f-463d-a75b-96d164fd6771"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2d0df986-4f6f-463d-a75b-96d164fd6771/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2d0df986-4f6f-463d-a75b-96d164fd6771/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2d0df986-4f6f-463d-a75b-96d164fd6771/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "d0a0bbd4-71b4-458d-8b2b-c3cfd1e2bb8c",
+                "name": "000007 anna custom issue tracker up",
+                "referenceId": "000007-anna-custom-upppppppp-tracker",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                  "name": "lucia-test-permissions",
+                  "isLockThreatModel": false,
+                  "referenceId": "lucia-test-permissions"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-23T17:01:03.779+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d0a0bbd4-71b4-458d-8b2b-c3cfd1e2bb8c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0a0bbd4-71b4-458d-8b2b-c3cfd1e2bb8c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0a0bbd4-71b4-458d-8b2b-c3cfd1e2bb8c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0a0bbd4-71b4-458d-8b2b-c3cfd1e2bb8c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "88a786b2-f328-4b85-b771-8093dd14e44e",
+                "name": "00001_anna",
+                "referenceId": "00001_anna",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-22T14:21:43.801+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/88a786b2-f328-4b85-b771-8093dd14e44e"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/88a786b2-f328-4b85-b771-8093dd14e44e/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/88a786b2-f328-4b85-b771-8093dd14e44e/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/88a786b2-f328-4b85-b771-8093dd14e44e/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e001a8f2-8223-4f9e-bdc3-edd2b9c7bf67",
+                "name": "007_anna",
+                "referenceId": "007_anna",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "5322b283-8fd7-4076-9449-a79702d43f86",
+                  "name": "test",
+                  "isLockThreatModel": false,
+                  "referenceId": "test"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:22:20.677+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e001a8f2-8223-4f9e-bdc3-edd2b9c7bf67"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e001a8f2-8223-4f9e-bdc3-edd2b9c7bf67/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e001a8f2-8223-4f9e-bdc3-edd2b9c7bf67/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e001a8f2-8223-4f9e-bdc3-edd2b9c7bf67/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "2b0bb47a-bbb5-40a4-954a-819d533cc6f8",
+                "name": "007_anna007",
+                "referenceId": "007_anna007",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:24:32.117+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/2b0bb47a-bbb5-40a4-954a-819d533cc6f8"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2b0bb47a-bbb5-40a4-954a-819d533cc6f8/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2b0bb47a-bbb5-40a4-954a-819d533cc6f8/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2b0bb47a-bbb5-40a4-954a-819d533cc6f8/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "1e0f0cbb-c991-408f-846a-7aea8304aac2",
+                "name": "007_anna.copy",
+                "referenceId": "007_anna-copy",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-25T16:07:40.889+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/1e0f0cbb-c991-408f-846a-7aea8304aac2"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/1e0f0cbb-c991-408f-846a-7aea8304aac2/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/1e0f0cbb-c991-408f-846a-7aea8304aac2/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/1e0f0cbb-c991-408f-846a-7aea8304aac2/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "3b9332b9-0562-4333-943e-6c33a8bfa49e",
+                "name": "008_anna",
+                "referenceId": "008_anna",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "5322b283-8fd7-4076-9449-a79702d43f86",
+                  "name": "test",
+                  "isLockThreatModel": false,
+                  "referenceId": "test"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:22:10.308+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/3b9332b9-0562-4333-943e-6c33a8bfa49e"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/3b9332b9-0562-4333-943e-6c33a8bfa49e/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/3b9332b9-0562-4333-943e-6c33a8bfa49e/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/3b9332b9-0562-4333-943e-6c33a8bfa49e/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e3fbb108-0892-43a5-b819-fe8adf291c6b",
+                "name": "008_anna.copy",
+                "referenceId": "008_anna-copy",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-22T07:47:57.659+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e3fbb108-0892-43a5-b819-fe8adf291c6b"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e3fbb108-0892-43a5-b819-fe8adf291c6b/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e3fbb108-0892-43a5-b819-fe8adf291c6b/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e3fbb108-0892-43a5-b819-fe8adf291c6b/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "4ad782c7-3081-4428-927b-d28857796e78",
+                "name": "0999_anna_import",
+                "referenceId": "0999_anna_import",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:35.916+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/4ad782c7-3081-4428-927b-d28857796e78"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4ad782c7-3081-4428-927b-d28857796e78/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4ad782c7-3081-4428-927b-d28857796e78/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4ad782c7-3081-4428-927b-d28857796e78/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "daadd578-bda7-4bb8-b87e-a629f3ff77d2",
+                "name": "100-components",
+                "referenceId": "100-components",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:23:09.803+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/daadd578-bda7-4bb8-b87e-a629f3ff77d2"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/daadd578-bda7-4bb8-b87e-a629f3ff77d2/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/daadd578-bda7-4bb8-b87e-a629f3ff77d2/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/daadd578-bda7-4bb8-b87e-a629f3ff77d2/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "4953a52f-723d-4f32-9dae-f827fddd8fcb",
+                "name": "11111anna",
+                "referenceId": "11111anna",
+                "description": "<p>description</p>",
+                "tags": "tag, tag",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:19:28.162+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/4953a52f-723d-4f32-9dae-f827fddd8fcb"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4953a52f-723d-4f32-9dae-f827fddd8fcb/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4953a52f-723d-4f32-9dae-f827fddd8fcb/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4953a52f-723d-4f32-9dae-f827fddd8fcb/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "babf97dd-fc1f-41cc-b37d-cab1a8c4477c",
+                "name": "33333",
+                "referenceId": "33333",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                  "name": "lucia-test-permissions",
+                  "isLockThreatModel": false,
+                  "referenceId": "lucia-test-permissions"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-23T10:00:00.217+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/babf97dd-fc1f-41cc-b37d-cab1a8c4477c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/babf97dd-fc1f-41cc-b37d-cab1a8c4477c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/babf97dd-fc1f-41cc-b37d-cab1a8c4477c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/babf97dd-fc1f-41cc-b37d-cab1a8c4477c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e280ce4f-6d62-42ba-b437-881067e4c7b0",
+                "name": "334434454545",
+                "referenceId": "334434454545",
+                "description": "",
+                "tags": "4343",
+                "workflowState": {
+                  "uuid": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                  "name": "lucia-test-permissions",
+                  "isLockThreatModel": false,
+                  "referenceId": "lucia-test-permissions"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:22:09.275+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e280ce4f-6d62-42ba-b437-881067e4c7b0"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e280ce4f-6d62-42ba-b437-881067e4c7b0/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e280ce4f-6d62-42ba-b437-881067e4c7b0/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e280ce4f-6d62-42ba-b437-881067e4c7b0/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "51354257-3986-4c6c-a711-8fbd90f09ff5",
+                "name": "334434454545.copy",
+                "referenceId": "334434454545-copy",
+                "description": "",
+                "tags": "4343",
+                "workflowState": {
+                  "uuid": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                  "name": "lucia-test-permissions",
+                  "isLockThreatModel": false,
+                  "referenceId": "lucia-test-permissions"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:44.213+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/51354257-3986-4c6c-a711-8fbd90f09ff5"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/51354257-3986-4c6c-a711-8fbd90f09ff5/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/51354257-3986-4c6c-a711-8fbd90f09ff5/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/51354257-3986-4c6c-a711-8fbd90f09ff5/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "d7cd8041-9a89-457e-a61c-f73adca9e176",
+                "name": "34234234232333333",
+                "referenceId": "34234234232333333",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-26T08:09:11.972+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d7cd8041-9a89-457e-a61c-f73adca9e176"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d7cd8041-9a89-457e-a61c-f73adca9e176/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d7cd8041-9a89-457e-a61c-f73adca9e176/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d7cd8041-9a89-457e-a61c-f73adca9e176/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e9395892-7e7d-4080-bb01-c110260159c6",
+                "name": "446terraformlucia",
+                "referenceId": "446terraformlucia",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:25:11.700+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e9395892-7e7d-4080-bb01-c110260159c6"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e9395892-7e7d-4080-bb01-c110260159c6/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e9395892-7e7d-4080-bb01-c110260159c6/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e9395892-7e7d-4080-bb01-c110260159c6/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "09aa1d0a-f4c7-4f63-a7c7-4ebc3e657074",
+                "name": "aaaaa-release-jj",
+                "referenceId": "aaaaa-release-jj",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "5322b283-8fd7-4076-9449-a79702d43f86",
+                  "name": "test",
+                  "isLockThreatModel": false,
+                  "referenceId": "test"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:22:11.921+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/09aa1d0a-f4c7-4f63-a7c7-4ebc3e657074"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/09aa1d0a-f4c7-4f63-a7c7-4ebc3e657074/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/09aa1d0a-f4c7-4f63-a7c7-4ebc3e657074/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/09aa1d0a-f4c7-4f63-a7c7-4ebc3e657074/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "10930fca-605d-41a3-89e7-9ad54310c0c2",
+                "name": "adsasdfasdfasdfasd",
+                "referenceId": "adsasdfasdfasdfasd",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:14.601+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/10930fca-605d-41a3-89e7-9ad54310c0c2"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/10930fca-605d-41a3-89e7-9ad54310c0c2/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/10930fca-605d-41a3-89e7-9ad54310c0c2/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/10930fca-605d-41a3-89e7-9ad54310c0c2/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "a135138d-ac5c-4356-9404-cdfb42053c47",
+                "name": "ahurs",
+                "referenceId": "ahurs",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:12.182+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/a135138d-ac5c-4356-9404-cdfb42053c47"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/a135138d-ac5c-4356-9404-cdfb42053c47/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/a135138d-ac5c-4356-9404-cdfb42053c47/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/a135138d-ac5c-4356-9404-cdfb42053c47/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "110dd500-f14e-4305-bb73-9d08c6ebf396",
+                "name": "AI Architecture",
+                "referenceId": "ai-architecture",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:15.809+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/110dd500-f14e-4305-bb73-9d08c6ebf396"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/110dd500-f14e-4305-bb73-9d08c6ebf396/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/110dd500-f14e-4305-bb73-9d08c6ebf396/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/110dd500-f14e-4305-bb73-9d08c6ebf396/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "64669844-41b6-40fd-ba4c-9a9cc4f48eca",
+                "name": "aiml-examples-for-articles-bg",
+                "referenceId": "aiml-examples-for-articles-bg",
+                "description": "",
+                "tags": "DevOps, AI",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:24:35.322+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/64669844-41b6-40fd-ba4c-9a9cc4f48eca"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/64669844-41b6-40fd-ba4c-9a9cc4f48eca/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/64669844-41b6-40fd-ba4c-9a9cc4f48eca/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/64669844-41b6-40fd-ba4c-9a9cc4f48eca/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "6904d2d6-7f8c-43ad-8af2-c893146bd4df",
+                "name": "AI Model",
+                "referenceId": "ai-model",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.388+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e66ed5c3-e239-4b55-8aad-e4a51e44ea19",
+                "name": "Alberto Import VSDX test",
+                "referenceId": "alberto-import-vsdx-test",
+                "description": null,
+                "tags": null,
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:25:33.211+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e66ed5c3-e239-4b55-8aad-e4a51e44ea19"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e66ed5c3-e239-4b55-8aad-e4a51e44ea19/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e66ed5c3-e239-4b55-8aad-e4a51e44ea19/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e66ed5c3-e239-4b55-8aad-e4a51e44ea19/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "9f8a3c52-7f5b-4c5a-822f-1edc948f3b63",
+                "name": "alternate-riesling",
+                "referenceId": "71ae7895-8da4-49c2-90d8-56d96e64e62f",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-08-19T15:18:05.259+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/9f8a3c52-7f5b-4c5a-822f-1edc948f3b63"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/9f8a3c52-7f5b-4c5a-822f-1edc948f3b63/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/9f8a3c52-7f5b-4c5a-822f-1edc948f3b63/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/9f8a3c52-7f5b-4c5a-822f-1edc948f3b63/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e52c0f9b-2aa4-447e-a246-ef5e496fc604",
+                "name": "amacias",
+                "referenceId": "amacias",
+                "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi odio lectus, consequat porta pellentesque non, ullamcorper non purus. Suspendisse fringilla placerat mauris, in eleifend nibh malesuada ac. Suspendisse rhoncus, est hendrerit scelerisque congue, metus felis ultrices velit, a varius nisi purus vitae metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec nec hendrerit diam, vitae porta leo. Aliquam non consequat enim, in aliquet ante. Donec vulputate tellus non libero tristique, vel tempor nulla porttitor. Suspendisse gravida tellus sed iaculis dapibus. Etiam placerat massa at diam cursus ultricies sed id sapien. Nulla et magna et urna eleifend ornare quis eget nulla. Vestibulum a tincidunt purus, ut finibus tellus. Suspendisse condimentum interdum feugiat.</p>",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:22:08.479+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e52c0f9b-2aa4-447e-a246-ef5e496fc604"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e52c0f9b-2aa4-447e-a246-ef5e496fc604/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e52c0f9b-2aa4-447e-a246-ef5e496fc604/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e52c0f9b-2aa4-447e-a246-ef5e496fc604/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "1749f052-cdb0-4849-a951-8babcc661f09",
+                "name": "AnaTest",
+                "referenceId": "anatest",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": true,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:39.733+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/1749f052-cdb0-4849-a951-8babcc661f09"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/1749f052-cdb0-4849-a951-8babcc661f09/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/1749f052-cdb0-4849-a951-8babcc661f09/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/1749f052-cdb0-4849-a951-8babcc661f09/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "36360f06-7a45-4132-bef7-d483299b52bb",
+                "name": "ana test 2",
+                "referenceId": "ana-test-2",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:19:35.217+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/36360f06-7a45-4132-bef7-d483299b52bb"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/36360f06-7a45-4132-bef7-d483299b52bb/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/36360f06-7a45-4132-bef7-d483299b52bb/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/36360f06-7a45-4132-bef7-d483299b52bb/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "d6635768-d23a-4cc8-9a15-93aed9919740",
+                "name": "anna_00001",
+                "referenceId": "anna_00001",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:11.568+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d6635768-d23a-4cc8-9a15-93aed9919740"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d6635768-d23a-4cc8-9a15-93aed9919740/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d6635768-d23a-4cc8-9a15-93aed9919740/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d6635768-d23a-4cc8-9a15-93aed9919740/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "71a1aaf9-dedc-4a8a-a114-28ad0864ae30",
+                "name": "anna12",
+                "referenceId": "anna12",
+                "description": "description2",
+                "tags": "tag, 1232",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-08-19T15:18:04.778+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/71a1aaf9-dedc-4a8a-a114-28ad0864ae30"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/71a1aaf9-dedc-4a8a-a114-28ad0864ae30/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/71a1aaf9-dedc-4a8a-a114-28ad0864ae30/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/71a1aaf9-dedc-4a8a-a114-28ad0864ae30/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "6c7d61dd-b19d-4b01-84ac-2e74599399e6",
+                "name": "anna777",
+                "referenceId": "anna777",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:58.207+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/6c7d61dd-b19d-4b01-84ac-2e74599399e6"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6c7d61dd-b19d-4b01-84ac-2e74599399e6/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6c7d61dd-b19d-4b01-84ac-2e74599399e6/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6c7d61dd-b19d-4b01-84ac-2e74599399e6/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "7f51160b-8ddc-4783-bed9-4ed8285f3e77",
+                "name": "arnizz",
+                "referenceId": "arnizz",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:22:00.104+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/7f51160b-8ddc-4783-bed9-4ed8285f3e77"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/7f51160b-8ddc-4783-bed9-4ed8285f3e77/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/7f51160b-8ddc-4783-bed9-4ed8285f3e77/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/7f51160b-8ddc-4783-bed9-4ed8285f3e77/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "cfda2e3f-cbfc-4f8b-874b-26b24d15a2ab",
+                "name": "Atesting10328934290482904",
+                "referenceId": "atesting10328934290482904",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:23:04.616+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/cfda2e3f-cbfc-4f8b-874b-26b24d15a2ab"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/cfda2e3f-cbfc-4f8b-874b-26b24d15a2ab/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/cfda2e3f-cbfc-4f8b-874b-26b24d15a2ab/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/cfda2e3f-cbfc-4f8b-874b-26b24d15a2ab/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "305322db-f874-465a-9be5-174b43cf734c",
+                "name": "athostest",
+                "referenceId": "athostest",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:23:22.048+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/305322db-f874-465a-9be5-174b43cf734c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/305322db-f874-465a-9be5-174b43cf734c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/305322db-f874-465a-9be5-174b43cf734c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/305322db-f874-465a-9be5-174b43cf734c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "bff48588-5c6d-4228-937e-f3aef1c371ec",
+                "name": "attachment-5-page-three",
+                "referenceId": "attachment-5-page-three",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:21:38.194+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/bff48588-5c6d-4228-937e-f3aef1c371ec"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/bff48588-5c6d-4228-937e-f3aef1c371ec/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/bff48588-5c6d-4228-937e-f3aef1c371ec/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/bff48588-5c6d-4228-937e-f3aef1c371ec/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "c02c80e5-3f0a-4e9d-9784-fd7c4867af2a",
+                "name": "aws-ingesting-click-logs-using-terraform",
+                "referenceId": "aws-ingesting-click-logs-using-terraform",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:24:05.539+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/c02c80e5-3f0a-4e9d-9784-fd7c4867af2a"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/c02c80e5-3f0a-4e9d-9784-fd7c4867af2a/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/c02c80e5-3f0a-4e9d-9784-fd7c4867af2a/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/c02c80e5-3f0a-4e9d-9784-fd7c4867af2a/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "871056c6-c676-4fef-bc90-cbd2780e48dc",
+                "name": "aws-shapes-blaz-2581-2",
+                "referenceId": "aws-shapes-blaz-2581-2",
+                "description": null,
+                "tags": null,
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": null,
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": true,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/871056c6-c676-4fef-bc90-cbd2780e48dc"
+                  }
+                }
+              },
+              {
+                "id": "6de38f20-60d2-47d2-8a94-282b580085e0",
+                "name": "AWS threat model",
+                "referenceId": "aws-threat-model",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:41.362+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/6de38f20-60d2-47d2-8a94-282b580085e0"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6de38f20-60d2-47d2-8a94-282b580085e0/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6de38f20-60d2-47d2-8a94-282b580085e0/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6de38f20-60d2-47d2-8a94-282b580085e0/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "9e6b1fec-464f-4a11-a565-9dd44942ae63",
+                "name": "AWS Web App",
+                "referenceId": "aws-web-app",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:15.925+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/9e6b1fec-464f-4a11-a565-9dd44942ae63"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/9e6b1fec-464f-4a11-a565-9dd44942ae63/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/9e6b1fec-464f-4a11-a565-9dd44942ae63/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/9e6b1fec-464f-4a11-a565-9dd44942ae63/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "b891d88a-7d67-48b7-b1cc-9b60f5586749",
+                "name": "aws-with-tz-and-vpc_xoan",
+                "referenceId": "aws-with-tz-and-vpc_xoan",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:23:48.832+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/b891d88a-7d67-48b7-b1cc-9b60f5586749"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/b891d88a-7d67-48b7-b1cc-9b60f5586749/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/b891d88a-7d67-48b7-b1cc-9b60f5586749/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/b891d88a-7d67-48b7-b1cc-9b60f5586749/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "eadc84ce-81d2-4ac7-b468-4b188496add6",
+                "name": "Azure Cloud Template - Threat Model v1.0 - IriusRisk",
+                "referenceId": "azure-cloud-template--threat-model-v1.0--iriusrisk",
+                "description": null,
+                "tags": null,
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": null,
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": true,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/eadc84ce-81d2-4ac7-b468-4b188496add6"
+                  }
+                }
+              },
+              {
+                "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                "name": "Badger App",
+                "referenceId": "badger-app-cbba",
+                "description": "Badger Delivery Service - A Flask-based web application for badger location tracking and delivery coordination, deployed on AWS using ECS, RDS, and ElastiCache",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-27T22:53:12.428+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "238364d9-efdc-4866-9fc8-85087290b1ea",
+                "name": "Banking app",
+                "referenceId": "banking-app",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:25:33.868+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/238364d9-efdc-4866-9fc8-85087290b1ea"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/238364d9-efdc-4866-9fc8-85087290b1ea/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/238364d9-efdc-4866-9fc8-85087290b1ea/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/238364d9-efdc-4866-9fc8-85087290b1ea/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "8e617249-0f6a-492e-aaed-1e150f649927",
+                "name": "Banking app in AWS",
+                "referenceId": "db8a6fcd-63f6-45ff-b523-546ad12a1c35",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-18T11:45:39.306+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/8e617249-0f6a-492e-aaed-1e150f649927"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/8e617249-0f6a-492e-aaed-1e150f649927/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/8e617249-0f6a-492e-aaed-1e150f649927/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/8e617249-0f6a-492e-aaed-1e150f649927/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "7c79b4ec-e768-4e86-af68-fa77a10dbeac",
+                "name": "Basic website",
+                "referenceId": "basic-website",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:21:40.455+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/7c79b4ec-e768-4e86-af68-fa77a10dbeac"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/7c79b4ec-e768-4e86-af68-fa77a10dbeac/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/7c79b4ec-e768-4e86-af68-fa77a10dbeac/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/7c79b4ec-e768-4e86-af68-fa77a10dbeac/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "12420417-4f47-4496-82bd-e3f4820dc143",
+                "name": "blaz-1026-dfv",
+                "referenceId": "blaz-1026-dfv",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:15.487+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/12420417-4f47-4496-82bd-e3f4820dc143"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/12420417-4f47-4496-82bd-e3f4820dc143/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/12420417-4f47-4496-82bd-e3f4820dc143/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/12420417-4f47-4496-82bd-e3f4820dc143/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "d3dc7f44-1a39-4f24-9583-9a88aa39f80f",
+                "name": "blaz-461-1",
+                "referenceId": "blaz-461-1",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:13.832+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d3dc7f44-1a39-4f24-9583-9a88aa39f80f"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d3dc7f44-1a39-4f24-9583-9a88aa39f80f/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d3dc7f44-1a39-4f24-9583-9a88aa39f80f/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d3dc7f44-1a39-4f24-9583-9a88aa39f80f/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "2eddf243-7c68-406a-85ac-e49202dfed24",
+                "name": "brilliant-outlet-6d03b8c8",
+                "referenceId": "c3545d80-8ef5-417a-b662-0f2d38a1cf06",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:23:14.281+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/2eddf243-7c68-406a-85ac-e49202dfed24"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2eddf243-7c68-406a-85ac-e49202dfed24/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2eddf243-7c68-406a-85ac-e49202dfed24/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/2eddf243-7c68-406a-85ac-e49202dfed24/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "4421c13c-219e-4821-9c02-24fa43c962f5",
+                "name": "briny-rank-50a268d0",
+                "referenceId": "0c3d9a55-34f8-4ff8-9120-06fa52885567",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                  "name": "ws3",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws3"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-17T10:23:37.446+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/4421c13c-219e-4821-9c02-24fa43c962f5"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4421c13c-219e-4821-9c02-24fa43c962f5/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4421c13c-219e-4821-9c02-24fa43c962f5/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4421c13c-219e-4821-9c02-24fa43c962f5/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "ea519aa3-1a58-4fe3-ad88-2090c191ac2c",
+                "name": "CAA testing trust zone",
+                "referenceId": "caa-testing-trust-zone",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-09-25T14:24:33.988+0000",
+                "state": "synced",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/ea519aa3-1a58-4fe3-ad88-2090c191ac2c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/ea519aa3-1a58-4fe3-ad88-2090c191ac2c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/ea519aa3-1a58-4fe3-ad88-2090c191ac2c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/ea519aa3-1a58-4fe3-ad88-2090c191ac2c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?filter=(%27isArchived%27=%27false%27)&page=0&size=50&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?filter=(%27isArchived%27=%27false%27)&page=0&size=50&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?filter=(%27isArchived%27=%27false%27)&page=1&size=50&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?filter=(%27isArchived%27=%27false%27)&page=8&size=50&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 50,
+            "totalElements": 427,
+            "totalPages": 9,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:09.190Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {},
+        "request_body": null,
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&filter=%27referenceId%27%3D%27mock-test-82bn%27&page=0&size=1&sort=modelUpdated,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:48:33.141159"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {},
+        "request_body": null,
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "016cb55c-d0d3-4af1-af7f-5e6d3f419e3a",
+                "name": "005_anna.copy",
+                "referenceId": "005_anna-copy",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": true,
+                "modelUpdated": "2025-07-31T10:17:44.683+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/016cb55c-d0d3-4af1-af7f-5e6d3f419e3a/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "76064ff8-318a-4da9-b20c-a818c0c95dec",
+                "name": "0008881",
+                "referenceId": "0008881",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": true,
+                "modelUpdated": "2025-07-31T10:18:01.475+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/76064ff8-318a-4da9-b20c-a818c0c95dec"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/76064ff8-318a-4da9-b20c-a818c0c95dec/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/76064ff8-318a-4da9-b20c-a818c0c95dec/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/76064ff8-318a-4da9-b20c-a818c0c95dec/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "ebf0d71a-a0b5-4348-810b-5841c71ab7ff",
+                "name": "Post Pedro 2.0",
+                "referenceId": "post-pedro-2.0",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:09.782+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/ebf0d71a-a0b5-4348-810b-5841c71ab7ff"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/ebf0d71a-a0b5-4348-810b-5841c71ab7ff/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/ebf0d71a-a0b5-4348-810b-5841c71ab7ff/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/ebf0d71a-a0b5-4348-810b-5841c71ab7ff/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "d9f62022-fb9b-4f88-ae04-61d6770acff5",
+                "name": "Post Pedro Test",
+                "referenceId": "post-pedro-test",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:09.809+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d9f62022-fb9b-4f88-ae04-61d6770acff5"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d9f62022-fb9b-4f88-ae04-61d6770acff5/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d9f62022-fb9b-4f88-ae04-61d6770acff5/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d9f62022-fb9b-4f88-ae04-61d6770acff5/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "128b709f-9a13-4187-af4d-056d3f133b52",
+                "name": "Pedro Rules Project",
+                "referenceId": "pedro-rules-project",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:09.872+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/128b709f-9a13-4187-af4d-056d3f133b52"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/128b709f-9a13-4187-af4d-056d3f133b52/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/128b709f-9a13-4187-af4d-056d3f133b52/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/128b709f-9a13-4187-af4d-056d3f133b52/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                "name": "testing-caa",
+                "referenceId": "testing-caa",
+                "description": "",
+                "tags": "",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:09.928+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "57098ebc-6ef4-4ca1-9bee-f13d5e2f4dc3",
+                "name": "saas-test-v2",
+                "referenceId": "saas-test-v2",
+                "description": "",
+                "tags": "",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:09.944+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/57098ebc-6ef4-4ca1-9bee-f13d5e2f4dc3"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/57098ebc-6ef4-4ca1-9bee-f13d5e2f4dc3/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/57098ebc-6ef4-4ca1-9bee-f13d5e2f4dc3/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/57098ebc-6ef4-4ca1-9bee-f13d5e2f4dc3/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "8f0a00a7-f3b0-4119-8f52-52d801acbe09",
+                "name": "opt-526-3",
+                "referenceId": "opt-526-3",
+                "description": null,
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.028+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/8f0a00a7-f3b0-4119-8f52-52d801acbe09"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/8f0a00a7-f3b0-4119-8f52-52d801acbe09/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/8f0a00a7-f3b0-4119-8f52-52d801acbe09/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/8f0a00a7-f3b0-4119-8f52-52d801acbe09/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "6ffd3d79-7737-4092-902b-fe4ad637a770",
+                "name": "pded",
+                "referenceId": "pded",
+                "description": "",
+                "tags": "",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.097+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/6ffd3d79-7737-4092-902b-fe4ad637a770"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6ffd3d79-7737-4092-902b-fe4ad637a770/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6ffd3d79-7737-4092-902b-fe4ad637a770/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6ffd3d79-7737-4092-902b-fe4ad637a770/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "0afac60a-fab9-4258-ab70-c6cbebbdcfc9",
+                "name": "test",
+                "referenceId": "test",
+                "description": "",
+                "tags": "",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.115+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/0afac60a-fab9-4258-ab70-c6cbebbdcfc9"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/0afac60a-fab9-4258-ab70-c6cbebbdcfc9/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/0afac60a-fab9-4258-ab70-c6cbebbdcfc9/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/0afac60a-fab9-4258-ab70-c6cbebbdcfc9/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "c2690e52-429a-46a1-bef7-271123f52594",
+                "name": "Product Analytics Setup",
+                "referenceId": "productanalyticssetup",
+                "description": "<p>This is a test project to get familiar with the Irius Risk platform</p>",
+                "tags": "",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.179+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/c2690e52-429a-46a1-bef7-271123f52594"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/c2690e52-429a-46a1-bef7-271123f52594/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/c2690e52-429a-46a1-bef7-271123f52594/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/c2690e52-429a-46a1-bef7-271123f52594/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "3b866339-99f1-4bef-87ed-adc072953f32",
+                "name": "IR 1012",
+                "referenceId": "ir-1012",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.297+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/3b866339-99f1-4bef-87ed-adc072953f32"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/3b866339-99f1-4bef-87ed-adc072953f32/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/3b866339-99f1-4bef-87ed-adc072953f32/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/3b866339-99f1-4bef-87ed-adc072953f32/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "a50420ea-072a-48cc-a6f9-847fd1577766",
+                "name": "Test Jacob T",
+                "referenceId": "test-jacob-t",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.302+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/a50420ea-072a-48cc-a6f9-847fd1577766"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/a50420ea-072a-48cc-a6f9-847fd1577766/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/a50420ea-072a-48cc-a6f9-847fd1577766/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/a50420ea-072a-48cc-a6f9-847fd1577766/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "6904d2d6-7f8c-43ad-8af2-c893146bd4df",
+                "name": "AI Model",
+                "referenceId": "ai-model",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.388+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/6904d2d6-7f8c-43ad-8af2-c893146bd4df/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "60b1ba5f-3d1b-4ec9-bb9f-1490c8dfc490",
+                "name": "kman2024 speed test",
+                "referenceId": "kman2024-speed-test",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                  "name": "lucia-test-permissions",
+                  "isLockThreatModel": false,
+                  "referenceId": "lucia-test-permissions"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.455+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/60b1ba5f-3d1b-4ec9-bb9f-1490c8dfc490"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/60b1ba5f-3d1b-4ec9-bb9f-1490c8dfc490/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/60b1ba5f-3d1b-4ec9-bb9f-1490c8dfc490/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/60b1ba5f-3d1b-4ec9-bb9f-1490c8dfc490/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "dd607e16-ffc6-4dde-8822-48087ead78f0",
+                "name": "Pedro 4",
+                "referenceId": "pedro-4",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.484+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/dd607e16-ffc6-4dde-8822-48087ead78f0"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/dd607e16-ffc6-4dde-8822-48087ead78f0/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/dd607e16-ffc6-4dde-8822-48087ead78f0/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/dd607e16-ffc6-4dde-8822-48087ead78f0/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "5d53f1f2-eb82-436a-b4ec-c457badda315",
+                "name": "Jacob V2 Component Test",
+                "referenceId": "jacob-v2-component-test",
+                "description": "<p>Can be deleted</p>",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.613+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/5d53f1f2-eb82-436a-b4ec-c457badda315"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/5d53f1f2-eb82-436a-b4ec-c457badda315/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/5d53f1f2-eb82-436a-b4ec-c457badda315/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/5d53f1f2-eb82-436a-b4ec-c457badda315/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "29364f5e-9387-4628-9cd7-6b45d1e19f7c",
+                "name": "Project AA",
+                "referenceId": "project-aa",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.653+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/29364f5e-9387-4628-9cd7-6b45d1e19f7c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/29364f5e-9387-4628-9cd7-6b45d1e19f7c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/29364f5e-9387-4628-9cd7-6b45d1e19f7c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/29364f5e-9387-4628-9cd7-6b45d1e19f7c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "e030ec12-c4f8-4505-964a-427b92444879",
+                "name": "project3",
+                "referenceId": "project3-id",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.864+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/e030ec12-c4f8-4505-964a-427b92444879"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e030ec12-c4f8-4505-964a-427b92444879/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e030ec12-c4f8-4505-964a-427b92444879/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/e030ec12-c4f8-4505-964a-427b92444879/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "497cc5d1-9a88-4305-9ff0-b3cdd2876a76",
+                "name": "Pedro 3",
+                "referenceId": "pedro-3",
+                "description": "",
+                "tags": "",
+                "workflowState": {
+                  "uuid": "7473c86b-2362-4221-9048-1b0f5789d049",
+                  "name": "ws2",
+                  "isLockThreatModel": false,
+                  "referenceId": "ws2"
+                },
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:10.867+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/497cc5d1-9a88-4305-9ff0-b3cdd2876a76"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/497cc5d1-9a88-4305-9ff0-b3cdd2876a76/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/497cc5d1-9a88-4305-9ff0-b3cdd2876a76/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/497cc5d1-9a88-4305-9ff0-b3cdd2876a76/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&page=0&size=20&sort=modelUpdated,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&page=0&size=20&sort=modelUpdated,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&page=1&size=20&sort=modelUpdated,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&page=21&size=20&sort=modelUpdated,asc"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 439,
+            "totalPages": 22,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:48:48.744080"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {},
+        "request_body": null,
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                "name": "testing-caa",
+                "referenceId": "testing-caa",
+                "description": "",
+                "tags": "",
+                "workflowState": null,
+                "isThreatModelLocked": false,
+                "isArchived": false,
+                "modelUpdated": "2025-07-31T10:18:09.928+0000",
+                "state": "draft",
+                "operation": "none",
+                "version": null,
+                "isBlueprint": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                  },
+                  "artifact": [
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/artifacts/current?size=ORIGINAL",
+                      "name": "original"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/artifacts/current?size=PREVIEW",
+                      "name": "preview"
+                    },
+                    {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/artifacts/current?size=THUMBNAIL",
+                      "name": "thumbnail"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&filter=%27referenceId%27%3D%27testing-caa%27&page=0&size=1&sort=modelUpdated,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:48:57.577473"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {},
+        "request_body": null,
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&filter=%27referenceId%27%3D%27mock-test-82bn%27&page=0&size=1&sort=modelUpdated,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:51:37.571096"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects",
+        "method": "GET",
+        "endpoint_pattern": "/projects",
+        "query_params": {},
+        "request_body": null,
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects?includeVersions=false&filter=%27referenceId%27%3D%27mock-test-82bn%27&page=0&size=1&sort=modelUpdated,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:51:37.571096"
+      }
+    ]
+  },
+  "total_responses": 7
+}

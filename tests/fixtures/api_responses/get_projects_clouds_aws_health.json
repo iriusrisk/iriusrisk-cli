@@ -1,0 +1,21 @@
+{
+  "endpoint": "/projects/clouds/aws/health",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/clouds/aws/health",
+        "method": "GET",
+        "endpoint_pattern": "/projects/clouds/aws/health",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "status": "DOWN"
+        },
+        "timestamp": "2025-09-28T07:57:09.280Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

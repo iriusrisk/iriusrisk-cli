@@ -1,0 +1,190 @@
+{
+  "endpoint": "/projects/countermeasures/tests/{id}/history",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "expiryPeriod",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "testResult",
+                    "value": "NOTTESTED"
+                  },
+                  {
+                    "fieldName": "testSource",
+                    "value": "Manual"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:20.203Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "expiryPeriod",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "testResult",
+                    "value": "NOTTESTED"
+                  },
+                  {
+                    "fieldName": "testSource",
+                    "value": "Manual"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:39.830Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "expiryPeriod",
+                    "value": "0"
+                  },
+                  {
+                    "fieldName": "steps",
+                    "value": "<ol><li>Review the HTTP Server responses to determine if a&nbsp;<i>Content-Security-Policy&nbsp;</i>header is returned, and if so, that it follows the security practice of least-privilege.</li><li>Using a browser:</li><li>Open the Web Developer Console.<ul><li>Make requests to the different component end-points.</li><li>Verify the header is always returned as part of these responses</li></ul></li><li>Using an intercepting proxy (e.g. OWASP Zap, BurpSuite):<ul><li>Browse the site through the proxy.</li><li>Review server responses and/or use automated scanning to analyze headers.</li></ul></li></ol><p>For more information on <i>Content-Security-Policy</i> policy setup, see:&nbsp;</p><p><a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP\">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a></p>"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "testResult",
+                    "value": "NOTTESTED"
+                  },
+                  {
+                    "fieldName": "testSource",
+                    "value": "Manual"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:41:02.811Z"
+      }
+    ]
+  },
+  "total_responses": 3
+}

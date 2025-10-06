@@ -1,0 +1,29 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/settings",
+  "method": "PUT",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings",
+        "method": "PUT",
+        "endpoint_pattern": "/projects/countermeasures/{id}/settings",
+        "query_params": {},
+        "request_body": "{\"issueTrackerProfile\":{\"id\":\"84be6a90-9592-4b4c-ad9f-533a5b2eda1b\"}}",
+        "status": 200,
+        "response_data": {
+          "issueTrackerProfile": {
+            "id": "84be6a90-9592-4b4c-ad9f-533a5b2eda1b",
+            "type": "jira",
+            "name": "Fraser",
+            "assignmentType": {
+              "type": "own",
+              "inheritedFrom": null
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:28.549Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

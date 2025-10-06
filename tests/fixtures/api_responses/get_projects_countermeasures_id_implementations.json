@@ -1,0 +1,134 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/implementations",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/implementations",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.773Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/implementations",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:31.375Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/implementations",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.270Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/implementations",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.265Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/implementations",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/implementations",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/implementations?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.528Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

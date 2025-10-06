@@ -1,0 +1,263 @@
+{
+  "endpoint": "/custom-views",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-views?sort=readOnly,DESC&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/custom-views",
+        "query_params": {
+          "sort": [
+            "readOnly,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "237a95f4-9cd3-2e9f-2472-734112d1b27e",
+                "name": "All countermeasures",
+                "description": "List all countermeasures present in the model",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/237a95f4-9cd3-2e9f-2472-734112d1b27e"
+                  }
+                }
+              },
+              {
+                "id": "dc8f2cb1-1edf-4f3e-c090-b8e1f88ae90b",
+                "name": "High priority countermeasures",
+                "description": "List all existing countermeasures with critical or high priority",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/dc8f2cb1-1edf-4f3e-c090-b8e1f88ae90b"
+                  }
+                }
+              },
+              {
+                "id": "4ba5a770-5486-500e-eeef-08e93f1e879e",
+                "name": "High priority required countermeasures",
+                "description": "List of required countermeasures with High or Very high priority",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/4ba5a770-5486-500e-eeef-08e93f1e879e"
+                  }
+                }
+              },
+              {
+                "id": "c8efcc09-c3d1-48e5-a33f-ef3d4e81592f",
+                "name": "luciarequired445",
+                "description": "",
+                "defaultView": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/c8efcc09-c3d1-48e5-a33f-ef3d4e81592f"
+                  }
+                }
+              },
+              {
+                "id": "e9f242f6-5d1b-03e9-b7e6-e879abf296a7",
+                "name": "Not verified countermeasures",
+                "description": "List the countermeasures implemented without being verified by test results",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/e9f242f6-5d1b-03e9-b7e6-e879abf296a7"
+                  }
+                }
+              },
+              {
+                "id": "c0a6e3b4-efdd-4eb8-8dc9-eb005beb0c84",
+                "name": "reqerq",
+                "description": "wqerwqer",
+                "defaultView": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/c0a6e3b4-efdd-4eb8-8dc9-eb005beb0c84"
+                  }
+                }
+              },
+              {
+                "id": "9b64bf56-1dba-e17d-c013-e288b317a78d",
+                "name": "Test results about to expire",
+                "description": "List the countermeasures with the test results to expire this week",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/9b64bf56-1dba-e17d-c013-e288b317a78d"
+                  }
+                }
+              },
+              {
+                "id": "185a2355-f83e-f226-87f8-e7155881150c",
+                "name": "Test results expired",
+                "description": "List the countermeasures with the test results already expired",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/185a2355-f83e-f226-87f8-e7155881150c"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-views?page=0&size=20&sort=readOnly,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.452Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-views?sort=readOnly,DESC&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/custom-views",
+        "query_params": {
+          "sort": [
+            "readOnly,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "237a95f4-9cd3-2e9f-2472-734112d1b27e",
+                "name": "All countermeasures",
+                "description": "List all countermeasures present in the model",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/237a95f4-9cd3-2e9f-2472-734112d1b27e"
+                  }
+                }
+              },
+              {
+                "id": "dc8f2cb1-1edf-4f3e-c090-b8e1f88ae90b",
+                "name": "High priority countermeasures",
+                "description": "List all existing countermeasures with critical or high priority",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/dc8f2cb1-1edf-4f3e-c090-b8e1f88ae90b"
+                  }
+                }
+              },
+              {
+                "id": "4ba5a770-5486-500e-eeef-08e93f1e879e",
+                "name": "High priority required countermeasures",
+                "description": "List of required countermeasures with High or Very high priority",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/4ba5a770-5486-500e-eeef-08e93f1e879e"
+                  }
+                }
+              },
+              {
+                "id": "c8efcc09-c3d1-48e5-a33f-ef3d4e81592f",
+                "name": "luciarequired445",
+                "description": "",
+                "defaultView": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/c8efcc09-c3d1-48e5-a33f-ef3d4e81592f"
+                  }
+                }
+              },
+              {
+                "id": "e9f242f6-5d1b-03e9-b7e6-e879abf296a7",
+                "name": "Not verified countermeasures",
+                "description": "List the countermeasures implemented without being verified by test results",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/e9f242f6-5d1b-03e9-b7e6-e879abf296a7"
+                  }
+                }
+              },
+              {
+                "id": "c0a6e3b4-efdd-4eb8-8dc9-eb005beb0c84",
+                "name": "reqerq",
+                "description": "wqerwqer",
+                "defaultView": false,
+                "readOnly": false,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/c0a6e3b4-efdd-4eb8-8dc9-eb005beb0c84"
+                  }
+                }
+              },
+              {
+                "id": "9b64bf56-1dba-e17d-c013-e288b317a78d",
+                "name": "Test results about to expire",
+                "description": "List the countermeasures with the test results to expire this week",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/9b64bf56-1dba-e17d-c013-e288b317a78d"
+                  }
+                }
+              },
+              {
+                "id": "185a2355-f83e-f226-87f8-e7155881150c",
+                "name": "Test results expired",
+                "description": "List the countermeasures with the test results already expired",
+                "defaultView": false,
+                "readOnly": true,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-views/185a2355-f83e-f226-87f8-e7155881150c"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-views?page=0&size=20&sort=readOnly,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.509Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

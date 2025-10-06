@@ -1,0 +1,383 @@
+{
+  "endpoint": "/projects/countermeasures/tests/{id}",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "5f95c159-26f4-48f3-a842-692114d5c105",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:18.363Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "5f95c159-26f4-48f3-a842-692114d5c105",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:18.608Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "5f95c159-26f4-48f3-a842-692114d5c105",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:32.100Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "5f95c159-26f4-48f3-a842-692114d5c105",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:32.458Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.962Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:38.262Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:45.590Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:49.179Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "2dd258ee-ab08-4553-a6cf-5044c04ea1ba",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": null,
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:49.442Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "bc0fc295-4678-4077-aa8c-e720a9c3a01f",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": "<ol><li>Review the HTTP Server responses to determine if a&nbsp;<i>Content-Security-Policy&nbsp;</i>header is returned, and if so, that it follows the security practice of least-privilege.</li><li>Using a browser:</li><li>Open the Web Developer Console.<ul><li>Make requests to the different component end-points.</li><li>Verify the header is always returned as part of these responses</li></ul></li><li>Using an intercepting proxy (e.g. OWASP Zap, BurpSuite):<ul><li>Browse the site through the proxy.</li><li>Review server responses and/or use automated scanning to analyze headers.</li></ul></li></ol><p>For more information on <i>Content-Security-Policy</i> policy setup, see:&nbsp;</p><p><a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP\">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a></p>",
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:41:00.275Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "bc0fc295-4678-4077-aa8c-e720a9c3a01f",
+          "testResult": "not-tested",
+          "resultSource": "manual",
+          "expiryDate": null,
+          "steps": "<ol><li>Review the HTTP Server responses to determine if a&nbsp;<i>Content-Security-Policy&nbsp;</i>header is returned, and if so, that it follows the security practice of least-privilege.</li><li>Using a browser:</li><li>Open the Web Developer Console.<ul><li>Make requests to the different component end-points.</li><li>Verify the header is always returned as part of these responses</li></ul></li><li>Using an intercepting proxy (e.g. OWASP Zap, BurpSuite):<ul><li>Browse the site through the proxy.</li><li>Review server responses and/or use automated scanning to analyze headers.</li></ul></li></ol><p>For more information on <i>Content-Security-Policy</i> policy setup, see:&nbsp;</p><p><a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP\">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a></p>",
+          "notes": null,
+          "customFields": null,
+          "countermeasure": {
+            "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+              }
+            }
+          },
+          "_links": {
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f/references"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:41:00.618Z"
+      }
+    ]
+  },
+  "total_responses": 11
+}

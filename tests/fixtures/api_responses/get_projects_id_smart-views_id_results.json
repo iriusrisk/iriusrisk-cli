@@ -1,0 +1,473 @@
+{
+  "endpoint": "/projects/{id}/smart-views/{id}/results",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.702Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.703Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.878Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/486aa5ca-83e3-4766-ad30-4ebba226764e/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.878Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.878Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/262b7b55-3c38-4f8b-a04a-7e58aba2ee15/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.878Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.878Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/31ca7485-87b6-499a-8bf9-7375752fa193/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.878Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.879Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/smart-views/{id}/results",
+        "query_params": {
+          "filter": [
+            "'state'='generated'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/smart-views/4b4341e1-30e8-47d2-95b6-0e30bbf2660f/results?filter=%27state%27=%27generated%27&page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.879Z"
+      }
+    ]
+  },
+  "total_responses": 16
+}

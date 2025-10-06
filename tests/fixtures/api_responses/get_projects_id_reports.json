@@ -1,0 +1,398 @@
+{
+  "endpoint": "/projects/{id}/reports",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T22:57:54.000Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T22:58:06.513Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60"
+                  }
+                },
+                "id": "04e724a3-295f-40ec-8449-fba54f82ef60",
+                "date": "2025-09-27T22:58:16.826Z",
+                "format": "html",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T22:58:17.099Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6"
+                  }
+                },
+                "id": "4548053e-b871-4c3e-b490-64b337833bb6",
+                "date": "2025-09-27T23:20:17.452Z",
+                "format": "pdf",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              },
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60"
+                  }
+                },
+                "id": "04e724a3-295f-40ec-8449-fba54f82ef60",
+                "date": "2025-09-27T22:58:16.826Z",
+                "format": "html",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T23:27:19.624Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6"
+                  }
+                },
+                "id": "4548053e-b871-4c3e-b490-64b337833bb6",
+                "date": "2025-09-27T23:20:17.452Z",
+                "format": "pdf",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              },
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60"
+                  }
+                },
+                "id": "04e724a3-295f-40ec-8449-fba54f82ef60",
+                "date": "2025-09-27T22:58:16.826Z",
+                "format": "html",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T23:27:21.789Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6"
+                  }
+                },
+                "id": "4548053e-b871-4c3e-b490-64b337833bb6",
+                "date": "2025-09-27T23:20:17.452Z",
+                "format": "pdf",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              },
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60"
+                  }
+                },
+                "id": "04e724a3-295f-40ec-8449-fba54f82ef60",
+                "date": "2025-09-27T22:58:16.826Z",
+                "format": "html",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T23:27:31.029Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/reports",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/5c106834-36d4-4dbd-99f2-1b70ef4921d5/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/5c106834-36d4-4dbd-99f2-1b70ef4921d5"
+                  }
+                },
+                "id": "5c106834-36d4-4dbd-99f2-1b70ef4921d5",
+                "date": "2025-09-27T23:27:36.961Z",
+                "format": "html",
+                "name": "Compliance report - owasp-top-10-2021",
+                "watermark": null,
+                "reportType": "compliance-report"
+              },
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/4548053e-b871-4c3e-b490-64b337833bb6"
+                  }
+                },
+                "id": "4548053e-b871-4c3e-b490-64b337833bb6",
+                "date": "2025-09-27T23:20:17.452Z",
+                "format": "pdf",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              },
+              {
+                "_links": {
+                  "download": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60/content"
+                  },
+                  "delete": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60"
+                  }
+                },
+                "id": "04e724a3-295f-40ec-8449-fba54f82ef60",
+                "date": "2025-09-27T22:58:16.826Z",
+                "format": "html",
+                "name": "Technical countermeasure report",
+                "watermark": null,
+                "reportType": "technical-countermeasure-report"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-27T23:27:41.482Z"
+      }
+    ]
+  },
+  "total_responses": 7
+}

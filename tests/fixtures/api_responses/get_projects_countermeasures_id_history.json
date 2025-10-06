@@ -1,0 +1,864 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/history",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "state",
+                    "value": "RECOMMENDED"
+                  },
+                  {
+                    "fieldName": "referenceId",
+                    "value": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001"
+                  },
+                  {
+                    "fieldName": "name",
+                    "value": "Use parameterized queries"
+                  },
+                  {
+                    "fieldName": "description",
+                    "value": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>"
+                  },
+                  {
+                    "fieldName": "cost",
+                    "value": "low"
+                  },
+                  {
+                    "fieldName": "owner",
+                    "value": "fscott"
+                  },
+                  {
+                    "fieldName": "risk",
+                    "value": "78"
+                  },
+                  {
+                    "fieldName": "component",
+                    "value": "User Database"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "threat",
+                    "value": "An attacker can exploit SQL injection vulnerabilities"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "weakness",
+                    "value": "CWE-89"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "ASVS"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "MITRE reference"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline section"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "V14.2.1"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Scope"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "Application Security||Data Security"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "custom field countermeasure 1"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:20.170Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-28T07:57:31.391Z",
+                "operation": "update",
+                "changes": [
+                  {
+                    "fieldName": "issueId",
+                    "value": "AI-1412"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "threat",
+                    "value": "An attacker can exploit SQL injection vulnerabilities"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "weakness",
+                    "value": "CWE-89"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "ASVS"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "MITRE reference"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline section"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "V14.2.1"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Scope"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "Application Security||Data Security"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "state",
+                    "value": "RECOMMENDED"
+                  },
+                  {
+                    "fieldName": "referenceId",
+                    "value": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001"
+                  },
+                  {
+                    "fieldName": "name",
+                    "value": "Use parameterized queries"
+                  },
+                  {
+                    "fieldName": "description",
+                    "value": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>"
+                  },
+                  {
+                    "fieldName": "cost",
+                    "value": "low"
+                  },
+                  {
+                    "fieldName": "owner",
+                    "value": "fscott"
+                  },
+                  {
+                    "fieldName": "risk",
+                    "value": "78"
+                  },
+                  {
+                    "fieldName": "component",
+                    "value": "User Database"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-27T22:53:09.566Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "custom field countermeasure 1"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 9,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:33.787Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "state",
+                    "value": "RECOMMENDED"
+                  },
+                  {
+                    "fieldName": "referenceId",
+                    "value": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES"
+                  },
+                  {
+                    "fieldName": "name",
+                    "value": "Implement proper authorization checks"
+                  },
+                  {
+                    "fieldName": "description",
+                    "value": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>"
+                  },
+                  {
+                    "fieldName": "cost",
+                    "value": "medium"
+                  },
+                  {
+                    "fieldName": "owner",
+                    "value": "fscott"
+                  },
+                  {
+                    "fieldName": "risk",
+                    "value": "57"
+                  },
+                  {
+                    "fieldName": "component",
+                    "value": "API Endpoint"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "threat",
+                    "value": "Attackers perform injection attacks and scripting"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "weakness",
+                    "value": "CWE-639"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "custom field countermeasure 1"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Scope"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "Application Security"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "ASVS"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline section"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "V4.1.2"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "MITRE reference"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:39.805Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:39:45.223Z",
+                "operation": "update",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "custom field countermeasure 1"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:39:43.623Z",
+                "operation": "update",
+                "changes": [
+                  {
+                    "fieldName": "state",
+                    "value": "REQUIRED"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "weakness",
+                    "value": "CWE-639"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "custom field countermeasure 1"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Scope"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "Application Security"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "ASVS"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline section"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": "V4.1.2"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "state",
+                    "value": "RECOMMENDED"
+                  },
+                  {
+                    "fieldName": "referenceId",
+                    "value": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES"
+                  },
+                  {
+                    "fieldName": "name",
+                    "value": "Implement proper authorization checks"
+                  },
+                  {
+                    "fieldName": "description",
+                    "value": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>"
+                  },
+                  {
+                    "fieldName": "cost",
+                    "value": "medium"
+                  },
+                  {
+                    "fieldName": "owner",
+                    "value": "fscott"
+                  },
+                  {
+                    "fieldName": "risk",
+                    "value": "57"
+                  },
+                  {
+                    "fieldName": "component",
+                    "value": "API Endpoint"
+                  },
+                  {
+                    "fieldName": "stateChangeSource",
+                    "value": "MANUAL"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "MITRE reference"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T10:28:56.491Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "threat",
+                    "value": "Attackers perform injection attacks and scripting"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 10,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:51.136Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/history?page=0&size=10",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/history",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "state",
+                    "value": "RECOMMENDED"
+                  },
+                  {
+                    "fieldName": "referenceId",
+                    "value": "WEB-CSP"
+                  },
+                  {
+                    "fieldName": "name",
+                    "value": "Define a restrictive 'least privilege' Content Security Policy"
+                  },
+                  {
+                    "fieldName": "description",
+                    "value": "<p>The Content-Security-Policy instructs compliant browsers on how they may interact with external sites while in the current context. This enables the server to control interactive code and content from third parties, mitigating some client-side code injection attacks. The policy allows the server to specify what connections are permitted for each type of resource.</p><p><br>&nbsp;</p><p>For example, the following policy tells the browser to allow connections (including websockets) to the same domain to which the page was served: *.iriusrisk.com.</p><p><br>&nbsp;</p><p>Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' wss://*.iriusrisk.com; img-src 'self' data:</p><ul><li>Define and set a Content-Security-Policy with least-privileges to allow only those interactions which are explicitly required.</li></ul>"
+                  },
+                  {
+                    "fieldName": "cost",
+                    "value": "medium"
+                  },
+                  {
+                    "fieldName": "owner",
+                    "value": "fscott"
+                  },
+                  {
+                    "fieldName": "risk",
+                    "value": "79"
+                  },
+                  {
+                    "fieldName": "component",
+                    "value": "File System Storage"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "threat",
+                    "value": "An attacker uses multiple transparent or opaque layers to trick a user into clicking on a button or link on another page when they were intending to click on the top level page"
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline section"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Scope"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "Standard baseline"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "MITRE reference"
+                  },
+                  {
+                    "fieldName": "customFieldValue",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "username": "fscott",
+                "date": "2025-09-25T13:56:37.604Z",
+                "operation": "insert",
+                "changes": [
+                  {
+                    "fieldName": "customField",
+                    "value": "custom field countermeasure 1"
+                  }
+                ]
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/history?page=0&size=10"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 7,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:41:02.776Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

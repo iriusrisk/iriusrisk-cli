@@ -1,0 +1,1320 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/standard-references",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/standard-references?size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/standard-references",
+        "query_params": {
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "835acba8-cbc2-4c21-9337-3fc988c2326e",
+                "reference": "1026",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                  "name": "CWE",
+                  "referenceId": "cwe-standard",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/95f7e9e4-8414-4300-abda-ae6361666932"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/835acba8-cbc2-4c21-9337-3fc988c2326e"
+                  }
+                }
+              },
+              {
+                "id": "73051e92-a512-4e8d-85b7-0053bc3644b5",
+                "reference": "715-334",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                  "name": "OpenCRE",
+                  "referenceId": "OpenCRE",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/9a58696f-e43d-4c14-bb2f-c05e1115c943"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/73051e92-a512-4e8d-85b7-0053bc3644b5"
+                  }
+                }
+              },
+              {
+                "id": "ae093bad-ed27-4710-bbdb-232f3e65bffd",
+                "reference": "V14.2.1",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/ae093bad-ed27-4710-bbdb-232f3e65bffd"
+                  }
+                }
+              },
+              {
+                "id": "ffced3a6-b37e-4067-aa59-3f65d369dfcf",
+                "reference": "V14.2.1",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/ffced3a6-b37e-4067-aa59-3f65d369dfcf"
+                  }
+                }
+              },
+              {
+                "id": "db845b4b-9d89-453f-89f7-58b52c322de0",
+                "reference": "V14.2.1",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/db845b4b-9d89-453f-89f7-58b52c322de0"
+                  }
+                }
+              },
+              {
+                "id": "1c92063b-7bab-42a1-ae1d-8f4924dd4458",
+                "reference": "Docker Security Cheat Sheet",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/1c92063b-7bab-42a1-ae1d-8f4924dd4458"
+                  }
+                }
+              },
+              {
+                "id": "cf67ec72-fee3-4d77-a3c8-d701cd975543",
+                "reference": "Vulnerable Dependency Management Cheat Sheet",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/cf67ec72-fee3-4d77-a3c8-d701cd975543"
+                  }
+                }
+              },
+              {
+                "id": "8f0f358a-8829-4832-b483-2a74c52ecc7b",
+                "reference": "C2",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0934ef5d-dd47-4cd1-a6cc-99dba653a35b",
+                  "name": "OWASP Proactive Controls",
+                  "referenceId": "owasp-proactive-controls",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0934ef5d-dd47-4cd1-a6cc-99dba653a35b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/8f0f358a-8829-4832-b483-2a74c52ecc7b"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/standard-references?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.772Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/standard-references?size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/standard-references",
+        "query_params": {
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "835acba8-cbc2-4c21-9337-3fc988c2326e",
+                "reference": "1026",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                  "name": "CWE",
+                  "referenceId": "cwe-standard",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/95f7e9e4-8414-4300-abda-ae6361666932"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/835acba8-cbc2-4c21-9337-3fc988c2326e"
+                  }
+                }
+              },
+              {
+                "id": "73051e92-a512-4e8d-85b7-0053bc3644b5",
+                "reference": "715-334",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                  "name": "OpenCRE",
+                  "referenceId": "OpenCRE",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/9a58696f-e43d-4c14-bb2f-c05e1115c943"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/73051e92-a512-4e8d-85b7-0053bc3644b5"
+                  }
+                }
+              },
+              {
+                "id": "ae093bad-ed27-4710-bbdb-232f3e65bffd",
+                "reference": "V14.2.1",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/ae093bad-ed27-4710-bbdb-232f3e65bffd"
+                  }
+                }
+              },
+              {
+                "id": "ffced3a6-b37e-4067-aa59-3f65d369dfcf",
+                "reference": "V14.2.1",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/ffced3a6-b37e-4067-aa59-3f65d369dfcf"
+                  }
+                }
+              },
+              {
+                "id": "db845b4b-9d89-453f-89f7-58b52c322de0",
+                "reference": "V14.2.1",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/db845b4b-9d89-453f-89f7-58b52c322de0"
+                  }
+                }
+              },
+              {
+                "id": "1c92063b-7bab-42a1-ae1d-8f4924dd4458",
+                "reference": "Docker Security Cheat Sheet",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/1c92063b-7bab-42a1-ae1d-8f4924dd4458"
+                  }
+                }
+              },
+              {
+                "id": "cf67ec72-fee3-4d77-a3c8-d701cd975543",
+                "reference": "Vulnerable Dependency Management Cheat Sheet",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/cf67ec72-fee3-4d77-a3c8-d701cd975543"
+                  }
+                }
+              },
+              {
+                "id": "8f0f358a-8829-4832-b483-2a74c52ecc7b",
+                "reference": "C2",
+                "countermeasure": {
+                  "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0934ef5d-dd47-4cd1-a6cc-99dba653a35b",
+                  "name": "OWASP Proactive Controls",
+                  "referenceId": "owasp-proactive-controls",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0934ef5d-dd47-4cd1-a6cc-99dba653a35b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/8f0f358a-8829-4832-b483-2a74c52ecc7b"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/standard-references?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:31.375Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/standard-references?size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/standard-references",
+        "query_params": {
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "9b788078-26bf-4ea3-81dc-ab81503b9f74",
+                "reference": "639",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                  "name": "CWE",
+                  "referenceId": "cwe-standard",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/95f7e9e4-8414-4300-abda-ae6361666932"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/9b788078-26bf-4ea3-81dc-ab81503b9f74"
+                  }
+                }
+              },
+              {
+                "id": "49f430e4-c78a-443d-b895-048ed648cda8",
+                "reference": "524-603",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                  "name": "OpenCRE",
+                  "referenceId": "OpenCRE",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/9a58696f-e43d-4c14-bb2f-c05e1115c943"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/49f430e4-c78a-443d-b895-048ed648cda8"
+                  }
+                }
+              },
+              {
+                "id": "f7f86046-b13f-4e8c-bdb4-82bd81b369b4",
+                "reference": "V4.1.2",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/f7f86046-b13f-4e8c-bdb4-82bd81b369b4"
+                  }
+                }
+              },
+              {
+                "id": "7afc1986-915b-4583-b3d1-c6a4f4bd4127",
+                "reference": "V4.1.2",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/7afc1986-915b-4583-b3d1-c6a4f4bd4127"
+                  }
+                }
+              },
+              {
+                "id": "652703fb-6d64-4a95-af9d-3057ed0c7b98",
+                "reference": "V4.1.2",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/652703fb-6d64-4a95-af9d-3057ed0c7b98"
+                  }
+                }
+              },
+              {
+                "id": "09f7166d-b2c2-42f3-a264-12a9baffb756",
+                "reference": "Access Control Cheat Sheet",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/09f7166d-b2c2-42f3-a264-12a9baffb756"
+                  }
+                }
+              },
+              {
+                "id": "ef6d6bc7-f026-4b76-8f69-26bb4ed931bb",
+                "reference": "Authorization Testing Automation Cheat Sheet",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/ef6d6bc7-f026-4b76-8f69-26bb4ed931bb"
+                  }
+                }
+              },
+              {
+                "id": "a208ec50-50c0-40f5-a8c2-039900f9719b",
+                "reference": "WSTG-ATHZ-02",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7",
+                  "name": "OWASP Web Security Testing Guide (WSTG)",
+                  "referenceId": "owasp-wstg",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/a208ec50-50c0-40f5-a8c2-039900f9719b"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/standard-references?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.269Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/standard-references?size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/standard-references",
+        "query_params": {
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "9b788078-26bf-4ea3-81dc-ab81503b9f74",
+                "reference": "639",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                  "name": "CWE",
+                  "referenceId": "cwe-standard",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/95f7e9e4-8414-4300-abda-ae6361666932"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/9b788078-26bf-4ea3-81dc-ab81503b9f74"
+                  }
+                }
+              },
+              {
+                "id": "49f430e4-c78a-443d-b895-048ed648cda8",
+                "reference": "524-603",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                  "name": "OpenCRE",
+                  "referenceId": "OpenCRE",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/9a58696f-e43d-4c14-bb2f-c05e1115c943"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/49f430e4-c78a-443d-b895-048ed648cda8"
+                  }
+                }
+              },
+              {
+                "id": "f7f86046-b13f-4e8c-bdb4-82bd81b369b4",
+                "reference": "V4.1.2",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/f7f86046-b13f-4e8c-bdb4-82bd81b369b4"
+                  }
+                }
+              },
+              {
+                "id": "7afc1986-915b-4583-b3d1-c6a4f4bd4127",
+                "reference": "V4.1.2",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/7afc1986-915b-4583-b3d1-c6a4f4bd4127"
+                  }
+                }
+              },
+              {
+                "id": "652703fb-6d64-4a95-af9d-3057ed0c7b98",
+                "reference": "V4.1.2",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/652703fb-6d64-4a95-af9d-3057ed0c7b98"
+                  }
+                }
+              },
+              {
+                "id": "09f7166d-b2c2-42f3-a264-12a9baffb756",
+                "reference": "Access Control Cheat Sheet",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/09f7166d-b2c2-42f3-a264-12a9baffb756"
+                  }
+                }
+              },
+              {
+                "id": "ef6d6bc7-f026-4b76-8f69-26bb4ed931bb",
+                "reference": "Authorization Testing Automation Cheat Sheet",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                  "name": "OWASP Cheat Sheets",
+                  "referenceId": "owasp-cheat-sheets",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b2a9c32e-f890-4db7-8baa-30ef76e6d0c1"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/ef6d6bc7-f026-4b76-8f69-26bb4ed931bb"
+                  }
+                }
+              },
+              {
+                "id": "a208ec50-50c0-40f5-a8c2-039900f9719b",
+                "reference": "WSTG-ATHZ-02",
+                "countermeasure": {
+                  "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7",
+                  "name": "OWASP Web Security Testing Guide (WSTG)",
+                  "referenceId": "owasp-wstg",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/a208ec50-50c0-40f5-a8c2-039900f9719b"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/standard-references?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 8,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.265Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/standard-references?size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/standard-references",
+        "query_params": {
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8f9533a3-21ea-4992-ac7c-14a7d57e7cb2",
+                "reference": "8.8",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "e1f8fbb3-b36c-32c6-9ef1-2ec237cfa7f8",
+                  "name": "ISO/IEC 27002:2022",
+                  "referenceId": "iso-27002-2022",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/e1f8fbb3-b36c-32c6-9ef1-2ec237cfa7f8"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/8f9533a3-21ea-4992-ac7c-14a7d57e7cb2"
+                  }
+                }
+              },
+              {
+                "id": "53e8034b-ea2f-4d03-a132-316e0841c927",
+                "reference": "12.6.1",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "b9265a6b-8b22-3a16-9326-1787ee48152a",
+                  "name": "ISO/IEC 27002:2013",
+                  "referenceId": "ISO/IEC 27002:2013",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/b9265a6b-8b22-3a16-9326-1787ee48152a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/53e8034b-ea2f-4d03-a132-316e0841c927"
+                  }
+                }
+              },
+              {
+                "id": "94c06565-a5b7-4544-a433-a0f087b94a44",
+                "reference": "14.4.3",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/94c06565-a5b7-4544-a433-a0f087b94a44"
+                  }
+                }
+              },
+              {
+                "id": "793e9863-f09a-4e18-bd4b-b1cd1f7f0822",
+                "reference": "14.4.7",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/793e9863-f09a-4e18-bd4b-b1cd1f7f0822"
+                  }
+                }
+              },
+              {
+                "id": "bbffd7c4-84b4-486e-a9b4-4b98938df097",
+                "reference": "5.3.6",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                  "name": "OWASP-ASVS4-Level-1",
+                  "referenceId": "owasp-asvs4-level-1",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/433def0d-8b68-383a-8e99-7c0e0375d332"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/bbffd7c4-84b4-486e-a9b4-4b98938df097"
+                  }
+                }
+              },
+              {
+                "id": "d1e29bfa-241c-46ef-84ee-41e59780dabb",
+                "reference": "14.4.3",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/d1e29bfa-241c-46ef-84ee-41e59780dabb"
+                  }
+                }
+              },
+              {
+                "id": "aeada9bc-ce41-4712-9dc8-e90d5e50d867",
+                "reference": "14.4.7",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/aeada9bc-ce41-4712-9dc8-e90d5e50d867"
+                  }
+                }
+              },
+              {
+                "id": "b2aad754-99d1-46e5-8b2c-62e0d5638a22",
+                "reference": "5.3.6",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                  "name": "OWASP-ASVS4-Level-2",
+                  "referenceId": "owasp-asvs4-level-2",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/96807ad4-fa78-3229-86f1-f7849da314ea"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/b2aad754-99d1-46e5-8b2c-62e0d5638a22"
+                  }
+                }
+              },
+              {
+                "id": "69d4c4b8-a7cf-48f6-b4e1-631b9320f4db",
+                "reference": "14.4.3",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/69d4c4b8-a7cf-48f6-b4e1-631b9320f4db"
+                  }
+                }
+              },
+              {
+                "id": "c6c8de67-26d9-481d-849e-c2fa34e2a69f",
+                "reference": "14.4.7",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/c6c8de67-26d9-481d-849e-c2fa34e2a69f"
+                  }
+                }
+              },
+              {
+                "id": "76a360fc-9a2c-4097-9672-7ab53b51d76f",
+                "reference": "5.3.6",
+                "countermeasure": {
+                  "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+                    }
+                  }
+                },
+                "standard": {
+                  "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                  "name": "OWASP-ASVS4-Level-3",
+                  "referenceId": "owasp-asvs4-level-3",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/standards/0d92193a-d555-30c8-9cca-8e1e694a764e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/standard-references/76a360fc-9a2c-4097-9672-7ab53b51d76f"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/standard-references?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 11,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.527Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

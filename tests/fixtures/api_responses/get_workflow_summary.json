@@ -1,0 +1,291 @@
+{
+  "endpoint": "/workflow/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=1",
+        "method": "GET",
+        "endpoint_pattern": "/workflow/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                "name": "ws3",
+                "referenceId": "ws3",
+                "description": null
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=1"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=1"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=1&size=1"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=9&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 10,
+            "totalPages": 10,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.562Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=100",
+        "method": "GET",
+        "endpoint_pattern": "/workflow/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                "name": "ws3",
+                "referenceId": "ws3",
+                "description": null
+              },
+              {
+                "id": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                "name": "lucia-test-permissions",
+                "referenceId": "lucia-test-permissions",
+                "description": null
+              },
+              {
+                "id": "6b4cc99e-f452-4787-874f-d240e0412b0a",
+                "name": "New WF state Raul",
+                "referenceId": "New WF state Raul",
+                "description": null
+              },
+              {
+                "id": "5322b283-8fd7-4076-9449-a79702d43f86",
+                "name": "test",
+                "referenceId": "test",
+                "description": null
+              },
+              {
+                "id": "935c7cbf-feb5-489e-8d02-d26145cfd7df",
+                "name": "wfnodelete",
+                "referenceId": "wfnodelete",
+                "description": null
+              },
+              {
+                "id": "e09e7654-2b69-49be-878f-efee27f3a706",
+                "name": "ws4",
+                "referenceId": "ws4",
+                "description": null
+              },
+              {
+                "id": "48dcebfd-7e7b-4ebc-95f5-0c7be63045c9",
+                "name": "javi-state-final",
+                "referenceId": "javi-state-final",
+                "description": null
+              },
+              {
+                "id": "b90faf93-13ee-4a33-a676-48f4eb8b28ee",
+                "name": "some-reports-disabled",
+                "referenceId": "some-reports-disabled",
+                "description": null
+              },
+              {
+                "id": "7473c86b-2362-4221-9048-1b0f5789d049",
+                "name": "ws2",
+                "referenceId": "ws2",
+                "description": null
+              },
+              {
+                "id": "3ed14a65-4d35-4879-9042-7cd392f67594",
+                "name": "colles noreports",
+                "referenceId": "colles noreports",
+                "description": null
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=100"
+            }
+          },
+          "page": {
+            "size": 100,
+            "totalElements": 10,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.562Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=1",
+        "method": "GET",
+        "endpoint_pattern": "/workflow/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                "name": "ws3",
+                "referenceId": "ws3",
+                "description": null
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=1"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=1"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=1&size=1"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=9&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 10,
+            "totalPages": 10,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.506Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=100",
+        "method": "GET",
+        "endpoint_pattern": "/workflow/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+                "name": "ws3",
+                "referenceId": "ws3",
+                "description": null
+              },
+              {
+                "id": "ebbcef0a-76d7-4120-9d0e-3cb4301b7959",
+                "name": "lucia-test-permissions",
+                "referenceId": "lucia-test-permissions",
+                "description": null
+              },
+              {
+                "id": "6b4cc99e-f452-4787-874f-d240e0412b0a",
+                "name": "New WF state Raul",
+                "referenceId": "New WF state Raul",
+                "description": null
+              },
+              {
+                "id": "5322b283-8fd7-4076-9449-a79702d43f86",
+                "name": "test",
+                "referenceId": "test",
+                "description": null
+              },
+              {
+                "id": "935c7cbf-feb5-489e-8d02-d26145cfd7df",
+                "name": "wfnodelete",
+                "referenceId": "wfnodelete",
+                "description": null
+              },
+              {
+                "id": "e09e7654-2b69-49be-878f-efee27f3a706",
+                "name": "ws4",
+                "referenceId": "ws4",
+                "description": null
+              },
+              {
+                "id": "48dcebfd-7e7b-4ebc-95f5-0c7be63045c9",
+                "name": "javi-state-final",
+                "referenceId": "javi-state-final",
+                "description": null
+              },
+              {
+                "id": "b90faf93-13ee-4a33-a676-48f4eb8b28ee",
+                "name": "some-reports-disabled",
+                "referenceId": "some-reports-disabled",
+                "description": null
+              },
+              {
+                "id": "7473c86b-2362-4221-9048-1b0f5789d049",
+                "name": "ws2",
+                "referenceId": "ws2",
+                "description": null
+              },
+              {
+                "id": "3ed14a65-4d35-4879-9042-7cd392f67594",
+                "name": "colles noreports",
+                "referenceId": "colles noreports",
+                "description": null
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/workflow/summary?page=0&size=100"
+            }
+          },
+          "page": {
+            "size": 100,
+            "totalElements": 10,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.507Z"
+      }
+    ]
+  },
+  "total_responses": 4
+}

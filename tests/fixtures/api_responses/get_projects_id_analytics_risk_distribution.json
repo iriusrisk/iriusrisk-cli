@@ -1,0 +1,55 @@
+{
+  "endpoint": "/projects/{id}/analytics/risk/distribution",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/analytics/risk/distribution",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/analytics/risk/distribution",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "level": "medium",
+                "number": 25
+              },
+              {
+                "level": "high",
+                "number": 61
+              },
+              {
+                "level": "critical",
+                "number": 12
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.561Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/analytics/risk/distribution",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/analytics/risk/distribution",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "level": "high",
+                "number": 8
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.504Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

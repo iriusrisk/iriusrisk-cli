@@ -1,0 +1,29 @@
+{
+  "endpoint": "/issue-tracker-profiles/settings",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/settings",
+        "method": "GET",
+        "endpoint_pattern": "/issue-tracker-profiles/settings",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "synchronizationInterval": 5,
+          "createIssuesWhenWeaknessTestFail": true,
+          "closeIssueWhenWeaknessTestPass": true,
+          "defaultProfile": "46196425-df36-4d67-9ef9-4b4617bdd8f1",
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/issue-tracker-profiles/settings"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:56:58.425Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

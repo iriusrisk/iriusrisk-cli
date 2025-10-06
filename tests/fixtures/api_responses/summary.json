@@ -1,0 +1,626 @@
+{
+  "endpoints": {
+    "GET_/standards/summary/": {
+      "pattern": "/standards/summary/",
+      "method": "GET",
+      "file": "get_standards_summary.json",
+      "response_count": 3,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/{id}/countermeasures/query": {
+      "pattern": "/projects/{id}/countermeasures/query",
+      "method": "POST",
+      "file": "post_projects_id_countermeasures_query.json",
+      "response_count": 123,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/{id}/threats/query": {
+      "pattern": "/projects/{id}/threats/query",
+      "method": "POST",
+      "file": "post_projects_id_threats_query.json",
+      "response_count": 12,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/user-profile": {
+      "pattern": "/user-profile",
+      "method": "GET",
+      "file": "get_user-profile.json",
+      "response_count": 7,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/{id}/use-cases/query": {
+      "pattern": "/projects/{id}/use-cases/query",
+      "method": "POST",
+      "file": "post_projects_id_use-cases_query.json",
+      "response_count": 18,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/user-profile/projects/{id}/permissions/": {
+      "pattern": "/user-profile/projects/{id}/permissions/",
+      "method": "GET",
+      "file": "get_user-profile_projects_id_permissions.json",
+      "response_count": 6,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}": {
+      "pattern": "/projects/{id}",
+      "method": "GET",
+      "file": "get_projects_id.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/tests/{id}": {
+      "pattern": "/projects/countermeasures/tests/{id}",
+      "method": "GET",
+      "file": "get_projects_countermeasures_tests_id.json",
+      "response_count": 11,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/assets/summary": {
+      "pattern": "/assets/summary",
+      "method": "GET",
+      "file": "get_assets_summary.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/metadata": {
+      "pattern": "/metadata",
+      "method": "GET",
+      "file": "get_metadata.json",
+      "response_count": 6,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/threats": {
+      "pattern": "/projects/countermeasures/{id}/threats",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_threats.json",
+      "response_count": 4,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "PUT_/projects/countermeasures/{id}": {
+      "pattern": "/projects/countermeasures/{id}",
+      "method": "PUT",
+      "file": "put_projects_countermeasures_id.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "PUT_/projects/threats/{id}/state": {
+      "pattern": "/projects/threats/{id}/state",
+      "method": "PUT",
+      "file": "put_projects_threats_id_state.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/threats/{id}/countermeasures": {
+      "pattern": "/projects/threats/{id}/countermeasures",
+      "method": "GET",
+      "file": "get_projects_threats_id_countermeasures.json",
+      "response_count": 3,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/user-profile/avatar": {
+      "pattern": "/user-profile/avatar",
+      "method": "GET",
+      "file": "get_user-profile_avatar.json",
+      "response_count": 7,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}": {
+      "pattern": "/projects/countermeasures/{id}",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id.json",
+      "response_count": 20,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/libraries/summary": {
+      "pattern": "/libraries/summary",
+      "method": "GET",
+      "file": "get_libraries_summary.json",
+      "response_count": 4,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/info": {
+      "pattern": "/info",
+      "method": "GET",
+      "file": "get_info.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/templates/summary": {
+      "pattern": "/templates/summary",
+      "method": "GET",
+      "file": "get_templates_summary.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/workflow/summary": {
+      "pattern": "/workflow/summary",
+      "method": "GET",
+      "file": "get_workflow_summary.json",
+      "response_count": 4,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/custom-fields/groups/": {
+      "pattern": "/custom-fields/groups/",
+      "method": "GET",
+      "file": "get_custom-fields_groups.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/references": {
+      "pattern": "/projects/countermeasures/{id}/references",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_references.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/products/otm/badger-app-jk6p": {
+      "pattern": "/products/otm/badger-app-jk6p",
+      "method": "GET",
+      "file": "get_products_otm_badger-app-jk6p.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/clouds/aws/health": {
+      "pattern": "/projects/clouds/aws/health",
+      "method": "GET",
+      "file": "get_projects_clouds_aws_health.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/tests/{id}/history": {
+      "pattern": "/projects/countermeasures/tests/{id}/history",
+      "method": "GET",
+      "file": "get_projects_countermeasures_tests_id_history.json",
+      "response_count": 3,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/settings": {
+      "pattern": "/projects/countermeasures/{id}/settings",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_settings.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/templates/{id}/artifacts/current": {
+      "pattern": "/templates/{id}/artifacts/current",
+      "method": "GET",
+      "file": "get_templates_id_artifacts_current.json",
+      "response_count": 50,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/countermeasures/owners": {
+      "pattern": "/projects/{id}/countermeasures/owners",
+      "method": "GET",
+      "file": "get_projects_id_countermeasures_owners.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/reports/types": {
+      "pattern": "/projects/{id}/reports/types",
+      "method": "GET",
+      "file": "get_projects_id_reports_types.json",
+      "response_count": 8,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/threats/owners": {
+      "pattern": "/projects/{id}/threats/owners",
+      "method": "GET",
+      "file": "get_projects_id_threats_owners.json",
+      "response_count": 4,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/smart-views/summary": {
+      "pattern": "/smart-views/summary",
+      "method": "GET",
+      "file": "get_smart-views_summary.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/comments": {
+      "pattern": "/projects/countermeasures/{id}/comments",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_comments.json",
+      "response_count": 10,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/standard-references": {
+      "pattern": "/projects/countermeasures/{id}/standard-references",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_standard-references.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/reports/{id}/content": {
+      "pattern": "/projects/reports/{id}/content",
+      "method": "GET",
+      "file": "get_projects_reports_id_content.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/async-operations/{id}": {
+      "pattern": "/async-operations/{id}",
+      "method": "GET",
+      "file": "get_async-operations_id.json",
+      "response_count": 6,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/custom-views": {
+      "pattern": "/custom-views",
+      "method": "GET",
+      "file": "get_custom-views.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/diagram/metadata/categories": {
+      "pattern": "/projects/{id}/diagram/metadata/categories",
+      "method": "GET",
+      "file": "get_projects_id_diagram_metadata_categories.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/products/otm": {
+      "pattern": "/products/otm",
+      "method": "POST",
+      "file": "post_products_otm.json",
+      "response_count": 1,
+      "status_codes": [
+        "400"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/implementations": {
+      "pattern": "/projects/countermeasures/{id}/implementations",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_implementations.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/countermeasures/{id}/create-issue": {
+      "pattern": "/projects/countermeasures/{id}/create-issue",
+      "method": "POST",
+      "file": "post_projects_countermeasures_id_create-issue.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "PUT_/projects/countermeasures/tests/{id}": {
+      "pattern": "/projects/countermeasures/tests/{id}",
+      "method": "PUT",
+      "file": "put_projects_countermeasures_tests_id.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/diagram/metadata/trust-zones": {
+      "pattern": "/projects/{id}/diagram/metadata/trust-zones",
+      "method": "GET",
+      "file": "get_projects_id_diagram_metadata_trust-zones.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/reports": {
+      "pattern": "/projects/{id}/reports",
+      "method": "GET",
+      "file": "get_projects_id_reports.json",
+      "response_count": 7,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/features/settings": {
+      "pattern": "/features/settings",
+      "method": "GET",
+      "file": "get_features_settings.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/issue-tracker-profiles": {
+      "pattern": "/issue-tracker-profiles",
+      "method": "GET",
+      "file": "get_issue-tracker-profiles.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/summary": {
+      "pattern": "/projects/{id}/summary",
+      "method": "GET",
+      "file": "get_projects_id_summary.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/threats/{id}/history": {
+      "pattern": "/projects/threats/{id}/history",
+      "method": "GET",
+      "file": "get_projects_threats_id_history.json",
+      "response_count": 3,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/user-profile/permissions": {
+      "pattern": "/user-profile/permissions",
+      "method": "GET",
+      "file": "get_user-profile_permissions.json",
+      "response_count": 8,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/diagram": {
+      "pattern": "/projects/{id}/diagram",
+      "method": "GET",
+      "file": "get_projects_id_diagram.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "PUT_/projects/countermeasures/{id}/state": {
+      "pattern": "/projects/countermeasures/{id}/state",
+      "method": "PUT",
+      "file": "put_projects_countermeasures_id_state.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/analytics/risk/distribution": {
+      "pattern": "/projects/{id}/analytics/risk/distribution",
+      "method": "GET",
+      "file": "get_projects_id_analytics_risk_distribution.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/diagram/content": {
+      "pattern": "/projects/{id}/diagram/content",
+      "method": "GET",
+      "file": "get_projects_id_diagram_content.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/threats/{id}": {
+      "pattern": "/projects/threats/{id}",
+      "method": "GET",
+      "file": "get_projects_threats_id.json",
+      "response_count": 9,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/issue-tracker-profiles/settings": {
+      "pattern": "/issue-tracker-profiles/settings",
+      "method": "GET",
+      "file": "get_issue-tracker-profiles_settings.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/issue-trackers/summary": {
+      "pattern": "/projects/{id}/issue-trackers/summary",
+      "method": "GET",
+      "file": "get_projects_id_issue-trackers_summary.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/{id}/components/query": {
+      "pattern": "/projects/{id}/components/query",
+      "method": "POST",
+      "file": "post_projects_id_components_query.json",
+      "response_count": 10,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/custom-fields": {
+      "pattern": "/custom-fields",
+      "method": "GET",
+      "file": "get_custom-fields.json",
+      "response_count": 52,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/{id}/history": {
+      "pattern": "/projects/countermeasures/{id}/history",
+      "method": "GET",
+      "file": "get_projects_countermeasures_id_history.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/{id}/reports/generate": {
+      "pattern": "/projects/{id}/reports/generate",
+      "method": "POST",
+      "file": "post_projects_id_reports_generate.json",
+      "response_count": 2,
+      "status_codes": [
+        "202"
+      ]
+    },
+    "GET_/ui/settings/small-logo": {
+      "pattern": "/ui/settings/small-logo",
+      "method": "GET",
+      "file": "get_ui_settings_small-logo.json",
+      "response_count": 2,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/alerts": {
+      "pattern": "/projects/{id}/alerts",
+      "method": "GET",
+      "file": "get_projects_id_alerts.json",
+      "response_count": 6,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/countermeasures/tests/{id}/references": {
+      "pattern": "/projects/countermeasures/tests/{id}/references",
+      "method": "GET",
+      "file": "get_projects_countermeasures_tests_id_references.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "PUT_/projects/countermeasures/{id}/settings": {
+      "pattern": "/projects/countermeasures/{id}/settings",
+      "method": "PUT",
+      "file": "put_projects_countermeasures_id_settings.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "POST_/projects/{id}/weaknesses/query": {
+      "pattern": "/projects/{id}/weaknesses/query",
+      "method": "POST",
+      "file": "post_projects_id_weaknesses_query.json",
+      "response_count": 8,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/standards": {
+      "pattern": "/projects/{id}/standards",
+      "method": "GET",
+      "file": "get_projects_id_standards.json",
+      "response_count": 9,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/issue-tracker-profiles/summary": {
+      "pattern": "/issue-tracker-profiles/summary",
+      "method": "GET",
+      "file": "get_issue-tracker-profiles_summary.json",
+      "response_count": 1,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/{id}/smart-views/{id}/results": {
+      "pattern": "/projects/{id}/smart-views/{id}/results",
+      "method": "GET",
+      "file": "get_projects_id_smart-views_id_results.json",
+      "response_count": 16,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects/threats/{id}/comments": {
+      "pattern": "/projects/threats/{id}/comments",
+      "method": "GET",
+      "file": "get_projects_threats_id_comments.json",
+      "response_count": 5,
+      "status_codes": [
+        "200"
+      ]
+    },
+    "GET_/projects": {
+      "pattern": "/projects",
+      "method": "GET",
+      "file": "get_projects.json",
+      "response_count": 7,
+      "status_codes": [
+        "200"
+      ]
+    }
+  },
+  "total_responses": 528
+}

@@ -1,0 +1,4605 @@
+{
+  "endpoint": "/libraries/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/libraries/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62fe034a-94e4-49a9-aedf-bab5efd24f64",
+                "name": "Machine learning artificial intelligence - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/62fe034a-94e4-49a9-aedf-bab5efd24f64"
+                  }
+                }
+              },
+              {
+                "id": "5c0d4a51-47db-4b45-8dc7-4152a1b62778",
+                "name": "Network components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5c0d4a51-47db-4b45-8dc7-4152a1b62778"
+                  }
+                }
+              },
+              {
+                "id": "6e650620-238a-4bfc-a052-89eeaa7fb5f1",
+                "name": "Oracle cloud infrastructure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6e650620-238a-4bfc-a052-89eeaa7fb5f1"
+                  }
+                }
+              },
+              {
+                "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                "name": "Service side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/78edd477-0777-4556-91af-c93ca599cd50"
+                  }
+                }
+              },
+              {
+                "id": "12c93b24-cb52-4b72-bd9b-85ff3f3c2871",
+                "name": "lib qa release 4.47",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "lib-qa-release-4.47",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/12c93b24-cb52-4b72-bd9b-85ff3f3c2871"
+                  }
+                }
+              },
+              {
+                "id": "6a1fe1a4-2e49-4e77-9c0c-187e392695d1",
+                "name": "Generic components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a1fe1a4-2e49-4e77-9c0c-187e392695d1"
+                  }
+                }
+              },
+              {
+                "id": "181e919f-379f-4440-846d-96e49f8beb8c",
+                "name": "Microservice architecture - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/181e919f-379f-4440-846d-96e49f8beb8c"
+                  }
+                }
+              },
+              {
+                "id": "eb270721-bca3-4679-a21f-3892ae139685",
+                "name": "Financial services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb270721-bca3-4679-a21f-3892ae139685"
+                  }
+                }
+              },
+              {
+                "id": "93a7f9c5-660e-44e3-967c-8f871239dd66",
+                "name": "Legacy - IR Virtual Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Virtual-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/93a7f9c5-660e-44e3-967c-8f871239dd66"
+                  }
+                }
+              },
+              {
+                "id": "41f71180-6ede-4243-ba3e-e3070f70c893",
+                "name": "Amazon web services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41f71180-6ede-4243-ba3e-e3070f70c893"
+                  }
+                }
+              },
+              {
+                "id": "d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d",
+                "name": "Financial services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d"
+                  }
+                }
+              },
+              {
+                "id": "295aa5d4-4f38-436c-9042-e6c19507cabd",
+                "name": "CWE",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CWE-COMPONENT-REFERENCE",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/295aa5d4-4f38-436c-9042-e6c19507cabd"
+                  }
+                }
+              },
+              {
+                "id": "8dcc7a77-eb02-414e-8b6d-db75880149f5",
+                "name": "CAPEC",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CAPEC",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/8dcc7a77-eb02-414e-8b6d-db75880149f5"
+                  }
+                }
+              },
+              {
+                "id": "ef6a842c-0403-441c-815e-ad4c4c09edbf",
+                "name": "EU Cyber Resilience Act",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-EU-Cyber-Resilience-Act",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ef6a842c-0403-441c-815e-ad4c4c09edbf"
+                  }
+                }
+              },
+              {
+                "id": "11679099-da70-4713-9b94-22d36c993578",
+                "name": "gatling-projectLhJJZHFkVt",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "gatling-projectLhJJZHFkVt",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/11679099-da70-4713-9b94-22d36c993578"
+                  }
+                }
+              },
+              {
+                "id": "2f697713-5a04-4aef-afd9-0d10f7466e7d",
+                "name": "IR MAESTRO Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-MAESTRO-Framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f697713-5a04-4aef-afd9-0d10f7466e7d"
+                  }
+                }
+              },
+              {
+                "id": "5868ed0a-8d5e-4c52-bd07-4d78eed4fdca",
+                "name": "gatling-projectkMQgSR4Ihi",
+                "type": "custom",
+                "enabled": false,
+                "referenceId": "gatling-projectkMQgSR4Ihi",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5868ed0a-8d5e-4c52-bd07-4d78eed4fdca"
+                  }
+                }
+              },
+              {
+                "id": "46b7c65d-e1ab-4252-8cb6-8713087128e2",
+                "name": "Microsoft azure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/46b7c65d-e1ab-4252-8cb6-8713087128e2"
+                  }
+                }
+              },
+              {
+                "id": "3f5851c9-93df-4e49-ad87-1629a22e367e",
+                "name": "pedro222",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "pedro222",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3f5851c9-93df-4e49-ad87-1629a22e367e"
+                  }
+                }
+              },
+              {
+                "id": "d2294a50-e3a4-4369-ba20-2a9d640f1796",
+                "name": "Functional - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d2294a50-e3a4-4369-ba20-2a9d640f1796"
+                  }
+                }
+              },
+              {
+                "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                "name": "Legacy - IR Software Architecture Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ae43721b-27f8-41af-af7d-0c45b8c0c002"
+                  }
+                }
+              },
+              {
+                "id": "f5a877b7-a5c0-4ad1-b862-0317330422bc",
+                "name": "Legacy - Microsoft-Azure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Microsoft-Azure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5a877b7-a5c0-4ad1-b862-0317330422bc"
+                  }
+                }
+              },
+              {
+                "id": "cb404144-37a7-4cc0-b0bc-37021648582d",
+                "name": "Legacy - IR Functional Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Functional-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/cb404144-37a7-4cc0-b0bc-37021648582d"
+                  }
+                }
+              },
+              {
+                "id": "1d0684a7-c19d-4077-87ea-7768d08cae7b",
+                "name": "Legacy - Google Cloud Platform",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Google Cloud Platform",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1d0684a7-c19d-4077-87ea-7768d08cae7b"
+                  }
+                }
+              },
+              {
+                "id": "a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1",
+                "name": "Legacy - IR Mobile",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "OWASP-MASVS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1"
+                  }
+                }
+              },
+              {
+                "id": "2e51be3d-8b78-4f27-bfd3-b1ed75902d3a",
+                "name": "Huawei cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2e51be3d-8b78-4f27-bfd3-b1ed75902d3a"
+                  }
+                }
+              },
+              {
+                "id": "eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6",
+                "name": "Legacy - IR Industrial Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Industrial-Internet-of-Things",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6"
+                  }
+                }
+              },
+              {
+                "id": "15c678d6-34ac-4ad1-9b97-52a1b995c0b8",
+                "name": "Legacy - IR Machine Learning - Artificial Intelligence",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Machine-Learning-Artificial-Intelligence",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/15c678d6-34ac-4ad1-9b97-52a1b995c0b8"
+                  }
+                }
+              },
+              {
+                "id": "b7743190-51a8-4a59-95ba-02866c272e41",
+                "name": "Legacy - IR Hardware Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Hardware-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7743190-51a8-4a59-95ba-02866c272e41"
+                  }
+                }
+              },
+              {
+                "id": "c9019dd1-b6fc-413a-b9f9-346bb8e5cddf",
+                "name": "Legacy - IR Generic Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Generic-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c9019dd1-b6fc-413a-b9f9-346bb8e5cddf"
+                  }
+                }
+              },
+              {
+                "id": "baee84e6-eef4-4c49-89ae-9b109366434e",
+                "name": "Embedded device - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/baee84e6-eef4-4c49-89ae-9b109366434e"
+                  }
+                }
+              },
+              {
+                "id": "651614f6-8eb0-432f-b117-135ae46a5b33",
+                "name": "Generic components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/651614f6-8eb0-432f-b117-135ae46a5b33"
+                  }
+                }
+              },
+              {
+                "id": "982c5ef9-4b5e-4be7-abb5-6fee958e1117",
+                "name": "Operating system - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/982c5ef9-4b5e-4be7-abb5-6fee958e1117"
+                  }
+                }
+              },
+              {
+                "id": "0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99",
+                "name": "Network components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99"
+                  }
+                }
+              },
+              {
+                "id": "74370e37-7cac-4e4c-aaca-b1368d080f0f",
+                "name": "Legacy - AWS Lambda",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "aws-lambda",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/74370e37-7cac-4e4c-aaca-b1368d080f0f"
+                  }
+                }
+              },
+              {
+                "id": "aba39980-6e81-46a4-a271-149767c6ec68",
+                "name": "Legacy - PCI-DSS",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "PCI-DSS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aba39980-6e81-46a4-a271-149767c6ec68"
+                  }
+                }
+              },
+              {
+                "id": "d442a2a9-de90-4da7-90a0-acad43d7bfec",
+                "name": "Kubernetes - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d442a2a9-de90-4da7-90a0-acad43d7bfec"
+                  }
+                }
+              },
+              {
+                "id": "a68729a9-2a81-4a53-b4b2-3c91c4dd63c2",
+                "name": "IR Default Rules for Standards",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default-Security-Policies",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a68729a9-2a81-4a53-b4b2-3c91c4dd63c2"
+                  }
+                }
+              },
+              {
+                "id": "9f75395f-acc2-4340-86cf-2e7df5a2991b",
+                "name": "Legacy - IR Microservices",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservices-library-dev",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9f75395f-acc2-4340-86cf-2e7df5a2991b"
+                  }
+                }
+              },
+              {
+                "id": "1eb9299b-573c-44b7-939d-2e89629e6923",
+                "name": "IR Legal Regulations",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Legal-Regulations",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1eb9299b-573c-44b7-939d-2e89629e6923"
+                  }
+                }
+              },
+              {
+                "id": "94078cf8-a4d6-4750-9370-a1e1125675d9",
+                "name": "Blockchain - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/94078cf8-a4d6-4750-9370-a1e1125675d9"
+                  }
+                }
+              },
+              {
+                "id": "db4a32a1-2eec-4abc-b850-8abfac9f2197",
+                "name": "Federal Risk and Authorization Management Program",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "fedramp",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/db4a32a1-2eec-4abc-b850-8abfac9f2197"
+                  }
+                }
+              },
+              {
+                "id": "d128dcbd-26ea-411d-a1aa-847a5ffbdc3a",
+                "name": "Blockchain - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d128dcbd-26ea-411d-a1aa-847a5ffbdc3a"
+                  }
+                }
+              },
+              {
+                "id": "065f7fb0-1188-4544-9938-82148bc9babd",
+                "name": "Functional - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/065f7fb0-1188-4544-9938-82148bc9babd"
+                  }
+                }
+              },
+              {
+                "id": "552ea0c3-e6b0-407b-b448-284c1678e58b",
+                "name": "Legacy - IR Docker",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Docker CIS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/552ea0c3-e6b0-407b-b448-284c1678e58b"
+                  }
+                }
+              },
+              {
+                "id": "9ce238be-590d-4b44-abf3-619a559a7b0a",
+                "name": "Docker category - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9ce238be-590d-4b44-abf3-619a559a7b0a"
+                  }
+                }
+              },
+              {
+                "id": "788527df-9ffc-4e3e-9585-f64d46baa10a",
+                "name": "Kubernetes - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/788527df-9ffc-4e3e-9585-f64d46baa10a"
+                  }
+                }
+              },
+              {
+                "id": "70b945b9-8a84-4528-b905-955b5370eacb",
+                "name": "Microsoft azure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/70b945b9-8a84-4528-b905-955b5370eacb"
+                  }
+                }
+              },
+              {
+                "id": "13029794-efb9-40d6-83ef-ea13396c4617",
+                "name": "EU GDPR",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "EU GDPR",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13029794-efb9-40d6-83ef-ea13396c4617"
+                  }
+                }
+              },
+              {
+                "id": "463b305c-2974-422a-a64c-6de9496e87e2",
+                "name": "Legacy - Amazon Web Services",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Hydras-AWS-Foundation",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/463b305c-2974-422a-a64c-6de9496e87e2"
+                  }
+                }
+              },
+              {
+                "id": "c6b2f6b2-8702-4309-b376-705978236904",
+                "name": "Legacy - IR Alibaba Cloud",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Alibaba-Cloud",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c6b2f6b2-8702-4309-b376-705978236904"
+                  }
+                }
+              },
+              {
+                "id": "43f8e046-06f3-48d8-ac9a-fc15eea94f2b",
+                "name": "IR Dataflows",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Dataflows",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/43f8e046-06f3-48d8-ac9a-fc15eea94f2b"
+                  }
+                }
+              },
+              {
+                "id": "b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca",
+                "name": "Legacy - IR Blockchain Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Blockchain-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca"
+                  }
+                }
+              },
+              {
+                "id": "9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9",
+                "name": "Docker category - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9"
+                  }
+                }
+              },
+              {
+                "id": "c5d22bae-1cd2-4da6-8943-15993e6f2cb8",
+                "name": "Machine learning artificial intelligence - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c5d22bae-1cd2-4da6-8943-15993e6f2cb8"
+                  }
+                }
+              },
+              {
+                "id": "b5267410-e6a8-442d-b88c-0a16124d7307",
+                "name": "Salesforce components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b5267410-e6a8-442d-b88c-0a16124d7307"
+                  }
+                }
+              },
+              {
+                "id": "6a4fe526-6449-461b-a409-268e5fdaf6e7",
+                "name": "Salesforce components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a4fe526-6449-461b-a409-268e5fdaf6e7"
+                  }
+                }
+              },
+              {
+                "id": "91ce62e7-daef-4ed7-8f54-629fe3423c3f",
+                "name": "Oracle cloud infrastructure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/91ce62e7-daef-4ed7-8f54-629fe3423c3f"
+                  }
+                }
+              },
+              {
+                "id": "5afaccb2-7d06-4850-90ee-389c2f538d16",
+                "name": "hipaa",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hipaa",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5afaccb2-7d06-4850-90ee-389c2f538d16"
+                  }
+                }
+              },
+              {
+                "id": "589e85e6-9a51-4ff8-896e-2fd90bb0dcae",
+                "name": "Virtual components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/589e85e6-9a51-4ff8-896e-2fd90bb0dcae"
+                  }
+                }
+              },
+              {
+                "id": "f7116197-d371-4cf1-bbf5-6580bec07af9",
+                "name": "Legacy - IR Network Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Network-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f7116197-d371-4cf1-bbf5-6580bec07af9"
+                  }
+                }
+              },
+              {
+                "id": "5f5894f0-bcdc-49c7-990a-08043270142f",
+                "name": "Legacy - IR Oracle Cloud Infrastructure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Oracle-Cloud-Infrastructure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5f5894f0-bcdc-49c7-990a-08043270142f"
+                  }
+                }
+              },
+              {
+                "id": "7ae5c21d-92b7-4417-9e18-15fc3bc4a744",
+                "name": "Legacy - IR SAP Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-SAP-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/7ae5c21d-92b7-4417-9e18-15fc3bc4a744"
+                  }
+                }
+              },
+              {
+                "id": "787401db-d33d-451a-acb5-23aae137a8c0",
+                "name": "Legacy - IR Salesforce Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Salesforce-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/787401db-d33d-451a-acb5-23aae137a8c0"
+                  }
+                }
+              },
+              {
+                "id": "165ef1cf-3f58-4a71-a90d-f2564bfea3c0",
+                "name": "Virtual components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/165ef1cf-3f58-4a71-a90d-f2564bfea3c0"
+                  }
+                }
+              },
+              {
+                "id": "6caf7d86-54e4-427a-865d-68acf90520ac",
+                "name": "Mitre ATT&CK Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "mitre-attack-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6caf7d86-54e4-427a-865d-68acf90520ac"
+                  }
+                }
+              },
+              {
+                "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                "name": "IR Automotive",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "unece-wp-29-csms",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4e224d22-9f43-40a1-ac25-4005a6cd5290"
+                  }
+                }
+              },
+              {
+                "id": "503d2ab4-0434-4125-9cea-30a989cb62e6",
+                "name": "Legacy - IR Kubernetes",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-library-devops",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/503d2ab4-0434-4125-9cea-30a989cb62e6"
+                  }
+                }
+              },
+              {
+                "id": "aaa340a1-c30d-455d-bdc9-684eb6b881b1",
+                "name": "Legacy - IR Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-security-compliance-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aaa340a1-c30d-455d-bdc9-684eb6b881b1"
+                  }
+                }
+              },
+              {
+                "id": "9cf9bb99-3598-4a3b-876c-a2ddac56ed46",
+                "name": "Alibaba cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9cf9bb99-3598-4a3b-876c-a2ddac56ed46"
+                  }
+                }
+              },
+              {
+                "id": "3402f9b6-317d-465f-abdc-dee249136953",
+                "name": "Alibaba cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3402f9b6-317d-465f-abdc-dee249136953"
+                  }
+                }
+              },
+              {
+                "id": "346cc947-bdf0-4e19-b595-7921de0f819d",
+                "name": "Microservice architecture - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/346cc947-bdf0-4e19-b595-7921de0f819d"
+                  }
+                }
+              },
+              {
+                "id": "e993149d-fcf1-4ead-91cb-19fa10abdf28",
+                "name": "Client side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e993149d-fcf1-4ead-91cb-19fa10abdf28"
+                  }
+                }
+              },
+              {
+                "id": "b07f6fc3-f332-4df2-9003-e6763e06ee57",
+                "name": "Openstack - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b07f6fc3-f332-4df2-9003-e6763e06ee57"
+                  }
+                }
+              },
+              {
+                "id": "2f742447-9879-47a1-b3dc-59cfe9375434",
+                "name": "Client side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f742447-9879-47a1-b3dc-59cfe9375434"
+                  }
+                }
+              },
+              {
+                "id": "13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca",
+                "name": "Openstack - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca"
+                  }
+                }
+              },
+              {
+                "id": "1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb",
+                "name": "Operating system - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb"
+                  }
+                }
+              },
+              {
+                "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                "name": "Data store - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2589db7e-82a0-45e6-ac05-1401252dc80f"
+                  }
+                }
+              },
+              {
+                "id": "09280e53-19a6-4a5e-a816-e678eb2de0d5",
+                "name": "Data store - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/09280e53-19a6-4a5e-a816-e678eb2de0d5"
+                  }
+                }
+              },
+              {
+                "id": "a47d7a0a-0f34-4423-8ccf-5a18673577f9",
+                "name": "Embedded device - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a47d7a0a-0f34-4423-8ccf-5a18673577f9"
+                  }
+                }
+              },
+              {
+                "id": "f5969624-4be3-44d4-9300-c5dacee96879",
+                "name": "Iot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5969624-4be3-44d4-9300-c5dacee96879"
+                  }
+                }
+              },
+              {
+                "id": "d172f1d9-3fb0-4378-afd7-983a9ef9c5f0",
+                "name": "Iot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d172f1d9-3fb0-4378-afd7-983a9ef9c5f0"
+                  }
+                }
+              },
+              {
+                "id": "0521d3ef-d5e2-4227-a8d1-8c86e4cce543",
+                "name": "Hardware - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0521d3ef-d5e2-4227-a8d1-8c86e4cce543"
+                  }
+                }
+              },
+              {
+                "id": "41a8efb9-de7f-4614-9209-aec0719ed68a",
+                "name": "Sap components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41a8efb9-de7f-4614-9209-aec0719ed68a"
+                  }
+                }
+              },
+              {
+                "id": "e4eb454f-f8c3-489e-8a42-748cb2468046",
+                "name": "Iiot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e4eb454f-f8c3-489e-8a42-748cb2468046"
+                  }
+                }
+              },
+              {
+                "id": "2145d1a2-40a9-4f9c-8f58-5430dd8de12f",
+                "name": "Iiot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2145d1a2-40a9-4f9c-8f58-5430dd8de12f"
+                  }
+                }
+              },
+              {
+                "id": "4088923a-5618-4898-846b-b22dbec9c4cf",
+                "name": "Sap components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4088923a-5618-4898-846b-b22dbec9c4cf"
+                  }
+                }
+              },
+              {
+                "id": "d1125292-b873-4654-9e59-850624925d55",
+                "name": "Service side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d1125292-b873-4654-9e59-850624925d55"
+                  }
+                }
+              },
+              {
+                "id": "edadb2e1-db89-48e2-b056-3476597b4661",
+                "name": "Google cloud platform - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/edadb2e1-db89-48e2-b056-3476597b4661"
+                  }
+                }
+              },
+              {
+                "id": "73aba9ba-5759-4587-afb9-8cece274063b",
+                "name": "Google cloud platform - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/73aba9ba-5759-4587-afb9-8cece274063b"
+                  }
+                }
+              },
+              {
+                "id": "0fb630b7-c31d-41ec-a5ef-58487d8af088",
+                "name": "Hardware - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0fb630b7-c31d-41ec-a5ef-58487d8af088"
+                  }
+                }
+              },
+              {
+                "id": "51affc99-ba53-4040-a552-69acac517dd8",
+                "name": "Huawei cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/51affc99-ba53-4040-a552-69acac517dd8"
+                  }
+                }
+              },
+              {
+                "id": "3d9621d7-25e5-49df-86c7-e8b61ff40ccd",
+                "name": "Amazon web services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3d9621d7-25e5-49df-86c7-e8b61ff40ccd"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 93,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.452Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/libraries/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62fe034a-94e4-49a9-aedf-bab5efd24f64",
+                "name": "Machine learning artificial intelligence - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/62fe034a-94e4-49a9-aedf-bab5efd24f64"
+                  }
+                }
+              },
+              {
+                "id": "5c0d4a51-47db-4b45-8dc7-4152a1b62778",
+                "name": "Network components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5c0d4a51-47db-4b45-8dc7-4152a1b62778"
+                  }
+                }
+              },
+              {
+                "id": "6e650620-238a-4bfc-a052-89eeaa7fb5f1",
+                "name": "Oracle cloud infrastructure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6e650620-238a-4bfc-a052-89eeaa7fb5f1"
+                  }
+                }
+              },
+              {
+                "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                "name": "Service side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/78edd477-0777-4556-91af-c93ca599cd50"
+                  }
+                }
+              },
+              {
+                "id": "12c93b24-cb52-4b72-bd9b-85ff3f3c2871",
+                "name": "lib qa release 4.47",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "lib-qa-release-4.47",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/12c93b24-cb52-4b72-bd9b-85ff3f3c2871"
+                  }
+                }
+              },
+              {
+                "id": "6a1fe1a4-2e49-4e77-9c0c-187e392695d1",
+                "name": "Generic components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a1fe1a4-2e49-4e77-9c0c-187e392695d1"
+                  }
+                }
+              },
+              {
+                "id": "181e919f-379f-4440-846d-96e49f8beb8c",
+                "name": "Microservice architecture - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/181e919f-379f-4440-846d-96e49f8beb8c"
+                  }
+                }
+              },
+              {
+                "id": "eb270721-bca3-4679-a21f-3892ae139685",
+                "name": "Financial services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb270721-bca3-4679-a21f-3892ae139685"
+                  }
+                }
+              },
+              {
+                "id": "93a7f9c5-660e-44e3-967c-8f871239dd66",
+                "name": "Legacy - IR Virtual Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Virtual-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/93a7f9c5-660e-44e3-967c-8f871239dd66"
+                  }
+                }
+              },
+              {
+                "id": "41f71180-6ede-4243-ba3e-e3070f70c893",
+                "name": "Amazon web services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41f71180-6ede-4243-ba3e-e3070f70c893"
+                  }
+                }
+              },
+              {
+                "id": "d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d",
+                "name": "Financial services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d"
+                  }
+                }
+              },
+              {
+                "id": "295aa5d4-4f38-436c-9042-e6c19507cabd",
+                "name": "CWE",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CWE-COMPONENT-REFERENCE",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/295aa5d4-4f38-436c-9042-e6c19507cabd"
+                  }
+                }
+              },
+              {
+                "id": "8dcc7a77-eb02-414e-8b6d-db75880149f5",
+                "name": "CAPEC",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CAPEC",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/8dcc7a77-eb02-414e-8b6d-db75880149f5"
+                  }
+                }
+              },
+              {
+                "id": "ef6a842c-0403-441c-815e-ad4c4c09edbf",
+                "name": "EU Cyber Resilience Act",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-EU-Cyber-Resilience-Act",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ef6a842c-0403-441c-815e-ad4c4c09edbf"
+                  }
+                }
+              },
+              {
+                "id": "11679099-da70-4713-9b94-22d36c993578",
+                "name": "gatling-projectLhJJZHFkVt",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "gatling-projectLhJJZHFkVt",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/11679099-da70-4713-9b94-22d36c993578"
+                  }
+                }
+              },
+              {
+                "id": "2f697713-5a04-4aef-afd9-0d10f7466e7d",
+                "name": "IR MAESTRO Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-MAESTRO-Framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f697713-5a04-4aef-afd9-0d10f7466e7d"
+                  }
+                }
+              },
+              {
+                "id": "5868ed0a-8d5e-4c52-bd07-4d78eed4fdca",
+                "name": "gatling-projectkMQgSR4Ihi",
+                "type": "custom",
+                "enabled": false,
+                "referenceId": "gatling-projectkMQgSR4Ihi",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5868ed0a-8d5e-4c52-bd07-4d78eed4fdca"
+                  }
+                }
+              },
+              {
+                "id": "46b7c65d-e1ab-4252-8cb6-8713087128e2",
+                "name": "Microsoft azure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/46b7c65d-e1ab-4252-8cb6-8713087128e2"
+                  }
+                }
+              },
+              {
+                "id": "3f5851c9-93df-4e49-ad87-1629a22e367e",
+                "name": "pedro222",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "pedro222",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3f5851c9-93df-4e49-ad87-1629a22e367e"
+                  }
+                }
+              },
+              {
+                "id": "d2294a50-e3a4-4369-ba20-2a9d640f1796",
+                "name": "Functional - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d2294a50-e3a4-4369-ba20-2a9d640f1796"
+                  }
+                }
+              },
+              {
+                "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                "name": "Legacy - IR Software Architecture Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ae43721b-27f8-41af-af7d-0c45b8c0c002"
+                  }
+                }
+              },
+              {
+                "id": "f5a877b7-a5c0-4ad1-b862-0317330422bc",
+                "name": "Legacy - Microsoft-Azure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Microsoft-Azure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5a877b7-a5c0-4ad1-b862-0317330422bc"
+                  }
+                }
+              },
+              {
+                "id": "cb404144-37a7-4cc0-b0bc-37021648582d",
+                "name": "Legacy - IR Functional Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Functional-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/cb404144-37a7-4cc0-b0bc-37021648582d"
+                  }
+                }
+              },
+              {
+                "id": "1d0684a7-c19d-4077-87ea-7768d08cae7b",
+                "name": "Legacy - Google Cloud Platform",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Google Cloud Platform",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1d0684a7-c19d-4077-87ea-7768d08cae7b"
+                  }
+                }
+              },
+              {
+                "id": "a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1",
+                "name": "Legacy - IR Mobile",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "OWASP-MASVS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1"
+                  }
+                }
+              },
+              {
+                "id": "2e51be3d-8b78-4f27-bfd3-b1ed75902d3a",
+                "name": "Huawei cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2e51be3d-8b78-4f27-bfd3-b1ed75902d3a"
+                  }
+                }
+              },
+              {
+                "id": "eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6",
+                "name": "Legacy - IR Industrial Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Industrial-Internet-of-Things",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6"
+                  }
+                }
+              },
+              {
+                "id": "15c678d6-34ac-4ad1-9b97-52a1b995c0b8",
+                "name": "Legacy - IR Machine Learning - Artificial Intelligence",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Machine-Learning-Artificial-Intelligence",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/15c678d6-34ac-4ad1-9b97-52a1b995c0b8"
+                  }
+                }
+              },
+              {
+                "id": "b7743190-51a8-4a59-95ba-02866c272e41",
+                "name": "Legacy - IR Hardware Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Hardware-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7743190-51a8-4a59-95ba-02866c272e41"
+                  }
+                }
+              },
+              {
+                "id": "c9019dd1-b6fc-413a-b9f9-346bb8e5cddf",
+                "name": "Legacy - IR Generic Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Generic-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c9019dd1-b6fc-413a-b9f9-346bb8e5cddf"
+                  }
+                }
+              },
+              {
+                "id": "baee84e6-eef4-4c49-89ae-9b109366434e",
+                "name": "Embedded device - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/baee84e6-eef4-4c49-89ae-9b109366434e"
+                  }
+                }
+              },
+              {
+                "id": "651614f6-8eb0-432f-b117-135ae46a5b33",
+                "name": "Generic components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/651614f6-8eb0-432f-b117-135ae46a5b33"
+                  }
+                }
+              },
+              {
+                "id": "982c5ef9-4b5e-4be7-abb5-6fee958e1117",
+                "name": "Operating system - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/982c5ef9-4b5e-4be7-abb5-6fee958e1117"
+                  }
+                }
+              },
+              {
+                "id": "0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99",
+                "name": "Network components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99"
+                  }
+                }
+              },
+              {
+                "id": "74370e37-7cac-4e4c-aaca-b1368d080f0f",
+                "name": "Legacy - AWS Lambda",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "aws-lambda",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/74370e37-7cac-4e4c-aaca-b1368d080f0f"
+                  }
+                }
+              },
+              {
+                "id": "aba39980-6e81-46a4-a271-149767c6ec68",
+                "name": "Legacy - PCI-DSS",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "PCI-DSS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aba39980-6e81-46a4-a271-149767c6ec68"
+                  }
+                }
+              },
+              {
+                "id": "d442a2a9-de90-4da7-90a0-acad43d7bfec",
+                "name": "Kubernetes - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d442a2a9-de90-4da7-90a0-acad43d7bfec"
+                  }
+                }
+              },
+              {
+                "id": "a68729a9-2a81-4a53-b4b2-3c91c4dd63c2",
+                "name": "IR Default Rules for Standards",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default-Security-Policies",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a68729a9-2a81-4a53-b4b2-3c91c4dd63c2"
+                  }
+                }
+              },
+              {
+                "id": "9f75395f-acc2-4340-86cf-2e7df5a2991b",
+                "name": "Legacy - IR Microservices",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservices-library-dev",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9f75395f-acc2-4340-86cf-2e7df5a2991b"
+                  }
+                }
+              },
+              {
+                "id": "1eb9299b-573c-44b7-939d-2e89629e6923",
+                "name": "IR Legal Regulations",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Legal-Regulations",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1eb9299b-573c-44b7-939d-2e89629e6923"
+                  }
+                }
+              },
+              {
+                "id": "94078cf8-a4d6-4750-9370-a1e1125675d9",
+                "name": "Blockchain - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/94078cf8-a4d6-4750-9370-a1e1125675d9"
+                  }
+                }
+              },
+              {
+                "id": "db4a32a1-2eec-4abc-b850-8abfac9f2197",
+                "name": "Federal Risk and Authorization Management Program",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "fedramp",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/db4a32a1-2eec-4abc-b850-8abfac9f2197"
+                  }
+                }
+              },
+              {
+                "id": "d128dcbd-26ea-411d-a1aa-847a5ffbdc3a",
+                "name": "Blockchain - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d128dcbd-26ea-411d-a1aa-847a5ffbdc3a"
+                  }
+                }
+              },
+              {
+                "id": "065f7fb0-1188-4544-9938-82148bc9babd",
+                "name": "Functional - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/065f7fb0-1188-4544-9938-82148bc9babd"
+                  }
+                }
+              },
+              {
+                "id": "552ea0c3-e6b0-407b-b448-284c1678e58b",
+                "name": "Legacy - IR Docker",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Docker CIS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/552ea0c3-e6b0-407b-b448-284c1678e58b"
+                  }
+                }
+              },
+              {
+                "id": "9ce238be-590d-4b44-abf3-619a559a7b0a",
+                "name": "Docker category - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9ce238be-590d-4b44-abf3-619a559a7b0a"
+                  }
+                }
+              },
+              {
+                "id": "788527df-9ffc-4e3e-9585-f64d46baa10a",
+                "name": "Kubernetes - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/788527df-9ffc-4e3e-9585-f64d46baa10a"
+                  }
+                }
+              },
+              {
+                "id": "70b945b9-8a84-4528-b905-955b5370eacb",
+                "name": "Microsoft azure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/70b945b9-8a84-4528-b905-955b5370eacb"
+                  }
+                }
+              },
+              {
+                "id": "13029794-efb9-40d6-83ef-ea13396c4617",
+                "name": "EU GDPR",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "EU GDPR",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13029794-efb9-40d6-83ef-ea13396c4617"
+                  }
+                }
+              },
+              {
+                "id": "463b305c-2974-422a-a64c-6de9496e87e2",
+                "name": "Legacy - Amazon Web Services",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Hydras-AWS-Foundation",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/463b305c-2974-422a-a64c-6de9496e87e2"
+                  }
+                }
+              },
+              {
+                "id": "c6b2f6b2-8702-4309-b376-705978236904",
+                "name": "Legacy - IR Alibaba Cloud",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Alibaba-Cloud",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c6b2f6b2-8702-4309-b376-705978236904"
+                  }
+                }
+              },
+              {
+                "id": "43f8e046-06f3-48d8-ac9a-fc15eea94f2b",
+                "name": "IR Dataflows",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Dataflows",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/43f8e046-06f3-48d8-ac9a-fc15eea94f2b"
+                  }
+                }
+              },
+              {
+                "id": "b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca",
+                "name": "Legacy - IR Blockchain Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Blockchain-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca"
+                  }
+                }
+              },
+              {
+                "id": "9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9",
+                "name": "Docker category - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9"
+                  }
+                }
+              },
+              {
+                "id": "c5d22bae-1cd2-4da6-8943-15993e6f2cb8",
+                "name": "Machine learning artificial intelligence - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c5d22bae-1cd2-4da6-8943-15993e6f2cb8"
+                  }
+                }
+              },
+              {
+                "id": "b5267410-e6a8-442d-b88c-0a16124d7307",
+                "name": "Salesforce components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b5267410-e6a8-442d-b88c-0a16124d7307"
+                  }
+                }
+              },
+              {
+                "id": "6a4fe526-6449-461b-a409-268e5fdaf6e7",
+                "name": "Salesforce components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a4fe526-6449-461b-a409-268e5fdaf6e7"
+                  }
+                }
+              },
+              {
+                "id": "91ce62e7-daef-4ed7-8f54-629fe3423c3f",
+                "name": "Oracle cloud infrastructure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/91ce62e7-daef-4ed7-8f54-629fe3423c3f"
+                  }
+                }
+              },
+              {
+                "id": "5afaccb2-7d06-4850-90ee-389c2f538d16",
+                "name": "hipaa",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hipaa",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5afaccb2-7d06-4850-90ee-389c2f538d16"
+                  }
+                }
+              },
+              {
+                "id": "589e85e6-9a51-4ff8-896e-2fd90bb0dcae",
+                "name": "Virtual components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/589e85e6-9a51-4ff8-896e-2fd90bb0dcae"
+                  }
+                }
+              },
+              {
+                "id": "f7116197-d371-4cf1-bbf5-6580bec07af9",
+                "name": "Legacy - IR Network Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Network-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f7116197-d371-4cf1-bbf5-6580bec07af9"
+                  }
+                }
+              },
+              {
+                "id": "5f5894f0-bcdc-49c7-990a-08043270142f",
+                "name": "Legacy - IR Oracle Cloud Infrastructure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Oracle-Cloud-Infrastructure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5f5894f0-bcdc-49c7-990a-08043270142f"
+                  }
+                }
+              },
+              {
+                "id": "7ae5c21d-92b7-4417-9e18-15fc3bc4a744",
+                "name": "Legacy - IR SAP Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-SAP-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/7ae5c21d-92b7-4417-9e18-15fc3bc4a744"
+                  }
+                }
+              },
+              {
+                "id": "787401db-d33d-451a-acb5-23aae137a8c0",
+                "name": "Legacy - IR Salesforce Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Salesforce-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/787401db-d33d-451a-acb5-23aae137a8c0"
+                  }
+                }
+              },
+              {
+                "id": "165ef1cf-3f58-4a71-a90d-f2564bfea3c0",
+                "name": "Virtual components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/165ef1cf-3f58-4a71-a90d-f2564bfea3c0"
+                  }
+                }
+              },
+              {
+                "id": "6caf7d86-54e4-427a-865d-68acf90520ac",
+                "name": "Mitre ATT&CK Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "mitre-attack-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6caf7d86-54e4-427a-865d-68acf90520ac"
+                  }
+                }
+              },
+              {
+                "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                "name": "IR Automotive",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "unece-wp-29-csms",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4e224d22-9f43-40a1-ac25-4005a6cd5290"
+                  }
+                }
+              },
+              {
+                "id": "503d2ab4-0434-4125-9cea-30a989cb62e6",
+                "name": "Legacy - IR Kubernetes",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-library-devops",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/503d2ab4-0434-4125-9cea-30a989cb62e6"
+                  }
+                }
+              },
+              {
+                "id": "aaa340a1-c30d-455d-bdc9-684eb6b881b1",
+                "name": "Legacy - IR Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-security-compliance-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aaa340a1-c30d-455d-bdc9-684eb6b881b1"
+                  }
+                }
+              },
+              {
+                "id": "9cf9bb99-3598-4a3b-876c-a2ddac56ed46",
+                "name": "Alibaba cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9cf9bb99-3598-4a3b-876c-a2ddac56ed46"
+                  }
+                }
+              },
+              {
+                "id": "3402f9b6-317d-465f-abdc-dee249136953",
+                "name": "Alibaba cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3402f9b6-317d-465f-abdc-dee249136953"
+                  }
+                }
+              },
+              {
+                "id": "346cc947-bdf0-4e19-b595-7921de0f819d",
+                "name": "Microservice architecture - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/346cc947-bdf0-4e19-b595-7921de0f819d"
+                  }
+                }
+              },
+              {
+                "id": "e993149d-fcf1-4ead-91cb-19fa10abdf28",
+                "name": "Client side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e993149d-fcf1-4ead-91cb-19fa10abdf28"
+                  }
+                }
+              },
+              {
+                "id": "b07f6fc3-f332-4df2-9003-e6763e06ee57",
+                "name": "Openstack - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b07f6fc3-f332-4df2-9003-e6763e06ee57"
+                  }
+                }
+              },
+              {
+                "id": "2f742447-9879-47a1-b3dc-59cfe9375434",
+                "name": "Client side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f742447-9879-47a1-b3dc-59cfe9375434"
+                  }
+                }
+              },
+              {
+                "id": "13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca",
+                "name": "Openstack - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca"
+                  }
+                }
+              },
+              {
+                "id": "1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb",
+                "name": "Operating system - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb"
+                  }
+                }
+              },
+              {
+                "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                "name": "Data store - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2589db7e-82a0-45e6-ac05-1401252dc80f"
+                  }
+                }
+              },
+              {
+                "id": "09280e53-19a6-4a5e-a816-e678eb2de0d5",
+                "name": "Data store - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/09280e53-19a6-4a5e-a816-e678eb2de0d5"
+                  }
+                }
+              },
+              {
+                "id": "a47d7a0a-0f34-4423-8ccf-5a18673577f9",
+                "name": "Embedded device - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a47d7a0a-0f34-4423-8ccf-5a18673577f9"
+                  }
+                }
+              },
+              {
+                "id": "f5969624-4be3-44d4-9300-c5dacee96879",
+                "name": "Iot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5969624-4be3-44d4-9300-c5dacee96879"
+                  }
+                }
+              },
+              {
+                "id": "d172f1d9-3fb0-4378-afd7-983a9ef9c5f0",
+                "name": "Iot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d172f1d9-3fb0-4378-afd7-983a9ef9c5f0"
+                  }
+                }
+              },
+              {
+                "id": "0521d3ef-d5e2-4227-a8d1-8c86e4cce543",
+                "name": "Hardware - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0521d3ef-d5e2-4227-a8d1-8c86e4cce543"
+                  }
+                }
+              },
+              {
+                "id": "41a8efb9-de7f-4614-9209-aec0719ed68a",
+                "name": "Sap components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41a8efb9-de7f-4614-9209-aec0719ed68a"
+                  }
+                }
+              },
+              {
+                "id": "e4eb454f-f8c3-489e-8a42-748cb2468046",
+                "name": "Iiot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e4eb454f-f8c3-489e-8a42-748cb2468046"
+                  }
+                }
+              },
+              {
+                "id": "2145d1a2-40a9-4f9c-8f58-5430dd8de12f",
+                "name": "Iiot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2145d1a2-40a9-4f9c-8f58-5430dd8de12f"
+                  }
+                }
+              },
+              {
+                "id": "4088923a-5618-4898-846b-b22dbec9c4cf",
+                "name": "Sap components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4088923a-5618-4898-846b-b22dbec9c4cf"
+                  }
+                }
+              },
+              {
+                "id": "d1125292-b873-4654-9e59-850624925d55",
+                "name": "Service side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d1125292-b873-4654-9e59-850624925d55"
+                  }
+                }
+              },
+              {
+                "id": "edadb2e1-db89-48e2-b056-3476597b4661",
+                "name": "Google cloud platform - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/edadb2e1-db89-48e2-b056-3476597b4661"
+                  }
+                }
+              },
+              {
+                "id": "73aba9ba-5759-4587-afb9-8cece274063b",
+                "name": "Google cloud platform - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/73aba9ba-5759-4587-afb9-8cece274063b"
+                  }
+                }
+              },
+              {
+                "id": "0fb630b7-c31d-41ec-a5ef-58487d8af088",
+                "name": "Hardware - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0fb630b7-c31d-41ec-a5ef-58487d8af088"
+                  }
+                }
+              },
+              {
+                "id": "51affc99-ba53-4040-a552-69acac517dd8",
+                "name": "Huawei cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/51affc99-ba53-4040-a552-69acac517dd8"
+                  }
+                }
+              },
+              {
+                "id": "3d9621d7-25e5-49df-86c7-e8b61ff40ccd",
+                "name": "Amazon web services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3d9621d7-25e5-49df-86c7-e8b61ff40ccd"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 93,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.528Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/libraries/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62fe034a-94e4-49a9-aedf-bab5efd24f64",
+                "name": "Machine learning artificial intelligence - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/62fe034a-94e4-49a9-aedf-bab5efd24f64"
+                  }
+                }
+              },
+              {
+                "id": "5c0d4a51-47db-4b45-8dc7-4152a1b62778",
+                "name": "Network components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5c0d4a51-47db-4b45-8dc7-4152a1b62778"
+                  }
+                }
+              },
+              {
+                "id": "6e650620-238a-4bfc-a052-89eeaa7fb5f1",
+                "name": "Oracle cloud infrastructure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6e650620-238a-4bfc-a052-89eeaa7fb5f1"
+                  }
+                }
+              },
+              {
+                "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                "name": "Service side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/78edd477-0777-4556-91af-c93ca599cd50"
+                  }
+                }
+              },
+              {
+                "id": "12c93b24-cb52-4b72-bd9b-85ff3f3c2871",
+                "name": "lib qa release 4.47",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "lib-qa-release-4.47",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/12c93b24-cb52-4b72-bd9b-85ff3f3c2871"
+                  }
+                }
+              },
+              {
+                "id": "6a1fe1a4-2e49-4e77-9c0c-187e392695d1",
+                "name": "Generic components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a1fe1a4-2e49-4e77-9c0c-187e392695d1"
+                  }
+                }
+              },
+              {
+                "id": "181e919f-379f-4440-846d-96e49f8beb8c",
+                "name": "Microservice architecture - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/181e919f-379f-4440-846d-96e49f8beb8c"
+                  }
+                }
+              },
+              {
+                "id": "eb270721-bca3-4679-a21f-3892ae139685",
+                "name": "Financial services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb270721-bca3-4679-a21f-3892ae139685"
+                  }
+                }
+              },
+              {
+                "id": "93a7f9c5-660e-44e3-967c-8f871239dd66",
+                "name": "Legacy - IR Virtual Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Virtual-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/93a7f9c5-660e-44e3-967c-8f871239dd66"
+                  }
+                }
+              },
+              {
+                "id": "41f71180-6ede-4243-ba3e-e3070f70c893",
+                "name": "Amazon web services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41f71180-6ede-4243-ba3e-e3070f70c893"
+                  }
+                }
+              },
+              {
+                "id": "d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d",
+                "name": "Financial services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d"
+                  }
+                }
+              },
+              {
+                "id": "295aa5d4-4f38-436c-9042-e6c19507cabd",
+                "name": "CWE",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CWE-COMPONENT-REFERENCE",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/295aa5d4-4f38-436c-9042-e6c19507cabd"
+                  }
+                }
+              },
+              {
+                "id": "8dcc7a77-eb02-414e-8b6d-db75880149f5",
+                "name": "CAPEC",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CAPEC",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/8dcc7a77-eb02-414e-8b6d-db75880149f5"
+                  }
+                }
+              },
+              {
+                "id": "ef6a842c-0403-441c-815e-ad4c4c09edbf",
+                "name": "EU Cyber Resilience Act",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-EU-Cyber-Resilience-Act",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ef6a842c-0403-441c-815e-ad4c4c09edbf"
+                  }
+                }
+              },
+              {
+                "id": "11679099-da70-4713-9b94-22d36c993578",
+                "name": "gatling-projectLhJJZHFkVt",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "gatling-projectLhJJZHFkVt",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/11679099-da70-4713-9b94-22d36c993578"
+                  }
+                }
+              },
+              {
+                "id": "2f697713-5a04-4aef-afd9-0d10f7466e7d",
+                "name": "IR MAESTRO Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-MAESTRO-Framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f697713-5a04-4aef-afd9-0d10f7466e7d"
+                  }
+                }
+              },
+              {
+                "id": "5868ed0a-8d5e-4c52-bd07-4d78eed4fdca",
+                "name": "gatling-projectkMQgSR4Ihi",
+                "type": "custom",
+                "enabled": false,
+                "referenceId": "gatling-projectkMQgSR4Ihi",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5868ed0a-8d5e-4c52-bd07-4d78eed4fdca"
+                  }
+                }
+              },
+              {
+                "id": "46b7c65d-e1ab-4252-8cb6-8713087128e2",
+                "name": "Microsoft azure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/46b7c65d-e1ab-4252-8cb6-8713087128e2"
+                  }
+                }
+              },
+              {
+                "id": "3f5851c9-93df-4e49-ad87-1629a22e367e",
+                "name": "pedro222",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "pedro222",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3f5851c9-93df-4e49-ad87-1629a22e367e"
+                  }
+                }
+              },
+              {
+                "id": "d2294a50-e3a4-4369-ba20-2a9d640f1796",
+                "name": "Functional - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d2294a50-e3a4-4369-ba20-2a9d640f1796"
+                  }
+                }
+              },
+              {
+                "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                "name": "Legacy - IR Software Architecture Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ae43721b-27f8-41af-af7d-0c45b8c0c002"
+                  }
+                }
+              },
+              {
+                "id": "f5a877b7-a5c0-4ad1-b862-0317330422bc",
+                "name": "Legacy - Microsoft-Azure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Microsoft-Azure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5a877b7-a5c0-4ad1-b862-0317330422bc"
+                  }
+                }
+              },
+              {
+                "id": "cb404144-37a7-4cc0-b0bc-37021648582d",
+                "name": "Legacy - IR Functional Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Functional-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/cb404144-37a7-4cc0-b0bc-37021648582d"
+                  }
+                }
+              },
+              {
+                "id": "1d0684a7-c19d-4077-87ea-7768d08cae7b",
+                "name": "Legacy - Google Cloud Platform",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Google Cloud Platform",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1d0684a7-c19d-4077-87ea-7768d08cae7b"
+                  }
+                }
+              },
+              {
+                "id": "a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1",
+                "name": "Legacy - IR Mobile",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "OWASP-MASVS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1"
+                  }
+                }
+              },
+              {
+                "id": "2e51be3d-8b78-4f27-bfd3-b1ed75902d3a",
+                "name": "Huawei cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2e51be3d-8b78-4f27-bfd3-b1ed75902d3a"
+                  }
+                }
+              },
+              {
+                "id": "eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6",
+                "name": "Legacy - IR Industrial Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Industrial-Internet-of-Things",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6"
+                  }
+                }
+              },
+              {
+                "id": "15c678d6-34ac-4ad1-9b97-52a1b995c0b8",
+                "name": "Legacy - IR Machine Learning - Artificial Intelligence",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Machine-Learning-Artificial-Intelligence",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/15c678d6-34ac-4ad1-9b97-52a1b995c0b8"
+                  }
+                }
+              },
+              {
+                "id": "b7743190-51a8-4a59-95ba-02866c272e41",
+                "name": "Legacy - IR Hardware Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Hardware-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7743190-51a8-4a59-95ba-02866c272e41"
+                  }
+                }
+              },
+              {
+                "id": "c9019dd1-b6fc-413a-b9f9-346bb8e5cddf",
+                "name": "Legacy - IR Generic Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Generic-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c9019dd1-b6fc-413a-b9f9-346bb8e5cddf"
+                  }
+                }
+              },
+              {
+                "id": "baee84e6-eef4-4c49-89ae-9b109366434e",
+                "name": "Embedded device - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/baee84e6-eef4-4c49-89ae-9b109366434e"
+                  }
+                }
+              },
+              {
+                "id": "651614f6-8eb0-432f-b117-135ae46a5b33",
+                "name": "Generic components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/651614f6-8eb0-432f-b117-135ae46a5b33"
+                  }
+                }
+              },
+              {
+                "id": "982c5ef9-4b5e-4be7-abb5-6fee958e1117",
+                "name": "Operating system - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/982c5ef9-4b5e-4be7-abb5-6fee958e1117"
+                  }
+                }
+              },
+              {
+                "id": "0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99",
+                "name": "Network components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99"
+                  }
+                }
+              },
+              {
+                "id": "74370e37-7cac-4e4c-aaca-b1368d080f0f",
+                "name": "Legacy - AWS Lambda",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "aws-lambda",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/74370e37-7cac-4e4c-aaca-b1368d080f0f"
+                  }
+                }
+              },
+              {
+                "id": "aba39980-6e81-46a4-a271-149767c6ec68",
+                "name": "Legacy - PCI-DSS",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "PCI-DSS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aba39980-6e81-46a4-a271-149767c6ec68"
+                  }
+                }
+              },
+              {
+                "id": "d442a2a9-de90-4da7-90a0-acad43d7bfec",
+                "name": "Kubernetes - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d442a2a9-de90-4da7-90a0-acad43d7bfec"
+                  }
+                }
+              },
+              {
+                "id": "a68729a9-2a81-4a53-b4b2-3c91c4dd63c2",
+                "name": "IR Default Rules for Standards",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default-Security-Policies",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a68729a9-2a81-4a53-b4b2-3c91c4dd63c2"
+                  }
+                }
+              },
+              {
+                "id": "9f75395f-acc2-4340-86cf-2e7df5a2991b",
+                "name": "Legacy - IR Microservices",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservices-library-dev",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9f75395f-acc2-4340-86cf-2e7df5a2991b"
+                  }
+                }
+              },
+              {
+                "id": "1eb9299b-573c-44b7-939d-2e89629e6923",
+                "name": "IR Legal Regulations",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Legal-Regulations",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1eb9299b-573c-44b7-939d-2e89629e6923"
+                  }
+                }
+              },
+              {
+                "id": "94078cf8-a4d6-4750-9370-a1e1125675d9",
+                "name": "Blockchain - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/94078cf8-a4d6-4750-9370-a1e1125675d9"
+                  }
+                }
+              },
+              {
+                "id": "db4a32a1-2eec-4abc-b850-8abfac9f2197",
+                "name": "Federal Risk and Authorization Management Program",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "fedramp",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/db4a32a1-2eec-4abc-b850-8abfac9f2197"
+                  }
+                }
+              },
+              {
+                "id": "d128dcbd-26ea-411d-a1aa-847a5ffbdc3a",
+                "name": "Blockchain - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d128dcbd-26ea-411d-a1aa-847a5ffbdc3a"
+                  }
+                }
+              },
+              {
+                "id": "065f7fb0-1188-4544-9938-82148bc9babd",
+                "name": "Functional - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/065f7fb0-1188-4544-9938-82148bc9babd"
+                  }
+                }
+              },
+              {
+                "id": "552ea0c3-e6b0-407b-b448-284c1678e58b",
+                "name": "Legacy - IR Docker",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Docker CIS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/552ea0c3-e6b0-407b-b448-284c1678e58b"
+                  }
+                }
+              },
+              {
+                "id": "9ce238be-590d-4b44-abf3-619a559a7b0a",
+                "name": "Docker category - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9ce238be-590d-4b44-abf3-619a559a7b0a"
+                  }
+                }
+              },
+              {
+                "id": "788527df-9ffc-4e3e-9585-f64d46baa10a",
+                "name": "Kubernetes - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/788527df-9ffc-4e3e-9585-f64d46baa10a"
+                  }
+                }
+              },
+              {
+                "id": "70b945b9-8a84-4528-b905-955b5370eacb",
+                "name": "Microsoft azure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/70b945b9-8a84-4528-b905-955b5370eacb"
+                  }
+                }
+              },
+              {
+                "id": "13029794-efb9-40d6-83ef-ea13396c4617",
+                "name": "EU GDPR",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "EU GDPR",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13029794-efb9-40d6-83ef-ea13396c4617"
+                  }
+                }
+              },
+              {
+                "id": "463b305c-2974-422a-a64c-6de9496e87e2",
+                "name": "Legacy - Amazon Web Services",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Hydras-AWS-Foundation",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/463b305c-2974-422a-a64c-6de9496e87e2"
+                  }
+                }
+              },
+              {
+                "id": "c6b2f6b2-8702-4309-b376-705978236904",
+                "name": "Legacy - IR Alibaba Cloud",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Alibaba-Cloud",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c6b2f6b2-8702-4309-b376-705978236904"
+                  }
+                }
+              },
+              {
+                "id": "43f8e046-06f3-48d8-ac9a-fc15eea94f2b",
+                "name": "IR Dataflows",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Dataflows",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/43f8e046-06f3-48d8-ac9a-fc15eea94f2b"
+                  }
+                }
+              },
+              {
+                "id": "b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca",
+                "name": "Legacy - IR Blockchain Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Blockchain-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca"
+                  }
+                }
+              },
+              {
+                "id": "9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9",
+                "name": "Docker category - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9"
+                  }
+                }
+              },
+              {
+                "id": "c5d22bae-1cd2-4da6-8943-15993e6f2cb8",
+                "name": "Machine learning artificial intelligence - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c5d22bae-1cd2-4da6-8943-15993e6f2cb8"
+                  }
+                }
+              },
+              {
+                "id": "b5267410-e6a8-442d-b88c-0a16124d7307",
+                "name": "Salesforce components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b5267410-e6a8-442d-b88c-0a16124d7307"
+                  }
+                }
+              },
+              {
+                "id": "6a4fe526-6449-461b-a409-268e5fdaf6e7",
+                "name": "Salesforce components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a4fe526-6449-461b-a409-268e5fdaf6e7"
+                  }
+                }
+              },
+              {
+                "id": "91ce62e7-daef-4ed7-8f54-629fe3423c3f",
+                "name": "Oracle cloud infrastructure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/91ce62e7-daef-4ed7-8f54-629fe3423c3f"
+                  }
+                }
+              },
+              {
+                "id": "5afaccb2-7d06-4850-90ee-389c2f538d16",
+                "name": "hipaa",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hipaa",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5afaccb2-7d06-4850-90ee-389c2f538d16"
+                  }
+                }
+              },
+              {
+                "id": "589e85e6-9a51-4ff8-896e-2fd90bb0dcae",
+                "name": "Virtual components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/589e85e6-9a51-4ff8-896e-2fd90bb0dcae"
+                  }
+                }
+              },
+              {
+                "id": "f7116197-d371-4cf1-bbf5-6580bec07af9",
+                "name": "Legacy - IR Network Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Network-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f7116197-d371-4cf1-bbf5-6580bec07af9"
+                  }
+                }
+              },
+              {
+                "id": "5f5894f0-bcdc-49c7-990a-08043270142f",
+                "name": "Legacy - IR Oracle Cloud Infrastructure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Oracle-Cloud-Infrastructure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5f5894f0-bcdc-49c7-990a-08043270142f"
+                  }
+                }
+              },
+              {
+                "id": "7ae5c21d-92b7-4417-9e18-15fc3bc4a744",
+                "name": "Legacy - IR SAP Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-SAP-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/7ae5c21d-92b7-4417-9e18-15fc3bc4a744"
+                  }
+                }
+              },
+              {
+                "id": "787401db-d33d-451a-acb5-23aae137a8c0",
+                "name": "Legacy - IR Salesforce Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Salesforce-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/787401db-d33d-451a-acb5-23aae137a8c0"
+                  }
+                }
+              },
+              {
+                "id": "165ef1cf-3f58-4a71-a90d-f2564bfea3c0",
+                "name": "Virtual components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/165ef1cf-3f58-4a71-a90d-f2564bfea3c0"
+                  }
+                }
+              },
+              {
+                "id": "6caf7d86-54e4-427a-865d-68acf90520ac",
+                "name": "Mitre ATT&CK Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "mitre-attack-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6caf7d86-54e4-427a-865d-68acf90520ac"
+                  }
+                }
+              },
+              {
+                "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                "name": "IR Automotive",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "unece-wp-29-csms",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4e224d22-9f43-40a1-ac25-4005a6cd5290"
+                  }
+                }
+              },
+              {
+                "id": "503d2ab4-0434-4125-9cea-30a989cb62e6",
+                "name": "Legacy - IR Kubernetes",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-library-devops",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/503d2ab4-0434-4125-9cea-30a989cb62e6"
+                  }
+                }
+              },
+              {
+                "id": "aaa340a1-c30d-455d-bdc9-684eb6b881b1",
+                "name": "Legacy - IR Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-security-compliance-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aaa340a1-c30d-455d-bdc9-684eb6b881b1"
+                  }
+                }
+              },
+              {
+                "id": "9cf9bb99-3598-4a3b-876c-a2ddac56ed46",
+                "name": "Alibaba cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9cf9bb99-3598-4a3b-876c-a2ddac56ed46"
+                  }
+                }
+              },
+              {
+                "id": "3402f9b6-317d-465f-abdc-dee249136953",
+                "name": "Alibaba cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3402f9b6-317d-465f-abdc-dee249136953"
+                  }
+                }
+              },
+              {
+                "id": "346cc947-bdf0-4e19-b595-7921de0f819d",
+                "name": "Microservice architecture - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/346cc947-bdf0-4e19-b595-7921de0f819d"
+                  }
+                }
+              },
+              {
+                "id": "e993149d-fcf1-4ead-91cb-19fa10abdf28",
+                "name": "Client side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e993149d-fcf1-4ead-91cb-19fa10abdf28"
+                  }
+                }
+              },
+              {
+                "id": "b07f6fc3-f332-4df2-9003-e6763e06ee57",
+                "name": "Openstack - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b07f6fc3-f332-4df2-9003-e6763e06ee57"
+                  }
+                }
+              },
+              {
+                "id": "2f742447-9879-47a1-b3dc-59cfe9375434",
+                "name": "Client side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f742447-9879-47a1-b3dc-59cfe9375434"
+                  }
+                }
+              },
+              {
+                "id": "13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca",
+                "name": "Openstack - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca"
+                  }
+                }
+              },
+              {
+                "id": "1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb",
+                "name": "Operating system - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb"
+                  }
+                }
+              },
+              {
+                "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                "name": "Data store - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2589db7e-82a0-45e6-ac05-1401252dc80f"
+                  }
+                }
+              },
+              {
+                "id": "09280e53-19a6-4a5e-a816-e678eb2de0d5",
+                "name": "Data store - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/09280e53-19a6-4a5e-a816-e678eb2de0d5"
+                  }
+                }
+              },
+              {
+                "id": "a47d7a0a-0f34-4423-8ccf-5a18673577f9",
+                "name": "Embedded device - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a47d7a0a-0f34-4423-8ccf-5a18673577f9"
+                  }
+                }
+              },
+              {
+                "id": "f5969624-4be3-44d4-9300-c5dacee96879",
+                "name": "Iot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5969624-4be3-44d4-9300-c5dacee96879"
+                  }
+                }
+              },
+              {
+                "id": "d172f1d9-3fb0-4378-afd7-983a9ef9c5f0",
+                "name": "Iot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d172f1d9-3fb0-4378-afd7-983a9ef9c5f0"
+                  }
+                }
+              },
+              {
+                "id": "0521d3ef-d5e2-4227-a8d1-8c86e4cce543",
+                "name": "Hardware - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0521d3ef-d5e2-4227-a8d1-8c86e4cce543"
+                  }
+                }
+              },
+              {
+                "id": "41a8efb9-de7f-4614-9209-aec0719ed68a",
+                "name": "Sap components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41a8efb9-de7f-4614-9209-aec0719ed68a"
+                  }
+                }
+              },
+              {
+                "id": "e4eb454f-f8c3-489e-8a42-748cb2468046",
+                "name": "Iiot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e4eb454f-f8c3-489e-8a42-748cb2468046"
+                  }
+                }
+              },
+              {
+                "id": "2145d1a2-40a9-4f9c-8f58-5430dd8de12f",
+                "name": "Iiot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2145d1a2-40a9-4f9c-8f58-5430dd8de12f"
+                  }
+                }
+              },
+              {
+                "id": "4088923a-5618-4898-846b-b22dbec9c4cf",
+                "name": "Sap components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4088923a-5618-4898-846b-b22dbec9c4cf"
+                  }
+                }
+              },
+              {
+                "id": "d1125292-b873-4654-9e59-850624925d55",
+                "name": "Service side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d1125292-b873-4654-9e59-850624925d55"
+                  }
+                }
+              },
+              {
+                "id": "edadb2e1-db89-48e2-b056-3476597b4661",
+                "name": "Google cloud platform - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/edadb2e1-db89-48e2-b056-3476597b4661"
+                  }
+                }
+              },
+              {
+                "id": "73aba9ba-5759-4587-afb9-8cece274063b",
+                "name": "Google cloud platform - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/73aba9ba-5759-4587-afb9-8cece274063b"
+                  }
+                }
+              },
+              {
+                "id": "0fb630b7-c31d-41ec-a5ef-58487d8af088",
+                "name": "Hardware - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0fb630b7-c31d-41ec-a5ef-58487d8af088"
+                  }
+                }
+              },
+              {
+                "id": "51affc99-ba53-4040-a552-69acac517dd8",
+                "name": "Huawei cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/51affc99-ba53-4040-a552-69acac517dd8"
+                  }
+                }
+              },
+              {
+                "id": "3d9621d7-25e5-49df-86c7-e8b61ff40ccd",
+                "name": "Amazon web services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3d9621d7-25e5-49df-86c7-e8b61ff40ccd"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 93,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.452Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/libraries/summary",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62fe034a-94e4-49a9-aedf-bab5efd24f64",
+                "name": "Machine learning artificial intelligence - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/62fe034a-94e4-49a9-aedf-bab5efd24f64"
+                  }
+                }
+              },
+              {
+                "id": "5c0d4a51-47db-4b45-8dc7-4152a1b62778",
+                "name": "Network components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5c0d4a51-47db-4b45-8dc7-4152a1b62778"
+                  }
+                }
+              },
+              {
+                "id": "6e650620-238a-4bfc-a052-89eeaa7fb5f1",
+                "name": "Oracle cloud infrastructure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6e650620-238a-4bfc-a052-89eeaa7fb5f1"
+                  }
+                }
+              },
+              {
+                "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                "name": "Service side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/78edd477-0777-4556-91af-c93ca599cd50"
+                  }
+                }
+              },
+              {
+                "id": "12c93b24-cb52-4b72-bd9b-85ff3f3c2871",
+                "name": "lib qa release 4.47",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "lib-qa-release-4.47",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/12c93b24-cb52-4b72-bd9b-85ff3f3c2871"
+                  }
+                }
+              },
+              {
+                "id": "6a1fe1a4-2e49-4e77-9c0c-187e392695d1",
+                "name": "Generic components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a1fe1a4-2e49-4e77-9c0c-187e392695d1"
+                  }
+                }
+              },
+              {
+                "id": "181e919f-379f-4440-846d-96e49f8beb8c",
+                "name": "Microservice architecture - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/181e919f-379f-4440-846d-96e49f8beb8c"
+                  }
+                }
+              },
+              {
+                "id": "eb270721-bca3-4679-a21f-3892ae139685",
+                "name": "Financial services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb270721-bca3-4679-a21f-3892ae139685"
+                  }
+                }
+              },
+              {
+                "id": "93a7f9c5-660e-44e3-967c-8f871239dd66",
+                "name": "Legacy - IR Virtual Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Virtual-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/93a7f9c5-660e-44e3-967c-8f871239dd66"
+                  }
+                }
+              },
+              {
+                "id": "41f71180-6ede-4243-ba3e-e3070f70c893",
+                "name": "Amazon web services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41f71180-6ede-4243-ba3e-e3070f70c893"
+                  }
+                }
+              },
+              {
+                "id": "d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d",
+                "name": "Financial services - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "financial-services-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d8f7ad3d-57f8-4e30-893e-bc47b1da7b7d"
+                  }
+                }
+              },
+              {
+                "id": "295aa5d4-4f38-436c-9042-e6c19507cabd",
+                "name": "CWE",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CWE-COMPONENT-REFERENCE",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/295aa5d4-4f38-436c-9042-e6c19507cabd"
+                  }
+                }
+              },
+              {
+                "id": "8dcc7a77-eb02-414e-8b6d-db75880149f5",
+                "name": "CAPEC",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CAPEC",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/8dcc7a77-eb02-414e-8b6d-db75880149f5"
+                  }
+                }
+              },
+              {
+                "id": "ef6a842c-0403-441c-815e-ad4c4c09edbf",
+                "name": "EU Cyber Resilience Act",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-EU-Cyber-Resilience-Act",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ef6a842c-0403-441c-815e-ad4c4c09edbf"
+                  }
+                }
+              },
+              {
+                "id": "11679099-da70-4713-9b94-22d36c993578",
+                "name": "gatling-projectLhJJZHFkVt",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "gatling-projectLhJJZHFkVt",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/11679099-da70-4713-9b94-22d36c993578"
+                  }
+                }
+              },
+              {
+                "id": "2f697713-5a04-4aef-afd9-0d10f7466e7d",
+                "name": "IR MAESTRO Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-MAESTRO-Framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f697713-5a04-4aef-afd9-0d10f7466e7d"
+                  }
+                }
+              },
+              {
+                "id": "5868ed0a-8d5e-4c52-bd07-4d78eed4fdca",
+                "name": "gatling-projectkMQgSR4Ihi",
+                "type": "custom",
+                "enabled": false,
+                "referenceId": "gatling-projectkMQgSR4Ihi",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5868ed0a-8d5e-4c52-bd07-4d78eed4fdca"
+                  }
+                }
+              },
+              {
+                "id": "46b7c65d-e1ab-4252-8cb6-8713087128e2",
+                "name": "Microsoft azure - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/46b7c65d-e1ab-4252-8cb6-8713087128e2"
+                  }
+                }
+              },
+              {
+                "id": "3f5851c9-93df-4e49-ad87-1629a22e367e",
+                "name": "pedro222",
+                "type": "custom",
+                "enabled": true,
+                "referenceId": "pedro222",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3f5851c9-93df-4e49-ad87-1629a22e367e"
+                  }
+                }
+              },
+              {
+                "id": "d2294a50-e3a4-4369-ba20-2a9d640f1796",
+                "name": "Functional - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d2294a50-e3a4-4369-ba20-2a9d640f1796"
+                  }
+                }
+              },
+              {
+                "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                "name": "Legacy - IR Software Architecture Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/ae43721b-27f8-41af-af7d-0c45b8c0c002"
+                  }
+                }
+              },
+              {
+                "id": "f5a877b7-a5c0-4ad1-b862-0317330422bc",
+                "name": "Legacy - Microsoft-Azure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Microsoft-Azure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5a877b7-a5c0-4ad1-b862-0317330422bc"
+                  }
+                }
+              },
+              {
+                "id": "cb404144-37a7-4cc0-b0bc-37021648582d",
+                "name": "Legacy - IR Functional Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Functional-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/cb404144-37a7-4cc0-b0bc-37021648582d"
+                  }
+                }
+              },
+              {
+                "id": "1d0684a7-c19d-4077-87ea-7768d08cae7b",
+                "name": "Legacy - Google Cloud Platform",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Google Cloud Platform",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1d0684a7-c19d-4077-87ea-7768d08cae7b"
+                  }
+                }
+              },
+              {
+                "id": "a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1",
+                "name": "Legacy - IR Mobile",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "OWASP-MASVS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a3d4fdb4-ad0b-4855-8d5d-3dc4772602b1"
+                  }
+                }
+              },
+              {
+                "id": "2e51be3d-8b78-4f27-bfd3-b1ed75902d3a",
+                "name": "Huawei cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2e51be3d-8b78-4f27-bfd3-b1ed75902d3a"
+                  }
+                }
+              },
+              {
+                "id": "eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6",
+                "name": "Legacy - IR Industrial Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Industrial-Internet-of-Things",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/eb1e2aaa-459a-486c-a49c-5dbeaf82fbb6"
+                  }
+                }
+              },
+              {
+                "id": "15c678d6-34ac-4ad1-9b97-52a1b995c0b8",
+                "name": "Legacy - IR Machine Learning - Artificial Intelligence",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Machine-Learning-Artificial-Intelligence",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/15c678d6-34ac-4ad1-9b97-52a1b995c0b8"
+                  }
+                }
+              },
+              {
+                "id": "b7743190-51a8-4a59-95ba-02866c272e41",
+                "name": "Legacy - IR Hardware Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Hardware-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7743190-51a8-4a59-95ba-02866c272e41"
+                  }
+                }
+              },
+              {
+                "id": "c9019dd1-b6fc-413a-b9f9-346bb8e5cddf",
+                "name": "Legacy - IR Generic Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Generic-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c9019dd1-b6fc-413a-b9f9-346bb8e5cddf"
+                  }
+                }
+              },
+              {
+                "id": "baee84e6-eef4-4c49-89ae-9b109366434e",
+                "name": "Embedded device - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/baee84e6-eef4-4c49-89ae-9b109366434e"
+                  }
+                }
+              },
+              {
+                "id": "651614f6-8eb0-432f-b117-135ae46a5b33",
+                "name": "Generic components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "generic-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/651614f6-8eb0-432f-b117-135ae46a5b33"
+                  }
+                }
+              },
+              {
+                "id": "982c5ef9-4b5e-4be7-abb5-6fee958e1117",
+                "name": "Operating system - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/982c5ef9-4b5e-4be7-abb5-6fee958e1117"
+                  }
+                }
+              },
+              {
+                "id": "0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99",
+                "name": "Network components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "network-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0a6a1ef7-9ac5-4eac-8995-9e495a1e6e99"
+                  }
+                }
+              },
+              {
+                "id": "74370e37-7cac-4e4c-aaca-b1368d080f0f",
+                "name": "Legacy - AWS Lambda",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "aws-lambda",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/74370e37-7cac-4e4c-aaca-b1368d080f0f"
+                  }
+                }
+              },
+              {
+                "id": "aba39980-6e81-46a4-a271-149767c6ec68",
+                "name": "Legacy - PCI-DSS",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "PCI-DSS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aba39980-6e81-46a4-a271-149767c6ec68"
+                  }
+                }
+              },
+              {
+                "id": "d442a2a9-de90-4da7-90a0-acad43d7bfec",
+                "name": "Kubernetes - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d442a2a9-de90-4da7-90a0-acad43d7bfec"
+                  }
+                }
+              },
+              {
+                "id": "a68729a9-2a81-4a53-b4b2-3c91c4dd63c2",
+                "name": "IR Default Rules for Standards",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "CS-Default-Security-Policies",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a68729a9-2a81-4a53-b4b2-3c91c4dd63c2"
+                  }
+                }
+              },
+              {
+                "id": "9f75395f-acc2-4340-86cf-2e7df5a2991b",
+                "name": "Legacy - IR Microservices",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservices-library-dev",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9f75395f-acc2-4340-86cf-2e7df5a2991b"
+                  }
+                }
+              },
+              {
+                "id": "1eb9299b-573c-44b7-939d-2e89629e6923",
+                "name": "IR Legal Regulations",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Legal-Regulations",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1eb9299b-573c-44b7-939d-2e89629e6923"
+                  }
+                }
+              },
+              {
+                "id": "94078cf8-a4d6-4750-9370-a1e1125675d9",
+                "name": "Blockchain - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/94078cf8-a4d6-4750-9370-a1e1125675d9"
+                  }
+                }
+              },
+              {
+                "id": "db4a32a1-2eec-4abc-b850-8abfac9f2197",
+                "name": "Federal Risk and Authorization Management Program",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "fedramp",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/db4a32a1-2eec-4abc-b850-8abfac9f2197"
+                  }
+                }
+              },
+              {
+                "id": "d128dcbd-26ea-411d-a1aa-847a5ffbdc3a",
+                "name": "Blockchain - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "blockchain-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d128dcbd-26ea-411d-a1aa-847a5ffbdc3a"
+                  }
+                }
+              },
+              {
+                "id": "065f7fb0-1188-4544-9938-82148bc9babd",
+                "name": "Functional - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "functional-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/065f7fb0-1188-4544-9938-82148bc9babd"
+                  }
+                }
+              },
+              {
+                "id": "552ea0c3-e6b0-407b-b448-284c1678e58b",
+                "name": "Legacy - IR Docker",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Docker CIS",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/552ea0c3-e6b0-407b-b448-284c1678e58b"
+                  }
+                }
+              },
+              {
+                "id": "9ce238be-590d-4b44-abf3-619a559a7b0a",
+                "name": "Docker category - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9ce238be-590d-4b44-abf3-619a559a7b0a"
+                  }
+                }
+              },
+              {
+                "id": "788527df-9ffc-4e3e-9585-f64d46baa10a",
+                "name": "Kubernetes - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/788527df-9ffc-4e3e-9585-f64d46baa10a"
+                  }
+                }
+              },
+              {
+                "id": "70b945b9-8a84-4528-b905-955b5370eacb",
+                "name": "Microsoft azure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microsoft-azure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/70b945b9-8a84-4528-b905-955b5370eacb"
+                  }
+                }
+              },
+              {
+                "id": "13029794-efb9-40d6-83ef-ea13396c4617",
+                "name": "EU GDPR",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "EU GDPR",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13029794-efb9-40d6-83ef-ea13396c4617"
+                  }
+                }
+              },
+              {
+                "id": "463b305c-2974-422a-a64c-6de9496e87e2",
+                "name": "Legacy - Amazon Web Services",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "Hydras-AWS-Foundation",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/463b305c-2974-422a-a64c-6de9496e87e2"
+                  }
+                }
+              },
+              {
+                "id": "c6b2f6b2-8702-4309-b376-705978236904",
+                "name": "Legacy - IR Alibaba Cloud",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Alibaba-Cloud",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c6b2f6b2-8702-4309-b376-705978236904"
+                  }
+                }
+              },
+              {
+                "id": "43f8e046-06f3-48d8-ac9a-fc15eea94f2b",
+                "name": "IR Dataflows",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Dataflows",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/43f8e046-06f3-48d8-ac9a-fc15eea94f2b"
+                  }
+                }
+              },
+              {
+                "id": "b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca",
+                "name": "Legacy - IR Blockchain Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Blockchain-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b7a23f56-c519-4cad-a6a7-1ad3dfd0e1ca"
+                  }
+                }
+              },
+              {
+                "id": "9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9",
+                "name": "Docker category - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "docker-category-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9e21e06f-bbe8-46c8-97ca-8ee7ab9621e9"
+                  }
+                }
+              },
+              {
+                "id": "c5d22bae-1cd2-4da6-8943-15993e6f2cb8",
+                "name": "Machine learning artificial intelligence - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "machine-learning-artificial-intelligence-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/c5d22bae-1cd2-4da6-8943-15993e6f2cb8"
+                  }
+                }
+              },
+              {
+                "id": "b5267410-e6a8-442d-b88c-0a16124d7307",
+                "name": "Salesforce components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b5267410-e6a8-442d-b88c-0a16124d7307"
+                  }
+                }
+              },
+              {
+                "id": "6a4fe526-6449-461b-a409-268e5fdaf6e7",
+                "name": "Salesforce components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "salesforce-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6a4fe526-6449-461b-a409-268e5fdaf6e7"
+                  }
+                }
+              },
+              {
+                "id": "91ce62e7-daef-4ed7-8f54-629fe3423c3f",
+                "name": "Oracle cloud infrastructure - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "oracle-cloud-infrastructure-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/91ce62e7-daef-4ed7-8f54-629fe3423c3f"
+                  }
+                }
+              },
+              {
+                "id": "5afaccb2-7d06-4850-90ee-389c2f538d16",
+                "name": "hipaa",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hipaa",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5afaccb2-7d06-4850-90ee-389c2f538d16"
+                  }
+                }
+              },
+              {
+                "id": "589e85e6-9a51-4ff8-896e-2fd90bb0dcae",
+                "name": "Virtual components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/589e85e6-9a51-4ff8-896e-2fd90bb0dcae"
+                  }
+                }
+              },
+              {
+                "id": "f7116197-d371-4cf1-bbf5-6580bec07af9",
+                "name": "Legacy - IR Network Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Network-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f7116197-d371-4cf1-bbf5-6580bec07af9"
+                  }
+                }
+              },
+              {
+                "id": "5f5894f0-bcdc-49c7-990a-08043270142f",
+                "name": "Legacy - IR Oracle Cloud Infrastructure",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Oracle-Cloud-Infrastructure",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/5f5894f0-bcdc-49c7-990a-08043270142f"
+                  }
+                }
+              },
+              {
+                "id": "7ae5c21d-92b7-4417-9e18-15fc3bc4a744",
+                "name": "Legacy - IR SAP Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-SAP-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/7ae5c21d-92b7-4417-9e18-15fc3bc4a744"
+                  }
+                }
+              },
+              {
+                "id": "787401db-d33d-451a-acb5-23aae137a8c0",
+                "name": "Legacy - IR Salesforce Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "IR-Salesforce-Components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/787401db-d33d-451a-acb5-23aae137a8c0"
+                  }
+                }
+              },
+              {
+                "id": "165ef1cf-3f58-4a71-a90d-f2564bfea3c0",
+                "name": "Virtual components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "virtual-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/165ef1cf-3f58-4a71-a90d-f2564bfea3c0"
+                  }
+                }
+              },
+              {
+                "id": "6caf7d86-54e4-427a-865d-68acf90520ac",
+                "name": "Mitre ATT&CK Framework",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "mitre-attack-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/6caf7d86-54e4-427a-865d-68acf90520ac"
+                  }
+                }
+              },
+              {
+                "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                "name": "IR Automotive",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "unece-wp-29-csms",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4e224d22-9f43-40a1-ac25-4005a6cd5290"
+                  }
+                }
+              },
+              {
+                "id": "503d2ab4-0434-4125-9cea-30a989cb62e6",
+                "name": "Legacy - IR Kubernetes",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "kubernetes-library-devops",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/503d2ab4-0434-4125-9cea-30a989cb62e6"
+                  }
+                }
+              },
+              {
+                "id": "aaa340a1-c30d-455d-bdc9-684eb6b881b1",
+                "name": "Legacy - IR Internet of Things",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-security-compliance-framework",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/aaa340a1-c30d-455d-bdc9-684eb6b881b1"
+                  }
+                }
+              },
+              {
+                "id": "9cf9bb99-3598-4a3b-876c-a2ddac56ed46",
+                "name": "Alibaba cloud - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/9cf9bb99-3598-4a3b-876c-a2ddac56ed46"
+                  }
+                }
+              },
+              {
+                "id": "3402f9b6-317d-465f-abdc-dee249136953",
+                "name": "Alibaba cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "alibaba-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3402f9b6-317d-465f-abdc-dee249136953"
+                  }
+                }
+              },
+              {
+                "id": "346cc947-bdf0-4e19-b595-7921de0f819d",
+                "name": "Microservice architecture - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "microservice-architecture-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/346cc947-bdf0-4e19-b595-7921de0f819d"
+                  }
+                }
+              },
+              {
+                "id": "e993149d-fcf1-4ead-91cb-19fa10abdf28",
+                "name": "Client side - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e993149d-fcf1-4ead-91cb-19fa10abdf28"
+                  }
+                }
+              },
+              {
+                "id": "b07f6fc3-f332-4df2-9003-e6763e06ee57",
+                "name": "Openstack - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/b07f6fc3-f332-4df2-9003-e6763e06ee57"
+                  }
+                }
+              },
+              {
+                "id": "2f742447-9879-47a1-b3dc-59cfe9375434",
+                "name": "Client side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "client-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2f742447-9879-47a1-b3dc-59cfe9375434"
+                  }
+                }
+              },
+              {
+                "id": "13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca",
+                "name": "Openstack - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "openstack-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/13dd5dd4-8510-4a4b-aa71-8e9f228cd3ca"
+                  }
+                }
+              },
+              {
+                "id": "1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb",
+                "name": "Operating system - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "operating-system-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/1f2c16c5-2a60-4a3f-bbb9-4f2e208dd4fb"
+                  }
+                }
+              },
+              {
+                "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                "name": "Data store - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2589db7e-82a0-45e6-ac05-1401252dc80f"
+                  }
+                }
+              },
+              {
+                "id": "09280e53-19a6-4a5e-a816-e678eb2de0d5",
+                "name": "Data store - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "data-store-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/09280e53-19a6-4a5e-a816-e678eb2de0d5"
+                  }
+                }
+              },
+              {
+                "id": "a47d7a0a-0f34-4423-8ccf-5a18673577f9",
+                "name": "Embedded device - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "embedded-device-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/a47d7a0a-0f34-4423-8ccf-5a18673577f9"
+                  }
+                }
+              },
+              {
+                "id": "f5969624-4be3-44d4-9300-c5dacee96879",
+                "name": "Iot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/f5969624-4be3-44d4-9300-c5dacee96879"
+                  }
+                }
+              },
+              {
+                "id": "d172f1d9-3fb0-4378-afd7-983a9ef9c5f0",
+                "name": "Iot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d172f1d9-3fb0-4378-afd7-983a9ef9c5f0"
+                  }
+                }
+              },
+              {
+                "id": "0521d3ef-d5e2-4227-a8d1-8c86e4cce543",
+                "name": "Hardware - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0521d3ef-d5e2-4227-a8d1-8c86e4cce543"
+                  }
+                }
+              },
+              {
+                "id": "41a8efb9-de7f-4614-9209-aec0719ed68a",
+                "name": "Sap components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/41a8efb9-de7f-4614-9209-aec0719ed68a"
+                  }
+                }
+              },
+              {
+                "id": "e4eb454f-f8c3-489e-8a42-748cb2468046",
+                "name": "Iiot components - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/e4eb454f-f8c3-489e-8a42-748cb2468046"
+                  }
+                }
+              },
+              {
+                "id": "2145d1a2-40a9-4f9c-8f58-5430dd8de12f",
+                "name": "Iiot components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "iiot-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/2145d1a2-40a9-4f9c-8f58-5430dd8de12f"
+                  }
+                }
+              },
+              {
+                "id": "4088923a-5618-4898-846b-b22dbec9c4cf",
+                "name": "Sap components - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "sap-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/4088923a-5618-4898-846b-b22dbec9c4cf"
+                  }
+                }
+              },
+              {
+                "id": "d1125292-b873-4654-9e59-850624925d55",
+                "name": "Service side - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "service-side-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/d1125292-b873-4654-9e59-850624925d55"
+                  }
+                }
+              },
+              {
+                "id": "edadb2e1-db89-48e2-b056-3476597b4661",
+                "name": "Google cloud platform - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/edadb2e1-db89-48e2-b056-3476597b4661"
+                  }
+                }
+              },
+              {
+                "id": "73aba9ba-5759-4587-afb9-8cece274063b",
+                "name": "Google cloud platform - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "google-cloud-platform-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/73aba9ba-5759-4587-afb9-8cece274063b"
+                  }
+                }
+              },
+              {
+                "id": "0fb630b7-c31d-41ec-a5ef-58487d8af088",
+                "name": "Hardware - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "hardware-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/0fb630b7-c31d-41ec-a5ef-58487d8af088"
+                  }
+                }
+              },
+              {
+                "id": "51affc99-ba53-4040-a552-69acac517dd8",
+                "name": "Huawei cloud - Rules",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "huawei-cloud-rules",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/51affc99-ba53-4040-a552-69acac517dd8"
+                  }
+                }
+              },
+              {
+                "id": "3d9621d7-25e5-49df-86c7-e8b61ff40ccd",
+                "name": "Amazon web services - Components",
+                "type": "default",
+                "enabled": true,
+                "referenceId": "amazon-web-services-components",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/libraries/3d9621d7-25e5-49df-86c7-e8b61ff40ccd"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/libraries/summary?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 93,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.168Z"
+      }
+    ]
+  },
+  "total_responses": 4
+}

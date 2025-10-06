@@ -1,0 +1,40 @@
+{
+  "endpoint": "/projects/{id}/diagram",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/diagram",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "isEnabled": true,
+          "version": 3,
+          "updated": "2025-09-27T22:54:35.211+0000",
+          "updatedBy": {
+            "id": "a51208ea-272c-5fd0-efaf-0c05b0ed674c",
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              }
+            }
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram"
+            },
+            "content": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/content"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.160Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

@@ -1,0 +1,284 @@
+{
+  "endpoint": "/custom-fields/groups/",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?page=0&size=1&filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27",
+        "method": "GET",
+        "endpoint_pattern": "/custom-fields/groups/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8fc2597d-0390-43a7-8e46-31d0886e6bf6",
+                "name": "Tjj-release-4.44",
+                "after": null,
+                "entity": "threat",
+                "customFields": {
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/custom-fields?filter='group.id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+                    }
+                  }
+                },
+                "provider": "custom",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/8fc2597d-0390-43a7-8e46-31d0886e6bf6"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:12.303Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?page=0&size=1&filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27",
+        "method": "GET",
+        "endpoint_pattern": "/custom-fields/groups/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8fc2597d-0390-43a7-8e46-31d0886e6bf6",
+                "name": "Tjj-release-4.44",
+                "after": null,
+                "entity": "threat",
+                "customFields": {
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/custom-fields?filter='group.id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+                    }
+                  }
+                },
+                "provider": "custom",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/8fc2597d-0390-43a7-8e46-31d0886e6bf6"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:22.630Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?page=0&size=1&filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27",
+        "method": "GET",
+        "endpoint_pattern": "/custom-fields/groups/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8fc2597d-0390-43a7-8e46-31d0886e6bf6",
+                "name": "Tjj-release-4.44",
+                "after": null,
+                "entity": "threat",
+                "customFields": {
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/custom-fields?filter='group.id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+                    }
+                  }
+                },
+                "provider": "custom",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/8fc2597d-0390-43a7-8e46-31d0886e6bf6"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:29.272Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?page=0&size=1&filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27",
+        "method": "GET",
+        "endpoint_pattern": "/custom-fields/groups/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8fc2597d-0390-43a7-8e46-31d0886e6bf6",
+                "name": "Tjj-release-4.44",
+                "after": null,
+                "entity": "threat",
+                "customFields": {
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/custom-fields?filter='group.id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+                    }
+                  }
+                },
+                "provider": "custom",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/8fc2597d-0390-43a7-8e46-31d0886e6bf6"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:35.472Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?page=0&size=1&filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27",
+        "method": "GET",
+        "endpoint_pattern": "/custom-fields/groups/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8fc2597d-0390-43a7-8e46-31d0886e6bf6",
+                "name": "Tjj-release-4.44",
+                "after": null,
+                "entity": "threat",
+                "customFields": {
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/custom-fields?filter='group.id'='8fc2597d-0390-43a7-8e46-31d0886e6bf6'"
+                    }
+                  }
+                },
+                "provider": "custom",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/8fc2597d-0390-43a7-8e46-31d0886e6bf6"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/custom-fields/groups/?filter=%27id%27=%278fc2597d-0390-43a7-8e46-31d0886e6bf6%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:45.179Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

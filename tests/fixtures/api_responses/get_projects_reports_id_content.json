@@ -1,0 +1,29 @@
+{
+  "endpoint": "/projects/reports/{id}/content",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/reports/04e724a3-295f-40ec-8449-fba54f82ef60/content",
+        "method": "GET",
+        "endpoint_pattern": "/projects/reports/{id}/content",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": "",
+        "timestamp": "2025-09-27T22:58:20.994Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/reports/5c106834-36d4-4dbd-99f2-1b70ef4921d5/content",
+        "method": "GET",
+        "endpoint_pattern": "/projects/reports/{id}/content",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": "",
+        "timestamp": "2025-09-27T23:27:44.709Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

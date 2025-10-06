@@ -1,0 +1,117 @@
+{
+  "endpoint": "/smart-views/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/smart-views/summary",
+        "method": "GET",
+        "endpoint_pattern": "/smart-views/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "486aa5ca-83e3-4766-ad30-4ebba226764e",
+                "name": "Top 10 high impact countermeasures",
+                "description": "These countermeasures mitigate the most threats in your model",
+                "outputType": "countermeasures",
+                "position": 1
+              },
+              {
+                "id": "262b7b55-3c38-4f8b-a04a-7e58aba2ee15",
+                "name": "Standard coverage gaps",
+                "description": "Highlight threats and countermeasures missing in key standards like ISO, GDPR, or NIST",
+                "outputType": "all_from_countermeasures",
+                "position": 2
+              },
+              {
+                "id": "31ca7485-87b6-499a-8bf9-7375752fa193",
+                "name": "Easiest wins",
+                "description": "Focus on low-effort countermeasures that mitigate critical threats quickly.",
+                "outputType": "countermeasures",
+                "position": 3
+              },
+              {
+                "id": "4b4341e1-30e8-47d2-95b6-0e30bbf2660f",
+                "name": "Critical threats with no mitigations",
+                "description": "Address critical threats in your model that have pending countermeasures not yet marked as required for full mitigation.",
+                "outputType": "threats",
+                "position": 4
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/smart-views/summary?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 4,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.591Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/smart-views/summary",
+        "method": "GET",
+        "endpoint_pattern": "/smart-views/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "486aa5ca-83e3-4766-ad30-4ebba226764e",
+                "name": "Top 10 high impact countermeasures",
+                "description": "These countermeasures mitigate the most threats in your model",
+                "outputType": "countermeasures",
+                "position": 1
+              },
+              {
+                "id": "262b7b55-3c38-4f8b-a04a-7e58aba2ee15",
+                "name": "Standard coverage gaps",
+                "description": "Highlight threats and countermeasures missing in key standards like ISO, GDPR, or NIST",
+                "outputType": "all_from_countermeasures",
+                "position": 2
+              },
+              {
+                "id": "31ca7485-87b6-499a-8bf9-7375752fa193",
+                "name": "Easiest wins",
+                "description": "Focus on low-effort countermeasures that mitigate critical threats quickly.",
+                "outputType": "countermeasures",
+                "position": 3
+              },
+              {
+                "id": "4b4341e1-30e8-47d2-95b6-0e30bbf2660f",
+                "name": "Critical threats with no mitigations",
+                "description": "Address critical threats in your model that have pending countermeasures not yet marked as required for full mitigation.",
+                "outputType": "threats",
+                "position": 4
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/smart-views/summary?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 4,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.726Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

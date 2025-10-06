@@ -1,0 +1,174 @@
+{
+  "endpoint": "/projects/{id}/summary",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/summary",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+          "referenceId": "badger-app-cbba",
+          "name": "Badger App",
+          "state": "synced",
+          "tags": "",
+          "modelUpdated": "2025-09-27T22:53:12.428+0000",
+          "readOnly": false,
+          "operation": "none",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "isBlueprint": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T22:57:54.000Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/summary",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+          "referenceId": "badger-app-cbba",
+          "name": "Badger App",
+          "state": "synced",
+          "tags": "",
+          "modelUpdated": "2025-09-27T22:53:12.428+0000",
+          "readOnly": false,
+          "operation": "none",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "isBlueprint": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T22:58:06.513Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/summary",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+          "referenceId": "badger-app-cbba",
+          "name": "Badger App",
+          "state": "synced",
+          "tags": "",
+          "modelUpdated": "2025-09-27T22:53:12.428+0000",
+          "readOnly": false,
+          "operation": "none",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "isBlueprint": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:19.624Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/summary",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+          "referenceId": "badger-app-cbba",
+          "name": "Badger App",
+          "state": "synced",
+          "tags": "",
+          "modelUpdated": "2025-09-27T22:53:12.428+0000",
+          "readOnly": false,
+          "operation": "none",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "isBlueprint": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:21.789Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/summary",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/summary",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+          "referenceId": "badger-app-cbba",
+          "name": "Badger App",
+          "state": "synced",
+          "tags": "",
+          "modelUpdated": "2025-09-27T22:53:12.428+0000",
+          "readOnly": false,
+          "operation": "none",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "isBlueprint": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:31.029Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

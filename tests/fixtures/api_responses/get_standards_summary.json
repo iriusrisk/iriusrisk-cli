@@ -1,0 +1,1353 @@
+{
+  "endpoint": "/standards/summary/",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/standards/summary/?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/standards/summary/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "b325b707-fc73-4f91-84a2-df471ce8b486",
+                "name": "[${value}][${value}]---8!!1",
+                "referenceId": "1valuevalue"
+              },
+              {
+                "id": "f5c07ef5-23d2-487e-8d73-569985f58561",
+                "name": "25842_Standard 3 3",
+                "referenceId": "25842-standard"
+              },
+              {
+                "id": "9666b306-49de-3236-b507-15e40d442530",
+                "name": "Azure Security Benchmark",
+                "referenceId": "azure-security-benchmark"
+              },
+              {
+                "id": "97c40086-a46c-3ae8-ada3-f2d16bc708bd",
+                "name": "California Consumer Privacy Act",
+                "referenceId": "ccpa"
+              },
+              {
+                "id": "47067d9a-599f-3d5b-bacc-293a37119df5",
+                "name": "CIS Amazon Web Services Three-tier Web Architecture Benchmark Level 1",
+                "referenceId": "cis-amazon-web-services-three-tier-web-architecture-benchmark"
+              },
+              {
+                "id": "dd3dd336-a588-3b6e-8316-d3361549391e",
+                "name": "CIS Amazon Web Services Three-tier Web Architecture Benchmark Level 2",
+                "referenceId": "cis-amazon-web-services-three-tier-web-architecture-benchmark-level-2"
+              },
+              {
+                "id": "041b27f7-64e2-36d7-a5cb-c8da94f777f9",
+                "name": "CIS Amazon Web Services Foundations Benchmark Level 1",
+                "referenceId": "CIS AWS Standard"
+              },
+              {
+                "id": "9ae4bf9a-92c2-3213-a81e-b725424d9aae",
+                "name": "CIS Amazon Web Services Foundations Benchmark Level 2",
+                "referenceId": "CIS-AWS-Standard-Level-2"
+              },
+              {
+                "id": "f6cecdc0-364c-3a3b-9e21-d479c7463ed7",
+                "name": "CIS Microsoft Azure Foundations Benchmark Level 1",
+                "referenceId": "cis-azure-standard"
+              },
+              {
+                "id": "e871f331-32f4-3175-b9a2-d2d96bd5dcac",
+                "name": "CIS Microsoft Azure Foundations Benchmark Level 2",
+                "referenceId": "cis-azure-standard-level-2"
+              },
+              {
+                "id": "a509cc8f-1c61-3039-8bcb-8f6cc3b7a81b",
+                "name": "CIS Google Cloud Platform Foundation Benchmark Level 1",
+                "referenceId": "cis-gcp-standard"
+              },
+              {
+                "id": "9dc4fac9-aeb9-3a7d-aa29-38d4685093c9",
+                "name": "CIS Google Cloud Platform Foundation Benchmark Level 2",
+                "referenceId": "cis-gcp-standard-level-2"
+              },
+              {
+                "id": "bc3285e1-4fd9-3a0f-8dc5-63148f8c451b",
+                "name": "CIS Kubernetes - Level 1",
+                "referenceId": "cis-kubernetes-level-1"
+              },
+              {
+                "id": "5a4a2562-e8a0-3876-9605-f797d9a5d687",
+                "name": "CIS Kubernetes - Level 2",
+                "referenceId": "cis-kubernetes-level-2"
+              },
+              {
+                "id": "644c6a0b-0f64-38b9-b3eb-f0ba538685e8",
+                "name": "CIS Oracle Cloud Infrastructure Foundations Level 1",
+                "referenceId": "cis-oracle-cloud-level-1"
+              },
+              {
+                "id": "2d7ad97a-d5d6-3ac5-848d-f5a10491967c",
+                "name": "CIS Oracle Cloud Infrastructure Foundations Level 2",
+                "referenceId": "cis-oracle-cloud-level-2"
+              },
+              {
+                "id": "2b0017af-4484-4e2e-9346-077bd0e71e4e",
+                "name": "Cloud Controls Matrix",
+                "referenceId": "cloud-control-matrix"
+              },
+              {
+                "id": "96fc7794-50c5-3836-8e1d-ad63c2784998",
+                "name": "CSA API Security Guidelines",
+                "referenceId": "csa-api-security-guidelines"
+              },
+              {
+                "id": "6af88cfa-6f7c-31da-985e-b5428ab3f0ae",
+                "name": "CSA Best Practices for Implementing a Secure Application Container Architecture",
+                "referenceId": "csa-container-architectures"
+              },
+              {
+                "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                "name": "CWE",
+                "referenceId": "cwe-standard"
+              },
+              {
+                "id": "cc203dab-fe58-3c2c-b41d-b1203c568159",
+                "name": "CWE Top 25 Most Dangerous Software Weaknessesf",
+                "referenceId": "cwe-top-25-dangerous-weaknesses"
+              },
+              {
+                "id": "94cb2afb-e9f2-4037-8f04-fd2f67e5b0b0",
+                "name": "Mitre D3FEND Framework",
+                "referenceId": "D3FEND"
+              },
+              {
+                "id": "2ae2196c-f3bc-409f-8ea3-77f9eb9f3b0f",
+                "name": "earg",
+                "referenceId": "earg"
+              },
+              {
+                "id": "9ce6a20c-7c69-4a37-907e-3005223bdf4c",
+                "name": "EU Cyber Resilience Act",
+                "referenceId": "EU-CRA"
+              },
+              {
+                "id": "2e1da50d-bc56-30d6-afbb-4c928bc9e1bc",
+                "name": "EU-GDPR",
+                "referenceId": "EU-GDPR"
+              },
+              {
+                "id": "03153f64-38ff-3e61-a621-7dd8414cc195",
+                "name": "FedRAMP High Baseline",
+                "referenceId": "fedramp-high-baseline"
+              },
+              {
+                "id": "d252478e-261d-3f6e-823b-874003eff78d",
+                "name": "FedRAMP Low Baseline",
+                "referenceId": "fedramp-low-baseline"
+              },
+              {
+                "id": "3de8a96f-0d33-3e5f-8bd7-e7c2189950cd",
+                "name": "FedRAMP Moderate Baseline",
+                "referenceId": "fedramp-moderate-baseline"
+              },
+              {
+                "id": "518903ca-71cf-3136-8230-a1778d5b5e55",
+                "name": "HIPAA Addressable",
+                "referenceId": "hipaa-addressable"
+              },
+              {
+                "id": "1e9bcd76-6a37-33d2-8c72-78c77265e527",
+                "name": "HIPAA Required",
+                "referenceId": "hipaa-required"
+              },
+              {
+                "id": "60be9df2-db06-453f-8e1e-12340bf15914",
+                "name": "IEC62443 4-2 ICSA-500",
+                "referenceId": "IEC62443-4-2-ICSA-500"
+              },
+              {
+                "id": "c61de2c2-3811-410a-9df1-568330b82db8",
+                "name": "IM8 Reform - Low-Risk - Level 0",
+                "referenceId": "im8-reform-low-risk-level-0"
+              },
+              {
+                "id": "7a03ee3b-b3a7-4ec7-976e-1d4273ede5c6",
+                "name": "IM8 Reform - Low-Risk - Level 2",
+                "referenceId": "im8-reform-low-risk-level-2"
+              },
+              {
+                "id": "487adcab-d562-493e-b224-74e3a2ce9aae",
+                "name": "IM8 Reform - Medium-Risk - Level 0",
+                "referenceId": "im8-reform-medium-risk-level-0"
+              },
+              {
+                "id": "700ae23b-225d-43f7-86f0-138122ed226b",
+                "name": "IM8 Reform - Medium-Risk - Level 1",
+                "referenceId": "im8-reform-medium-risk-level-1"
+              },
+              {
+                "id": "dfb364f6-db28-389e-88fb-8cd90922aaf9",
+                "name": "IoTSF Class 0",
+                "referenceId": "iotsf-class-0"
+              },
+              {
+                "id": "43143257-04e9-3478-91a5-0a188095f5df",
+                "name": "IoTSF Class 1",
+                "referenceId": "iotsf-class-1"
+              },
+              {
+                "id": "fa5067e0-d419-3095-812b-9cfc1b9c0876",
+                "name": "IoTSF Class 2",
+                "referenceId": "iotsf-class-2"
+              },
+              {
+                "id": "e1f8fbb3-b36c-32c6-9ef1-2ec237cfa7f8",
+                "name": "ISO/IEC 27002:2022",
+                "referenceId": "iso-27002-2022"
+              },
+              {
+                "id": "b9265a6b-8b22-3a16-9326-1787ee48152a",
+                "name": "ISO/IEC 27002:2013",
+                "referenceId": "ISO/IEC 27002:2013"
+              },
+              {
+                "id": "df3f413c-9108-45d6-9be0-504f57629296",
+                "name": "pedro12E",
+                "referenceId": "lbg-security-standard"
+              },
+              {
+                "id": "9855b7e0-40fe-34c5-876c-cd7a90220429",
+                "name": "CIS Docker - Level 1",
+                "referenceId": "Level 1 - Docker"
+              },
+              {
+                "id": "a0f669bd-5c3f-3c97-a256-c0611f264c1e",
+                "name": "CIS Docker Linux Host OS Level 1",
+                "referenceId": "Level 1 - Linux Host OS"
+              },
+              {
+                "id": "33a670d1-cb00-3a4f-a766-6890f72f5d11",
+                "name": "CIS Docker - Level 2",
+                "referenceId": "Level 2 - Docker"
+              },
+              {
+                "id": "dc0b69a4-cdfe-4dfe-87ee-44e10e0d9b8e",
+                "name": "My Standard",
+                "referenceId": "my-standard"
+              },
+              {
+                "id": "45b3af7f-058f-3b58-8e51-22b9308e3c27",
+                "name": "NIST 800-190",
+                "referenceId": "nist-800-190"
+              },
+              {
+                "id": "de64a4ed-5086-3e63-842e-49521db65a1a",
+                "name": "NIST 800-53",
+                "referenceId": "NIST 800-53"
+              },
+              {
+                "id": "b0707b29-7b45-3f2b-84a0-724130ac9fc5",
+                "name": "NIST 800-63",
+                "referenceId": "nist-800-63"
+              },
+              {
+                "id": "1cea134f-0bbf-3438-8497-f0b31fa9adf8",
+                "name": "NIST Cybersecurity Framework",
+                "referenceId": "nist-csf"
+              },
+              {
+                "id": "50058224-95b4-460e-a4e0-c21534037962",
+                "name": "NIST CSF v2.0",
+                "referenceId": "NIST CSF v2.0"
+              },
+              {
+                "id": "60e5cd00-c258-3ce8-8fab-0b1f7a1978e2",
+                "name": "NIST Security Strategies for Microservices-based Application Systems",
+                "referenceId": "NIST-Secure-Microservice-Strategies"
+              },
+              {
+                "id": "b0764436-0427-4add-9fcc-515cfd8e5668",
+                "name": "NIST SSDF",
+                "referenceId": "nist-ssdf"
+              },
+              {
+                "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                "name": "OpenCRE",
+                "referenceId": "OpenCRE"
+              },
+              {
+                "id": "bd4c15d5-fd4b-4bdd-b7cb-e1c0a53d5eff",
+                "name": "OWASP Agentic AI 2025",
+                "referenceId": "owasp-agentic-ai-2025"
+              },
+              {
+                "id": "64121747-ce70-3bad-89ba-d08d010972ce",
+                "name": "OWASP API Security Top 10",
+                "referenceId": "owasp-api-security-top-10"
+              },
+              {
+                "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                "name": "OWASP-ASVS4-Level-1",
+                "referenceId": "owasp-asvs4-level-1"
+              },
+              {
+                "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                "name": "OWASP-ASVS4-Level-2",
+                "referenceId": "owasp-asvs4-level-2"
+              },
+              {
+                "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                "name": "OWASP-ASVS4-Level-3",
+                "referenceId": "owasp-asvs4-level-3"
+              },
+              {
+                "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                "name": "OWASP Cheat Sheets",
+                "referenceId": "owasp-cheat-sheets"
+              },
+              {
+                "id": "40f9d621-4a50-3e73-986d-6fa0f322d289",
+                "name": "OWASP-CSVS-L1",
+                "referenceId": "OWASP-CSVS-L1"
+              },
+              {
+                "id": "4d310be2-10e7-336d-8b7e-40786160a864",
+                "name": "OWASP-CSVS-L2",
+                "referenceId": "OWASP-CSVS-L2"
+              },
+              {
+                "id": "7e145019-6feb-3193-9ed0-c443595fd0dc",
+                "name": "OWASP-CSVS-L3",
+                "referenceId": "OWASP-CSVS-L3"
+              },
+              {
+                "id": "02420153-d477-391a-b526-1ec7fe88388a",
+                "name": "OWASP Docker Top 10 2018",
+                "referenceId": "owasp-docker-top-10-2018"
+              },
+              {
+                "id": "472ec937-431e-3744-ba8e-c0a01aadafd9",
+                "name": "OWASP Kubernetes Top 10 2022",
+                "referenceId": "owasp-kubernetes-top-10-2022"
+              },
+              {
+                "id": "ade95f4d-0436-4261-b02f-116bcc80694f",
+                "name": "OWASP-MASVS-L1",
+                "referenceId": "owasp-masvs-l1"
+              },
+              {
+                "id": "6974ac72-c2ed-3e90-9d1f-45d8fb8c33a0",
+                "name": "OWASP MASVS",
+                "referenceId": "owasp-masvs-testing-guide"
+              },
+              {
+                "id": "c9d3e22c-4879-39eb-8b6f-72cde101007a",
+                "name": "OWASP Mobile Top 10 2016",
+                "referenceId": "owasp-mobile-top-10-2016"
+              },
+              {
+                "id": "0934ef5d-dd47-4cd1-a6cc-99dba653a35b",
+                "name": "OWASP Proactive Controls",
+                "referenceId": "owasp-proactive-controls"
+              },
+              {
+                "id": "e246c159-42eb-37ff-b254-5ea99b7156a0",
+                "name": "OWASP Top 10 2017",
+                "referenceId": "owasp-top-10-2017"
+              },
+              {
+                "id": "726535a3-78be-3b63-9701-bc5adacb45db",
+                "name": "OWASP Top 10 2021",
+                "referenceId": "owasp-top-10-2021"
+              },
+              {
+                "id": "967e2c56-a543-4d36-9b1d-800fbc4c401e",
+                "name": "OWASP Top 10 for LLMs 2025",
+                "referenceId": "owasp-top-10-llm-2025"
+              },
+              {
+                "id": "fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7",
+                "name": "OWASP Web Security Testing Guide (WSTG)",
+                "referenceId": "owasp-wstg"
+              },
+              {
+                "id": "e0419d40-d838-3dbe-b6e7-afb5325daf91",
+                "name": "PCI-DSS-v3.2.1",
+                "referenceId": "PCI-DSS-v3.2.1"
+              },
+              {
+                "id": "8ac7de31-5c0d-3ebd-8269-ea4e1cd9376b",
+                "name": "PCI-DSS-v4.0",
+                "referenceId": "PCI-DSS-v4.0"
+              },
+              {
+                "id": "3236e847-93c9-371e-9669-c78d6c805a8e",
+                "name": "PCI Secure Software Standard",
+                "referenceId": "pci-sss"
+              },
+              {
+                "id": "c74b6ea3-9fb5-4695-9bd3-8c7ba5cbea39",
+                "name": "pedro exploratory 4.42",
+                "referenceId": "pedro-exploratory-442"
+              },
+              {
+                "id": "cc538afc-5dda-46b0-b87e-4fc9d9914e01",
+                "name": "pedro release 4.44",
+                "referenceId": "pedro-release-444"
+              },
+              {
+                "id": "ce32102d-be13-4eaa-8ae9-865c0361428f",
+                "name": "SAMM",
+                "referenceId": "SAMM"
+              },
+              {
+                "id": "d1309058-a763-4cef-aea5-4d437be9f8d9",
+                "name": "standard 4.42 3",
+                "referenceId": "standard-442"
+              },
+              {
+                "id": "a038931c-f03e-420e-b3ec-bf232a8fbb2a",
+                "name": "std1",
+                "referenceId": "std1"
+              },
+              {
+                "id": "ebe8b6fc-80be-3850-9059-2be7c3db2cbe",
+                "name": "SWIFT CSCF",
+                "referenceId": "swift-cscf"
+              },
+              {
+                "id": "266f08ba-c4ed-3a52-a95a-5c63b482c309",
+                "name": "UNECE WP.29 Cybersecurity Regulation (CSMS)",
+                "referenceId": "unece-wp29-csms"
+              },
+              {
+                "id": "2a6fbcb9-6051-4cf4-aafb-51fc087a0e81",
+                "name": "[${value}]",
+                "referenceId": "value"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/standards/summary/?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 83,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.773Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/standards/summary/?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/standards/summary/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "b325b707-fc73-4f91-84a2-df471ce8b486",
+                "name": "[${value}][${value}]---8!!1",
+                "referenceId": "1valuevalue"
+              },
+              {
+                "id": "f5c07ef5-23d2-487e-8d73-569985f58561",
+                "name": "25842_Standard 3 3",
+                "referenceId": "25842-standard"
+              },
+              {
+                "id": "9666b306-49de-3236-b507-15e40d442530",
+                "name": "Azure Security Benchmark",
+                "referenceId": "azure-security-benchmark"
+              },
+              {
+                "id": "97c40086-a46c-3ae8-ada3-f2d16bc708bd",
+                "name": "California Consumer Privacy Act",
+                "referenceId": "ccpa"
+              },
+              {
+                "id": "47067d9a-599f-3d5b-bacc-293a37119df5",
+                "name": "CIS Amazon Web Services Three-tier Web Architecture Benchmark Level 1",
+                "referenceId": "cis-amazon-web-services-three-tier-web-architecture-benchmark"
+              },
+              {
+                "id": "dd3dd336-a588-3b6e-8316-d3361549391e",
+                "name": "CIS Amazon Web Services Three-tier Web Architecture Benchmark Level 2",
+                "referenceId": "cis-amazon-web-services-three-tier-web-architecture-benchmark-level-2"
+              },
+              {
+                "id": "041b27f7-64e2-36d7-a5cb-c8da94f777f9",
+                "name": "CIS Amazon Web Services Foundations Benchmark Level 1",
+                "referenceId": "CIS AWS Standard"
+              },
+              {
+                "id": "9ae4bf9a-92c2-3213-a81e-b725424d9aae",
+                "name": "CIS Amazon Web Services Foundations Benchmark Level 2",
+                "referenceId": "CIS-AWS-Standard-Level-2"
+              },
+              {
+                "id": "f6cecdc0-364c-3a3b-9e21-d479c7463ed7",
+                "name": "CIS Microsoft Azure Foundations Benchmark Level 1",
+                "referenceId": "cis-azure-standard"
+              },
+              {
+                "id": "e871f331-32f4-3175-b9a2-d2d96bd5dcac",
+                "name": "CIS Microsoft Azure Foundations Benchmark Level 2",
+                "referenceId": "cis-azure-standard-level-2"
+              },
+              {
+                "id": "a509cc8f-1c61-3039-8bcb-8f6cc3b7a81b",
+                "name": "CIS Google Cloud Platform Foundation Benchmark Level 1",
+                "referenceId": "cis-gcp-standard"
+              },
+              {
+                "id": "9dc4fac9-aeb9-3a7d-aa29-38d4685093c9",
+                "name": "CIS Google Cloud Platform Foundation Benchmark Level 2",
+                "referenceId": "cis-gcp-standard-level-2"
+              },
+              {
+                "id": "bc3285e1-4fd9-3a0f-8dc5-63148f8c451b",
+                "name": "CIS Kubernetes - Level 1",
+                "referenceId": "cis-kubernetes-level-1"
+              },
+              {
+                "id": "5a4a2562-e8a0-3876-9605-f797d9a5d687",
+                "name": "CIS Kubernetes - Level 2",
+                "referenceId": "cis-kubernetes-level-2"
+              },
+              {
+                "id": "644c6a0b-0f64-38b9-b3eb-f0ba538685e8",
+                "name": "CIS Oracle Cloud Infrastructure Foundations Level 1",
+                "referenceId": "cis-oracle-cloud-level-1"
+              },
+              {
+                "id": "2d7ad97a-d5d6-3ac5-848d-f5a10491967c",
+                "name": "CIS Oracle Cloud Infrastructure Foundations Level 2",
+                "referenceId": "cis-oracle-cloud-level-2"
+              },
+              {
+                "id": "2b0017af-4484-4e2e-9346-077bd0e71e4e",
+                "name": "Cloud Controls Matrix",
+                "referenceId": "cloud-control-matrix"
+              },
+              {
+                "id": "96fc7794-50c5-3836-8e1d-ad63c2784998",
+                "name": "CSA API Security Guidelines",
+                "referenceId": "csa-api-security-guidelines"
+              },
+              {
+                "id": "6af88cfa-6f7c-31da-985e-b5428ab3f0ae",
+                "name": "CSA Best Practices for Implementing a Secure Application Container Architecture",
+                "referenceId": "csa-container-architectures"
+              },
+              {
+                "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                "name": "CWE",
+                "referenceId": "cwe-standard"
+              },
+              {
+                "id": "cc203dab-fe58-3c2c-b41d-b1203c568159",
+                "name": "CWE Top 25 Most Dangerous Software Weaknessesf",
+                "referenceId": "cwe-top-25-dangerous-weaknesses"
+              },
+              {
+                "id": "94cb2afb-e9f2-4037-8f04-fd2f67e5b0b0",
+                "name": "Mitre D3FEND Framework",
+                "referenceId": "D3FEND"
+              },
+              {
+                "id": "2ae2196c-f3bc-409f-8ea3-77f9eb9f3b0f",
+                "name": "earg",
+                "referenceId": "earg"
+              },
+              {
+                "id": "9ce6a20c-7c69-4a37-907e-3005223bdf4c",
+                "name": "EU Cyber Resilience Act",
+                "referenceId": "EU-CRA"
+              },
+              {
+                "id": "2e1da50d-bc56-30d6-afbb-4c928bc9e1bc",
+                "name": "EU-GDPR",
+                "referenceId": "EU-GDPR"
+              },
+              {
+                "id": "03153f64-38ff-3e61-a621-7dd8414cc195",
+                "name": "FedRAMP High Baseline",
+                "referenceId": "fedramp-high-baseline"
+              },
+              {
+                "id": "d252478e-261d-3f6e-823b-874003eff78d",
+                "name": "FedRAMP Low Baseline",
+                "referenceId": "fedramp-low-baseline"
+              },
+              {
+                "id": "3de8a96f-0d33-3e5f-8bd7-e7c2189950cd",
+                "name": "FedRAMP Moderate Baseline",
+                "referenceId": "fedramp-moderate-baseline"
+              },
+              {
+                "id": "518903ca-71cf-3136-8230-a1778d5b5e55",
+                "name": "HIPAA Addressable",
+                "referenceId": "hipaa-addressable"
+              },
+              {
+                "id": "1e9bcd76-6a37-33d2-8c72-78c77265e527",
+                "name": "HIPAA Required",
+                "referenceId": "hipaa-required"
+              },
+              {
+                "id": "60be9df2-db06-453f-8e1e-12340bf15914",
+                "name": "IEC62443 4-2 ICSA-500",
+                "referenceId": "IEC62443-4-2-ICSA-500"
+              },
+              {
+                "id": "c61de2c2-3811-410a-9df1-568330b82db8",
+                "name": "IM8 Reform - Low-Risk - Level 0",
+                "referenceId": "im8-reform-low-risk-level-0"
+              },
+              {
+                "id": "7a03ee3b-b3a7-4ec7-976e-1d4273ede5c6",
+                "name": "IM8 Reform - Low-Risk - Level 2",
+                "referenceId": "im8-reform-low-risk-level-2"
+              },
+              {
+                "id": "487adcab-d562-493e-b224-74e3a2ce9aae",
+                "name": "IM8 Reform - Medium-Risk - Level 0",
+                "referenceId": "im8-reform-medium-risk-level-0"
+              },
+              {
+                "id": "700ae23b-225d-43f7-86f0-138122ed226b",
+                "name": "IM8 Reform - Medium-Risk - Level 1",
+                "referenceId": "im8-reform-medium-risk-level-1"
+              },
+              {
+                "id": "dfb364f6-db28-389e-88fb-8cd90922aaf9",
+                "name": "IoTSF Class 0",
+                "referenceId": "iotsf-class-0"
+              },
+              {
+                "id": "43143257-04e9-3478-91a5-0a188095f5df",
+                "name": "IoTSF Class 1",
+                "referenceId": "iotsf-class-1"
+              },
+              {
+                "id": "fa5067e0-d419-3095-812b-9cfc1b9c0876",
+                "name": "IoTSF Class 2",
+                "referenceId": "iotsf-class-2"
+              },
+              {
+                "id": "e1f8fbb3-b36c-32c6-9ef1-2ec237cfa7f8",
+                "name": "ISO/IEC 27002:2022",
+                "referenceId": "iso-27002-2022"
+              },
+              {
+                "id": "b9265a6b-8b22-3a16-9326-1787ee48152a",
+                "name": "ISO/IEC 27002:2013",
+                "referenceId": "ISO/IEC 27002:2013"
+              },
+              {
+                "id": "df3f413c-9108-45d6-9be0-504f57629296",
+                "name": "pedro12E",
+                "referenceId": "lbg-security-standard"
+              },
+              {
+                "id": "9855b7e0-40fe-34c5-876c-cd7a90220429",
+                "name": "CIS Docker - Level 1",
+                "referenceId": "Level 1 - Docker"
+              },
+              {
+                "id": "a0f669bd-5c3f-3c97-a256-c0611f264c1e",
+                "name": "CIS Docker Linux Host OS Level 1",
+                "referenceId": "Level 1 - Linux Host OS"
+              },
+              {
+                "id": "33a670d1-cb00-3a4f-a766-6890f72f5d11",
+                "name": "CIS Docker - Level 2",
+                "referenceId": "Level 2 - Docker"
+              },
+              {
+                "id": "dc0b69a4-cdfe-4dfe-87ee-44e10e0d9b8e",
+                "name": "My Standard",
+                "referenceId": "my-standard"
+              },
+              {
+                "id": "45b3af7f-058f-3b58-8e51-22b9308e3c27",
+                "name": "NIST 800-190",
+                "referenceId": "nist-800-190"
+              },
+              {
+                "id": "de64a4ed-5086-3e63-842e-49521db65a1a",
+                "name": "NIST 800-53",
+                "referenceId": "NIST 800-53"
+              },
+              {
+                "id": "b0707b29-7b45-3f2b-84a0-724130ac9fc5",
+                "name": "NIST 800-63",
+                "referenceId": "nist-800-63"
+              },
+              {
+                "id": "1cea134f-0bbf-3438-8497-f0b31fa9adf8",
+                "name": "NIST Cybersecurity Framework",
+                "referenceId": "nist-csf"
+              },
+              {
+                "id": "50058224-95b4-460e-a4e0-c21534037962",
+                "name": "NIST CSF v2.0",
+                "referenceId": "NIST CSF v2.0"
+              },
+              {
+                "id": "60e5cd00-c258-3ce8-8fab-0b1f7a1978e2",
+                "name": "NIST Security Strategies for Microservices-based Application Systems",
+                "referenceId": "NIST-Secure-Microservice-Strategies"
+              },
+              {
+                "id": "b0764436-0427-4add-9fcc-515cfd8e5668",
+                "name": "NIST SSDF",
+                "referenceId": "nist-ssdf"
+              },
+              {
+                "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                "name": "OpenCRE",
+                "referenceId": "OpenCRE"
+              },
+              {
+                "id": "bd4c15d5-fd4b-4bdd-b7cb-e1c0a53d5eff",
+                "name": "OWASP Agentic AI 2025",
+                "referenceId": "owasp-agentic-ai-2025"
+              },
+              {
+                "id": "64121747-ce70-3bad-89ba-d08d010972ce",
+                "name": "OWASP API Security Top 10",
+                "referenceId": "owasp-api-security-top-10"
+              },
+              {
+                "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                "name": "OWASP-ASVS4-Level-1",
+                "referenceId": "owasp-asvs4-level-1"
+              },
+              {
+                "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                "name": "OWASP-ASVS4-Level-2",
+                "referenceId": "owasp-asvs4-level-2"
+              },
+              {
+                "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                "name": "OWASP-ASVS4-Level-3",
+                "referenceId": "owasp-asvs4-level-3"
+              },
+              {
+                "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                "name": "OWASP Cheat Sheets",
+                "referenceId": "owasp-cheat-sheets"
+              },
+              {
+                "id": "40f9d621-4a50-3e73-986d-6fa0f322d289",
+                "name": "OWASP-CSVS-L1",
+                "referenceId": "OWASP-CSVS-L1"
+              },
+              {
+                "id": "4d310be2-10e7-336d-8b7e-40786160a864",
+                "name": "OWASP-CSVS-L2",
+                "referenceId": "OWASP-CSVS-L2"
+              },
+              {
+                "id": "7e145019-6feb-3193-9ed0-c443595fd0dc",
+                "name": "OWASP-CSVS-L3",
+                "referenceId": "OWASP-CSVS-L3"
+              },
+              {
+                "id": "02420153-d477-391a-b526-1ec7fe88388a",
+                "name": "OWASP Docker Top 10 2018",
+                "referenceId": "owasp-docker-top-10-2018"
+              },
+              {
+                "id": "472ec937-431e-3744-ba8e-c0a01aadafd9",
+                "name": "OWASP Kubernetes Top 10 2022",
+                "referenceId": "owasp-kubernetes-top-10-2022"
+              },
+              {
+                "id": "ade95f4d-0436-4261-b02f-116bcc80694f",
+                "name": "OWASP-MASVS-L1",
+                "referenceId": "owasp-masvs-l1"
+              },
+              {
+                "id": "6974ac72-c2ed-3e90-9d1f-45d8fb8c33a0",
+                "name": "OWASP MASVS",
+                "referenceId": "owasp-masvs-testing-guide"
+              },
+              {
+                "id": "c9d3e22c-4879-39eb-8b6f-72cde101007a",
+                "name": "OWASP Mobile Top 10 2016",
+                "referenceId": "owasp-mobile-top-10-2016"
+              },
+              {
+                "id": "0934ef5d-dd47-4cd1-a6cc-99dba653a35b",
+                "name": "OWASP Proactive Controls",
+                "referenceId": "owasp-proactive-controls"
+              },
+              {
+                "id": "e246c159-42eb-37ff-b254-5ea99b7156a0",
+                "name": "OWASP Top 10 2017",
+                "referenceId": "owasp-top-10-2017"
+              },
+              {
+                "id": "726535a3-78be-3b63-9701-bc5adacb45db",
+                "name": "OWASP Top 10 2021",
+                "referenceId": "owasp-top-10-2021"
+              },
+              {
+                "id": "967e2c56-a543-4d36-9b1d-800fbc4c401e",
+                "name": "OWASP Top 10 for LLMs 2025",
+                "referenceId": "owasp-top-10-llm-2025"
+              },
+              {
+                "id": "fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7",
+                "name": "OWASP Web Security Testing Guide (WSTG)",
+                "referenceId": "owasp-wstg"
+              },
+              {
+                "id": "e0419d40-d838-3dbe-b6e7-afb5325daf91",
+                "name": "PCI-DSS-v3.2.1",
+                "referenceId": "PCI-DSS-v3.2.1"
+              },
+              {
+                "id": "8ac7de31-5c0d-3ebd-8269-ea4e1cd9376b",
+                "name": "PCI-DSS-v4.0",
+                "referenceId": "PCI-DSS-v4.0"
+              },
+              {
+                "id": "3236e847-93c9-371e-9669-c78d6c805a8e",
+                "name": "PCI Secure Software Standard",
+                "referenceId": "pci-sss"
+              },
+              {
+                "id": "c74b6ea3-9fb5-4695-9bd3-8c7ba5cbea39",
+                "name": "pedro exploratory 4.42",
+                "referenceId": "pedro-exploratory-442"
+              },
+              {
+                "id": "cc538afc-5dda-46b0-b87e-4fc9d9914e01",
+                "name": "pedro release 4.44",
+                "referenceId": "pedro-release-444"
+              },
+              {
+                "id": "ce32102d-be13-4eaa-8ae9-865c0361428f",
+                "name": "SAMM",
+                "referenceId": "SAMM"
+              },
+              {
+                "id": "d1309058-a763-4cef-aea5-4d437be9f8d9",
+                "name": "standard 4.42 3",
+                "referenceId": "standard-442"
+              },
+              {
+                "id": "a038931c-f03e-420e-b3ec-bf232a8fbb2a",
+                "name": "std1",
+                "referenceId": "std1"
+              },
+              {
+                "id": "ebe8b6fc-80be-3850-9059-2be7c3db2cbe",
+                "name": "SWIFT CSCF",
+                "referenceId": "swift-cscf"
+              },
+              {
+                "id": "266f08ba-c4ed-3a52-a95a-5c63b482c309",
+                "name": "UNECE WP.29 Cybersecurity Regulation (CSMS)",
+                "referenceId": "unece-wp29-csms"
+              },
+              {
+                "id": "2a6fbcb9-6051-4cf4-aafb-51fc087a0e81",
+                "name": "[${value}]",
+                "referenceId": "value"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/standards/summary/?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 83,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.270Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/standards/summary/?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/standards/summary/",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "b325b707-fc73-4f91-84a2-df471ce8b486",
+                "name": "[${value}][${value}]---8!!1",
+                "referenceId": "1valuevalue"
+              },
+              {
+                "id": "f5c07ef5-23d2-487e-8d73-569985f58561",
+                "name": "25842_Standard 3 3",
+                "referenceId": "25842-standard"
+              },
+              {
+                "id": "9666b306-49de-3236-b507-15e40d442530",
+                "name": "Azure Security Benchmark",
+                "referenceId": "azure-security-benchmark"
+              },
+              {
+                "id": "97c40086-a46c-3ae8-ada3-f2d16bc708bd",
+                "name": "California Consumer Privacy Act",
+                "referenceId": "ccpa"
+              },
+              {
+                "id": "47067d9a-599f-3d5b-bacc-293a37119df5",
+                "name": "CIS Amazon Web Services Three-tier Web Architecture Benchmark Level 1",
+                "referenceId": "cis-amazon-web-services-three-tier-web-architecture-benchmark"
+              },
+              {
+                "id": "dd3dd336-a588-3b6e-8316-d3361549391e",
+                "name": "CIS Amazon Web Services Three-tier Web Architecture Benchmark Level 2",
+                "referenceId": "cis-amazon-web-services-three-tier-web-architecture-benchmark-level-2"
+              },
+              {
+                "id": "041b27f7-64e2-36d7-a5cb-c8da94f777f9",
+                "name": "CIS Amazon Web Services Foundations Benchmark Level 1",
+                "referenceId": "CIS AWS Standard"
+              },
+              {
+                "id": "9ae4bf9a-92c2-3213-a81e-b725424d9aae",
+                "name": "CIS Amazon Web Services Foundations Benchmark Level 2",
+                "referenceId": "CIS-AWS-Standard-Level-2"
+              },
+              {
+                "id": "f6cecdc0-364c-3a3b-9e21-d479c7463ed7",
+                "name": "CIS Microsoft Azure Foundations Benchmark Level 1",
+                "referenceId": "cis-azure-standard"
+              },
+              {
+                "id": "e871f331-32f4-3175-b9a2-d2d96bd5dcac",
+                "name": "CIS Microsoft Azure Foundations Benchmark Level 2",
+                "referenceId": "cis-azure-standard-level-2"
+              },
+              {
+                "id": "a509cc8f-1c61-3039-8bcb-8f6cc3b7a81b",
+                "name": "CIS Google Cloud Platform Foundation Benchmark Level 1",
+                "referenceId": "cis-gcp-standard"
+              },
+              {
+                "id": "9dc4fac9-aeb9-3a7d-aa29-38d4685093c9",
+                "name": "CIS Google Cloud Platform Foundation Benchmark Level 2",
+                "referenceId": "cis-gcp-standard-level-2"
+              },
+              {
+                "id": "bc3285e1-4fd9-3a0f-8dc5-63148f8c451b",
+                "name": "CIS Kubernetes - Level 1",
+                "referenceId": "cis-kubernetes-level-1"
+              },
+              {
+                "id": "5a4a2562-e8a0-3876-9605-f797d9a5d687",
+                "name": "CIS Kubernetes - Level 2",
+                "referenceId": "cis-kubernetes-level-2"
+              },
+              {
+                "id": "644c6a0b-0f64-38b9-b3eb-f0ba538685e8",
+                "name": "CIS Oracle Cloud Infrastructure Foundations Level 1",
+                "referenceId": "cis-oracle-cloud-level-1"
+              },
+              {
+                "id": "2d7ad97a-d5d6-3ac5-848d-f5a10491967c",
+                "name": "CIS Oracle Cloud Infrastructure Foundations Level 2",
+                "referenceId": "cis-oracle-cloud-level-2"
+              },
+              {
+                "id": "2b0017af-4484-4e2e-9346-077bd0e71e4e",
+                "name": "Cloud Controls Matrix",
+                "referenceId": "cloud-control-matrix"
+              },
+              {
+                "id": "96fc7794-50c5-3836-8e1d-ad63c2784998",
+                "name": "CSA API Security Guidelines",
+                "referenceId": "csa-api-security-guidelines"
+              },
+              {
+                "id": "6af88cfa-6f7c-31da-985e-b5428ab3f0ae",
+                "name": "CSA Best Practices for Implementing a Secure Application Container Architecture",
+                "referenceId": "csa-container-architectures"
+              },
+              {
+                "id": "95f7e9e4-8414-4300-abda-ae6361666932",
+                "name": "CWE",
+                "referenceId": "cwe-standard"
+              },
+              {
+                "id": "cc203dab-fe58-3c2c-b41d-b1203c568159",
+                "name": "CWE Top 25 Most Dangerous Software Weaknessesf",
+                "referenceId": "cwe-top-25-dangerous-weaknesses"
+              },
+              {
+                "id": "94cb2afb-e9f2-4037-8f04-fd2f67e5b0b0",
+                "name": "Mitre D3FEND Framework",
+                "referenceId": "D3FEND"
+              },
+              {
+                "id": "2ae2196c-f3bc-409f-8ea3-77f9eb9f3b0f",
+                "name": "earg",
+                "referenceId": "earg"
+              },
+              {
+                "id": "9ce6a20c-7c69-4a37-907e-3005223bdf4c",
+                "name": "EU Cyber Resilience Act",
+                "referenceId": "EU-CRA"
+              },
+              {
+                "id": "2e1da50d-bc56-30d6-afbb-4c928bc9e1bc",
+                "name": "EU-GDPR",
+                "referenceId": "EU-GDPR"
+              },
+              {
+                "id": "03153f64-38ff-3e61-a621-7dd8414cc195",
+                "name": "FedRAMP High Baseline",
+                "referenceId": "fedramp-high-baseline"
+              },
+              {
+                "id": "d252478e-261d-3f6e-823b-874003eff78d",
+                "name": "FedRAMP Low Baseline",
+                "referenceId": "fedramp-low-baseline"
+              },
+              {
+                "id": "3de8a96f-0d33-3e5f-8bd7-e7c2189950cd",
+                "name": "FedRAMP Moderate Baseline",
+                "referenceId": "fedramp-moderate-baseline"
+              },
+              {
+                "id": "518903ca-71cf-3136-8230-a1778d5b5e55",
+                "name": "HIPAA Addressable",
+                "referenceId": "hipaa-addressable"
+              },
+              {
+                "id": "1e9bcd76-6a37-33d2-8c72-78c77265e527",
+                "name": "HIPAA Required",
+                "referenceId": "hipaa-required"
+              },
+              {
+                "id": "60be9df2-db06-453f-8e1e-12340bf15914",
+                "name": "IEC62443 4-2 ICSA-500",
+                "referenceId": "IEC62443-4-2-ICSA-500"
+              },
+              {
+                "id": "c61de2c2-3811-410a-9df1-568330b82db8",
+                "name": "IM8 Reform - Low-Risk - Level 0",
+                "referenceId": "im8-reform-low-risk-level-0"
+              },
+              {
+                "id": "7a03ee3b-b3a7-4ec7-976e-1d4273ede5c6",
+                "name": "IM8 Reform - Low-Risk - Level 2",
+                "referenceId": "im8-reform-low-risk-level-2"
+              },
+              {
+                "id": "487adcab-d562-493e-b224-74e3a2ce9aae",
+                "name": "IM8 Reform - Medium-Risk - Level 0",
+                "referenceId": "im8-reform-medium-risk-level-0"
+              },
+              {
+                "id": "700ae23b-225d-43f7-86f0-138122ed226b",
+                "name": "IM8 Reform - Medium-Risk - Level 1",
+                "referenceId": "im8-reform-medium-risk-level-1"
+              },
+              {
+                "id": "dfb364f6-db28-389e-88fb-8cd90922aaf9",
+                "name": "IoTSF Class 0",
+                "referenceId": "iotsf-class-0"
+              },
+              {
+                "id": "43143257-04e9-3478-91a5-0a188095f5df",
+                "name": "IoTSF Class 1",
+                "referenceId": "iotsf-class-1"
+              },
+              {
+                "id": "fa5067e0-d419-3095-812b-9cfc1b9c0876",
+                "name": "IoTSF Class 2",
+                "referenceId": "iotsf-class-2"
+              },
+              {
+                "id": "e1f8fbb3-b36c-32c6-9ef1-2ec237cfa7f8",
+                "name": "ISO/IEC 27002:2022",
+                "referenceId": "iso-27002-2022"
+              },
+              {
+                "id": "b9265a6b-8b22-3a16-9326-1787ee48152a",
+                "name": "ISO/IEC 27002:2013",
+                "referenceId": "ISO/IEC 27002:2013"
+              },
+              {
+                "id": "df3f413c-9108-45d6-9be0-504f57629296",
+                "name": "pedro12E",
+                "referenceId": "lbg-security-standard"
+              },
+              {
+                "id": "9855b7e0-40fe-34c5-876c-cd7a90220429",
+                "name": "CIS Docker - Level 1",
+                "referenceId": "Level 1 - Docker"
+              },
+              {
+                "id": "a0f669bd-5c3f-3c97-a256-c0611f264c1e",
+                "name": "CIS Docker Linux Host OS Level 1",
+                "referenceId": "Level 1 - Linux Host OS"
+              },
+              {
+                "id": "33a670d1-cb00-3a4f-a766-6890f72f5d11",
+                "name": "CIS Docker - Level 2",
+                "referenceId": "Level 2 - Docker"
+              },
+              {
+                "id": "dc0b69a4-cdfe-4dfe-87ee-44e10e0d9b8e",
+                "name": "My Standard",
+                "referenceId": "my-standard"
+              },
+              {
+                "id": "45b3af7f-058f-3b58-8e51-22b9308e3c27",
+                "name": "NIST 800-190",
+                "referenceId": "nist-800-190"
+              },
+              {
+                "id": "de64a4ed-5086-3e63-842e-49521db65a1a",
+                "name": "NIST 800-53",
+                "referenceId": "NIST 800-53"
+              },
+              {
+                "id": "b0707b29-7b45-3f2b-84a0-724130ac9fc5",
+                "name": "NIST 800-63",
+                "referenceId": "nist-800-63"
+              },
+              {
+                "id": "1cea134f-0bbf-3438-8497-f0b31fa9adf8",
+                "name": "NIST Cybersecurity Framework",
+                "referenceId": "nist-csf"
+              },
+              {
+                "id": "50058224-95b4-460e-a4e0-c21534037962",
+                "name": "NIST CSF v2.0",
+                "referenceId": "NIST CSF v2.0"
+              },
+              {
+                "id": "60e5cd00-c258-3ce8-8fab-0b1f7a1978e2",
+                "name": "NIST Security Strategies for Microservices-based Application Systems",
+                "referenceId": "NIST-Secure-Microservice-Strategies"
+              },
+              {
+                "id": "b0764436-0427-4add-9fcc-515cfd8e5668",
+                "name": "NIST SSDF",
+                "referenceId": "nist-ssdf"
+              },
+              {
+                "id": "9a58696f-e43d-4c14-bb2f-c05e1115c943",
+                "name": "OpenCRE",
+                "referenceId": "OpenCRE"
+              },
+              {
+                "id": "bd4c15d5-fd4b-4bdd-b7cb-e1c0a53d5eff",
+                "name": "OWASP Agentic AI 2025",
+                "referenceId": "owasp-agentic-ai-2025"
+              },
+              {
+                "id": "64121747-ce70-3bad-89ba-d08d010972ce",
+                "name": "OWASP API Security Top 10",
+                "referenceId": "owasp-api-security-top-10"
+              },
+              {
+                "id": "433def0d-8b68-383a-8e99-7c0e0375d332",
+                "name": "OWASP-ASVS4-Level-1",
+                "referenceId": "owasp-asvs4-level-1"
+              },
+              {
+                "id": "96807ad4-fa78-3229-86f1-f7849da314ea",
+                "name": "OWASP-ASVS4-Level-2",
+                "referenceId": "owasp-asvs4-level-2"
+              },
+              {
+                "id": "0d92193a-d555-30c8-9cca-8e1e694a764e",
+                "name": "OWASP-ASVS4-Level-3",
+                "referenceId": "owasp-asvs4-level-3"
+              },
+              {
+                "id": "b2a9c32e-f890-4db7-8baa-30ef76e6d0c1",
+                "name": "OWASP Cheat Sheets",
+                "referenceId": "owasp-cheat-sheets"
+              },
+              {
+                "id": "40f9d621-4a50-3e73-986d-6fa0f322d289",
+                "name": "OWASP-CSVS-L1",
+                "referenceId": "OWASP-CSVS-L1"
+              },
+              {
+                "id": "4d310be2-10e7-336d-8b7e-40786160a864",
+                "name": "OWASP-CSVS-L2",
+                "referenceId": "OWASP-CSVS-L2"
+              },
+              {
+                "id": "7e145019-6feb-3193-9ed0-c443595fd0dc",
+                "name": "OWASP-CSVS-L3",
+                "referenceId": "OWASP-CSVS-L3"
+              },
+              {
+                "id": "02420153-d477-391a-b526-1ec7fe88388a",
+                "name": "OWASP Docker Top 10 2018",
+                "referenceId": "owasp-docker-top-10-2018"
+              },
+              {
+                "id": "472ec937-431e-3744-ba8e-c0a01aadafd9",
+                "name": "OWASP Kubernetes Top 10 2022",
+                "referenceId": "owasp-kubernetes-top-10-2022"
+              },
+              {
+                "id": "ade95f4d-0436-4261-b02f-116bcc80694f",
+                "name": "OWASP-MASVS-L1",
+                "referenceId": "owasp-masvs-l1"
+              },
+              {
+                "id": "6974ac72-c2ed-3e90-9d1f-45d8fb8c33a0",
+                "name": "OWASP MASVS",
+                "referenceId": "owasp-masvs-testing-guide"
+              },
+              {
+                "id": "c9d3e22c-4879-39eb-8b6f-72cde101007a",
+                "name": "OWASP Mobile Top 10 2016",
+                "referenceId": "owasp-mobile-top-10-2016"
+              },
+              {
+                "id": "0934ef5d-dd47-4cd1-a6cc-99dba653a35b",
+                "name": "OWASP Proactive Controls",
+                "referenceId": "owasp-proactive-controls"
+              },
+              {
+                "id": "e246c159-42eb-37ff-b254-5ea99b7156a0",
+                "name": "OWASP Top 10 2017",
+                "referenceId": "owasp-top-10-2017"
+              },
+              {
+                "id": "726535a3-78be-3b63-9701-bc5adacb45db",
+                "name": "OWASP Top 10 2021",
+                "referenceId": "owasp-top-10-2021"
+              },
+              {
+                "id": "967e2c56-a543-4d36-9b1d-800fbc4c401e",
+                "name": "OWASP Top 10 for LLMs 2025",
+                "referenceId": "owasp-top-10-llm-2025"
+              },
+              {
+                "id": "fb74eaa2-ea9f-4297-b3b2-8c88f5c57ca7",
+                "name": "OWASP Web Security Testing Guide (WSTG)",
+                "referenceId": "owasp-wstg"
+              },
+              {
+                "id": "e0419d40-d838-3dbe-b6e7-afb5325daf91",
+                "name": "PCI-DSS-v3.2.1",
+                "referenceId": "PCI-DSS-v3.2.1"
+              },
+              {
+                "id": "8ac7de31-5c0d-3ebd-8269-ea4e1cd9376b",
+                "name": "PCI-DSS-v4.0",
+                "referenceId": "PCI-DSS-v4.0"
+              },
+              {
+                "id": "3236e847-93c9-371e-9669-c78d6c805a8e",
+                "name": "PCI Secure Software Standard",
+                "referenceId": "pci-sss"
+              },
+              {
+                "id": "c74b6ea3-9fb5-4695-9bd3-8c7ba5cbea39",
+                "name": "pedro exploratory 4.42",
+                "referenceId": "pedro-exploratory-442"
+              },
+              {
+                "id": "cc538afc-5dda-46b0-b87e-4fc9d9914e01",
+                "name": "pedro release 4.44",
+                "referenceId": "pedro-release-444"
+              },
+              {
+                "id": "ce32102d-be13-4eaa-8ae9-865c0361428f",
+                "name": "SAMM",
+                "referenceId": "SAMM"
+              },
+              {
+                "id": "d1309058-a763-4cef-aea5-4d437be9f8d9",
+                "name": "standard 4.42 3",
+                "referenceId": "standard-442"
+              },
+              {
+                "id": "a038931c-f03e-420e-b3ec-bf232a8fbb2a",
+                "name": "std1",
+                "referenceId": "std1"
+              },
+              {
+                "id": "ebe8b6fc-80be-3850-9059-2be7c3db2cbe",
+                "name": "SWIFT CSCF",
+                "referenceId": "swift-cscf"
+              },
+              {
+                "id": "266f08ba-c4ed-3a52-a95a-5c63b482c309",
+                "name": "UNECE WP.29 Cybersecurity Regulation (CSMS)",
+                "referenceId": "unece-wp29-csms"
+              },
+              {
+                "id": "2a6fbcb9-6051-4cf4-aafb-51fc087a0e81",
+                "name": "[${value}]",
+                "referenceId": "value"
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/standards/summary/?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 83,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.528Z"
+      }
+    ]
+  },
+  "total_responses": 3
+}

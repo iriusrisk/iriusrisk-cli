@@ -1,0 +1,185 @@
+{
+  "endpoint": "/projects/{id}/threats/owners",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/owners?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/threats/owners",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "fscott",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                  },
+                  "avatar": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/owners?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/owners?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/threats/owners",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "fscott",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                  },
+                  "avatar": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/owners?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.529Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/owners?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/threats/owners",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "fscott",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                  },
+                  "avatar": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/owners?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/owners?page=0&size=10000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/threats/owners",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "name": "fscott",
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                  },
+                  "avatar": {
+                    "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/owners?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.169Z"
+      }
+    ]
+  },
+  "total_responses": 4
+}

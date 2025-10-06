@@ -1,0 +1,485 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/threats",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/threats?page=0&size=10&sort=risk,DESC&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/threats",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "b89ec449-b9df-4c02-a3b6-0b5ce5d0531b",
+                "name": "An attacker can exploit SQL injection vulnerabilities",
+                "referenceId": "T-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+                "description": "<p>SQL injection is a type of security vulnerability that occurs when an attacker can manipulate or inject malicious SQL code into queries executed by an application, typically through user inputs. In the context of an RDBMS, this can lead to unauthorized access, data manipulation, and potentially full compromise of the database.</p>\n<p><strong>Threat Agents/Attack Vectors:</strong></p>\n<ul>\n <li><strong>Malicious Input:</strong> Attackers can exploit SQL injection by injecting malicious SQL statements or commands into user inputs such as form fields, URL parameters, or cookies.</li>\n <li><strong>Tainted Data:</strong> If user input is not properly validated or sanitized before being included in SQL queries, an attacker can manipulate the input to inject malicious SQL code.</li>\n <li><strong>Stored Procedures:</strong> In cases where stored procedures are used, attackers may exploit vulnerabilities by manipulating the input parameters or injecting malicious code directly into the stored procedures.</li>\n</ul>\n<p><strong>Impacts:</strong></p>\n<ul>\n <li><strong>Unauthorized Access:</strong> SQL injection can allow attackers to gain unauthorized access to sensitive data in the database.</li>\n <li><strong>Data Manipulation:</strong> Attackers can manipulate or delete data within the database, leading to data integrity issues.</li>\n <li><strong>Code Execution:</strong> In some cases, successful SQL injection can lead to the execution of arbitrary code on the database server.</li>\n</ul>\n<p><strong>Example Attack Scenarios:</strong></p>\n<p><strong>Authentication Bypass:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting malicious SQL code into a login form.</li>\n <li><i>Impact:</i> Gain unauthorized access to the application by bypassing authentication.</li>\n</ul>\n<p><strong>Data Exfiltration:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to extract sensitive information.</li>\n <li><i>Impact:</i> Retrieve and exfiltrate confidential data from the database.</li>\n</ul>\n<p><strong>Database Defacement:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to modify data in the database.</li>\n <li><i>Impact:</i> Modify or delete records, leading to data manipulation or defacement.</li>\n</ul>\n<p><strong>Secondary Exploitation:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to execute additional malicious queries.</li>\n <li><i>Impact:</i> Exploit further vulnerabilities, potentially leading to full compromise of the database server.</li>\n</ul>",
+                "countermeasureMitigation": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 78,
+                "projectedRisk": 78,
+                "availability": 75,
+                "confidentiality": 75,
+                "easeOfExploitation": 100,
+                "integrity": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "inherentRisk": 78,
+                "library": {
+                  "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                  "name": "Data store - Components"
+                },
+                "mitigation": 0,
+                "source": "rules",
+                "state": "expose",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": null,
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "useCase": {
+                  "id": "150ced1f-8f45-4bcb-80d3-8d8118d643b5",
+                  "name": "Tampering",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/150ced1f-8f45-4bcb-80d3-8d8118d643b5"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                  "name": "User Database",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/threats?page=0&size=10&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.821Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/threats?page=0&size=10&sort=risk,DESC&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/threats",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "43e27cc6-41ac-499c-988a-9022b8726280",
+                "name": "Attackers perform injection attacks and scripting",
+                "referenceId": "T-ATTACKERS-PERFORM-INJECTION-ATTACKS-AND-SCRIPTING",
+                "description": "<p><strong>General Threat Description</strong>:<br>Injection attacks occur when attackers send untrusted data to an interpreter as part of a command or query. The attacker's malicious data can trick the interpreter into executing unintended commands or accessing data without proper authorization. Common forms of injection include SQL, NoSQL, OS command, and LDAP injection. Scripting attacks, particularly Cross-Site Scripting (XSS), involve injecting malicious scripts into web pages viewed by other users. These scripts can then execute in the context of the user's session, allowing attackers to bypass access controls, hijack sessions, or redirect users to malicious sites.</p>\n<p><strong>Threat Agents/Attack Vectors</strong>:<br>Threat agents include external attackers, organized criminal groups, and potentially malicious insiders. Key attack vectors include:</p>\n<ol>\n <li><strong>SQL Injection</strong>: Injecting malicious SQL queries into database-driven applications by manipulating input fields.</li>\n <li><strong>OS Command Injection</strong>: Exploiting vulnerabilities in web applications to execute operating system commands with the privileges of the server.</li>\n <li><strong>Cross-Site Scripting (XSS)</strong>: Embedding scripts in web pages, which execute in the context of the user's session.</li>\n <li><strong>LDAP Injection</strong>: Manipulating web applications to construct LDAP statements that can be used to retrieve information from directories.</li>\n</ol>\n<p><strong>Impacts</strong>:<br>The consequences of injection and scripting attacks are severe:</p>\n<ul>\n <li><strong>Data Theft and Loss</strong>: Unauthorized access to database contents, including sensitive or personal information.</li>\n <li><strong>Account Takeover</strong>: Hijacking of user sessions, which may lead to unauthorized actions.</li>\n <li><strong>Data Integrity Breach</strong>: Unauthorized changes to data, potentially leading to further exploits or system compromises.</li>\n <li><strong>Denial of Service</strong>: Disruption of application services by corrupting the database or overloading system resources.</li>\n <li><strong>Reputational Damage</strong>: Loss of customer trust and potential legal repercussions if data protection laws are violated.</li>\n</ul>\n<p><strong>Example Attack Scenarios</strong>:<br><strong>Scenario 1</strong>: An attacker discovers that a web application does not properly sanitize user input for its database queries. They craft input that includes SQL commands which are executed by the server's database, allowing the attacker to retrieve the entire database of user credentials and personal information.</p>\n<p><strong>Scenario 2</strong>: A web forum allows users to post unescaped content. An attacker posts a malicious script that executes in any user's browser that loads the post. The script steals session cookies and sends them to the attacker, who then uses these cookies to hijack user sessions.</p>\n<p><strong>Scenario 3</strong>: An application's user registration form does not sanitize shell metacharacters from its inputs. The attacker submits a username that includes OS commands. When the application generates a welcome email using the username, the command executes, giving the attacker unauthorized access to the server.</p>\n<p><strong>Mitigation Strategies</strong>:</p>\n<ul>\n <li><strong>Input Validation</strong>: Employ rigorous validation and sanitization of user inputs to prevent special characters from triggering unintended actions.</li>\n <li><strong>Prepared Statements</strong>: Use prepared statements with parameterized queries in database operations to avoid SQL injection.</li>\n <li><strong>Content Security Policy</strong>: Implement and enforce a strong Content Security Policy (CSP) to mitigate XSS by restricting sources of executable scripts.</li>\n <li><strong>Escaping Outputs</strong>: Ensure that all outputs are escaped correctly before being sent to the client to prevent executable content from running.</li>\n <li><strong>Security Audits</strong>: Conduct regular security audits and penetration testing to identify and fix vulnerabilities related to injection and scripting attacks.</li>\n</ul>",
+                "countermeasureMitigation": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 57,
+                "projectedRisk": 57,
+                "availability": 50,
+                "confidentiality": 75,
+                "easeOfExploitation": 50,
+                "integrity": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "inherentRisk": 57,
+                "library": {
+                  "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                  "name": "Service side - Components"
+                },
+                "mitigation": 0,
+                "source": "rules",
+                "state": "expose",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": null,
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "useCase": {
+                  "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                  "name": "Tampering",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "name": "API Endpoint",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/threats?page=0&size=10&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.304Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/threats?page=0&size=10&sort=risk,DESC&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/threats",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "43e27cc6-41ac-499c-988a-9022b8726280",
+                "name": "Attackers perform injection attacks and scripting",
+                "referenceId": "T-ATTACKERS-PERFORM-INJECTION-ATTACKS-AND-SCRIPTING",
+                "description": "<p><strong>General Threat Description</strong>:<br>Injection attacks occur when attackers send untrusted data to an interpreter as part of a command or query. The attacker's malicious data can trick the interpreter into executing unintended commands or accessing data without proper authorization. Common forms of injection include SQL, NoSQL, OS command, and LDAP injection. Scripting attacks, particularly Cross-Site Scripting (XSS), involve injecting malicious scripts into web pages viewed by other users. These scripts can then execute in the context of the user's session, allowing attackers to bypass access controls, hijack sessions, or redirect users to malicious sites.</p>\n<p><strong>Threat Agents/Attack Vectors</strong>:<br>Threat agents include external attackers, organized criminal groups, and potentially malicious insiders. Key attack vectors include:</p>\n<ol>\n <li><strong>SQL Injection</strong>: Injecting malicious SQL queries into database-driven applications by manipulating input fields.</li>\n <li><strong>OS Command Injection</strong>: Exploiting vulnerabilities in web applications to execute operating system commands with the privileges of the server.</li>\n <li><strong>Cross-Site Scripting (XSS)</strong>: Embedding scripts in web pages, which execute in the context of the user's session.</li>\n <li><strong>LDAP Injection</strong>: Manipulating web applications to construct LDAP statements that can be used to retrieve information from directories.</li>\n</ol>\n<p><strong>Impacts</strong>:<br>The consequences of injection and scripting attacks are severe:</p>\n<ul>\n <li><strong>Data Theft and Loss</strong>: Unauthorized access to database contents, including sensitive or personal information.</li>\n <li><strong>Account Takeover</strong>: Hijacking of user sessions, which may lead to unauthorized actions.</li>\n <li><strong>Data Integrity Breach</strong>: Unauthorized changes to data, potentially leading to further exploits or system compromises.</li>\n <li><strong>Denial of Service</strong>: Disruption of application services by corrupting the database or overloading system resources.</li>\n <li><strong>Reputational Damage</strong>: Loss of customer trust and potential legal repercussions if data protection laws are violated.</li>\n</ul>\n<p><strong>Example Attack Scenarios</strong>:<br><strong>Scenario 1</strong>: An attacker discovers that a web application does not properly sanitize user input for its database queries. They craft input that includes SQL commands which are executed by the server's database, allowing the attacker to retrieve the entire database of user credentials and personal information.</p>\n<p><strong>Scenario 2</strong>: A web forum allows users to post unescaped content. An attacker posts a malicious script that executes in any user's browser that loads the post. The script steals session cookies and sends them to the attacker, who then uses these cookies to hijack user sessions.</p>\n<p><strong>Scenario 3</strong>: An application's user registration form does not sanitize shell metacharacters from its inputs. The attacker submits a username that includes OS commands. When the application generates a welcome email using the username, the command executes, giving the attacker unauthorized access to the server.</p>\n<p><strong>Mitigation Strategies</strong>:</p>\n<ul>\n <li><strong>Input Validation</strong>: Employ rigorous validation and sanitization of user inputs to prevent special characters from triggering unintended actions.</li>\n <li><strong>Prepared Statements</strong>: Use prepared statements with parameterized queries in database operations to avoid SQL injection.</li>\n <li><strong>Content Security Policy</strong>: Implement and enforce a strong Content Security Policy (CSP) to mitigate XSS by restricting sources of executable scripts.</li>\n <li><strong>Escaping Outputs</strong>: Ensure that all outputs are escaped correctly before being sent to the client to prevent executable content from running.</li>\n <li><strong>Security Audits</strong>: Conduct regular security audits and penetration testing to identify and fix vulnerabilities related to injection and scripting attacks.</li>\n</ul>",
+                "countermeasureMitigation": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 57,
+                "projectedRisk": 0,
+                "availability": 50,
+                "confidentiality": 75,
+                "easeOfExploitation": 50,
+                "integrity": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "inherentRisk": 57,
+                "library": {
+                  "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                  "name": "Service side - Components"
+                },
+                "mitigation": 100,
+                "source": "rules",
+                "state": "expose",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": null,
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "useCase": {
+                  "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                  "name": "Tampering",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "name": "API Endpoint",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/43e27cc6-41ac-499c-988a-9022b8726280/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/threats?page=0&size=10&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.169Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/threats?page=0&size=10&sort=risk,DESC&sort=name,ASC",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/threats",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "ba20d5ff-41c5-427c-bc8f-c8eb9154d61f",
+                "name": "An attacker uses multiple transparent or opaque layers to trick a user into clicking on a button or link on another page when they were intending to click on the top level page",
+                "referenceId": "CAPEC-103-CLICKJACKING",
+                "description": "<p>For example, imagine an attacker who builds a web site that has a button on it that says \"click here for a free iPod\". However, on top of that web page, the attacker has loaded an iframe with your mail account, and lined up exactly the \"delete all messages\" button directly on top of the \"free iPod\" button. The victim tries to click on the \"free iPod\" button but instead actually clicked on the invisible \"delete all messages\" button. In essence, the attacker has \"hijacked\" the user's click, hence the name \"Clickjacking\".</p>",
+                "countermeasureMitigation": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "risk": 79,
+                "projectedRisk": 79,
+                "availability": 50,
+                "confidentiality": 100,
+                "easeOfExploitation": 100,
+                "integrity": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "inherentRisk": 79,
+                "library": {
+                  "id": "cb404144-37a7-4cc0-b0bc-37021648582d",
+                  "name": "Legacy - IR Functional Components"
+                },
+                "mitigation": 0,
+                "source": "rules",
+                "state": "expose",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+                  "name": null,
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+                    }
+                  }
+                },
+                "useCase": {
+                  "id": "8fc4eb64-c2fa-49ec-a2cd-70a82e248a99",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8fc4eb64-c2fa-49ec-a2cd-70a82e248a99"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "4344919a-0220-4645-8505-99661708bdee",
+                  "name": "File System Storage",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/4344919a-0220-4645-8505-99661708bdee"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ba20d5ff-41c5-427c-bc8f-c8eb9154d61f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ba20d5ff-41c5-427c-bc8f-c8eb9154d61f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ba20d5ff-41c5-427c-bc8f-c8eb9154d61f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ba20d5ff-41c5-427c-bc8f-c8eb9154d61f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ba20d5ff-41c5-427c-bc8f-c8eb9154d61f/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/threats?page=0&size=10&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 10,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.590Z"
+      }
+    ]
+  },
+  "total_responses": 4
+}

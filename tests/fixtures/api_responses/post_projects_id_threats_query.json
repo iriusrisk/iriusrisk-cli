@@ -1,0 +1,3510 @@
+{
+  "endpoint": "/projects/{id}/threats/query",
+  "method": "POST",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=0&size=1&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 75,
+                "confidentiality": 75,
+                "description": "<p>SQL injection is a type of security vulnerability that occurs when an attacker can manipulate or inject malicious SQL code into queries executed by an application, typically through user inputs. In the context of an RDBMS, this can lead to unauthorized access, data manipulation, and potentially full compromise of the database.</p>\n<p><strong>Threat Agents/Attack Vectors:</strong></p>\n<ul>\n <li><strong>Malicious Input:</strong> Attackers can exploit SQL injection by injecting malicious SQL statements or commands into user inputs such as form fields, URL parameters, or cookies.</li>\n <li><strong>Tainted Data:</strong> If user input is not properly validated or sanitized before being included in SQL queries, an attacker can manipulate the input to inject malicious SQL code.</li>\n <li><strong>Stored Procedures:</strong> In cases where stored procedures are used, attackers may exploit vulnerabilities by manipulating the input parameters or injecting malicious code directly into the stored procedures.</li>\n</ul>\n<p><strong>Impacts:</strong></p>\n<ul>\n <li><strong>Unauthorized Access:</strong> SQL injection can allow attackers to gain unauthorized access to sensitive data in the database.</li>\n <li><strong>Data Manipulation:</strong> Attackers can manipulate or delete data within the database, leading to data integrity issues.</li>\n <li><strong>Code Execution:</strong> In some cases, successful SQL injection can lead to the execution of arbitrary code on the database server.</li>\n</ul>\n<p><strong>Example Attack Scenarios:</strong></p>\n<p><strong>Authentication Bypass:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting malicious SQL code into a login form.</li>\n <li><i>Impact:</i> Gain unauthorized access to the application by bypassing authentication.</li>\n</ul>\n<p><strong>Data Exfiltration:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to extract sensitive information.</li>\n <li><i>Impact:</i> Retrieve and exfiltrate confidential data from the database.</li>\n</ul>\n<p><strong>Database Defacement:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to modify data in the database.</li>\n <li><i>Impact:</i> Modify or delete records, leading to data manipulation or defacement.</li>\n</ul>\n<p><strong>Secondary Exploitation:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to execute additional malicious queries.</li>\n <li><i>Impact:</i> Exploit further vulnerabilities, potentially leading to full compromise of the database server.</li>\n</ul>",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "b89ec449-b9df-4c02-a3b6-0b5ce5d0531b",
+                "inherentRisk": 78,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                  "name": "Data store - Components"
+                },
+                "mitigation": 0,
+                "name": "An attacker can exploit SQL injection vulnerabilities",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectedRisk": 78,
+                "referenceId": "T-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+                "risk": 78,
+                "source": "rules",
+                "state": "expose",
+                "useCase": {
+                  "id": "150ced1f-8f45-4bcb-80d3-8d8118d643b5",
+                  "name": "Tampering",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/150ced1f-8f45-4bcb-80d3-8d8118d643b5"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                  "name": "User Database",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=1&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=97&size=1&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 98,
+            "totalPages": 98,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=0&size=1&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 75,
+                "confidentiality": 75,
+                "description": "<p>SQL injection is a type of security vulnerability that occurs when an attacker can manipulate or inject malicious SQL code into queries executed by an application, typically through user inputs. In the context of an RDBMS, this can lead to unauthorized access, data manipulation, and potentially full compromise of the database.</p>\n<p><strong>Threat Agents/Attack Vectors:</strong></p>\n<ul>\n <li><strong>Malicious Input:</strong> Attackers can exploit SQL injection by injecting malicious SQL statements or commands into user inputs such as form fields, URL parameters, or cookies.</li>\n <li><strong>Tainted Data:</strong> If user input is not properly validated or sanitized before being included in SQL queries, an attacker can manipulate the input to inject malicious SQL code.</li>\n <li><strong>Stored Procedures:</strong> In cases where stored procedures are used, attackers may exploit vulnerabilities by manipulating the input parameters or injecting malicious code directly into the stored procedures.</li>\n</ul>\n<p><strong>Impacts:</strong></p>\n<ul>\n <li><strong>Unauthorized Access:</strong> SQL injection can allow attackers to gain unauthorized access to sensitive data in the database.</li>\n <li><strong>Data Manipulation:</strong> Attackers can manipulate or delete data within the database, leading to data integrity issues.</li>\n <li><strong>Code Execution:</strong> In some cases, successful SQL injection can lead to the execution of arbitrary code on the database server.</li>\n</ul>\n<p><strong>Example Attack Scenarios:</strong></p>\n<p><strong>Authentication Bypass:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting malicious SQL code into a login form.</li>\n <li><i>Impact:</i> Gain unauthorized access to the application by bypassing authentication.</li>\n</ul>\n<p><strong>Data Exfiltration:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to extract sensitive information.</li>\n <li><i>Impact:</i> Retrieve and exfiltrate confidential data from the database.</li>\n</ul>\n<p><strong>Database Defacement:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to modify data in the database.</li>\n <li><i>Impact:</i> Modify or delete records, leading to data manipulation or defacement.</li>\n</ul>\n<p><strong>Secondary Exploitation:</strong></p>\n<ul>\n <li><i>Attack Vector:</i> Injecting SQL code to execute additional malicious queries.</li>\n <li><i>Impact:</i> Exploit further vulnerabilities, potentially leading to full compromise of the database server.</li>\n</ul>",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "b89ec449-b9df-4c02-a3b6-0b5ce5d0531b",
+                "inherentRisk": 78,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "2589db7e-82a0-45e6-ac05-1401252dc80f",
+                  "name": "Data store - Components"
+                },
+                "mitigation": 0,
+                "name": "An attacker can exploit SQL injection vulnerabilities",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectedRisk": 78,
+                "referenceId": "T-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+                "risk": 78,
+                "source": "rules",
+                "state": "expose",
+                "useCase": {
+                  "id": "150ced1f-8f45-4bcb-80d3-8d8118d643b5",
+                  "name": "Tampering",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/150ced1f-8f45-4bcb-80d3-8d8118d643b5"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                  "name": "User Database",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b89ec449-b9df-4c02-a3b6-0b5ce5d0531b/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=1&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/threats/query?page=97&size=1&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 98,
+            "totalPages": 98,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 90,
+                "confidentiality": 90,
+                "description": "",
+                "easeOfExploitation": 90,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "ea0e5171-6b0e-420b-b94c-612b124d7aad",
+                "inherentRisk": 75,
+                "integrity": 90,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": null,
+                "mitigation": 0,
+                "name": "test",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectedRisk": 75,
+                "referenceId": "test",
+                "risk": 75,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                  "name": "General Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "name": "Project Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=1&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=7&size=1&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 8,
+            "totalPages": 8,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.529Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 90,
+                "confidentiality": 90,
+                "description": "",
+                "easeOfExploitation": 90,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "ea0e5171-6b0e-420b-b94c-612b124d7aad",
+                "inherentRisk": 75,
+                "integrity": 90,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": null,
+                "mitigation": 0,
+                "name": "test",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectedRisk": 75,
+                "referenceId": "test",
+                "risk": 75,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                  "name": "General Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "name": "Project Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=1&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=7&size=1&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 8,
+            "totalPages": 8,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.529Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=10000&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[\"87871c18-a38f-4a94-9145-7a80c6252247\"],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 75,
+                "confidentiality": 100,
+                "description": "<p><strong>General Threat Description</strong></p>\n<p>Denial of Service (DoS) by API abuse or flooding is a targeted attack where malicious actors overwhelm an API endpoint with a high volume of requests. This type of attack is designed to exhaust the system's resources, such as bandwidth, server processing capacity, or database connections, thereby rendering the service slow or completely unresponsive to legitimate users. This can be particularly damaging in environments where APIs are critical components of business operations and services.</p>\n<p>Threat Agents/Attack Vectors</p>\n<ol>\n <li><strong>Volume-Based Attacks</strong>: The attacker floods the API with a very high volume of requests in a short period, exceeding the system’s ability to handle them.</li>\n <li><strong>Application Layer Attacks</strong>: Targeted at exhausting specific functionalities or features of the API (e.g., complex query processing), which can consume more resources than simpler requests.</li>\n <li><strong>Automated Tools</strong>: Use of scripted tools or botnets to automate the sending of requests at a scale difficult to achieve manually.</li>\n <li><strong>Exploitation of API Vulnerabilities</strong>: Utilizing known vulnerabilities within the API, such as inefficient handling of inputs or misconfigurations, to amplify the impact of the attack.</li>\n</ol>\n<p>Impacts</p>\n<ol>\n <li><strong>Service Disruption</strong>: Legitimate users cannot access the service, leading to a loss of availability and potential customer dissatisfaction.</li>\n <li><strong>Resource Drain</strong>: Server resources are consumed by handling the flood of malicious requests, potentially causing slowdowns or crashes.</li>\n <li><strong>Increased Operational Costs</strong>: Costs may increase due to extra bandwidth usage, need for additional infrastructure to manage the load, and labor costs associated with mitigating the attack.</li>\n <li><strong>Reputation Damage</strong>: Frequent and severe outages can damage the reputation of a service, leading to loss of user trust and potential revenue declines.</li>\n</ol>\n<p>Example Attack Scenarios</p>\n<p><strong>Scenario 1</strong>: An attacker targets a financial service provider's API, which handles customer transaction requests. Using a distributed botnet, the attacker sends thousands of transaction requests per second to the API. This flood overwhelms the server, causing legitimate transaction requests to time out, leading to frustration among customers and disruption of financial activities.</p>\n<p><strong>Scenario 2</strong>: In another case, a competitor uses automated scripts to continuously submit complex queries to a real estate listing service's API. These queries are designed to retrieve large amounts of data with each call, maxing out the database's capacity. The excessive load results in legitimate users experiencing delays and errors when attempting to view listings, significantly degrading service quality during peak house-hunting seasons.</p>\n<p>To combat these threats, it is crucial to implement rate limiting, employ robust monitoring and alerting systems to detect unusual traffic patterns, and possibly use Web Application Firewalls (WAFs) to filter out malicious traffic. Additionally, designing APIs to handle failures gracefully and scale dynamically in response to high traffic can mitigate the impact of such attacks.</p>",
+                "easeOfExploitation": 50,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "e29deb79-ae4d-4c42-8180-56e79149d180",
+                "inherentRisk": 60,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "78edd477-0777-4556-91af-c93ca599cd50",
+                  "name": "Service side - Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers carry out denial of service by API abuse/flooding",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectedRisk": 60,
+                "referenceId": "T-ATTACKERS-CARRY-OUT-DENIAL-OF-SERVICE-BY-API-ABUSEFLOODING",
+                "risk": 60,
+                "source": "rules",
+                "state": "expose",
+                "useCase": {
+                  "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                  "name": "Denial of Service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "name": "API Endpoint",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/e29deb79-ae4d-4c42-8180-56e79149d180/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=2000&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:26.151Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 90,
+                "confidentiality": 90,
+                "description": "",
+                "easeOfExploitation": 90,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "ea0e5171-6b0e-420b-b94c-612b124d7aad",
+                "inherentRisk": 75,
+                "integrity": 90,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": null,
+                "mitigation": 0,
+                "name": "test",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectedRisk": 75,
+                "referenceId": "test",
+                "risk": 75,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                  "name": "General Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "name": "Project Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=1&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=6&size=1&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 7,
+            "totalPages": 7,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=10000&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[\"87871c18-a38f-4a94-9145-7a80c6252247\"],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=2000&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.942Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "1"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 90,
+                "confidentiality": 90,
+                "description": "",
+                "easeOfExploitation": 90,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "ea0e5171-6b0e-420b-b94c-612b124d7aad",
+                "inherentRisk": 75,
+                "integrity": 90,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": null,
+                "mitigation": 0,
+                "name": "test",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectedRisk": 75,
+                "referenceId": "test",
+                "risk": 75,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                  "name": "General Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "name": "Project Threats",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ea0e5171-6b0e-420b-b94c-612b124d7aad/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=1&size=1&sort=risk,desc&sort=name,asc"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=6&size=1&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 7,
+            "totalPages": 7,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.169Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=10000&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[\"87871c18-a38f-4a94-9145-7a80c6252247\"],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/threats/query?page=0&size=2000&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.648Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08/threats/query?page=0&size=10000&sort=risk,DESC&sort=name,ASC",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ],
+          "sort": [
+            "risk,DESC",
+            "name,ASC"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"states\":[\"expose\",\"partly-mitigate\",\"mitigate\",\"hidden\"],\"libraries\":[],\"componentTags\":[],\"currentRisks\":[],\"countermeasureProgressRanges\":[],\"countermeasureTestStatuses\":[],\"weaknessTestStatuses\":[],\"components\":[],\"useCases\":[\"cb587dd8-3c96-4656-b3b4-cb6878deb1b6\"],\"owners\":[],\"customFieldValues\":[]}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 75,
+                "confidentiality": 100,
+                "description": "<p><strong>General Threat Description:</strong><br>Loss of Backup Data in AWS ElastiCache for Redis involves the accidental or malicious deletion, corruption, or loss of backup files. These backups are crucial for restoring data in case of a system failure. This threat can result from misconfigurations, unauthorized access, cyber-attacks, or hardware failures.</p>\n<p><strong>Threat Agents/Attack Vectors:</strong></p>\n<ul>\n <li><strong>Insiders:</strong> Employees or contractors with legitimate access may delete or alter backups.</li>\n <li><strong>External Attackers:</strong> Cybercriminals could exploit vulnerabilities or use stolen credentials to access and delete backups.</li>\n <li><strong>Misconfigurations:</strong> Incorrect settings or permissions may lead to accidental backup loss.</li>\n <li><strong>Software Bugs:</strong> Errors in AWS services or custom scripts could cause unintended data loss.</li>\n <li><strong>Third-Party Integrations:</strong> Vulnerabilities in connected tools might lead to backup tampering or deletion.</li>\n</ul>\n<p><strong>Impacts:</strong></p>\n<ul>\n <li><strong>Data Unavailability:</strong> Inability to restore the cluster, leading to downtime.</li>\n <li><strong>Business Disruption:</strong> Extended downtime affects operations and customer satisfaction.</li>\n <li><strong>Financial Loss:</strong> Costs associated with downtime, recovery, and potential regulatory fines.</li>\n <li><strong>Reputation Damage:</strong> Loss of trust due to repeated data loss incidents.</li>\n <li><strong>Regulatory Non-Compliance:</strong> Failing to meet data retention regulations can lead to legal issues.</li>\n</ul>\n<p><strong>Example Attack Scenarios:</strong></p>\n<ol>\n <li><strong>Insider Attack:</strong> A former employee deletes Redis backups before losing access.</li>\n <li><strong>Credential Compromise:</strong> An attacker uses stolen credentials to delete backup data.</li>\n <li><strong>Misconfiguration:</strong> An automated script misconfiguration leads to premature deletion of backups.</li>\n <li><strong>Third-Party Vulnerability:</strong> An attacker exploits a flaw in a third-party tool to delete backups.</li>\n</ol>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "9ccb7db4-ac19-4200-902a-e38e3181e9d9",
+                "inherentRisk": 65,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "3d9621d7-25e5-49df-86c7-e8b61ff40ccd",
+                  "name": "Amazon web services - Components"
+                },
+                "mitigation": 0,
+                "name": "Loss of backup data",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+                  "name": "Badger app",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+                    }
+                  }
+                },
+                "projectedRisk": 65,
+                "referenceId": "T-AWS-ELASTICACHE-FOR-REDIS-T-ELASTICACHE-04",
+                "risk": 65,
+                "source": "rules",
+                "state": "expose",
+                "useCase": {
+                  "id": "cb587dd8-3c96-4656-b3b4-cb6878deb1b6",
+                  "name": "Denial of Service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/cb587dd8-3c96-4656-b3b4-cb6878deb1b6"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "072d06ed-7cca-42e9-bdd1-2a2f12dd6b72",
+                  "name": "Redis Cache",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/072d06ed-7cca-42e9-bdd1-2a2f12dd6b72"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ccb7db4-ac19-4200-902a-e38e3181e9d9/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 1,
+                "description": "<p><strong>General Threat Description:</strong><br>A Single Point of Failure (SPOF) in AWS ElastiCache for Redis refers to any component or configuration that, if it fails, could cause the entire Redis cluster to become unavailable. This vulnerability can arise from relying on a single Redis node or improper deployment configurations that do not leverage AWS's high availability features. An SPOF increases the risk of outages and data loss.</p>\n<p><strong>Threat Agents/Attack Vectors:</strong></p>\n<ul>\n <li><strong>Infrastructure Failures:</strong> Hardware failures or network outages in the AWS data center affecting the primary node.</li>\n <li><strong>Configuration Errors:</strong> Incorrect setup or lack of redundancy in the Redis cluster.</li>\n <li><strong>Insufficient Fault Tolerance:</strong> Failure to use AWS features like Multi-AZ deployments or replica nodes.</li>\n <li><strong>Cyber Attacks:</strong> Targeted attacks, such as Distributed Denial of Service (DDoS), can overwhelm a single node setup.</li>\n</ul>\n<p><strong>Impacts:</strong></p>\n<ul>\n <li><strong>Service Outage:</strong> Complete downtime if the single node or component fails.</li>\n <li><strong>Data Loss:</strong> Potential for data loss if the failed component contained non-replicated data.</li>\n <li><strong>Operational Disruption:</strong> Disruption to business operations due to lack of access to critical data.</li>\n <li><strong>Financial Loss:</strong> Costs related to downtime, recovery efforts, and loss of revenue.</li>\n</ul>\n<p><strong>Example Attack Scenarios:</strong></p>\n<ol>\n <li><strong>Node Failure:</strong> A Redis node, not backed by a replica, fails due to hardware issues, causing the entire cluster to go offline.</li>\n <li><strong>Misconfigured High Availability:</strong> A Redis cluster is deployed without proper Multi-AZ configuration, and a zone failure results in complete service unavailability.</li>\n <li><strong>Cyber Attack:</strong> An attacker launches a DDoS attack against the primary Redis node, and without a failover strategy, the entire service is affected.</li>\n <li><strong>Human Error:</strong> An administrator mistakenly shuts down the only Redis node, leading to a full-scale outage until the node is manually restored.</li>\n</ol>",
+                "easeOfExploitation": 1,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "b104e878-123e-47f0-88ce-d167cf02125e",
+                "inherentRisk": 56,
+                "integrity": 1,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "3d9621d7-25e5-49df-86c7-e8b61ff40ccd",
+                  "name": "Amazon web services - Components"
+                },
+                "mitigation": 0,
+                "name": "Single point of failure",
+                "owner": {
+                  "username": "fscott",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+                  "name": "Badger app",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+                    }
+                  }
+                },
+                "projectedRisk": 56,
+                "referenceId": "T-AWS-ELASTICACHE-FOR-REDIS-T-ELASTICACHE-05",
+                "risk": 56,
+                "source": "rules",
+                "state": "expose",
+                "useCase": {
+                  "id": "cb587dd8-3c96-4656-b3b4-cb6878deb1b6",
+                  "name": "Denial of Service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/cb587dd8-3c96-4656-b3b4-cb6878deb1b6"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "072d06ed-7cca-42e9-bdd1-2a2f12dd6b72",
+                  "name": "Redis Cache",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/072d06ed-7cca-42e9-bdd1-2a2f12dd6b72"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b104e878-123e-47f0-88ce-d167cf02125e"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b104e878-123e-47f0-88ce-d167cf02125e/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b104e878-123e-47f0-88ce-d167cf02125e/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b104e878-123e-47f0-88ce-d167cf02125e/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/b104e878-123e-47f0-88ce-d167cf02125e/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08/threats/query?page=0&size=2000&sort=risk,desc&sort=name,asc"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:40:42.944Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/threats/query",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {},
+        "request_body": {
+          "filters": {
+            "all": {
+              "states": [
+                "expose",
+                "partly-mitigate",
+                "mitigate",
+                "hidden"
+              ],
+              "libraries": [],
+              "componentTags": [],
+              "currentRisks": [],
+              "countermeasureProgressRanges": [],
+              "countermeasureTestStatuses": [],
+              "weaknessTestStatuses": [],
+              "components": [],
+              "useCases": [],
+              "owners": [],
+              "customFieldValues": []
+            }
+          }
+        },
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "Application security should be embedded into a project's development environment, allowing developers to monitor their code regularly in order to avoid security vulnerabilities when the application is deployed in the production environment.",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "ad72534a-97c3-4bd7-8ad8-2efc8c00c10c",
+                "inherentRisk": 78,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Application contains security vulnerabilities not identified during the development process",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 78,
+                "referenceId": "sec-vuln-dev-process",
+                "risk": 78,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "5af1254b-8885-4a8d-a483-31099a7ab6bd",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5af1254b-8885-4a8d-a483-31099a7ab6bd"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "<p>This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed to the other component as if it were never intercepted. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identity between two components.</p>",
+                "easeOfExploitation": 50,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "4460c77f-9c7e-428f-9e41-8e89a81a89e1",
+                "inherentRisk": 68,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers could gain access to sensitive data through a man in the middle attack",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 68,
+                "referenceId": "NTW-MITM",
+                "risk": 68,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "9d751964-c70c-4720-ac2c-e73f18a3bdee",
+                  "name": "Read or Post data",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9d751964-c70c-4720-ac2c-e73f18a3bdee"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "Attackers exploit vulnerabilities in the service and gain access to data, or to\n                                services for which they are not authorized.\n                            ",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f",
+                "inherentRisk": 66,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain access to unauthorised data by exploiting vulnerabilities in the service",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 66,
+                "referenceId": "VULN-SERVICE",
+                "risk": 66,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "96732f2d-e4dd-4fd8-8e50-45566464a2ad",
+                  "name": "Access service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96732f2d-e4dd-4fd8-8e50-45566464a2ad"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "<p>Server-Side Code Injection happens when an attacker is able to direct input under his control and mix it with executed code on the server-side by modifying the logic executed on it.&nbsp;</p>",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "425013f4-73ab-4dd2-a23e-88aeb3b86822",
+                "inherentRisk": 66,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain access to user data by manipulating server-side code",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 66,
+                "referenceId": "CAPEC-341",
+                "risk": 66,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "ca54a843-3285-4fda-b971-6195a52a4f00",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ca54a843-3285-4fda-b971-6195a52a4f00"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/settings"
+                  }
+                }
+              },
+              {
+                "availability": 25,
+                "confidentiality": 100,
+                "description": "<p>Successful SQL Injection attacks could lead to full compromise of the database or to a partial compromise of only the data visible to the application.</p><p><br>&nbsp;</p><p>Typically, these types of attacks result in unauthorized disclosure of sensitive data, but can also be used to inject spurious data into the database or to drop tables and deny services to legitimate users.</p>",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "254fa3a2-be90-41a8-836c-3284a2ba09d1",
+                "inherentRisk": 62,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "43f8e046-06f3-48d8-ac9a-fc15eea94f2b",
+                  "name": "IR Dataflows"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain unauthorised access to data and/or systems through SQL Injection attacks",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 62,
+                "referenceId": "CAPEC-66",
+                "risk": 62,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "9d751964-c70c-4720-ac2c-e73f18a3bdee",
+                  "name": "Read or Post data",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9d751964-c70c-4720-ac2c-e73f18a3bdee"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/settings"
+                  }
+                }
+              },
+              {
+                "availability": 50,
+                "confidentiality": 100,
+                "description": "Secrets stored in any client side components, such as a mobile application, thick\n                                client application or in JavaScript used by a browser, can be accessed by\n                                users/attackers who have access to this client.\n                                <div>\n                                <br />\n                                </div>\n                                <div>\n                                Attackers could then gain access to the data or services that are protected by this\n                                secret, if no other credentials are required.\n                                </div>\n                            ",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "15c353b9-151a-4f8d-a6d7-dee056ec88cb",
+                "inherentRisk": 73,
+                "integrity": 50,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain unauthorised access to data or services by accessing a client side secret",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 73,
+                "referenceId": "CSD-CLIENT-SECRET",
+                "risk": 73,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "5af1254b-8885-4a8d-a483-31099a7ab6bd",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5af1254b-8885-4a8d-a483-31099a7ab6bd"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/settings"
+                  }
+                }
+              },
+              {
+                "availability": 50,
+                "confidentiality": 100,
+                "description": "<div>\n  As programming languages evolve, functions occasionally become obsolete due to:\n</div>\n<ul>\n <li>Advances in the language.</li>\n <li>Improved understanding of how operations should be performed effectively and securely.</li>\n <li>Changes in the conventions that govern certain operations. </li>\n</ul>\n<br />Functions that are removed are usually replaced by newer counterparts that perform the same task in some different and hopefully improved way.\n<br />",
+                "easeOfExploitation": 50,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d",
+                "inherentRisk": 60,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain unauthorised access to the application by the use of deprecated client-side technologies",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 60,
+                "referenceId": "DEP-CLIENT-TECH",
+                "risk": 60,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "5af1254b-8885-4a8d-a483-31099a7ab6bd",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5af1254b-8885-4a8d-a483-31099a7ab6bd"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 1,
+                "description": "If attackers gain access to the application or the application server, then they could\n                                directly access the data store using the privilege assigned to the application.\n                                <div>\n                                If the data store user account used by the application has elevated privileges then this\n                                could allow attackers to perform unauthorized operations such as dropping tables,\n                                modifying the database schema or modifying data.\n                                </div>\n                            ",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "02f8e50e-5260-4fc8-8a30-ad1e48bd1630",
+                "inherentRisk": 45,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers who compromise the application or application server could directly access and modify the data store",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 45,
+                "referenceId": "AUTH-DATASTORE-LEAST-PRIV",
+                "risk": 45,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "d94bc2c6-7fc7-4165-96e7-c4674dcfdf98",
+                  "name": "Authentication",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/d94bc2c6-7fc7-4165-96e7-c4674dcfdf98"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 1,
+                "description": "If attackers gain access to the application or the application server, then they could\n                                directly access the data store using the privilege assigned to the application.\n                                <div>\n                                If the data store user account used by the application has elevated privileges then this\n                                could allow attackers to perform unauthorized operations such as dropping tables,\n                                modifying the database schema or modifying data.\n                                </div>\n                            ",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "9ec82d3b-7f80-481b-90a3-fe229c7177bc",
+                "inherentRisk": 45,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers who compromise the application or application server could directly access and modify the data store",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 45,
+                "referenceId": "AUTH-DATASTORE-LEAST-PRIV",
+                "risk": 45,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "ca54a843-3285-4fda-b971-6195a52a4f00",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ca54a843-3285-4fda-b971-6195a52a4f00"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "<p>An attacker gains access to the application, service, or device with the privileges of an authorized or privileged user by evading - or circumventing - an authentication mechanism. The attacker is therefore able to access protected data without authentication ever having taken place. This refers to an attacker gaining access equivalent to an authenticated user without ever going through an authentication procedure. </p> This is usually the result of the attacker using an unexpected access procedure that does not go through the proper checkpoints where authentication should occur. For example, a web site might assume that all users will click through a given link in order to access secure material and simply authenticate everyone that clicks the link. However, an attacker might be able to reach secured web content by explicitly entering the path to the content rather than clicking through the authentication link, thereby avoiding the check entirely. This attack pattern differs from other authentication attacks in that attacks of this pattern avoid authentication entirely, rather than faking authentication by exploiting flaws or by stealing credentials from legitimate users.",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "93be7535-b155-498f-9c66-9b1879fe721f",
+                "inherentRisk": 45,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Authentication Bypass",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 45,
+                "referenceId": "CAPEC-115",
+                "risk": 45,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "96732f2d-e4dd-4fd8-8e50-45566464a2ad",
+                  "name": "Access service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96732f2d-e4dd-4fd8-8e50-45566464a2ad"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/settings"
+                  }
+                }
+              },
+              {
+                "availability": 75,
+                "confidentiality": 100,
+                "description": "This threat include: \n<div> \n <ul> \n  <li>Back-end servers as an attack vector</li> \n </ul> \n</div>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "a600006e-15d5-4403-8b38-a9a040e6b0a8",
+                "inherentRisk": 49,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                  "name": "IR Automotive"
+                },
+                "mitigation": 0,
+                "name": "Back-end servers used as a means to attack a vehicle or extract data",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 49,
+                "referenceId": "CSMS-4.3.1-1",
+                "risk": 49,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "c51a1bab-ba99-46ce-ae43-ab05cc5ef59d",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c51a1bab-ba99-46ce-ae43-ab05cc5ef59d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "7b971e9d-8e26-4561-94d0-4cc66915c0bf",
+                  "name": "Back-end server",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7b971e9d-8e26-4561-94d0-4cc66915c0bf"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/settings"
+                  }
+                }
+              },
+              {
+                "availability": 75,
+                "confidentiality": 50,
+                "description": "<p>An unauthorized party might access/breach the personal data of a data subject.</p>",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "dc0a80c3-1174-4f38-a017-d1d16512acbd",
+                "inherentRisk": 42,
+                "integrity": 50,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Data leakage or disclosure to unauthorized parties",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 42,
+                "referenceId": "EU-GDPR-DATA_LEAKAGE-UNAUTHZ-PARTIES",
+                "risk": 42,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "96732f2d-e4dd-4fd8-8e50-45566464a2ad",
+                  "name": "Access service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96732f2d-e4dd-4fd8-8e50-45566464a2ad"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 75,
+                "description": "This threat include: \n<div> \n <ul> \n  <li>Disruption of services from back-end</li> \n </ul> \n</div>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "395e9bcb-9213-4c7e-9f18-844310b1ef99",
+                "inherentRisk": 49,
+                "integrity": 75,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                  "name": "IR Automotive"
+                },
+                "mitigation": 0,
+                "name": "Services from back-end server being disrupted affecting the operation of a vehicle",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 49,
+                "referenceId": "CSMS-4.3.1-2",
+                "risk": 49,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "c51a1bab-ba99-46ce-ae43-ab05cc5ef59d",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c51a1bab-ba99-46ce-ae43-ab05cc5ef59d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "7b971e9d-8e26-4561-94d0-4cc66915c0bf",
+                  "name": "Back-end server",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7b971e9d-8e26-4561-94d0-4cc66915c0bf"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/settings"
+                  }
+                }
+              },
+              {
+                "availability": 75,
+                "confidentiality": 100,
+                "description": "This threat include: \n<div> \n <ul> \n  <li>Loss of back-end servers's vehicle related data</li> \n </ul> \n</div>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "61d68cbb-ff7f-4348-878e-f7321cb4329f",
+                "inherentRisk": 49,
+                "integrity": 75,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                  "name": "IR Automotive"
+                },
+                "mitigation": 0,
+                "name": "Vehicle related data held on back-end servers being lost or compromised",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 49,
+                "referenceId": "CSMS-4.3.1-3",
+                "risk": 49,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "c51a1bab-ba99-46ce-ae43-ab05cc5ef59d",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c51a1bab-ba99-46ce-ae43-ab05cc5ef59d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "7b971e9d-8e26-4561-94d0-4cc66915c0bf",
+                  "name": "Back-end server",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7b971e9d-8e26-4561-94d0-4cc66915c0bf"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/threats/query?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 14,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:48:57.749367"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/threats/query",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/threats/query",
+        "query_params": {},
+        "request_body": {
+          "filters": {
+            "all": {
+              "states": [
+                "expose",
+                "partly-mitigate",
+                "mitigate",
+                "hidden"
+              ],
+              "libraries": [],
+              "componentTags": [],
+              "currentRisks": [],
+              "countermeasureProgressRanges": [],
+              "countermeasureTestStatuses": [],
+              "weaknessTestStatuses": [],
+              "components": [],
+              "useCases": [],
+              "owners": [],
+              "customFieldValues": []
+            }
+          }
+        },
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "Application security should be embedded into a project's development environment, allowing developers to monitor their code regularly in order to avoid security vulnerabilities when the application is deployed in the production environment.",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "ad72534a-97c3-4bd7-8ad8-2efc8c00c10c",
+                "inherentRisk": 78,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Application contains security vulnerabilities not identified during the development process",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 78,
+                "referenceId": "sec-vuln-dev-process",
+                "risk": 78,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "5af1254b-8885-4a8d-a483-31099a7ab6bd",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5af1254b-8885-4a8d-a483-31099a7ab6bd"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/ad72534a-97c3-4bd7-8ad8-2efc8c00c10c/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "<p>This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed to the other component as if it were never intercepted. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identity between two components.</p>",
+                "easeOfExploitation": 50,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "4460c77f-9c7e-428f-9e41-8e89a81a89e1",
+                "inherentRisk": 68,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers could gain access to sensitive data through a man in the middle attack",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 68,
+                "referenceId": "NTW-MITM",
+                "risk": 68,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "9d751964-c70c-4720-ac2c-e73f18a3bdee",
+                  "name": "Read or Post data",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9d751964-c70c-4720-ac2c-e73f18a3bdee"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/4460c77f-9c7e-428f-9e41-8e89a81a89e1/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "Attackers exploit vulnerabilities in the service and gain access to data, or to\n                                services for which they are not authorized.\n                            ",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f",
+                "inherentRisk": 66,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain access to unauthorised data by exploiting vulnerabilities in the service",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 66,
+                "referenceId": "VULN-SERVICE",
+                "risk": 66,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "96732f2d-e4dd-4fd8-8e50-45566464a2ad",
+                  "name": "Access service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96732f2d-e4dd-4fd8-8e50-45566464a2ad"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a8d93dc0-48ba-4bbb-aa0b-d44d99e22d6f/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "<p>Server-Side Code Injection happens when an attacker is able to direct input under his control and mix it with executed code on the server-side by modifying the logic executed on it.&nbsp;</p>",
+                "easeOfExploitation": 100,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "425013f4-73ab-4dd2-a23e-88aeb3b86822",
+                "inherentRisk": 66,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain access to user data by manipulating server-side code",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 66,
+                "referenceId": "CAPEC-341",
+                "risk": 66,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "ca54a843-3285-4fda-b971-6195a52a4f00",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ca54a843-3285-4fda-b971-6195a52a4f00"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/425013f4-73ab-4dd2-a23e-88aeb3b86822/settings"
+                  }
+                }
+              },
+              {
+                "availability": 25,
+                "confidentiality": 100,
+                "description": "<p>Successful SQL Injection attacks could lead to full compromise of the database or to a partial compromise of only the data visible to the application.</p><p><br>&nbsp;</p><p>Typically, these types of attacks result in unauthorized disclosure of sensitive data, but can also be used to inject spurious data into the database or to drop tables and deny services to legitimate users.</p>",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "254fa3a2-be90-41a8-836c-3284a2ba09d1",
+                "inherentRisk": 62,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "43f8e046-06f3-48d8-ac9a-fc15eea94f2b",
+                  "name": "IR Dataflows"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain unauthorised access to data and/or systems through SQL Injection attacks",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 62,
+                "referenceId": "CAPEC-66",
+                "risk": 62,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "9d751964-c70c-4720-ac2c-e73f18a3bdee",
+                  "name": "Read or Post data",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9d751964-c70c-4720-ac2c-e73f18a3bdee"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/254fa3a2-be90-41a8-836c-3284a2ba09d1/settings"
+                  }
+                }
+              },
+              {
+                "availability": 50,
+                "confidentiality": 100,
+                "description": "Secrets stored in any client side components, such as a mobile application, thick\n                                client application or in JavaScript used by a browser, can be accessed by\n                                users/attackers who have access to this client.\n                                <div>\n                                <br />\n                                </div>\n                                <div>\n                                Attackers could then gain access to the data or services that are protected by this\n                                secret, if no other credentials are required.\n                                </div>\n                            ",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "15c353b9-151a-4f8d-a6d7-dee056ec88cb",
+                "inherentRisk": 73,
+                "integrity": 50,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain unauthorised access to data or services by accessing a client side secret",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 73,
+                "referenceId": "CSD-CLIENT-SECRET",
+                "risk": 73,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "5af1254b-8885-4a8d-a483-31099a7ab6bd",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5af1254b-8885-4a8d-a483-31099a7ab6bd"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/15c353b9-151a-4f8d-a6d7-dee056ec88cb/settings"
+                  }
+                }
+              },
+              {
+                "availability": 50,
+                "confidentiality": 100,
+                "description": "<div>\n  As programming languages evolve, functions occasionally become obsolete due to:\n</div>\n<ul>\n <li>Advances in the language.</li>\n <li>Improved understanding of how operations should be performed effectively and securely.</li>\n <li>Changes in the conventions that govern certain operations. </li>\n</ul>\n<br />Functions that are removed are usually replaced by newer counterparts that perform the same task in some different and hopefully improved way.\n<br />",
+                "easeOfExploitation": 50,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d",
+                "inherentRisk": 60,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers gain unauthorised access to the application by the use of deprecated client-side technologies",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 60,
+                "referenceId": "DEP-CLIENT-TECH",
+                "risk": 60,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "5af1254b-8885-4a8d-a483-31099a7ab6bd",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5af1254b-8885-4a8d-a483-31099a7ab6bd"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "b88f8b77-cc1f-4769-95d3-4986c34a10aa",
+                  "name": "Adobe Flash",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b88f8b77-cc1f-4769-95d3-4986c34a10aa"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9e4649e4-3590-46a8-9f5c-2b9a3ecb9f7d/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 1,
+                "description": "If attackers gain access to the application or the application server, then they could\n                                directly access the data store using the privilege assigned to the application.\n                                <div>\n                                If the data store user account used by the application has elevated privileges then this\n                                could allow attackers to perform unauthorized operations such as dropping tables,\n                                modifying the database schema or modifying data.\n                                </div>\n                            ",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "02f8e50e-5260-4fc8-8a30-ad1e48bd1630",
+                "inherentRisk": 45,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers who compromise the application or application server could directly access and modify the data store",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 45,
+                "referenceId": "AUTH-DATASTORE-LEAST-PRIV",
+                "risk": 45,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "d94bc2c6-7fc7-4165-96e7-c4674dcfdf98",
+                  "name": "Authentication",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/d94bc2c6-7fc7-4165-96e7-c4674dcfdf98"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/02f8e50e-5260-4fc8-8a30-ad1e48bd1630/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 1,
+                "description": "If attackers gain access to the application or the application server, then they could\n                                directly access the data store using the privilege assigned to the application.\n                                <div>\n                                If the data store user account used by the application has elevated privileges then this\n                                could allow attackers to perform unauthorized operations such as dropping tables,\n                                modifying the database schema or modifying data.\n                                </div>\n                            ",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "9ec82d3b-7f80-481b-90a3-fe229c7177bc",
+                "inherentRisk": 45,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Attackers who compromise the application or application server could directly access and modify the data store",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 45,
+                "referenceId": "AUTH-DATASTORE-LEAST-PRIV",
+                "risk": 45,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "ca54a843-3285-4fda-b971-6195a52a4f00",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ca54a843-3285-4fda-b971-6195a52a4f00"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/9ec82d3b-7f80-481b-90a3-fe229c7177bc/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 100,
+                "description": "<p>An attacker gains access to the application, service, or device with the privileges of an authorized or privileged user by evading - or circumventing - an authentication mechanism. The attacker is therefore able to access protected data without authentication ever having taken place. This refers to an attacker gaining access equivalent to an authenticated user without ever going through an authentication procedure. </p> This is usually the result of the attacker using an unexpected access procedure that does not go through the proper checkpoints where authentication should occur. For example, a web site might assume that all users will click through a given link in order to access secure material and simply authenticate everyone that clicks the link. However, an attacker might be able to reach secured web content by explicitly entering the path to the content rather than clicking through the authentication link, thereby avoiding the check entirely. This attack pattern differs from other authentication attacks in that attacks of this pattern avoid authentication entirely, rather than faking authentication by exploiting flaws or by stealing credentials from legitimate users.",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "93be7535-b155-498f-9c66-9b1879fe721f",
+                "inherentRisk": 45,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Authentication Bypass",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 45,
+                "referenceId": "CAPEC-115",
+                "risk": 45,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "96732f2d-e4dd-4fd8-8e50-45566464a2ad",
+                  "name": "Access service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96732f2d-e4dd-4fd8-8e50-45566464a2ad"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/93be7535-b155-498f-9c66-9b1879fe721f/settings"
+                  }
+                }
+              },
+              {
+                "availability": 75,
+                "confidentiality": 100,
+                "description": "This threat include: \n<div> \n <ul> \n  <li>Back-end servers as an attack vector</li> \n </ul> \n</div>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "a600006e-15d5-4403-8b38-a9a040e6b0a8",
+                "inherentRisk": 49,
+                "integrity": 100,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                  "name": "IR Automotive"
+                },
+                "mitigation": 0,
+                "name": "Back-end servers used as a means to attack a vehicle or extract data",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 49,
+                "referenceId": "CSMS-4.3.1-1",
+                "risk": 49,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "c51a1bab-ba99-46ce-ae43-ab05cc5ef59d",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c51a1bab-ba99-46ce-ae43-ab05cc5ef59d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "7b971e9d-8e26-4561-94d0-4cc66915c0bf",
+                  "name": "Back-end server",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7b971e9d-8e26-4561-94d0-4cc66915c0bf"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/a600006e-15d5-4403-8b38-a9a040e6b0a8/settings"
+                  }
+                }
+              },
+              {
+                "availability": 75,
+                "confidentiality": 50,
+                "description": "<p>An unauthorized party might access/breach the personal data of a data subject.</p>",
+                "easeOfExploitation": 25,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "dc0a80c3-1174-4f38-a017-d1d16512acbd",
+                "inherentRisk": 42,
+                "integrity": 50,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "ae43721b-27f8-41af-af7d-0c45b8c0c002",
+                  "name": "Legacy - IR Software Architecture Components"
+                },
+                "mitigation": 0,
+                "name": "Data leakage or disclosure to unauthorized parties",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 42,
+                "referenceId": "EU-GDPR-DATA_LEAKAGE-UNAUTHZ-PARTIES",
+                "risk": 42,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "96732f2d-e4dd-4fd8-8e50-45566464a2ad",
+                  "name": "Access service",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96732f2d-e4dd-4fd8-8e50-45566464a2ad"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "9dbc159a-8062-40c0-82d8-aa3f9cc0d05d",
+                  "name": "Cassandra NoSQL",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9dbc159a-8062-40c0-82d8-aa3f9cc0d05d"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/dc0a80c3-1174-4f38-a017-d1d16512acbd/settings"
+                  }
+                }
+              },
+              {
+                "availability": 100,
+                "confidentiality": 75,
+                "description": "This threat include: \n<div> \n <ul> \n  <li>Disruption of services from back-end</li> \n </ul> \n</div>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "395e9bcb-9213-4c7e-9f18-844310b1ef99",
+                "inherentRisk": 49,
+                "integrity": 75,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                  "name": "IR Automotive"
+                },
+                "mitigation": 0,
+                "name": "Services from back-end server being disrupted affecting the operation of a vehicle",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 49,
+                "referenceId": "CSMS-4.3.1-2",
+                "risk": 49,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "c51a1bab-ba99-46ce-ae43-ab05cc5ef59d",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c51a1bab-ba99-46ce-ae43-ab05cc5ef59d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "7b971e9d-8e26-4561-94d0-4cc66915c0bf",
+                  "name": "Back-end server",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7b971e9d-8e26-4561-94d0-4cc66915c0bf"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/395e9bcb-9213-4c7e-9f18-844310b1ef99/settings"
+                  }
+                }
+              },
+              {
+                "availability": 75,
+                "confidentiality": 100,
+                "description": "This threat include: \n<div> \n <ul> \n  <li>Loss of back-end servers's vehicle related data</li> \n </ul> \n</div>",
+                "easeOfExploitation": 75,
+                "edited": false,
+                "effectiveMitigation": 0,
+                "expiryDate": null,
+                "id": "61d68cbb-ff7f-4348-878e-f7321cb4329f",
+                "inherentRisk": 49,
+                "integrity": 75,
+                "issueId": null,
+                "issueLink": null,
+                "issueState": "not-applicable",
+                "library": {
+                  "id": "4e224d22-9f43-40a1-ac25-4005a6cd5290",
+                  "name": "IR Automotive"
+                },
+                "mitigation": 0,
+                "name": "Vehicle related data held on back-end servers being lost or compromised",
+                "owner": {
+                  "username": "pmorago",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c"
+                    },
+                    "avatar": {
+                      "href": "https://release.iriusrisk.com/api/v2/users/4c2879bf-71bb-4007-82e9-9093f523630c/avatar"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "d0cc1f21-b61e-4188-a646-8fb1cf368c3c",
+                  "name": "testing-caa",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c"
+                    }
+                  }
+                },
+                "projectedRisk": 49,
+                "referenceId": "CSMS-4.3.1-3",
+                "risk": 49,
+                "source": "template",
+                "state": "expose",
+                "useCase": {
+                  "id": "c51a1bab-ba99-46ce-ae43-ab05cc5ef59d",
+                  "name": "General",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c51a1bab-ba99-46ce-ae43-ab05cc5ef59d"
+                    }
+                  }
+                },
+                "component": {
+                  "id": "7b971e9d-8e26-4561-94d0-4cc66915c0bf",
+                  "name": "Back-end server",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7b971e9d-8e26-4561-94d0-4cc66915c0bf"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f"
+                  },
+                  "weaknesses": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/weaknesses"
+                  },
+                  "countermeasures": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/countermeasures"
+                  },
+                  "references": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/references"
+                  },
+                  "settings": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/threats/61d68cbb-ff7f-4348-878e-f7321cb4329f/settings"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/d0cc1f21-b61e-4188-a646-8fb1cf368c3c/threats/query?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 14,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-10-02T09:48:57.749367"
+      }
+    ]
+  },
+  "total_responses": 12
+}

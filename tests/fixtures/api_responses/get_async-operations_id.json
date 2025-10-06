@@ -1,0 +1,159 @@
+{
+  "endpoint": "/async-operations/{id}",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+        "method": "GET",
+        "endpoint_pattern": "/async-operations/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+          "status": "pending",
+          "summary": {
+            "fail": 0,
+            "success": 0,
+            "pending": 1,
+            "interrupted": 0,
+            "in-progress": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T22:58:06.946Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+        "method": "GET",
+        "endpoint_pattern": "/async-operations/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+          "status": "in-progress",
+          "summary": {
+            "fail": 0,
+            "success": 0,
+            "pending": 0,
+            "interrupted": 0,
+            "in-progress": 1
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T22:58:11.996Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+        "method": "GET",
+        "endpoint_pattern": "/async-operations/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+          "status": "finished-success",
+          "summary": {
+            "fail": 0,
+            "success": 1,
+            "pending": 0,
+            "interrupted": 0,
+            "in-progress": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T22:58:17.052Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae",
+        "method": "GET",
+        "endpoint_pattern": "/async-operations/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "1307f14e-9519-4520-8bf0-5b629e5913ae",
+          "status": "pending",
+          "summary": {
+            "fail": 0,
+            "success": 0,
+            "pending": 1,
+            "interrupted": 0,
+            "in-progress": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:31.317Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae",
+        "method": "GET",
+        "endpoint_pattern": "/async-operations/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "1307f14e-9519-4520-8bf0-5b629e5913ae",
+          "status": "in-progress",
+          "summary": {
+            "fail": 0,
+            "success": 0,
+            "pending": 0,
+            "interrupted": 0,
+            "in-progress": 1
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:36.377Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae",
+        "method": "GET",
+        "endpoint_pattern": "/async-operations/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "1307f14e-9519-4520-8bf0-5b629e5913ae",
+          "status": "finished-success",
+          "summary": {
+            "fail": 0,
+            "success": 1,
+            "pending": 0,
+            "interrupted": 0,
+            "in-progress": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:41.432Z"
+      }
+    ]
+  },
+  "total_responses": 6
+}

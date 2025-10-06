@@ -1,0 +1,153 @@
+{
+  "endpoint": "/projects/countermeasures/tests/{id}/references",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:19.674Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:33.363Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:39.371Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:50.625Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f/references",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/tests/{id}/references",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "2acc4215-e63d-477c-b1dd-70aa06ea1543",
+                "name": "Mozilla Developer Documentation - CSP",
+                "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP",
+                "test": {
+                  "id": "bc0fc295-4678-4077-aa8c-e720a9c3a01f",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/references/2acc4215-e63d-477c-b1dd-70aa06ea1543"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f/references?page=0&size=20"
+            }
+          },
+          "page": {
+            "size": 20,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T18:41:02.123Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

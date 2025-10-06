@@ -1,0 +1,136 @@
+{
+  "endpoint": "/projects/{id}",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+          "name": "Badger App",
+          "referenceId": "badger-app-cbba",
+          "description": "Badger Delivery Service - A Flask-based web application for badger location tracking and delivery coordination, deployed on AWS using ECS, RDS, and ElastiCache",
+          "tags": "",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "modelUpdated": "2025-09-27T22:53:12.428+0000",
+          "state": "synced",
+          "operation": "none",
+          "version": null,
+          "isBlueprint": false,
+          "readOnly": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+            },
+            "artifact": [
+              {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/artifacts/current?size=ORIGINAL",
+                "name": "original"
+              },
+              {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/artifacts/current?size=PREVIEW",
+                "name": "preview"
+              },
+              {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/artifacts/current?size=THUMBNAIL",
+                "name": "thumbnail"
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.063Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+          "name": "Fraser Test",
+          "referenceId": "fraser-test",
+          "description": "",
+          "tags": "",
+          "workflowState": {
+            "uuid": "e330f204-9c0e-4ec6-bc36-8262916b3ccd",
+            "name": "ws3",
+            "isLockThreatModel": false,
+            "referenceId": "ws3"
+          },
+          "isThreatModelLocked": false,
+          "isArchived": false,
+          "modelUpdated": "2025-09-25T10:28:57.355+0000",
+          "state": "synced",
+          "operation": "none",
+          "customFields": {
+            "35ca6762-f12e-4b2a-8dc5-3e4e54610b46": "<p>aaa<br><br><br>ff<br><br><br><br>dfdf<br>Df<br><br><br><br>sfsfsfsf</p>",
+            "68bcf5f0-e750-4e12-8bc4-a7b714ffd5c0": null,
+            "ad56ff73-72a9-438f-8389-3943e80c16c6": "",
+            "ab2b9848-fba6-42fb-af9d-e0d892f5d48a": null,
+            "4a98a652-b3c9-4d90-9667-f6a870e9b9f3": null,
+            "c1d73314-10b2-4d0e-91fd-feac6e0ed967": null,
+            "187929ab-318d-4e25-a4a0-6ea05325f097": "fscott",
+            "53a2276d-7ce3-480a-b201-357bfbbc5e29": null,
+            "f152d038-9105-4649-913c-accc146a33f6": "",
+            "79ccac19-2154-4f27-b570-d3e3d1544dec": "",
+            "c1446b3d-0795-4acc-9d2d-4eb9fbe9364d": null,
+            "813f847f-554d-4b9e-b1b9-9b290a053890": null,
+            "59a2ae93-75ef-4aab-96ee-4317e37aeb20": "1",
+            "d3d5eea4-3d39-4a96-a5f6-1b19255caa35": null,
+            "a3dc33d4-c33a-4bf0-91bf-312931426a0f": null,
+            "dd545b15-7d08-4264-a3c3-441c433d12d6": null,
+            "56b0cd69-49d9-4f5f-935a-b985b9f3c5af": null,
+            "ce2e4fa0-e664-4c4e-8904-be386d075bff": null,
+            "abcb6713-791f-47e4-8381-8681313dd63c": null,
+            "c07a3f8b-31ab-4dd8-b49a-4d190a91e837": null,
+            "17fffc01-c887-4e7b-a38d-8c159458b12b": null,
+            "87d93d3c-097d-4df9-b21a-09158e43e102": "",
+            "1b0d6aa8-5b8f-4140-9fa7-ef83fafd5581": null,
+            "3ee78026-5ac6-436b-bfba-4f2de255251b": null,
+            "e82e357a-5e82-4ea6-8c95-aff0c47905d4": "",
+            "838e88b4-8efd-4e8e-876c-4bb1f0a5d30b": null,
+            "9bd5fb9e-2f97-4962-90d2-adb9aea6464f": null
+          },
+          "version": null,
+          "isBlueprint": false,
+          "readOnly": false,
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+            },
+            "artifact": [
+              {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/artifacts/current?size=ORIGINAL",
+                "name": "original"
+              },
+              {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/artifacts/current?size=PREVIEW",
+                "name": "preview"
+              },
+              {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/artifacts/current?size=THUMBNAIL",
+                "name": "thumbnail"
+              }
+            ]
+          }
+        },
+        "timestamp": "2025-09-25T10:31:20.954Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

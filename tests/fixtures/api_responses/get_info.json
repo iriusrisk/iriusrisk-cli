@@ -1,0 +1,169 @@
+{
+  "endpoint": "/info",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/info",
+        "method": "GET",
+        "endpoint_pattern": "/info",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "version": "4.47.14-1-g5e176b0fb20-25/09/2025 15:42",
+          "apiVersion": "1.29.0",
+          "edition": "enterprise",
+          "loginType": "standard",
+          "ssoLoginTitle": null,
+          "ssoLoginUrl": null,
+          "allowResetPassword": true,
+          "licenseStatus": "valid",
+          "smallLogo": {
+            "isCustomBranded": false
+          },
+          "logo": {
+            "isCustomBranded": false
+          },
+          "allowManageUsers": true,
+          "allowManageRoles": true,
+          "inAppUserGuidanceEnabled": true,
+          "embeddedProjectsEnabled": true,
+          "maintenanceStatus": {
+            "payload": ""
+          }
+        },
+        "timestamp": "2025-09-28T07:56:58.230Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/info",
+        "method": "GET",
+        "endpoint_pattern": "/info",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "version": "4.47.14-1-g5e176b0fb20-25/09/2025 15:42",
+          "apiVersion": "1.29.0",
+          "edition": "enterprise",
+          "loginType": "standard",
+          "ssoLoginTitle": null,
+          "ssoLoginUrl": null,
+          "allowResetPassword": true,
+          "licenseStatus": "valid",
+          "smallLogo": {
+            "isCustomBranded": false
+          },
+          "logo": {
+            "isCustomBranded": false
+          },
+          "allowManageUsers": true,
+          "allowManageRoles": true,
+          "inAppUserGuidanceEnabled": true,
+          "embeddedProjectsEnabled": true,
+          "maintenanceStatus": {
+            "payload": ""
+          }
+        },
+        "timestamp": "2025-09-28T07:57:09.156Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/info",
+        "method": "GET",
+        "endpoint_pattern": "/info",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "version": "4.47.14-1-g5e176b0fb20-25/09/2025 15:42",
+          "apiVersion": "1.29.0",
+          "edition": "enterprise",
+          "loginType": "standard",
+          "ssoLoginTitle": null,
+          "ssoLoginUrl": null,
+          "allowResetPassword": true,
+          "licenseStatus": "valid",
+          "smallLogo": {
+            "isCustomBranded": false
+          },
+          "logo": {
+            "isCustomBranded": false
+          },
+          "allowManageUsers": true,
+          "allowManageRoles": true,
+          "inAppUserGuidanceEnabled": true,
+          "embeddedProjectsEnabled": true,
+          "maintenanceStatus": {
+            "payload": ""
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.062Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/info",
+        "method": "GET",
+        "endpoint_pattern": "/info",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "version": "4.47.14-1-g5e176b0fb20-25/09/2025 15:42",
+          "apiVersion": "1.29.0",
+          "edition": "enterprise",
+          "loginType": "standard",
+          "ssoLoginTitle": null,
+          "ssoLoginUrl": null,
+          "allowResetPassword": true,
+          "licenseStatus": "valid",
+          "smallLogo": {
+            "isCustomBranded": false
+          },
+          "logo": {
+            "isCustomBranded": false
+          },
+          "allowManageUsers": true,
+          "allowManageRoles": true,
+          "inAppUserGuidanceEnabled": true,
+          "embeddedProjectsEnabled": true,
+          "maintenanceStatus": {
+            "payload": ""
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.409Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/info",
+        "method": "GET",
+        "endpoint_pattern": "/info",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "version": "4.47.13-2-gd9bd5c06627-25/09/2025 05:37",
+          "apiVersion": "1.29.0",
+          "edition": "enterprise",
+          "loginType": "standard",
+          "ssoLoginTitle": null,
+          "ssoLoginUrl": null,
+          "allowResetPassword": true,
+          "licenseStatus": "valid",
+          "smallLogo": {
+            "isCustomBranded": false
+          },
+          "logo": {
+            "isCustomBranded": false
+          },
+          "allowManageUsers": true,
+          "allowManageRoles": true,
+          "inAppUserGuidanceEnabled": true,
+          "embeddedProjectsEnabled": true,
+          "maintenanceStatus": {
+            "payload": ""
+          }
+        },
+        "timestamp": "2025-09-25T10:31:20.953Z"
+      }
+    ]
+  },
+  "total_responses": 5
+}

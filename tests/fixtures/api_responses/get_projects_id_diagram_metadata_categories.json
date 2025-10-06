@@ -1,0 +1,812 @@
+{
+  "endpoint": "/projects/{id}/diagram/metadata/categories",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/categories?page=0&size=2000",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/diagram/metadata/categories",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "2000"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "f1860bde-e065-31d4-8da7-afc5571b4d6e",
+                "referenceId": "google-cloud-platform",
+                "name": "Google Cloud Platform",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=f1860bde-e065-31d4-8da7-afc5571b4d6e"
+                  }
+                }
+              },
+              {
+                "id": "8d42d1af-8540-3cb1-9230-7aac0c2b09f5",
+                "referenceId": "iot-components",
+                "name": "IoT components",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=8d42d1af-8540-3cb1-9230-7aac0c2b09f5"
+                  }
+                }
+              },
+              {
+                "id": "cb3266b5-5207-44d1-96b6-9cb5e74ce9bc",
+                "referenceId": "openstack",
+                "name": "OpenStack",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=cb3266b5-5207-44d1-96b6-9cb5e74ce9bc"
+                  }
+                }
+              },
+              {
+                "id": "d0b8c820-8300-35a0-91c4-d636337f5d0b",
+                "referenceId": "data-store",
+                "name": "Data store",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=d0b8c820-8300-35a0-91c4-d636337f5d0b"
+                  }
+                }
+              },
+              {
+                "id": "6170d74d-c787-4c77-896f-3c821cc60fdb",
+                "referenceId": "pedro release 4.44",
+                "name": "pedro release 4.44",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=6170d74d-c787-4c77-896f-3c821cc60fdb"
+                  }
+                }
+              },
+              {
+                "id": "b341c60b-45ce-4ca5-81d4-2d506cafef4d",
+                "referenceId": "Category_DEmvq",
+                "name": "Category_nMtqe",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=b341c60b-45ce-4ca5-81d4-2d506cafef4d"
+                  }
+                }
+              },
+              {
+                "id": "414b163a-6ff4-326c-bf89-517ce2ec98ad",
+                "referenceId": "functional",
+                "name": "Functional",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=414b163a-6ff4-326c-bf89-517ce2ec98ad"
+                  }
+                }
+              },
+              {
+                "id": "b3fab90c-c03a-3f1e-9058-6caff22d5c03",
+                "referenceId": "microsoft-azure",
+                "name": "Microsoft Azure",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=b3fab90c-c03a-3f1e-9058-6caff22d5c03"
+                  }
+                }
+              },
+              {
+                "id": "f7a7801b-80aa-3c38-b909-28ad8377c71c",
+                "referenceId": "machine-learning-artificial-intelligence",
+                "name": "ML/AI",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=f7a7801b-80aa-3c38-b909-28ad8377c71c"
+                  }
+                }
+              },
+              {
+                "id": "969d6d9d-9abe-4941-856d-3b4fda008e85",
+                "referenceId": "wwwww",
+                "name": "wwwww",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=969d6d9d-9abe-4941-856d-3b4fda008e85"
+                  }
+                }
+              },
+              {
+                "id": "a838bcb6-6889-3f14-a3b4-915bf5672310",
+                "referenceId": "service-side",
+                "name": "Server-side",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=a838bcb6-6889-3f14-a3b4-915bf5672310"
+                  }
+                }
+              },
+              {
+                "id": "d92126ba-54ba-4030-8e10-cddf91cc7cf7",
+                "referenceId": "operating-system",
+                "name": "Operating System",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=d92126ba-54ba-4030-8e10-cddf91cc7cf7"
+                  }
+                }
+              },
+              {
+                "id": "1fa3e73d-c5ed-4279-b560-578905409e4a",
+                "referenceId": "Category_oUMt5",
+                "name": "Category_SfsRq",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=1fa3e73d-c5ed-4279-b560-578905409e4a"
+                  }
+                }
+              },
+              {
+                "id": "7f1fe1e4-ae38-4f6c-9b56-e2b7f1e297a9",
+                "referenceId": "Category_hvHJF",
+                "name": "Category_qjOxK",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=7f1fe1e4-ae38-4f6c-9b56-e2b7f1e297a9"
+                  }
+                }
+              },
+              {
+                "id": "7cfd971c-c3e7-4f02-9fc3-558ac680d988",
+                "referenceId": "huawei-cloud",
+                "name": "Huawei Cloud",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=7cfd971c-c3e7-4f02-9fc3-558ac680d988"
+                  }
+                }
+              },
+              {
+                "id": "b0b05969-b146-46b0-bc94-fafed7d2bee6",
+                "referenceId": "Category_wEa03",
+                "name": "Category_WZznr",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=b0b05969-b146-46b0-bc94-fafed7d2bee6"
+                  }
+                }
+              },
+              {
+                "id": "55ec6114-3412-4094-b9d9-1f88e79eefc1",
+                "referenceId": "pedrosa1",
+                "name": "pedrosa1",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=55ec6114-3412-4094-b9d9-1f88e79eefc1"
+                  }
+                }
+              },
+              {
+                "id": "1217c6b1-10f6-44ba-81f5-7524d3b3ca35",
+                "referenceId": "system-deprecated",
+                "name": "Deprecated",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=1217c6b1-10f6-44ba-81f5-7524d3b3ca35"
+                  }
+                }
+              },
+              {
+                "id": "fbb5a746-6b08-4660-aea1-cfec6ec4c548",
+                "referenceId": "QA Release 4.47",
+                "name": "QA Release 4.47",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=fbb5a746-6b08-4660-aea1-cfec6ec4c548"
+                  }
+                }
+              },
+              {
+                "id": "de187768-5c9d-3d35-b449-4474ba54be2e",
+                "referenceId": "regulatory",
+                "name": "Regulatory",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=de187768-5c9d-3d35-b449-4474ba54be2e"
+                  }
+                }
+              },
+              {
+                "id": "1f40aba9-b91f-30fe-a799-3beaf0f7710a",
+                "referenceId": "kubernetes",
+                "name": "Kubernetes",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=1f40aba9-b91f-30fe-a799-3beaf0f7710a"
+                  }
+                }
+              },
+              {
+                "id": "f233380d-c107-43ff-9569-2f353eef8900",
+                "referenceId": "newCategory",
+                "name": "newCategory",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=f233380d-c107-43ff-9569-2f353eef8900"
+                  }
+                }
+              },
+              {
+                "id": "0f049bfa-143b-488c-ac6b-cd0787628fe6",
+                "referenceId": "QA Release 4.42",
+                "name": "QA Release 4.42",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=0f049bfa-143b-488c-ac6b-cd0787628fe6"
+                  }
+                }
+              },
+              {
+                "id": "49c4a5e2-473e-4147-9c00-e17257879a95",
+                "referenceId": "pedropruebamarkthreat",
+                "name": "pedropruebamarkthreat",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=49c4a5e2-473e-4147-9c00-e17257879a95"
+                  }
+                }
+              },
+              {
+                "id": "bfc9dae8-ee79-4119-b760-f6497d06f2ce",
+                "referenceId": "QA Release 4.34",
+                "name": "QA Release 4.34",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=bfc9dae8-ee79-4119-b760-f6497d06f2ce"
+                  }
+                }
+              },
+              {
+                "id": "d2deb71e-a8bc-391d-b097-d4e423ff2c9e",
+                "referenceId": "blockchain",
+                "name": "Blockchain",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=d2deb71e-a8bc-391d-b097-d4e423ff2c9e"
+                  }
+                }
+              },
+              {
+                "id": "e7411b40-75d1-3668-bdf1-339b5034b7fb",
+                "referenceId": "hardware",
+                "name": "Hardware",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=e7411b40-75d1-3668-bdf1-339b5034b7fb"
+                  }
+                }
+              },
+              {
+                "id": "d0a2ec6c-fa28-343c-bbc2-5c656835796d",
+                "referenceId": "network-components",
+                "name": "Network Components",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=d0a2ec6c-fa28-343c-bbc2-5c656835796d"
+                  }
+                }
+              },
+              {
+                "id": "2a131d50-1b26-45c7-82ee-f726b490b421",
+                "referenceId": "efegrr",
+                "name": "efegrr",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=2a131d50-1b26-45c7-82ee-f726b490b421"
+                  }
+                }
+              },
+              {
+                "id": "0952d928-5c42-4847-a500-5b37a370d60e",
+                "referenceId": "ABC",
+                "name": "ABC",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=0952d928-5c42-4847-a500-5b37a370d60e"
+                  }
+                }
+              },
+              {
+                "id": "791fa409-32ea-4a95-b454-7ee58440ce61",
+                "referenceId": "Pedro Exploratory 2 4.42 13/053",
+                "name": "Pedro Exploratory 2 4.42 13/053",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=791fa409-32ea-4a95-b454-7ee58440ce61"
+                  }
+                }
+              },
+              {
+                "id": "b8cb4fac-f8c7-46bf-b28f-beee67d3313f",
+                "referenceId": "basicTest",
+                "name": "basicTest",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=b8cb4fac-f8c7-46bf-b28f-beee67d3313f"
+                  }
+                }
+              },
+              {
+                "id": "51412e3c-3cff-459e-8c79-f4145cf1e3ee",
+                "referenceId": "asdasf",
+                "name": "asdasf",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=51412e3c-3cff-459e-8c79-f4145cf1e3ee"
+                  }
+                }
+              },
+              {
+                "id": "63cc8ad8-ff62-47ef-ba42-c292cfd3d287",
+                "referenceId": "IngersollTest",
+                "name": "IngersollTest",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=63cc8ad8-ff62-47ef-ba42-c292cfd3d287"
+                  }
+                }
+              },
+              {
+                "id": "cddca8c0-0e00-4e55-9af0-6498fbaed4b2",
+                "referenceId": "Category_07LoK",
+                "name": "Category_yoYbI",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=cddca8c0-0e00-4e55-9af0-6498fbaed4b2"
+                  }
+                }
+              },
+              {
+                "id": "7b9af72f-3adf-4cc7-bb20-cafdb2d682dc",
+                "referenceId": "custom no visible",
+                "name": "custom no visible",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=7b9af72f-3adf-4cc7-bb20-cafdb2d682dc"
+                  }
+                }
+              },
+              {
+                "id": "defda230-7a5a-4e6e-b88b-ef6ae2ed8473",
+                "referenceId": "Category_azqv4",
+                "name": "Category_l98Eo",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=defda230-7a5a-4e6e-b88b-ef6ae2ed8473"
+                  }
+                }
+              },
+              {
+                "id": "7752d44c-b996-4dc6-90f0-1b4b790c072a",
+                "referenceId": "alibaba-cloud",
+                "name": "Alibaba Cloud",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=7752d44c-b996-4dc6-90f0-1b4b790c072a"
+                  }
+                }
+              },
+              {
+                "id": "66ae7785-c91a-393e-83cf-bcddd7a62dd8",
+                "referenceId": "financial-services",
+                "name": "Financial Services",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=66ae7785-c91a-393e-83cf-bcddd7a62dd8"
+                  }
+                }
+              },
+              {
+                "id": "44daa6e4-6b89-3fee-b85d-1e91462375b9",
+                "referenceId": "custom",
+                "name": "Custom",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=44daa6e4-6b89-3fee-b85d-1e91462375b9"
+                  }
+                }
+              },
+              {
+                "id": "90f3dbff-8f7d-4777-a088-92efddd746dd",
+                "referenceId": "Category_kNQIT",
+                "name": "Category_lApKg",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=90f3dbff-8f7d-4777-a088-92efddd746dd"
+                  }
+                }
+              },
+              {
+                "id": "c022843b-bc72-410a-9272-2e77e8c94e4b",
+                "referenceId": "Pedro",
+                "name": "Pedro",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=c022843b-bc72-410a-9272-2e77e8c94e4b"
+                  }
+                }
+              },
+              {
+                "id": "49e9cfbb-8535-4517-a6c0-5fa0b2e6fd7d",
+                "referenceId": "Category_ZRPqn",
+                "name": "Category_FcSTH",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=49e9cfbb-8535-4517-a6c0-5fa0b2e6fd7d"
+                  }
+                }
+              },
+              {
+                "id": "017c846f-c897-3f97-b4db-85d9efb71157",
+                "referenceId": "automotive",
+                "name": "Automotive",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=017c846f-c897-3f97-b4db-85d9efb71157"
+                  }
+                }
+              },
+              {
+                "id": "54124d9d-d8d4-4e0b-bd79-23e746659e66",
+                "referenceId": "feyjetyj",
+                "name": "feyjetyj",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=54124d9d-d8d4-4e0b-bd79-23e746659e66"
+                  }
+                }
+              },
+              {
+                "id": "9c6359d2-912a-36ce-8d60-d3df7b69f5f9",
+                "referenceId": "amazon-web-services",
+                "name": "Amazon Web Services",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=9c6359d2-912a-36ce-8d60-d3df7b69f5f9"
+                  }
+                }
+              },
+              {
+                "id": "32031c0a-7bb0-4eca-bad1-b8371636571f",
+                "referenceId": "Category 4.37",
+                "name": "Category 4.37",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=32031c0a-7bb0-4eca-bad1-b8371636571f"
+                  }
+                }
+              },
+              {
+                "id": "aa82b6ce-a9ec-418a-9c15-93cff8dd9d5a",
+                "referenceId": "Category_q0d6Y",
+                "name": "Category_GWaEV",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=aa82b6ce-a9ec-418a-9c15-93cff8dd9d5a"
+                  }
+                }
+              },
+              {
+                "id": "b419941d-3069-4dab-9cbd-747e320e0a1a",
+                "referenceId": "Category_zrRvU",
+                "name": "Category_X5MeA",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=b419941d-3069-4dab-9cbd-747e320e0a1a"
+                  }
+                }
+              },
+              {
+                "id": "e05a69f3-2616-4804-8d56-25f15518641d",
+                "referenceId": "edftyjh",
+                "name": "edftyjh",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=e05a69f3-2616-4804-8d56-25f15518641d"
+                  }
+                }
+              },
+              {
+                "id": "3316e3c9-3bfd-49b4-a23c-302b740bb383",
+                "referenceId": "Category_PbOBk",
+                "name": "Category_XRNVs",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=3316e3c9-3bfd-49b4-a23c-302b740bb383"
+                  }
+                }
+              },
+              {
+                "id": "70e60f65-2e4a-4d89-ae1f-7acab80753d9",
+                "referenceId": "Category_km8Ws",
+                "name": "Category_dMg0W",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=70e60f65-2e4a-4d89-ae1f-7acab80753d9"
+                  }
+                }
+              },
+              {
+                "id": "6e879e80-70f7-3df2-9135-e0d3927b422f",
+                "referenceId": "microservice-architecture",
+                "name": "Microservice architecture",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=6e879e80-70f7-3df2-9135-e0d3927b422f"
+                  }
+                }
+              },
+              {
+                "id": "d4a981ea-0cd5-3b01-b86a-340e78fa33a7",
+                "referenceId": "generic-components",
+                "name": "Generic Components",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=d4a981ea-0cd5-3b01-b86a-340e78fa33a7"
+                  }
+                }
+              },
+              {
+                "id": "5d6a7f87-e5d6-42e6-8c4e-76ba54b654ba",
+                "referenceId": "Category_5iSw6",
+                "name": "Category_kGZs0",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=5d6a7f87-e5d6-42e6-8c4e-76ba54b654ba"
+                  }
+                }
+              },
+              {
+                "id": "beea2986-4118-3ab5-8373-907d56a60d4d",
+                "referenceId": "client-side",
+                "name": "Client-side",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=beea2986-4118-3ab5-8373-907d56a60d4d"
+                  }
+                }
+              },
+              {
+                "id": "155649fd-bbcd-40bd-afc1-62b3d98f731f",
+                "referenceId": "Tolu_category",
+                "name": "Tolu_category",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=155649fd-bbcd-40bd-afc1-62b3d98f731f"
+                  }
+                }
+              },
+              {
+                "id": "3db61bff-1bc2-40b2-8cee-89b7cc162bea",
+                "referenceId": "Category_5yaBe",
+                "name": "Category_eXV9V",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=3db61bff-1bc2-40b2-8cee-89b7cc162bea"
+                  }
+                }
+              },
+              {
+                "id": "aeb773b1-11a0-4838-86ff-769f695d4be0",
+                "referenceId": "qa-category",
+                "name": "Qa Category",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=aeb773b1-11a0-4838-86ff-769f695d4be0"
+                  }
+                }
+              },
+              {
+                "id": "a7b5b5dd-e08a-3e53-acd2-9afb2add60ff",
+                "referenceId": "salesforce-components",
+                "name": "Salesforce components",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=a7b5b5dd-e08a-3e53-acd2-9afb2add60ff"
+                  }
+                }
+              },
+              {
+                "id": "580c25f8-35f5-4c40-9c8a-347c9a802dfc",
+                "referenceId": "Category_TxZxM",
+                "name": "Category_7uNik",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=580c25f8-35f5-4c40-9c8a-347c9a802dfc"
+                  }
+                }
+              },
+              {
+                "id": "1ee1740e-658e-489d-bb8e-fa1d5058ad7d",
+                "referenceId": "iiot-components",
+                "name": "Industrial IoT",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=1ee1740e-658e-489d-bb8e-fa1d5058ad7d"
+                  }
+                }
+              },
+              {
+                "id": "d797829e-3284-3d15-b278-0269ce9bb6dc",
+                "referenceId": "general",
+                "name": "General",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=d797829e-3284-3d15-b278-0269ce9bb6dc"
+                  }
+                }
+              },
+              {
+                "id": "c021bcf1-e044-3707-b167-142da56e59ed",
+                "referenceId": "oracle-cloud-infrastructure",
+                "name": "Oracle Cloud Infrastructure",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=c021bcf1-e044-3707-b167-142da56e59ed"
+                  }
+                }
+              },
+              {
+                "id": "86d35c4d-ac79-3ade-be86-74306fd09d9d",
+                "referenceId": "docker-category",
+                "name": "Docker",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=86d35c4d-ac79-3ade-be86-74306fd09d9d"
+                  }
+                }
+              },
+              {
+                "id": "f12b8356-67da-4d00-9d9a-d4e5ae1f0a2b",
+                "referenceId": "pedro exploratory 4.42",
+                "name": "pedro exploratory 4.42",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=f12b8356-67da-4d00-9d9a-d4e5ae1f0a2b"
+                  }
+                }
+              },
+              {
+                "id": "2b94ce46-382a-465a-90c2-f0a9ad6443cf",
+                "referenceId": "Category_YKu88",
+                "name": "Category_5wWwD",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=2b94ce46-382a-465a-90c2-f0a9ad6443cf"
+                  }
+                }
+              },
+              {
+                "id": "0df9bd81-beaa-4114-9e44-ecafbd5e0246",
+                "referenceId": "Category_8w27q",
+                "name": "Category_g8etb",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=0df9bd81-beaa-4114-9e44-ecafbd5e0246"
+                  }
+                }
+              },
+              {
+                "id": "f174c5f8-4c31-463f-8f80-ceaf9bbc8904",
+                "referenceId": "Category_JyN95",
+                "name": "Category_0gwGC",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=f174c5f8-4c31-463f-8f80-ceaf9bbc8904"
+                  }
+                }
+              },
+              {
+                "id": "b396f283-983f-43db-9f68-e7297de75326",
+                "referenceId": "Category_r4zKm",
+                "name": "Category_o2ewW",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=b396f283-983f-43db-9f68-e7297de75326"
+                  }
+                }
+              },
+              {
+                "id": "3b2c76b4-d9c1-4196-966f-84cb7edbead5",
+                "referenceId": "eee",
+                "name": "eee",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=3b2c76b4-d9c1-4196-966f-84cb7edbead5"
+                  }
+                }
+              },
+              {
+                "id": "1ff47d30-e0d0-4411-bf1d-a9aa16d830a1",
+                "referenceId": "Category_uWBmy",
+                "name": "Category_pf2Aa",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=1ff47d30-e0d0-4411-bf1d-a9aa16d830a1"
+                  }
+                }
+              },
+              {
+                "id": "adaa88bb-aabc-337c-bcf2-ae612b8977c0",
+                "referenceId": "virtual-components",
+                "name": "Virtual Components",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=adaa88bb-aabc-337c-bcf2-ae612b8977c0"
+                  }
+                }
+              },
+              {
+                "id": "0c079da1-2df5-4965-bdc1-c4cd5697eee8",
+                "referenceId": "Category_Av1yX",
+                "name": "Category_M5yOC",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=0c079da1-2df5-4965-bdc1-c4cd5697eee8"
+                  }
+                }
+              },
+              {
+                "id": "10be2f72-47e8-43af-a7aa-05d6ca019c27",
+                "referenceId": "pedroo",
+                "name": "pedroo",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=10be2f72-47e8-43af-a7aa-05d6ca019c27"
+                  }
+                }
+              },
+              {
+                "id": "02b72add-9064-48d5-834b-caa0b5b2bc5e",
+                "referenceId": "rrr",
+                "name": "rrr",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=02b72add-9064-48d5-834b-caa0b5b2bc5e"
+                  }
+                }
+              },
+              {
+                "id": "3522c935-6551-43bb-8407-a1516a293961",
+                "referenceId": "QA test 4.39",
+                "name": "QA test 4.39",
+                "_links": {
+                  "components": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/components?category=3522c935-6551-43bb-8407-a1516a293961"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/diagram/metadata/categories?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 77,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.082Z"
+      }
+    ]
+  },
+  "total_responses": 1
+}

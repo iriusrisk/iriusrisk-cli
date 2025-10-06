@@ -1,0 +1,26 @@
+{
+  "responses": {
+    "400": [
+      {
+        "url": "https://release.iriusrisk.com/api/v1/products/otm",
+        "method": "POST",
+        "endpoint_pattern": "/products/otm",
+        "query_params": {},
+        "request_body": null,
+        "status": 400,
+        "response_data": {
+          "status": "error",
+          "errors": [
+            {
+              "message": ": Invalid content file\n"
+            }
+          ]
+        },
+        "timestamp": "2025-10-02T09:59:05.935090"
+      }
+    ]
+  },
+  "endpoint": "/products/otm",
+  "method": "POST",
+  "total_responses": 1
+}

@@ -1,0 +1,259 @@
+{
+  "endpoint": "/projects/{id}/alerts",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?size=1&filter=%27type%27=%27info%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/alerts",
+        "query_params": {
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'type'='info'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?filter=%27type%27=%27info%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.562Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?size=1&filter=%27type%27=%27error%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/alerts",
+        "query_params": {
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'type'='error'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "id": "9a32924a-3944-4c65-9a38-9f461996620b",
+                "referenceId": "1",
+                "type": "error",
+                "component": null,
+                "dataflow": null,
+                "message": "1"
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?filter=%27type%27=%27error%27&page=0&size=1"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?filter=%27type%27=%27error%27&page=0&size=1"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?filter=%27type%27=%27error%27&page=1&size=1"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?filter=%27type%27=%27error%27&page=17&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 18,
+            "totalPages": 18,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.562Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?size=1&filter=%27type%27=%27warning%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/alerts",
+        "query_params": {
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'type'='warning'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/alerts?filter=%27type%27=%27warning%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:11.562Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?size=1&filter=%27type%27=%27info%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/alerts",
+        "query_params": {
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'type'='info'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?filter=%27type%27=%27info%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.506Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?size=1&filter=%27type%27=%27error%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/alerts",
+        "query_params": {
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'type'='error'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "id": "30ad22ab-25d3-4a48-a10a-22facac35aac",
+                "referenceId": "3",
+                "type": "error",
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "name": "API Endpoint",
+                  "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3"
+                },
+                "dataflow": null,
+                "message": "33"
+              }
+            ]
+          },
+          "_links": {
+            "first": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?filter=%27type%27=%27error%27&page=0&size=1"
+            },
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?filter=%27type%27=%27error%27&page=0&size=1"
+            },
+            "next": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?filter=%27type%27=%27error%27&page=1&size=1"
+            },
+            "last": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?filter=%27type%27=%27error%27&page=1&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 2,
+            "totalPages": 2,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.506Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?size=1&filter=%27type%27=%27warning%27",
+        "method": "GET",
+        "endpoint_pattern": "/projects/{id}/alerts",
+        "query_params": {
+          "size": [
+            "1"
+          ],
+          "filter": [
+            "'type'='warning'"
+          ]
+        },
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": []
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/alerts?filter=%27type%27=%27warning%27&page=0&size=1"
+            }
+          },
+          "page": {
+            "size": 1,
+            "totalElements": 0,
+            "totalPages": 0,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.506Z"
+      }
+    ]
+  },
+  "total_responses": 6
+}

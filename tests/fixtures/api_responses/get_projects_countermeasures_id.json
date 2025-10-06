@@ -1,0 +1,1689 @@
+{
+  "endpoint": "/projects/countermeasures/{id}",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.772Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.772Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.772Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:17.773Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": "AI-1412",
+          "issueLink": "https://iriusrisk.atlassian.net/browse/AI-1412",
+          "issueState": "active",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:31.374Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": "AI-1412",
+          "issueLink": "https://iriusrisk.atlassian.net/browse/AI-1412",
+          "issueState": "active",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:31.375Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ef71d30a-6f2c-44ac-97a1-9fc072449bfb",
+          "referenceId": "C-RELATIONAL-DATABASE-MANAGEMENT-SYSTEM-0001",
+          "name": "Use parameterized queries",
+          "description": "<p><strong>Understand SQL Injection Risks:</strong></p>\n<ul>\n <li>Gain a comprehensive understanding of SQL injection vulnerabilities and the potential risks they pose to your RDBMS.</li>\n <li>Recognize that improper handling of user input in SQL queries can lead to unauthorized access and manipulation of data.</li>\n</ul>\n<p><strong>Identify User Inputs in Queries:</strong></p>\n<ul>\n <li>Identify all user inputs that are incorporated into SQL queries within your application.</li>\n <li>This includes data from web forms, URL parameters, or any other user-controlled input.</li>\n</ul>\n<p><strong>Adopt Parameterized Query Libraries:</strong></p>\n<ul>\n <li>Utilize parameterized query libraries or prepared statement APIs provided by your programming language or database framework.</li>\n <li>These libraries automatically handle input parameterization, reducing the risk of SQL injection by separating SQL code from user input.</li>\n</ul>\n<p><strong>Replace Dynamic SQL with Parameterized Queries:</strong></p>\n<ul>\n <li>Refactor dynamic SQL queries to use parameterized queries wherever possible.</li>\n <li>Replace direct concatenation of user input with parameterized placeholders to ensure proper handling of data and prevent injection attacks.</li>\n</ul>\n<p><strong>Validate and Sanitize User Input:</strong></p>\n<ul>\n <li>Implement input validation and sanitization procedures to ensure that user input adheres to expected formats.</li>\n <li>Reject or sanitize input that contains potentially harmful characters or patterns, mitigating the risk of SQL injection.</li>\n</ul>\n<p><strong>Educate Developers on Secure Coding Practices:</strong></p>\n<ul>\n <li>Provide training to developers on the importance of using parameterized queries and secure coding practices.</li>\n <li>Emphasize the risks associated with SQL injection and the role of parameterized queries in preventing such vulnerabilities.</li>\n</ul>\n<p><strong>Enable Database Query Parameterization:</strong></p>\n<ul>\n <li>Configure your database to support query parameterization, ensuring that parameterized queries are processed efficiently.</li>\n <li>This might involve enabling features like stored procedures or query parameterization options based on your specific database system.</li>\n</ul>\n<p><strong>Regularly Test and Scan for SQL Injection:</strong></p>\n<ul>\n <li>Integrate automated tools and manual testing procedures to regularly scan for SQL injection vulnerabilities.</li>\n <li>Use tools like static code analyzers and dynamic application security testing (DAST) tools to identify and remediate potential issues.</li>\n</ul>\n<p><strong>Include SQL Injection Protections in Security Testing:</strong></p>\n<ul>\n <li>Incorporate SQL injection tests into your security testing and code review processes.</li>\n <li>Evaluate the effectiveness of parameterized queries and other security measures during routine security assessments.</li>\n</ul>\n<p><strong>Stay Informed About Security Updates:</strong></p>\n<ul>\n <li>Keep abreast of security updates and patches related to your database system and programming language.</li>\n <li>Apply patches promptly to address any newly discovered vulnerabilities that could impact the security of your parameterized queries.</li>\n</ul>",
+          "state": "recommended",
+          "issueId": "AI-1412",
+          "issueLink": "https://iriusrisk.atlassian.net/browse/AI-1412",
+          "issueState": "active",
+          "risk": 78,
+          "cost": "low",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+            "name": "Badger App",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+              }
+            }
+          },
+          "component": {
+            "id": "794962fb-1774-4c14-aefd-882da4c60900",
+            "name": "User Database",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security||Data Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "ATT&CK ICS - M0818 - Validate Program Inputs||ATT&CK Mobile - M1013 - Application Developer Guidance",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V14.2.1"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ef71d30a-6f2c-44ac-97a1-9fc072449bfb"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/5f95c159-26f4-48f3-a842-692114d5c105"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:31.375Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.269Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.269Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.269Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:37.270Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "required",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:43.846Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "required",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": "",
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:45.303Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "required",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": "",
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.265Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "required",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": "",
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.265Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "ce178b2e-f771-4c92-9f1a-c217e4b97c81",
+          "referenceId": "C-ENHANCE-INPUT-VALIDATION-SANITIZATION-AND-SECURE-CODING-PRACTICES",
+          "name": "Implement proper authorization checks",
+          "description": "<p>To implement proper authorization checks for your API endpoint, follow these actionable steps designed to ensure that only authenticated and authorized users can access specific resources:</p>\n<p><strong>Define Access Control Requirements</strong>: Clearly define which roles or user types have access to different parts of your API. Document these requirements to maintain a consistent reference for development and testing.</p>\n<p><strong>Implement Role-Based Access Control (RBAC)</strong>:</p>\n<ul>\n <li>Assign users to roles based on their job functions.</li>\n <li>Implement checks at each API endpoint to verify if the authenticated user's role matches the roles permitted to access the endpoint.</li>\n <li>Example: In your code, you might check if a user role is \"admin\" before allowing them to access administrative functions.</li>\n</ul>\n<p><strong>Use Attribute-Based Access Control (ABAC) for Fine-Grained Control</strong>:</p>\n<ul>\n <li>In addition to role checks, implement attribute-based checks where access depends on attributes of the user, the resource, and the context (e.g., time of access, location).</li>\n <li>Example: Only allow access to sensitive financial records if the user is accessing from a secured network during business hours.</li>\n</ul>\n<p><strong>Leverage Existing Frameworks and Libraries</strong>:</p>\n<ul>\n <li>Use established security frameworks compatible with your development stack (e.g., Spring Security for Java, ASP.NET Core Identity for .NET, OAuth 2.0 libraries for token-based authorization).</li>\n <li>These frameworks often provide built-in functions for handling common authorization tasks, reducing the risk of implementation errors.</li>\n</ul>\n<p><strong>Verify and Update Permissions Regularly</strong>:</p>\n<ul>\n <li>Periodically review and update permission rules to ensure they align with current organizational policies and user roles.</li>\n <li>Automate this process as much as possible to minimize manual errors and oversight.</li>\n</ul>\n<p><strong>Securely Manage Session and Authentication Tokens</strong>:</p>\n<ul>\n <li>Use HTTPS to encrypt data transmissions, including tokens.</li>\n <li>Store tokens securely using appropriate hashing or encryption techniques.</li>\n <li>Implement token expiration and automatic session timeouts to reduce the risk of stolen tokens being used maliciously.</li>\n</ul>\n<p><strong>Audit and Log Authorization Decisions</strong>:</p>\n<ul>\n <li>Log all access attempts, both successful and denied, including pertinent details like timestamp, user ID, and accessed resources.</li>\n <li>Regularly audit logs to detect and respond to unauthorized access attempts promptly.</li>\n</ul>\n<p><strong>Conduct Regular Security Assessments</strong>:</p>\n<ul>\n <li>Regularly test your authorization mechanisms through automated testing and periodic penetration testing conducted by external experts.</li>\n <li>Use these assessments to identify and remediate vulnerabilities or policy inconsistencies.</li>\n</ul>\n<p><strong>Train Developers on Security Best Practices</strong>:</p>\n<ul>\n <li>Provide ongoing security training for developers focusing on secure coding practices and the latest security threats and mitigation techniques.</li>\n <li>Encourage a security-focused culture where developers are incentivized to integrate security best practices into their daily work.</li>\n</ul>\n<p>By thoroughly implementing these steps, you can ensure robust authorization checks in your API endpoints, effectively managing access to resources based on user roles and attributes. This approach helps protect sensitive data and functionalities from unauthorized access and abuse.</p>",
+          "state": "required",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 57,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+            "name": "Fraser Test",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+              }
+            }
+          },
+          "component": {
+            "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+            "name": "API Endpoint",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "Application Security",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "ASVS",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": "",
+            "a5e3187c-d617-415b-9d2d-c383675c109c": "V4.1.2"
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/ce178b2e-f771-4c92-9f1a-c217e4b97c81"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ce178b2e-f771-4c92-9f1a-c217e4b97c81/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/2dd258ee-ab08-4553-a6cf-5044c04ea1ba"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.265Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+          "referenceId": "WEB-CSP",
+          "name": "Define a restrictive 'least privilege' Content Security Policy",
+          "description": "<p>The Content-Security-Policy instructs compliant browsers on how they may interact with external sites while in the current context. This enables the server to control interactive code and content from third parties, mitigating some client-side code injection attacks. The policy allows the server to specify what connections are permitted for each type of resource.</p><p><br>&nbsp;</p><p>For example, the following policy tells the browser to allow connections (including websockets) to the same domain to which the page was served: *.iriusrisk.com.</p><p><br>&nbsp;</p><p>Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' wss://*.iriusrisk.com; img-src 'self' data:</p><ul><li>Define and set a Content-Security-Policy with least-privileges to allow only those interactions which are explicitly required.</li></ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 79,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+            "name": "Badger app",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+              }
+            }
+          },
+          "component": {
+            "id": "4344919a-0220-4645-8505-99661708bdee",
+            "name": "File System Storage",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/4344919a-0220-4645-8505-99661708bdee"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": ""
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.527Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+          "referenceId": "WEB-CSP",
+          "name": "Define a restrictive 'least privilege' Content Security Policy",
+          "description": "<p>The Content-Security-Policy instructs compliant browsers on how they may interact with external sites while in the current context. This enables the server to control interactive code and content from third parties, mitigating some client-side code injection attacks. The policy allows the server to specify what connections are permitted for each type of resource.</p><p><br>&nbsp;</p><p>For example, the following policy tells the browser to allow connections (including websockets) to the same domain to which the page was served: *.iriusrisk.com.</p><p><br>&nbsp;</p><p>Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' wss://*.iriusrisk.com; img-src 'self' data:</p><ul><li>Define and set a Content-Security-Policy with least-privileges to allow only those interactions which are explicitly required.</li></ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 79,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+            "name": "Badger app",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+              }
+            }
+          },
+          "component": {
+            "id": "4344919a-0220-4645-8505-99661708bdee",
+            "name": "File System Storage",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/4344919a-0220-4645-8505-99661708bdee"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": ""
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.527Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+          "referenceId": "WEB-CSP",
+          "name": "Define a restrictive 'least privilege' Content Security Policy",
+          "description": "<p>The Content-Security-Policy instructs compliant browsers on how they may interact with external sites while in the current context. This enables the server to control interactive code and content from third parties, mitigating some client-side code injection attacks. The policy allows the server to specify what connections are permitted for each type of resource.</p><p><br>&nbsp;</p><p>For example, the following policy tells the browser to allow connections (including websockets) to the same domain to which the page was served: *.iriusrisk.com.</p><p><br>&nbsp;</p><p>Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' wss://*.iriusrisk.com; img-src 'self' data:</p><ul><li>Define and set a Content-Security-Policy with least-privileges to allow only those interactions which are explicitly required.</li></ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 79,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+            "name": "Badger app",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+              }
+            }
+          },
+          "component": {
+            "id": "4344919a-0220-4645-8505-99661708bdee",
+            "name": "File System Storage",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/4344919a-0220-4645-8505-99661708bdee"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": ""
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.527Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "id": "6aade473-bb0d-49b1-9192-b703da1ebb5e",
+          "referenceId": "WEB-CSP",
+          "name": "Define a restrictive 'least privilege' Content Security Policy",
+          "description": "<p>The Content-Security-Policy instructs compliant browsers on how they may interact with external sites while in the current context. This enables the server to control interactive code and content from third parties, mitigating some client-side code injection attacks. The policy allows the server to specify what connections are permitted for each type of resource.</p><p><br>&nbsp;</p><p>For example, the following policy tells the browser to allow connections (including websockets) to the same domain to which the page was served: *.iriusrisk.com.</p><p><br>&nbsp;</p><p>Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' wss://*.iriusrisk.com; img-src 'self' data:</p><ul><li>Define and set a Content-Security-Policy with least-privileges to allow only those interactions which are explicitly required.</li></ul>",
+          "state": "recommended",
+          "issueId": null,
+          "issueLink": null,
+          "issueState": "not-applicable",
+          "risk": 79,
+          "cost": "medium",
+          "priority": {
+            "manual": null,
+            "calculated": "very-high"
+          },
+          "source": "rules",
+          "edited": false,
+          "templateName": null,
+          "project": {
+            "id": "83c67508-9cd8-456b-86b7-4df8f1b05c08",
+            "name": "Badger app",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/83c67508-9cd8-456b-86b7-4df8f1b05c08"
+              }
+            }
+          },
+          "component": {
+            "id": "4344919a-0220-4645-8505-99661708bdee",
+            "name": "File System Storage",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/projects/components/4344919a-0220-4645-8505-99661708bdee"
+              }
+            }
+          },
+          "owner": {
+            "username": "fscott",
+            "_links": {
+              "self": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c"
+              },
+              "avatar": {
+                "href": "https://release.iriusrisk.com/api/v2/users/a51208ea-272c-5fd0-efaf-0c05b0ed674c/avatar"
+              }
+            }
+          },
+          "customFields": {
+            "4c933b73-580a-45f8-8e6c-fb5c2ea9014a": "",
+            "93673647-28fe-4d1e-8ffa-ce01b0a19c99": "",
+            "5a38cacc-a279-4cb9-91c5-f32ee78b9167": "",
+            "99b48c79-f6f7-4045-be5d-8000f59db5a2": null,
+            "a5e3187c-d617-415b-9d2d-c383675c109c": ""
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "comments": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/comments"
+            },
+            "implementations": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/implementations"
+            },
+            "references": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/references/6aade473-bb0d-49b1-9192-b703da1ebb5e"
+            },
+            "settings": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/6aade473-bb0d-49b1-9192-b703da1ebb5e/settings"
+            },
+            "test": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/countermeasures/tests/bc0fc295-4678-4077-aa8c-e720a9c3a01f"
+            }
+          }
+        },
+        "timestamp": "2025-09-25T18:40:59.528Z"
+      }
+    ]
+  },
+  "total_responses": 20
+}

@@ -1,0 +1,43 @@
+{
+  "endpoint": "/projects/{id}/reports/generate",
+  "method": "POST",
+  "responses": {
+    "202": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/generate",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/reports/generate",
+        "query_params": {},
+        "request_body": "{\"name\":\"technical-countermeasure-report\",\"format\":\"html\",\"filters\":{\"all\":{\"currentRisks\":[],\"riskMitigation\":null,\"riskMitigationPlanned\":null,\"states\":[],\"testResults\":[],\"priorities\":[]}}}",
+        "status": 202,
+        "response_data": {
+          "operationId": "1aad2e59-242b-41b2-93b8-fea1b15b7bcd",
+          "_links": {
+            "operation": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1aad2e59-242b-41b2-93b8-fea1b15b7bcd"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T22:58:06.748Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/reports/generate",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/reports/generate",
+        "query_params": {},
+        "request_body": "{\"name\":\"compliance-report\",\"format\":\"html\",\"standard\":\"726535a3-78be-3b63-9701-bc5adacb45db\"}",
+        "status": 202,
+        "response_data": {
+          "operationId": "1307f14e-9519-4520-8bf0-5b629e5913ae",
+          "_links": {
+            "operation": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/1307f14e-9519-4520-8bf0-5b629e5913ae"
+            }
+          }
+        },
+        "timestamp": "2025-09-27T23:27:31.222Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}

@@ -1,0 +1,2567 @@
+{
+  "endpoint": "/projects/{id}/components/query",
+  "method": "POST",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                "referenceId": "0d2a2919-bbd8-4bc4-95dc-2dde412fd7dc",
+                "name": "Administrative Service",
+                "description": "Administrative endpoints with system command execution capabilities",
+                "diagramComponentId": "admin-service",
+                "tags": [
+                  "admin",
+                  "system-commands",
+                  "privileged"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                "referenceId": "82c66280-f8cd-475d-a977-b0fd4ed074ec",
+                "name": "Application Storage Bucket",
+                "description": "S3 bucket for file storage, logs, and delivery tracking data",
+                "diagramComponentId": "s3-storage",
+                "tags": [
+                  "aws",
+                  "storage",
+                  "public-access",
+                  "no-encryption"
+                ],
+                "numberOfThreats": 3,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                "referenceId": "cc86bcff-1cf9-44e6-9875-fbc453981ec8",
+                "name": "Authentication Service",
+                "description": "API key-based authentication service with hardcoded credentials",
+                "diagramComponentId": "authentication-service",
+                "tags": [
+                  "authentication",
+                  "api-keys",
+                  "hardcoded-credentials"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "e5e1ba33-d11f-4e04-854b-2e93b9c1a579",
+                "referenceId": "4770c7d8-a707-4348-9013-9ea3019d1e76",
+                "name": "Badger Database",
+                "description": "PostgreSQL database storing badger location and status data",
+                "diagramComponentId": "badger-database",
+                "tags": [
+                  "PostgreSQL",
+                  "badger-data",
+                  "location-tracking"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                "referenceId": "6b5d1032-58eb-40a0-a23c-2e68d4693cb4",
+                "name": "Badger Delivery ALB",
+                "description": "Application Load Balancer distributing traffic to ECS containers",
+                "diagramComponentId": "application-load-balancer",
+                "tags": [
+                  "aws",
+                  "load-balancer",
+                  "public-facing"
+                ],
+                "numberOfThreats": 5,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                "referenceId": "7d52608a-bf0e-43da-bb94-eb4d6d7fadbe",
+                "name": "Badger Delivery Web Application",
+                "description": "Flask-based web application providing badger delivery services",
+                "diagramComponentId": "web-application",
+                "tags": [
+                  "flask",
+                  "python",
+                  "web-application",
+                  "debug-enabled"
+                ],
+                "numberOfThreats": 12,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                "referenceId": "e8c1bc5c-38bf-438d-a453-a528c4aea379",
+                "name": "Badger ECS Cluster",
+                "description": "ECS Fargate cluster hosting the Flask application containers",
+                "diagramComponentId": "ecs-cluster",
+                "tags": [
+                  "aws",
+                  "container-orchestration",
+                  "fargate"
+                ],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                "referenceId": "a8f820c5-c676-4143-9bf6-3706dba4e38c",
+                "name": "Badger PostgreSQL Database",
+                "description": "AWS RDS PostgreSQL instance storing badger and user data",
+                "diagramComponentId": "rds-instance",
+                "tags": [
+                  "aws",
+                  "database",
+                  "PostgreSQL",
+                  "publicly-accessible"
+                ],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                "referenceId": "b3ddc3b6-c480-447e-8364-a8987c8a4d77",
+                "name": "Badger Redis Cache",
+                "description": "ElastiCache Redis cluster for caching badger search results and session data",
+                "diagramComponentId": "elasticache-redis",
+                "tags": [
+                  "aws",
+                  "Cache",
+                  "redis",
+                  "no-encryption"
+                ],
+                "numberOfThreats": 6,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                "referenceId": "da3c1946-c6c7-4466-9f4c-eaf7f695d87d",
+                "name": "Badger Search Service",
+                "description": "Service for searching and locating available badgers",
+                "diagramComponentId": "badger-search-service",
+                "tags": [
+                  "Search",
+                  "business-logic",
+                  "caching"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "7bf1e49f-e68d-48d3-828a-84ccc32c0b1e",
+                "referenceId": "25f1b198-638a-47d2-bee3-eeabeaea2cd8",
+                "name": "Delivery Database",
+                "description": "PostgreSQL database storing delivery tracking information",
+                "diagramComponentId": "delivery-database",
+                "tags": [
+                  "PostgreSQL",
+                  "delivery-tracking",
+                  "business-data"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                "referenceId": "18a87cd9-4114-4f91-9afc-c9bc94781c03",
+                "name": "Partner Webhook Services",
+                "description": "External partner services sending webhook notifications",
+                "diagramComponentId": "partner-webhook-services",
+                "tags": [
+                  "external-webhooks",
+                  "partner-integration",
+                  "third-party"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                "referenceId": "441fb552-890f-4238-b1e5-1966f42d59b1",
+                "name": "Redis Cache Store",
+                "description": "Redis cache storing serialized badger search results and session data",
+                "diagramComponentId": "cache-store",
+                "tags": [
+                  "redis",
+                  "Cache",
+                  "pickle-serialization",
+                  "session-storage"
+                ],
+                "numberOfThreats": 6,
+                "parent": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                "referenceId": "6a01fa6c-7b6c-46ed-b4ad-9be526d730c9",
+                "name": "User Database",
+                "description": "PostgreSQL database storing user accounts and API keys",
+                "diagramComponentId": "user-database",
+                "tags": [
+                  "PostgreSQL",
+                  "user-data",
+                  "credentials"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                "referenceId": "be81edd2-7ef0-4961-9ff0-23c8965258f0",
+                "name": "Web Browser Client",
+                "description": "Web browser clients accessing the badger delivery service",
+                "diagramComponentId": "web-client",
+                "tags": [
+                  "web-browser",
+                  "client",
+                  "public-access"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                "referenceId": "c593e170-2452-4825-bad4-b201f8b7a2ce",
+                "name": "Webhook Handler Service",
+                "description": "Service handling incoming webhooks from partner services",
+                "diagramComponentId": "webhook-handler",
+                "tags": [
+                  "webhooks",
+                  "integration",
+                  "partner-services"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                "referenceId": "c8c89bdd-6aed-4f72-9d9a-9c83c8ef4e0d",
+                "name": "Wildlife Trackers API",
+                "description": "External API service providing additional badger tracking data",
+                "diagramComponentId": "external-badger-api",
+                "tags": [
+                  "external-api",
+                  "wildlife-tracking",
+                  "third-party"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 17,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.452Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"includeNestedComponents\":true}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                "referenceId": "0d2a2919-bbd8-4bc4-95dc-2dde412fd7dc",
+                "name": "Administrative Service",
+                "description": "Administrative endpoints with system command execution capabilities",
+                "diagramComponentId": "admin-service",
+                "tags": [
+                  "admin",
+                  "system-commands",
+                  "privileged"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                "referenceId": "82c66280-f8cd-475d-a977-b0fd4ed074ec",
+                "name": "Application Storage Bucket",
+                "description": "S3 bucket for file storage, logs, and delivery tracking data",
+                "diagramComponentId": "s3-storage",
+                "tags": [
+                  "aws",
+                  "storage",
+                  "public-access",
+                  "no-encryption"
+                ],
+                "numberOfThreats": 3,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                "referenceId": "cc86bcff-1cf9-44e6-9875-fbc453981ec8",
+                "name": "Authentication Service",
+                "description": "API key-based authentication service with hardcoded credentials",
+                "diagramComponentId": "authentication-service",
+                "tags": [
+                  "authentication",
+                  "api-keys",
+                  "hardcoded-credentials"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "e5e1ba33-d11f-4e04-854b-2e93b9c1a579",
+                "referenceId": "4770c7d8-a707-4348-9013-9ea3019d1e76",
+                "name": "Badger Database",
+                "description": "PostgreSQL database storing badger location and status data",
+                "diagramComponentId": "badger-database",
+                "tags": [
+                  "PostgreSQL",
+                  "badger-data",
+                  "location-tracking"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                "referenceId": "6b5d1032-58eb-40a0-a23c-2e68d4693cb4",
+                "name": "Badger Delivery ALB",
+                "description": "Application Load Balancer distributing traffic to ECS containers",
+                "diagramComponentId": "application-load-balancer",
+                "tags": [
+                  "aws",
+                  "load-balancer",
+                  "public-facing"
+                ],
+                "numberOfThreats": 5,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                "referenceId": "7d52608a-bf0e-43da-bb94-eb4d6d7fadbe",
+                "name": "Badger Delivery Web Application",
+                "description": "Flask-based web application providing badger delivery services",
+                "diagramComponentId": "web-application",
+                "tags": [
+                  "flask",
+                  "python",
+                  "web-application",
+                  "debug-enabled"
+                ],
+                "numberOfThreats": 12,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                "referenceId": "e8c1bc5c-38bf-438d-a453-a528c4aea379",
+                "name": "Badger ECS Cluster",
+                "description": "ECS Fargate cluster hosting the Flask application containers",
+                "diagramComponentId": "ecs-cluster",
+                "tags": [
+                  "aws",
+                  "container-orchestration",
+                  "fargate"
+                ],
+                "numberOfThreats": 47,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                "referenceId": "a8f820c5-c676-4143-9bf6-3706dba4e38c",
+                "name": "Badger PostgreSQL Database",
+                "description": "AWS RDS PostgreSQL instance storing badger and user data",
+                "diagramComponentId": "rds-instance",
+                "tags": [
+                  "aws",
+                  "database",
+                  "PostgreSQL",
+                  "publicly-accessible"
+                ],
+                "numberOfThreats": 19,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                "referenceId": "b3ddc3b6-c480-447e-8364-a8987c8a4d77",
+                "name": "Badger Redis Cache",
+                "description": "ElastiCache Redis cluster for caching badger search results and session data",
+                "diagramComponentId": "elasticache-redis",
+                "tags": [
+                  "aws",
+                  "Cache",
+                  "redis",
+                  "no-encryption"
+                ],
+                "numberOfThreats": 12,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                "referenceId": "da3c1946-c6c7-4466-9f4c-eaf7f695d87d",
+                "name": "Badger Search Service",
+                "description": "Service for searching and locating available badgers",
+                "diagramComponentId": "badger-search-service",
+                "tags": [
+                  "Search",
+                  "business-logic",
+                  "caching"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "7bf1e49f-e68d-48d3-828a-84ccc32c0b1e",
+                "referenceId": "25f1b198-638a-47d2-bee3-eeabeaea2cd8",
+                "name": "Delivery Database",
+                "description": "PostgreSQL database storing delivery tracking information",
+                "diagramComponentId": "delivery-database",
+                "tags": [
+                  "PostgreSQL",
+                  "delivery-tracking",
+                  "business-data"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                "referenceId": "18a87cd9-4114-4f91-9afc-c9bc94781c03",
+                "name": "Partner Webhook Services",
+                "description": "External partner services sending webhook notifications",
+                "diagramComponentId": "partner-webhook-services",
+                "tags": [
+                  "external-webhooks",
+                  "partner-integration",
+                  "third-party"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                "referenceId": "441fb552-890f-4238-b1e5-1966f42d59b1",
+                "name": "Redis Cache Store",
+                "description": "Redis cache storing serialized badger search results and session data",
+                "diagramComponentId": "cache-store",
+                "tags": [
+                  "redis",
+                  "Cache",
+                  "pickle-serialization",
+                  "session-storage"
+                ],
+                "numberOfThreats": 6,
+                "parent": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                "referenceId": "6a01fa6c-7b6c-46ed-b4ad-9be526d730c9",
+                "name": "User Database",
+                "description": "PostgreSQL database storing user accounts and API keys",
+                "diagramComponentId": "user-database",
+                "tags": [
+                  "PostgreSQL",
+                  "user-data",
+                  "credentials"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                "referenceId": "be81edd2-7ef0-4961-9ff0-23c8965258f0",
+                "name": "Web Browser Client",
+                "description": "Web browser clients accessing the badger delivery service",
+                "diagramComponentId": "web-client",
+                "tags": [
+                  "web-browser",
+                  "client",
+                  "public-access"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                "referenceId": "c593e170-2452-4825-bad4-b201f8b7a2ce",
+                "name": "Webhook Handler Service",
+                "description": "Service handling incoming webhooks from partner services",
+                "diagramComponentId": "webhook-handler",
+                "tags": [
+                  "webhooks",
+                  "integration",
+                  "partner-services"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                "referenceId": "c8c89bdd-6aed-4f72-9d9a-9c83c8ef4e0d",
+                "name": "Wildlife Trackers API",
+                "description": "External API service providing additional badger tracking data",
+                "diagramComponentId": "external-badger-api",
+                "tags": [
+                  "external-api",
+                  "wildlife-tracking",
+                  "third-party"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 17,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"includeNestedComponents\":true}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                "referenceId": "0d2a2919-bbd8-4bc4-95dc-2dde412fd7dc",
+                "name": "Administrative Service",
+                "description": "Administrative endpoints with system command execution capabilities",
+                "diagramComponentId": "admin-service",
+                "tags": [
+                  "admin",
+                  "system-commands",
+                  "privileged"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                "referenceId": "82c66280-f8cd-475d-a977-b0fd4ed074ec",
+                "name": "Application Storage Bucket",
+                "description": "S3 bucket for file storage, logs, and delivery tracking data",
+                "diagramComponentId": "s3-storage",
+                "tags": [
+                  "aws",
+                  "storage",
+                  "public-access",
+                  "no-encryption"
+                ],
+                "numberOfThreats": 3,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                "referenceId": "cc86bcff-1cf9-44e6-9875-fbc453981ec8",
+                "name": "Authentication Service",
+                "description": "API key-based authentication service with hardcoded credentials",
+                "diagramComponentId": "authentication-service",
+                "tags": [
+                  "authentication",
+                  "api-keys",
+                  "hardcoded-credentials"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "e5e1ba33-d11f-4e04-854b-2e93b9c1a579",
+                "referenceId": "4770c7d8-a707-4348-9013-9ea3019d1e76",
+                "name": "Badger Database",
+                "description": "PostgreSQL database storing badger location and status data",
+                "diagramComponentId": "badger-database",
+                "tags": [
+                  "PostgreSQL",
+                  "badger-data",
+                  "location-tracking"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                "referenceId": "6b5d1032-58eb-40a0-a23c-2e68d4693cb4",
+                "name": "Badger Delivery ALB",
+                "description": "Application Load Balancer distributing traffic to ECS containers",
+                "diagramComponentId": "application-load-balancer",
+                "tags": [
+                  "aws",
+                  "load-balancer",
+                  "public-facing"
+                ],
+                "numberOfThreats": 5,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                "referenceId": "7d52608a-bf0e-43da-bb94-eb4d6d7fadbe",
+                "name": "Badger Delivery Web Application",
+                "description": "Flask-based web application providing badger delivery services",
+                "diagramComponentId": "web-application",
+                "tags": [
+                  "flask",
+                  "python",
+                  "web-application",
+                  "debug-enabled"
+                ],
+                "numberOfThreats": 12,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                "referenceId": "e8c1bc5c-38bf-438d-a453-a528c4aea379",
+                "name": "Badger ECS Cluster",
+                "description": "ECS Fargate cluster hosting the Flask application containers",
+                "diagramComponentId": "ecs-cluster",
+                "tags": [
+                  "aws",
+                  "container-orchestration",
+                  "fargate"
+                ],
+                "numberOfThreats": 47,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                "referenceId": "a8f820c5-c676-4143-9bf6-3706dba4e38c",
+                "name": "Badger PostgreSQL Database",
+                "description": "AWS RDS PostgreSQL instance storing badger and user data",
+                "diagramComponentId": "rds-instance",
+                "tags": [
+                  "aws",
+                  "database",
+                  "PostgreSQL",
+                  "publicly-accessible"
+                ],
+                "numberOfThreats": 19,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                "referenceId": "b3ddc3b6-c480-447e-8364-a8987c8a4d77",
+                "name": "Badger Redis Cache",
+                "description": "ElastiCache Redis cluster for caching badger search results and session data",
+                "diagramComponentId": "elasticache-redis",
+                "tags": [
+                  "aws",
+                  "Cache",
+                  "redis",
+                  "no-encryption"
+                ],
+                "numberOfThreats": 12,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                "referenceId": "da3c1946-c6c7-4466-9f4c-eaf7f695d87d",
+                "name": "Badger Search Service",
+                "description": "Service for searching and locating available badgers",
+                "diagramComponentId": "badger-search-service",
+                "tags": [
+                  "Search",
+                  "business-logic",
+                  "caching"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "7bf1e49f-e68d-48d3-828a-84ccc32c0b1e",
+                "referenceId": "25f1b198-638a-47d2-bee3-eeabeaea2cd8",
+                "name": "Delivery Database",
+                "description": "PostgreSQL database storing delivery tracking information",
+                "diagramComponentId": "delivery-database",
+                "tags": [
+                  "PostgreSQL",
+                  "delivery-tracking",
+                  "business-data"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                "referenceId": "18a87cd9-4114-4f91-9afc-c9bc94781c03",
+                "name": "Partner Webhook Services",
+                "description": "External partner services sending webhook notifications",
+                "diagramComponentId": "partner-webhook-services",
+                "tags": [
+                  "external-webhooks",
+                  "partner-integration",
+                  "third-party"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                "referenceId": "441fb552-890f-4238-b1e5-1966f42d59b1",
+                "name": "Redis Cache Store",
+                "description": "Redis cache storing serialized badger search results and session data",
+                "diagramComponentId": "cache-store",
+                "tags": [
+                  "redis",
+                  "Cache",
+                  "pickle-serialization",
+                  "session-storage"
+                ],
+                "numberOfThreats": 6,
+                "parent": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                "referenceId": "6a01fa6c-7b6c-46ed-b4ad-9be526d730c9",
+                "name": "User Database",
+                "description": "PostgreSQL database storing user accounts and API keys",
+                "diagramComponentId": "user-database",
+                "tags": [
+                  "PostgreSQL",
+                  "user-data",
+                  "credentials"
+                ],
+                "numberOfThreats": 4,
+                "parent": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                "referenceId": "be81edd2-7ef0-4961-9ff0-23c8965258f0",
+                "name": "Web Browser Client",
+                "description": "Web browser clients accessing the badger delivery service",
+                "diagramComponentId": "web-client",
+                "tags": [
+                  "web-browser",
+                  "client",
+                  "public-access"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                "referenceId": "c593e170-2452-4825-bad4-b201f8b7a2ce",
+                "name": "Webhook Handler Service",
+                "description": "Service handling incoming webhooks from partner services",
+                "diagramComponentId": "webhook-handler",
+                "tags": [
+                  "webhooks",
+                  "integration",
+                  "partner-services"
+                ],
+                "numberOfThreats": 7,
+                "parent": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                "referenceId": "c8c89bdd-6aed-4f72-9d9a-9c83c8ef4e0d",
+                "name": "Wildlife Trackers API",
+                "description": "External API service providing additional badger tracking data",
+                "diagramComponentId": "external-badger-api",
+                "tags": [
+                  "external-api",
+                  "wildlife-tracking",
+                  "third-party"
+                ],
+                "numberOfThreats": 4,
+                "parent": null,
+                "project": {
+                  "id": "42c54d68-dca1-4ec5-806f-4d5a84b2be0c",
+                  "name": "Badger App",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 17,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.528Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"includeNestedComponents\":true}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.529Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"includeNestedComponents\":true}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.529Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.452Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"includeNestedComponents\":true}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.168Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=100000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/components/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "100000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"includeNestedComponents\":true}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                "referenceId": "2beb57b7-4ead-430c-9d3b-2f301b8089a2",
+                "name": "API Endpoint",
+                "description": null,
+                "diagramComponentId": "0920424c-3095-4c7b-b519-5c1645a260b3",
+                "tags": [],
+                "numberOfThreats": 7,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b/use-cases"
+                  }
+                }
+              },
+              {
+                "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                "referenceId": "general-threats",
+                "name": "Project Threats",
+                "description": "The 'Project Threats' group is used to address threats, weaknesses, and countermeasures at the global scope of the project, rather than being tied to any specific component.",
+                "diagramComponentId": null,
+                "tags": [],
+                "numberOfThreats": 1,
+                "parent": null,
+                "project": {
+                  "id": "4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d",
+                  "name": "Fraser Test",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d"
+                    }
+                  }
+                },
+                "projectComponent": null,
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                  },
+                  "useCases": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617/use-cases"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/components/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.169Z"
+      }
+    ]
+  },
+  "total_responses": 10
+}

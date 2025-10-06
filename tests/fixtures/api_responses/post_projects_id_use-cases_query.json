@@ -1,0 +1,3754 @@
+{
+  "endpoint": "/projects/{id}/use-cases/query",
+  "method": "POST",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "46b89144-74a1-431b-909a-81fd9f7d1b1f",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/46b89144-74a1-431b-909a-81fd9f7d1b1f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/46b89144-74a1-431b-909a-81fd9f7d1b1f/threats"
+                  }
+                }
+              },
+              {
+                "id": "4ad23c96-728b-4014-af42-af8d6fdae8a7",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/4ad23c96-728b-4014-af42-af8d6fdae8a7"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/4ad23c96-728b-4014-af42-af8d6fdae8a7/threats"
+                  }
+                }
+              },
+              {
+                "id": "63cefabb-d326-4d92-920b-8f4b5ac611e3",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/63cefabb-d326-4d92-920b-8f4b5ac611e3"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/63cefabb-d326-4d92-920b-8f4b5ac611e3/threats"
+                  }
+                }
+              },
+              {
+                "id": "69293752-05e4-4f6b-8462-c16fd2443ee1",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/69293752-05e4-4f6b-8462-c16fd2443ee1"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/69293752-05e4-4f6b-8462-c16fd2443ee1/threats"
+                  }
+                }
+              },
+              {
+                "id": "8a85cbf9-9ba2-49b4-b194-034d6b5f571b",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8a85cbf9-9ba2-49b4-b194-034d6b5f571b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8a85cbf9-9ba2-49b4-b194-034d6b5f571b/threats"
+                  }
+                }
+              },
+              {
+                "id": "8b6c6e19-d13f-4432-aa42-bac0352e0a4c",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8b6c6e19-d13f-4432-aa42-bac0352e0a4c"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8b6c6e19-d13f-4432-aa42-bac0352e0a4c/threats"
+                  }
+                }
+              },
+              {
+                "id": "946c5abd-9d64-40e0-b4fb-fa64568c7a28",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/946c5abd-9d64-40e0-b4fb-fa64568c7a28"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/946c5abd-9d64-40e0-b4fb-fa64568c7a28/threats"
+                  }
+                }
+              },
+              {
+                "id": "94ac67c9-e017-411a-8f6a-e50ff54f98b6",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/94ac67c9-e017-411a-8f6a-e50ff54f98b6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/94ac67c9-e017-411a-8f6a-e50ff54f98b6/threats"
+                  }
+                }
+              },
+              {
+                "id": "c1f99b43-5792-4305-bd04-dbadb5c1af2b",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c1f99b43-5792-4305-bd04-dbadb5c1af2b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c1f99b43-5792-4305-bd04-dbadb5c1af2b/threats"
+                  }
+                }
+              },
+              {
+                "id": "c4d61e90-8265-4d3a-89ff-ee60d8f07fe4",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c4d61e90-8265-4d3a-89ff-ee60d8f07fe4"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c4d61e90-8265-4d3a-89ff-ee60d8f07fe4/threats"
+                  }
+                }
+              },
+              {
+                "id": "e88291d8-8f28-454c-abc8-1839149e2c6b",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/e88291d8-8f28-454c-abc8-1839149e2c6b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/e88291d8-8f28-454c-abc8-1839149e2c6b/threats"
+                  }
+                }
+              },
+              {
+                "id": "2fa612ff-f23f-4c84-88b2-5df86d4abc63",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/2fa612ff-f23f-4c84-88b2-5df86d4abc63"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/2fa612ff-f23f-4c84-88b2-5df86d4abc63/threats"
+                  }
+                }
+              },
+              {
+                "id": "360d6cf2-c21d-4532-b894-bfaf1c35caa8",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/360d6cf2-c21d-4532-b894-bfaf1c35caa8"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/360d6cf2-c21d-4532-b894-bfaf1c35caa8/threats"
+                  }
+                }
+              },
+              {
+                "id": "596185d8-7af8-4bdd-ad7b-243d59ee88ac",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/596185d8-7af8-4bdd-ad7b-243d59ee88ac"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/596185d8-7af8-4bdd-ad7b-243d59ee88ac/threats"
+                  }
+                }
+              },
+              {
+                "id": "6b790947-a6fe-492b-a0cb-a9a5730d6308",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6b790947-a6fe-492b-a0cb-a9a5730d6308"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6b790947-a6fe-492b-a0cb-a9a5730d6308/threats"
+                  }
+                }
+              },
+              {
+                "id": "b665115c-41c3-4901-8c69-bec09a79c8f4",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/b665115c-41c3-4901-8c69-bec09a79c8f4"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/b665115c-41c3-4901-8c69-bec09a79c8f4/threats"
+                  }
+                }
+              },
+              {
+                "id": "c7be9819-2aba-451d-a73b-9e5de8627b8d",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c7be9819-2aba-451d-a73b-9e5de8627b8d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c7be9819-2aba-451d-a73b-9e5de8627b8d/threats"
+                  }
+                }
+              },
+              {
+                "id": "d82c6f60-93c2-4578-8ddd-03328ee9ab0b",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/d82c6f60-93c2-4578-8ddd-03328ee9ab0b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/d82c6f60-93c2-4578-8ddd-03328ee9ab0b/threats"
+                  }
+                }
+              },
+              {
+                "id": "dc42b887-33b5-4c87-a835-bcf82e8f0426",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/dc42b887-33b5-4c87-a835-bcf82e8f0426"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/dc42b887-33b5-4c87-a835-bcf82e8f0426/threats"
+                  }
+                }
+              },
+              {
+                "id": "df1985b8-768e-444f-bf39-4b6a022a2a66",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/df1985b8-768e-444f-bf39-4b6a022a2a66"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/df1985b8-768e-444f-bf39-4b6a022a2a66/threats"
+                  }
+                }
+              },
+              {
+                "id": "e8bd9d29-f5e1-46c7-9e38-32f86c210880",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "e5e1ba33-d11f-4e04-854b-2e93b9c1a579",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/e8bd9d29-f5e1-46c7-9e38-32f86c210880"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/e8bd9d29-f5e1-46c7-9e38-32f86c210880/threats"
+                  }
+                }
+              },
+              {
+                "id": "f145aeba-2027-4b6b-bc7a-aad50d53c05c",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "7bf1e49f-e68d-48d3-828a-84ccc32c0b1e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f145aeba-2027-4b6b-bc7a-aad50d53c05c"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f145aeba-2027-4b6b-bc7a-aad50d53c05c/threats"
+                  }
+                }
+              },
+              {
+                "id": "113e45dd-72d3-4388-9706-4b3e20a0913d",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/113e45dd-72d3-4388-9706-4b3e20a0913d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/113e45dd-72d3-4388-9706-4b3e20a0913d/threats"
+                  }
+                }
+              },
+              {
+                "id": "1538530c-465d-4fb3-bd38-10b007ea0cfe",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/1538530c-465d-4fb3-bd38-10b007ea0cfe"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/1538530c-465d-4fb3-bd38-10b007ea0cfe/threats"
+                  }
+                }
+              },
+              {
+                "id": "2b1271d1-2831-46b4-8a7d-2835c6f9b525",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/2b1271d1-2831-46b4-8a7d-2835c6f9b525"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/2b1271d1-2831-46b4-8a7d-2835c6f9b525/threats"
+                  }
+                }
+              },
+              {
+                "id": "31c684e2-feb5-4437-bc61-deb814c1bdb4",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/31c684e2-feb5-4437-bc61-deb814c1bdb4"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/31c684e2-feb5-4437-bc61-deb814c1bdb4/threats"
+                  }
+                }
+              },
+              {
+                "id": "41bcb395-a974-4dc8-8e92-08110942a9da",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/41bcb395-a974-4dc8-8e92-08110942a9da"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/41bcb395-a974-4dc8-8e92-08110942a9da/threats"
+                  }
+                }
+              },
+              {
+                "id": "5be2c8a8-aaf6-476f-acfa-fccfd3fd68ef",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5be2c8a8-aaf6-476f-acfa-fccfd3fd68ef"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5be2c8a8-aaf6-476f-acfa-fccfd3fd68ef/threats"
+                  }
+                }
+              },
+              {
+                "id": "6d785b36-891a-4ba0-932d-65034022b239",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e5e1ba33-d11f-4e04-854b-2e93b9c1a579",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6d785b36-891a-4ba0-932d-65034022b239"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6d785b36-891a-4ba0-932d-65034022b239/threats"
+                  }
+                }
+              },
+              {
+                "id": "747c9196-b736-458c-a861-0a22224151b6",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/747c9196-b736-458c-a861-0a22224151b6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/747c9196-b736-458c-a861-0a22224151b6/threats"
+                  }
+                }
+              },
+              {
+                "id": "7b743fb9-091e-47cb-8ed3-c1aafc129313",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/7b743fb9-091e-47cb-8ed3-c1aafc129313"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/7b743fb9-091e-47cb-8ed3-c1aafc129313/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0818349-01fd-47af-b310-5f20b7fc904e",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0818349-01fd-47af-b310-5f20b7fc904e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0818349-01fd-47af-b310-5f20b7fc904e/threats"
+                  }
+                }
+              },
+              {
+                "id": "b30e4b36-ed4d-4e84-97aa-d6185b5c428c",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 4,
+                "component": {
+                  "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/b30e4b36-ed4d-4e84-97aa-d6185b5c428c"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/b30e4b36-ed4d-4e84-97aa-d6185b5c428c/threats"
+                  }
+                }
+              },
+              {
+                "id": "c6f46a9f-9387-4337-ae11-2f83baf2ed07",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c6f46a9f-9387-4337-ae11-2f83baf2ed07"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c6f46a9f-9387-4337-ae11-2f83baf2ed07/threats"
+                  }
+                }
+              },
+              {
+                "id": "ca04d275-872a-4b18-bfcf-5d4ff0f5ad12",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "7bf1e49f-e68d-48d3-828a-84ccc32c0b1e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ca04d275-872a-4b18-bfcf-5d4ff0f5ad12"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ca04d275-872a-4b18-bfcf-5d4ff0f5ad12/threats"
+                  }
+                }
+              },
+              {
+                "id": "d5ffa12b-46e1-4de0-be83-9ab0ab302744",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/d5ffa12b-46e1-4de0-be83-9ab0ab302744"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/d5ffa12b-46e1-4de0-be83-9ab0ab302744/threats"
+                  }
+                }
+              },
+              {
+                "id": "da99ef8f-71c7-4aac-9828-9ecd1fb5cde2",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da99ef8f-71c7-4aac-9828-9ecd1fb5cde2"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da99ef8f-71c7-4aac-9828-9ecd1fb5cde2/threats"
+                  }
+                }
+              },
+              {
+                "id": "060587af-ea1d-4070-a5f5-29216e3ea802",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/060587af-ea1d-4070-a5f5-29216e3ea802"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/060587af-ea1d-4070-a5f5-29216e3ea802/threats"
+                  }
+                }
+              },
+              {
+                "id": "3ac55578-f89d-4e2c-aab3-2c492bd306b5",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/3ac55578-f89d-4e2c-aab3-2c492bd306b5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/3ac55578-f89d-4e2c-aab3-2c492bd306b5/threats"
+                  }
+                }
+              },
+              {
+                "id": "512c1384-7be4-4f5c-84ff-d997ce9b2462",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/512c1384-7be4-4f5c-84ff-d997ce9b2462"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/512c1384-7be4-4f5c-84ff-d997ce9b2462/threats"
+                  }
+                }
+              },
+              {
+                "id": "55ea8618-5f4e-4c73-afae-efda1f2a61ce",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/55ea8618-5f4e-4c73-afae-efda1f2a61ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/55ea8618-5f4e-4c73-afae-efda1f2a61ce/threats"
+                  }
+                }
+              },
+              {
+                "id": "b5e2ae1a-7956-4bce-bd2a-a45f9036ee6e",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/b5e2ae1a-7956-4bce-bd2a-a45f9036ee6e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/b5e2ae1a-7956-4bce-bd2a-a45f9036ee6e/threats"
+                  }
+                }
+              },
+              {
+                "id": "c19fe38e-0acd-45f7-8fc4-288fdce54e1e",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c19fe38e-0acd-45f7-8fc4-288fdce54e1e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c19fe38e-0acd-45f7-8fc4-288fdce54e1e/threats"
+                  }
+                }
+              },
+              {
+                "id": "da028f7a-42d3-48c7-ba83-34ad79f6461d",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da028f7a-42d3-48c7-ba83-34ad79f6461d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da028f7a-42d3-48c7-ba83-34ad79f6461d/threats"
+                  }
+                }
+              },
+              {
+                "id": "f8bf958e-c427-4768-8d7d-d762e14a5907",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f8bf958e-c427-4768-8d7d-d762e14a5907"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f8bf958e-c427-4768-8d7d-d762e14a5907/threats"
+                  }
+                }
+              },
+              {
+                "id": "13702433-86a1-43cf-a0ab-b7be7b3edc2e",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/13702433-86a1-43cf-a0ab-b7be7b3edc2e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/13702433-86a1-43cf-a0ab-b7be7b3edc2e/threats"
+                  }
+                }
+              },
+              {
+                "id": "1d022ae4-d93d-4093-9fe9-251446d0e6da",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/1d022ae4-d93d-4093-9fe9-251446d0e6da"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/1d022ae4-d93d-4093-9fe9-251446d0e6da/threats"
+                  }
+                }
+              },
+              {
+                "id": "27fe0ba5-b147-47db-abf5-705926b01881",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/27fe0ba5-b147-47db-abf5-705926b01881"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/27fe0ba5-b147-47db-abf5-705926b01881/threats"
+                  }
+                }
+              },
+              {
+                "id": "34668037-4e1d-4029-a471-d91366f70190",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/34668037-4e1d-4029-a471-d91366f70190"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/34668037-4e1d-4029-a471-d91366f70190/threats"
+                  }
+                }
+              },
+              {
+                "id": "6e716601-7c20-4c0f-807f-32ad7284b155",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6e716601-7c20-4c0f-807f-32ad7284b155"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6e716601-7c20-4c0f-807f-32ad7284b155/threats"
+                  }
+                }
+              },
+              {
+                "id": "89a41da5-a508-4c3d-9c7e-f690d76164a5",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/89a41da5-a508-4c3d-9c7e-f690d76164a5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/89a41da5-a508-4c3d-9c7e-f690d76164a5/threats"
+                  }
+                }
+              },
+              {
+                "id": "9ca5a95f-67ac-42ce-8e47-21757c649fb5",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9ca5a95f-67ac-42ce-8e47-21757c649fb5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9ca5a95f-67ac-42ce-8e47-21757c649fb5/threats"
+                  }
+                }
+              },
+              {
+                "id": "a2173555-7428-42fd-9247-a92d8d90e7b6",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a2173555-7428-42fd-9247-a92d8d90e7b6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a2173555-7428-42fd-9247-a92d8d90e7b6/threats"
+                  }
+                }
+              },
+              {
+                "id": "ba7f6e23-7ad2-487d-b727-3cadf81060e0",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ba7f6e23-7ad2-487d-b727-3cadf81060e0"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/ba7f6e23-7ad2-487d-b727-3cadf81060e0/threats"
+                  }
+                }
+              },
+              {
+                "id": "cb8ba779-bda5-47f0-a86a-2fffa88f0487",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/cb8ba779-bda5-47f0-a86a-2fffa88f0487"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/cb8ba779-bda5-47f0-a86a-2fffa88f0487/threats"
+                  }
+                }
+              },
+              {
+                "id": "02b65caf-cb37-4d3c-9a3f-de9682d4c602",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "f561dbe0-e654-426b-afc1-8bf27a1dbffe",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/f561dbe0-e654-426b-afc1-8bf27a1dbffe"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/02b65caf-cb37-4d3c-9a3f-de9682d4c602"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/02b65caf-cb37-4d3c-9a3f-de9682d4c602/threats"
+                  }
+                }
+              },
+              {
+                "id": "0a69294a-4d41-40b6-a154-c2effacf159f",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/0a69294a-4d41-40b6-a154-c2effacf159f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/0a69294a-4d41-40b6-a154-c2effacf159f/threats"
+                  }
+                }
+              },
+              {
+                "id": "150ced1f-8f45-4bcb-80d3-8d8118d643b5",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "794962fb-1774-4c14-aefd-882da4c60900",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/794962fb-1774-4c14-aefd-882da4c60900"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/150ced1f-8f45-4bcb-80d3-8d8118d643b5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/150ced1f-8f45-4bcb-80d3-8d8118d643b5/threats"
+                  }
+                }
+              },
+              {
+                "id": "290119b1-cc5a-4cbc-8161-d931fa6068d8",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "7bf1e49f-e68d-48d3-828a-84ccc32c0b1e",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/7bf1e49f-e68d-48d3-828a-84ccc32c0b1e"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/290119b1-cc5a-4cbc-8161-d931fa6068d8"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/290119b1-cc5a-4cbc-8161-d931fa6068d8/threats"
+                  }
+                }
+              },
+              {
+                "id": "2f5412f5-a733-48f3-a2ec-4b9779a1fd70",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "a8d3d52b-91cb-4a60-a4e2-6e306e4e2800",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/a8d3d52b-91cb-4a60-a4e2-6e306e4e2800"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/2f5412f5-a733-48f3-a2ec-4b9779a1fd70"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/2f5412f5-a733-48f3-a2ec-4b9779a1fd70/threats"
+                  }
+                }
+              },
+              {
+                "id": "349fb34a-aec5-4229-845d-611ea670f3fe",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/349fb34a-aec5-4229-845d-611ea670f3fe"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/349fb34a-aec5-4229-845d-611ea670f3fe/threats"
+                  }
+                }
+              },
+              {
+                "id": "5f1e80bc-5b6f-4962-96a7-3f21c9b6022e",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5f1e80bc-5b6f-4962-96a7-3f21c9b6022e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5f1e80bc-5b6f-4962-96a7-3f21c9b6022e/threats"
+                  }
+                }
+              },
+              {
+                "id": "66d9ee46-7c07-425c-adf2-c70ece87e51c",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 4,
+                "component": {
+                  "id": "b0d0cede-6f91-48fe-a91f-c1a227b36ead",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b0d0cede-6f91-48fe-a91f-c1a227b36ead"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/66d9ee46-7c07-425c-adf2-c70ece87e51c"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/66d9ee46-7c07-425c-adf2-c70ece87e51c/threats"
+                  }
+                }
+              },
+              {
+                "id": "899249cb-6269-4c41-9e10-b4b68fc3d0b0",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "538afb7e-3f81-49f4-950d-a2c528d90f41",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/538afb7e-3f81-49f4-950d-a2c528d90f41"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/899249cb-6269-4c41-9e10-b4b68fc3d0b0"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/899249cb-6269-4c41-9e10-b4b68fc3d0b0/threats"
+                  }
+                }
+              },
+              {
+                "id": "91297969-039e-488c-bd9b-72bb2907740f",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "6bbccbda-75fe-454a-9f4a-fd2548aef9af",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/6bbccbda-75fe-454a-9f4a-fd2548aef9af"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/91297969-039e-488c-bd9b-72bb2907740f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/91297969-039e-488c-bd9b-72bb2907740f/threats"
+                  }
+                }
+              },
+              {
+                "id": "96e462f4-bb38-4a8e-94af-fc4be1a8aedd",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96e462f4-bb38-4a8e-94af-fc4be1a8aedd"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96e462f4-bb38-4a8e-94af-fc4be1a8aedd/threats"
+                  }
+                }
+              },
+              {
+                "id": "97d0143e-e672-4865-ac3f-d676b75cfa94",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "e29d5ba2-5f96-4855-a9a0-fda18850c302",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e29d5ba2-5f96-4855-a9a0-fda18850c302"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/97d0143e-e672-4865-ac3f-d676b75cfa94"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/97d0143e-e672-4865-ac3f-d676b75cfa94/threats"
+                  }
+                }
+              },
+              {
+                "id": "9c41c111-90e3-40eb-b0a3-4520fa57f519",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9c41c111-90e3-40eb-b0a3-4520fa57f519"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9c41c111-90e3-40eb-b0a3-4520fa57f519/threats"
+                  }
+                }
+              },
+              {
+                "id": "c9061179-fe3a-44a6-ba2c-201e824935bd",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "e5e1ba33-d11f-4e04-854b-2e93b9c1a579",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/e5e1ba33-d11f-4e04-854b-2e93b9c1a579"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c9061179-fe3a-44a6-ba2c-201e824935bd"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c9061179-fe3a-44a6-ba2c-201e824935bd/threats"
+                  }
+                }
+              },
+              {
+                "id": "da227b5c-4a62-4820-afda-b715fe39aa19",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da227b5c-4a62-4820-afda-b715fe39aa19"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da227b5c-4a62-4820-afda-b715fe39aa19/threats"
+                  }
+                }
+              },
+              {
+                "id": "dfdf64c4-c1a9-4394-9e25-e971ed28358d",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/dfdf64c4-c1a9-4394-9e25-e971ed28358d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/dfdf64c4-c1a9-4394-9e25-e971ed28358d/threats"
+                  }
+                }
+              },
+              {
+                "id": "f1e236ff-5ae9-4de9-baa6-02d9941a47f5",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f1e236ff-5ae9-4de9-baa6-02d9941a47f5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f1e236ff-5ae9-4de9-baa6-02d9941a47f5/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 72,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "7b743fb9-091e-47cb-8ed3-c1aafc129313",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/7b743fb9-091e-47cb-8ed3-c1aafc129313"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/7b743fb9-091e-47cb-8ed3-c1aafc129313/threats"
+                  }
+                }
+              },
+              {
+                "id": "f8bf958e-c427-4768-8d7d-d762e14a5907",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f8bf958e-c427-4768-8d7d-d762e14a5907"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f8bf958e-c427-4768-8d7d-d762e14a5907/threats"
+                  }
+                }
+              },
+              {
+                "id": "9c41c111-90e3-40eb-b0a3-4520fa57f519",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/0c81cdd9-6de4-4839-9df3-c21aaa8a3eeb"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9c41c111-90e3-40eb-b0a3-4520fa57f519"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9c41c111-90e3-40eb-b0a3-4520fa57f519/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.923Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"212fae58-918f-4d27-aa72-90297553b2c0\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "c4d61e90-8265-4d3a-89ff-ee60d8f07fe4",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c4d61e90-8265-4d3a-89ff-ee60d8f07fe4"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c4d61e90-8265-4d3a-89ff-ee60d8f07fe4/threats"
+                  }
+                }
+              },
+              {
+                "id": "3ac55578-f89d-4e2c-aab3-2c492bd306b5",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/3ac55578-f89d-4e2c-aab3-2c492bd306b5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/3ac55578-f89d-4e2c-aab3-2c492bd306b5/threats"
+                  }
+                }
+              },
+              {
+                "id": "349fb34a-aec5-4229-845d-611ea670f3fe",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "212fae58-918f-4d27-aa72-90297553b2c0",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/212fae58-918f-4d27-aa72-90297553b2c0"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/349fb34a-aec5-4229-845d-611ea670f3fe"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/349fb34a-aec5-4229-845d-611ea670f3fe/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.923Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"586532b9-78b3-4013-b398-c4f16f7fd6f9\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "69293752-05e4-4f6b-8462-c16fd2443ee1",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/69293752-05e4-4f6b-8462-c16fd2443ee1"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/69293752-05e4-4f6b-8462-c16fd2443ee1/threats"
+                  }
+                }
+              },
+              {
+                "id": "360d6cf2-c21d-4532-b894-bfaf1c35caa8",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/360d6cf2-c21d-4532-b894-bfaf1c35caa8"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/360d6cf2-c21d-4532-b894-bfaf1c35caa8/threats"
+                  }
+                }
+              },
+              {
+                "id": "31c684e2-feb5-4437-bc61-deb814c1bdb4",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/31c684e2-feb5-4437-bc61-deb814c1bdb4"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/31c684e2-feb5-4437-bc61-deb814c1bdb4/threats"
+                  }
+                }
+              },
+              {
+                "id": "89a41da5-a508-4c3d-9c7e-f690d76164a5",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/89a41da5-a508-4c3d-9c7e-f690d76164a5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/89a41da5-a508-4c3d-9c7e-f690d76164a5/threats"
+                  }
+                }
+              },
+              {
+                "id": "96e462f4-bb38-4a8e-94af-fc4be1a8aedd",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "586532b9-78b3-4013-b398-c4f16f7fd6f9",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/586532b9-78b3-4013-b398-c4f16f7fd6f9"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96e462f4-bb38-4a8e-94af-fc4be1a8aedd"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/96e462f4-bb38-4a8e-94af-fc4be1a8aedd/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 5,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.923Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"8973ac33-b100-4fc0-86d6-0c726a160148\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "c1f99b43-5792-4305-bd04-dbadb5c1af2b",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c1f99b43-5792-4305-bd04-dbadb5c1af2b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c1f99b43-5792-4305-bd04-dbadb5c1af2b/threats"
+                  }
+                }
+              },
+              {
+                "id": "c7be9819-2aba-451d-a73b-9e5de8627b8d",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c7be9819-2aba-451d-a73b-9e5de8627b8d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/c7be9819-2aba-451d-a73b-9e5de8627b8d/threats"
+                  }
+                }
+              },
+              {
+                "id": "41bcb395-a974-4dc8-8e92-08110942a9da",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/41bcb395-a974-4dc8-8e92-08110942a9da"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/41bcb395-a974-4dc8-8e92-08110942a9da/threats"
+                  }
+                }
+              },
+              {
+                "id": "da028f7a-42d3-48c7-ba83-34ad79f6461d",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da028f7a-42d3-48c7-ba83-34ad79f6461d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da028f7a-42d3-48c7-ba83-34ad79f6461d/threats"
+                  }
+                }
+              },
+              {
+                "id": "da227b5c-4a62-4820-afda-b715fe39aa19",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "8973ac33-b100-4fc0-86d6-0c726a160148",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/8973ac33-b100-4fc0-86d6-0c726a160148"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da227b5c-4a62-4820-afda-b715fe39aa19"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/da227b5c-4a62-4820-afda-b715fe39aa19/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 5,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.924Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"b91db96f-ea0d-4d84-8e03-eda2ac492f10\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "46b89144-74a1-431b-909a-81fd9f7d1b1f",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 2,
+                "component": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/46b89144-74a1-431b-909a-81fd9f7d1b1f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/46b89144-74a1-431b-909a-81fd9f7d1b1f/threats"
+                  }
+                }
+              },
+              {
+                "id": "113e45dd-72d3-4388-9706-4b3e20a0913d",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/113e45dd-72d3-4388-9706-4b3e20a0913d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/113e45dd-72d3-4388-9706-4b3e20a0913d/threats"
+                  }
+                }
+              },
+              {
+                "id": "0a69294a-4d41-40b6-a154-c2effacf159f",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "b91db96f-ea0d-4d84-8e03-eda2ac492f10",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/b91db96f-ea0d-4d84-8e03-eda2ac492f10"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/0a69294a-4d41-40b6-a154-c2effacf159f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/0a69294a-4d41-40b6-a154-c2effacf159f/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 3,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.924Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"1295f192-3334-42a8-bc4c-bba1b35217c4\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "8a85cbf9-9ba2-49b4-b194-034d6b5f571b",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8a85cbf9-9ba2-49b4-b194-034d6b5f571b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/8a85cbf9-9ba2-49b4-b194-034d6b5f571b/threats"
+                  }
+                }
+              },
+              {
+                "id": "5be2c8a8-aaf6-476f-acfa-fccfd3fd68ef",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5be2c8a8-aaf6-476f-acfa-fccfd3fd68ef"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5be2c8a8-aaf6-476f-acfa-fccfd3fd68ef/threats"
+                  }
+                }
+              },
+              {
+                "id": "6e716601-7c20-4c0f-807f-32ad7284b155",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6e716601-7c20-4c0f-807f-32ad7284b155"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/6e716601-7c20-4c0f-807f-32ad7284b155/threats"
+                  }
+                }
+              },
+              {
+                "id": "dfdf64c4-c1a9-4394-9e25-e971ed28358d",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "1295f192-3334-42a8-bc4c-bba1b35217c4",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/1295f192-3334-42a8-bc4c-bba1b35217c4"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/dfdf64c4-c1a9-4394-9e25-e971ed28358d"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/dfdf64c4-c1a9-4394-9e25-e971ed28358d/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 4,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.924Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"bb1e9815-b459-445f-96c0-5277ae997123\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "9ca5a95f-67ac-42ce-8e47-21757c649fb5",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9ca5a95f-67ac-42ce-8e47-21757c649fb5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/9ca5a95f-67ac-42ce-8e47-21757c649fb5/threats"
+                  }
+                }
+              },
+              {
+                "id": "5f1e80bc-5b6f-4962-96a7-3f21c9b6022e",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "bb1e9815-b459-445f-96c0-5277ae997123",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/bb1e9815-b459-445f-96c0-5277ae997123"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5f1e80bc-5b6f-4962-96a7-3f21c9b6022e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/5f1e80bc-5b6f-4962-96a7-3f21c9b6022e/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 2,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.924Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"9e295803-b622-4d84-a534-337abd4a324a\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "e88291d8-8f28-454c-abc8-1839149e2c6b",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/e88291d8-8f28-454c-abc8-1839149e2c6b"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/e88291d8-8f28-454c-abc8-1839149e2c6b/threats"
+                  }
+                }
+              },
+              {
+                "id": "1538530c-465d-4fb3-bd38-10b007ea0cfe",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/1538530c-465d-4fb3-bd38-10b007ea0cfe"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/1538530c-465d-4fb3-bd38-10b007ea0cfe/threats"
+                  }
+                }
+              },
+              {
+                "id": "13702433-86a1-43cf-a0ab-b7be7b3edc2e",
+                "referenceId": "UC-STRIDE-SPOOFING",
+                "name": "Spoofing",
+                "description": "Spoofing involves an attacker pretending to be someone else by falsifying data or identity. This can include spoofing email addresses, IP addresses, or user identities to gain unauthorized access to systems or information.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/13702433-86a1-43cf-a0ab-b7be7b3edc2e"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/13702433-86a1-43cf-a0ab-b7be7b3edc2e/threats"
+                  }
+                }
+              },
+              {
+                "id": "f1e236ff-5ae9-4de9-baa6-02d9941a47f5",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "9e295803-b622-4d84-a534-337abd4a324a",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/9e295803-b622-4d84-a534-337abd4a324a"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f1e236ff-5ae9-4de9-baa6-02d9941a47f5"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/f1e236ff-5ae9-4de9-baa6-02d9941a47f5/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 4,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-28T07:57:14.924Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247/threats"
+                  }
+                }
+              },
+              {
+                "id": "51e0731b-da04-4191-a84c-ae908e04b04f",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f/threats"
+                  }
+                }
+              },
+              {
+                "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                "referenceId": "general-threats",
+                "name": "General Threats",
+                "description": "This component is used to group threats, weaknesses, and countermeasures on global scope, not to any specific component.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce/threats"
+                  }
+                }
+              },
+              {
+                "id": "a3913aea-f102-4c4a-9323-da569eec6e09",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09/threats"
+                  }
+                }
+              },
+              {
+                "id": "de8db30d-2b04-4378-8d8e-0485c9a7dad6",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 6,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:21.528Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"11b800ca-a85e-4071-a07e-0025d8794617\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                "referenceId": "general-threats",
+                "name": "General Threats",
+                "description": "This component is used to group threats, weaknesses, and countermeasures on global scope, not to any specific component.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:22.104Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"71e41f23-ceb0-4203-90e1-4896a839535b\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247/threats"
+                  }
+                }
+              },
+              {
+                "id": "51e0731b-da04-4191-a84c-ae908e04b04f",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f/threats"
+                  }
+                }
+              },
+              {
+                "id": "a3913aea-f102-4c4a-9323-da569eec6e09",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09/threats"
+                  }
+                }
+              },
+              {
+                "id": "de8db30d-2b04-4378-8d8e-0485c9a7dad6",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 5,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:31:22.105Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247/threats"
+                  }
+                }
+              },
+              {
+                "id": "51e0731b-da04-4191-a84c-ae908e04b04f",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f/threats"
+                  }
+                }
+              },
+              {
+                "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                "referenceId": "general-threats",
+                "name": "General Threats",
+                "description": "This component is used to group threats, weaknesses, and countermeasures on global scope, not to any specific component.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce/threats"
+                  }
+                }
+              },
+              {
+                "id": "a3913aea-f102-4c4a-9323-da569eec6e09",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09/threats"
+                  }
+                }
+              },
+              {
+                "id": "de8db30d-2b04-4378-8d8e-0485c9a7dad6",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 6,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.452Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"11b800ca-a85e-4071-a07e-0025d8794617\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                "referenceId": "general-threats",
+                "name": "General Threats",
+                "description": "This component is used to group threats, weaknesses, and countermeasures on global scope, not to any specific component.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"71e41f23-ceb0-4203-90e1-4896a839535b\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247/threats"
+                  }
+                }
+              },
+              {
+                "id": "51e0731b-da04-4191-a84c-ae908e04b04f",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f/threats"
+                  }
+                }
+              },
+              {
+                "id": "a3913aea-f102-4c4a-9323-da569eec6e09",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09/threats"
+                  }
+                }
+              },
+              {
+                "id": "de8db30d-2b04-4378-8d8e-0485c9a7dad6",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 5,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:34.453Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247/threats"
+                  }
+                }
+              },
+              {
+                "id": "51e0731b-da04-4191-a84c-ae908e04b04f",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f/threats"
+                  }
+                }
+              },
+              {
+                "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                "referenceId": "general-threats",
+                "name": "General Threats",
+                "description": "This component is used to group threats, weaknesses, and countermeasures on global scope, not to any specific component.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce/threats"
+                  }
+                }
+              },
+              {
+                "id": "a3913aea-f102-4c4a-9323-da569eec6e09",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09/threats"
+                  }
+                }
+              },
+              {
+                "id": "de8db30d-2b04-4378-8d8e-0485c9a7dad6",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 6,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.168Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"11b800ca-a85e-4071-a07e-0025d8794617\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "62bf90c8-e3f4-420a-aea4-faddf7def0ce",
+                "referenceId": "general-threats",
+                "name": "General Threats",
+                "description": "This component is used to group threats, weaknesses, and countermeasures on global scope, not to any specific component.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "11b800ca-a85e-4071-a07e-0025d8794617",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/11b800ca-a85e-4071-a07e-0025d8794617"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/62bf90c8-e3f4-420a-aea4-faddf7def0ce/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 1,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.169Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=10000",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/use-cases/query",
+        "query_params": {
+          "page": [
+            "0"
+          ],
+          "size": [
+            "10000"
+          ]
+        },
+        "request_body": "{\"filters\":{\"all\":{\"threats\":{\"components\":[\"71e41f23-ceb0-4203-90e1-4896a839535b\"]}}}}",
+        "status": 200,
+        "response_data": {
+          "_embedded": {
+            "items": [
+              {
+                "id": "87871c18-a38f-4a94-9145-7a80c6252247",
+                "referenceId": "UC-STRIDE-DENIAL-OF-SERVICE",
+                "name": "Denial of Service",
+                "description": "Denial of Service attacks aim to disrupt the availability of services or resources to legitimate users. Attackers overwhelm systems with excessive traffic or requests, causing them to become unresponsive or unavailable to users.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/87871c18-a38f-4a94-9145-7a80c6252247/threats"
+                  }
+                }
+              },
+              {
+                "id": "51e0731b-da04-4191-a84c-ae908e04b04f",
+                "referenceId": "UC-STRIDE-ELEVATION-OF-PRIVILEGE",
+                "name": "Elevation of Privilege",
+                "description": "Elevation of privilege involves an attacker gaining higher levels of access or permissions than intended. By exploiting vulnerabilities, attackers can escalate their privileges within a system to perform unauthorized actions or access sensitive data.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/51e0731b-da04-4191-a84c-ae908e04b04f/threats"
+                  }
+                }
+              },
+              {
+                "id": "a3913aea-f102-4c4a-9323-da569eec6e09",
+                "referenceId": "UC-STRIDE-INFORMATION-DISCLOSURE",
+                "name": "Information Disclosure",
+                "description": "Information disclosure occurs when sensitive data is exposed to unauthorized parties. This can include unauthorized access to confidential information, such as personal data, financial records, or intellectual property.",
+                "numberOfThreats": 3,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a3913aea-f102-4c4a-9323-da569eec6e09/threats"
+                  }
+                }
+              },
+              {
+                "id": "de8db30d-2b04-4378-8d8e-0485c9a7dad6",
+                "referenceId": "UC-STRIDE-REPUDIATION",
+                "name": "Repudiation",
+                "description": "Repudiation involves denying an action or event that has taken place. In a security context, repudiation threats can occur when a user denies performing a specific action, such as denying sending a message or making a transaction.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/de8db30d-2b04-4378-8d8e-0485c9a7dad6/threats"
+                  }
+                }
+              },
+              {
+                "id": "a0f1a976-7bb4-4d80-8883-d87e8486a4c9",
+                "referenceId": "UC-STRIDE-TAMPERING",
+                "name": "Tampering",
+                "description": "Tampering refers to unauthorized modification of data or systems. Attackers may alter data in transit or modify software components to introduce vulnerabilities or compromise the integrity of the system.",
+                "numberOfThreats": 1,
+                "component": {
+                  "id": "71e41f23-ceb0-4203-90e1-4896a839535b",
+                  "_links": {
+                    "self": {
+                      "href": "https://release.iriusrisk.com/api/v2/projects/components/71e41f23-ceb0-4203-90e1-4896a839535b"
+                    }
+                  }
+                },
+                "_links": {
+                  "self": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9"
+                  },
+                  "threats": {
+                    "href": "https://release.iriusrisk.com/api/v2/projects/use-cases/a0f1a976-7bb4-4d80-8883-d87e8486a4c9/threats"
+                  }
+                }
+              }
+            ]
+          },
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/projects/4e9b1e8a-dff2-4dc6-81a0-c0e3ef7e547d/use-cases/query?page=0&size=2000"
+            }
+          },
+          "page": {
+            "size": 2000,
+            "totalElements": 5,
+            "totalPages": 1,
+            "number": 0
+          }
+        },
+        "timestamp": "2025-09-25T10:39:48.169Z"
+      }
+    ]
+  },
+  "total_responses": 18
+}

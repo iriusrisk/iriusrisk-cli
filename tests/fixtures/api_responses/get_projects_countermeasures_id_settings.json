@@ -1,0 +1,49 @@
+{
+  "endpoint": "/projects/countermeasures/{id}/settings",
+  "method": "GET",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/settings",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "issueTrackerProfile": {
+            "id": "46196425-df36-4d67-9ef9-4b4617bdd8f1",
+            "type": "azure-dev-ops",
+            "name": "ReleaseAzure-4-45",
+            "assignmentType": {
+              "type": "inherited",
+              "inheritedFrom": "global"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:21.957Z"
+      },
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/countermeasures/ef71d30a-6f2c-44ac-97a1-9fc072449bfb/settings",
+        "method": "GET",
+        "endpoint_pattern": "/projects/countermeasures/{id}/settings",
+        "query_params": {},
+        "request_body": "",
+        "status": 200,
+        "response_data": {
+          "issueTrackerProfile": {
+            "id": "46196425-df36-4d67-9ef9-4b4617bdd8f1",
+            "type": "azure-dev-ops",
+            "name": "ReleaseAzure-4-45",
+            "assignmentType": {
+              "type": "inherited",
+              "inheritedFrom": "global"
+            }
+          }
+        },
+        "timestamp": "2025-09-28T07:57:28.433Z"
+      }
+    ]
+  },
+  "total_responses": 2
+}
