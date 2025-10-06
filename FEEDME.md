@@ -348,20 +348,60 @@ def my_command(cli_ctx, project_id):
 
 ### 2. Project ID Resolution
 
-**Use centralized project resolution utilities** from `utils/project_resolution.py`.
+**CRITICAL**: Always use centralized project resolution utilities from `utils/project_resolution.py`.
 
+**The IriusRisk V2 API requires UUIDs in URL paths**, but users may provide reference IDs (like `badger-app-fgqj`). Resolution must happen **once, at the service layer, before any API calls**.
+
+**Correct Pattern:**
 ```python
-# ✅ CORRECT - Use utilities
-from ..utils.project_resolution import resolve_project_id_to_uuid_strict
+# ✅ CORRECT - Resolve once at the start of service method
+from ..utils.project_resolution import resolve_project_id_to_uuid
 
-def handle_project(project_id: str):
-    uuid = resolve_project_id_to_uuid_strict(project_id)
-    return uuid
+def my_service_method(self, project_id: str):
+    # Resolve FIRST, before any API calls
+    logger.debug(f"Resolving project ID to UUID: {project_id}")
+    final_project_id = resolve_project_id_to_uuid(project_id)
+    logger.debug(f"Resolved to UUID: {final_project_id}")
+    
+    # Now use the UUID for all repository/API calls
+    result = self.project_repository.get_artifacts(final_project_id)
+    return result
+```
 
-# ❌ WRONG - Inline resolution
-def handle_project(project_id: str):
-    if len(project_id) == 36 and project_id.count('-') == 4:  # NEVER DO THIS
-        return project_id
+**NEVER use try/catch fallback mechanisms:**
+```python
+# ❌ WRONG - Fallback mechanism (see "Try/Catch Fallback Mechanisms" anti-pattern)
+def my_service_method(self, project_id: str):
+    try:
+        # Try with whatever we got
+        result = self.project_repository.get_artifacts(project_id)
+    except Exception as e:
+        # Fallback: try to resolve if it failed
+        if "404" in str(e) or "400" in str(e):  # NEVER DO THIS
+            project_data = self.project_repository.get_by_id(project_id)
+            final_id = project_data.get('id')
+            result = self.project_repository.get_artifacts(final_id)
+    return result
+```
+
+**Why this pattern is prohibited:**
+This is a specific instance of the general "Try/Catch Fallback Mechanism" anti-pattern (see Anti-Patterns section). For project IDs specifically:
+- Resolution logic should be explicit and upfront, not hidden in error paths
+- The API requires UUIDs; we should provide them, not rely on error messages to discover format issues
+- Resolution should happen once at service layer, not scattered across repositories
+
+**Layer Responsibilities:**
+- **Services**: MUST resolve project IDs to UUIDs before calling repositories
+- **Repositories**: SHOULD assume they receive UUIDs, not perform resolution
+- **API Clients**: MUST use exactly what they receive (no resolution logic)
+
+**Available Resolution Functions:**
+```python
+from ..utils.project_resolution import (
+    resolve_project_id_to_uuid,        # Returns best-effort UUID
+    resolve_project_id_to_uuid_strict,  # Raises exception if not found
+    is_uuid_format                      # Check if already a UUID
+)
 ```
 
 ### 3. API Client Architecture (Composition Pattern)
@@ -484,12 +524,97 @@ except Exception:
     pass  # Silent failures
 ```
 
-### 4. Environment Variable Access
+### 4. Bypassing Abstraction Layers
+
+**CRITICAL**: Each layer has a defined responsibility. Bypassing layers violates separation of concerns and makes code fragile.
+
+**Common Layer Violations:**
+
 ```python
-# ❌ NEVER DO THIS
-import os
-api_url = os.environ.get('IRIUSRISK_API_URL')
+# ❌ NEVER DO THIS - Commands bypassing services
+@click.command()
+def my_command():
+    # Command directly calling repository/API
+    container = get_container()
+    project_repository = container.get(ProjectRepository)  # Wrong layer!
+    result = project_repository.get_by_id(project_id)
+    
+# ✅ CORRECT - Commands use services
+@click.command()
+def my_command():
+    container = get_container()
+    project_service = container.get(ProjectService)  # Correct!
+    result = project_service.get_project(project_id)
 ```
+
+```python
+# ❌ NEVER DO THIS - Services making direct HTTP calls
+class MyService:
+    def process_data(self, project_id: str):
+        # Service making HTTP request directly
+        response = requests.get(f"{api_url}/projects/{project_id}")  # Wrong!
+        return response.json()
+
+# ✅ CORRECT - Services use repositories
+class MyService:
+    def __init__(self, project_repository: ProjectRepository):
+        self.project_repository = project_repository
+    
+    def process_data(self, project_id: str):
+        return self.project_repository.get_by_id(project_id)
+```
+
+```python
+# ❌ NEVER DO THIS - Bypassing Config abstraction
+import os
+def get_api_settings():
+    api_url = os.environ.get('IRIUSRISK_API_URL')  # Wrong!
+    token = os.environ.get('IRIUSRISK_API_TOKEN')
+    return api_url, token
+
+# ✅ CORRECT - Use Config class
+from ..config import Config
+def get_api_settings():
+    config = Config()
+    return config.api_base_url, config.api_token
+```
+
+```python
+# ❌ NEVER DO THIS - Repositories orchestrating multiple operations
+class ProjectRepository:
+    def get_project_with_threats(self, project_id: str):
+        # Repository orchestrating multiple data sources - wrong layer!
+        project = self.api_client.get_project(project_id)
+        threats = self.threat_api_client.get_threats(project_id)
+        return {**project, 'threats': threats}
+
+# ✅ CORRECT - Services orchestrate, repositories fetch
+class ProjectService:
+    def __init__(self, project_repository, threat_repository):
+        self.project_repository = project_repository
+        self.threat_repository = threat_repository
+    
+    def get_project_with_threats(self, project_id: str):
+        project = self.project_repository.get_by_id(project_id)
+        threats = self.threat_repository.list_all(project_id)
+        return {**project, 'threats': threats}
+```
+
+**Why this is prohibited:**
+- **Tight coupling**: Bypassing layers creates dependencies that shouldn't exist
+- **Harder to test**: Can't mock intermediate layers when they're bypassed
+- **Violates single responsibility**: Each layer should have one clear purpose
+- **Difficult to maintain**: Changes to lower layers break higher layers
+- **Defeats architecture**: The layer structure exists for good reasons
+
+**The Layer Contract:**
+```
+Commands → Services → Repositories → API Clients → HTTP
+   ↓          ↓            ↓
+  I/O    Business Logic   Data Access
+```
+
+Each layer should **only call the layer directly below it**, never skip layers.
 
 ### 5. Hardcoded Values
 ```python
@@ -506,6 +631,99 @@ from ..commands.mcp import _find_project_root_and_config
 # ✅ DO THIS INSTEAD
 from ..utils.project_discovery import find_project_root
 ```
+
+### 7. Try/Catch Fallback Mechanisms
+
+**CRITICAL**: Using try/catch as a fallback mechanism is prohibited. Error handling should be for **exceptional cases**, not for **control flow**.
+
+**Fallback Mechanism Anti-Pattern:**
+```python
+# ❌ NEVER DO THIS - Using exceptions for control flow
+def get_data(self, input_value: str):
+    try:
+        # Try optimistically with one assumption
+        return self.api_client.get_by_uuid(input_value)
+    except Exception as e:
+        # Parse error and try alternate approach
+        if "404" in str(e) or "400" in str(e) or "Not Found" in str(e):
+            # Different approach
+            resolved = self.resolve_to_uuid(input_value)
+            return self.api_client.get_by_uuid(resolved)
+        raise
+
+# ❌ ALSO WRONG - Multiple fallback attempts
+def process_item(self, identifier: str):
+    try:
+        return self.method_a(identifier)
+    except:
+        try:
+            return self.method_b(identifier)
+        except:
+            return self.method_c(identifier)
+```
+
+**Correct Pattern - Determine Intent Upfront:**
+```python
+# ✅ CORRECT - Determine what to do BEFORE making calls
+def get_data(self, input_value: str):
+    # Validate and normalize input FIRST
+    normalized_value = self.validate_and_normalize(input_value)
+    
+    # Now make the call with correct input
+    return self.api_client.get_by_uuid(normalized_value)
+
+# ✅ CORRECT - Use conditional logic, not exception handling
+def process_item(self, identifier: str):
+    # Determine the correct approach upfront
+    if self.is_uuid_format(identifier):
+        return self.process_by_uuid(identifier)
+    elif self.is_reference_id_format(identifier):
+        uuid = self.resolve_reference_to_uuid(identifier)
+        return self.process_by_uuid(uuid)
+    else:
+        raise ValidationError(f"Invalid identifier format: {identifier}")
+```
+
+**Why fallback mechanisms are prohibited:**
+
+1. **Fragile**: String matching on error messages (`"404" in str(e)`) breaks when API changes error format
+2. **Slow**: Makes failed API calls before making correct ones (doubles latency, wastes resources)
+3. **Violates separation of concerns**: Logic scattered across error paths instead of being explicit
+4. **Unpredictable**: Same code behaves differently based on error responses
+5. **Hard to debug**: Control flow depends on runtime failures rather than explicit logic
+6. **Masks real errors**: Legitimate errors may be caught and handled incorrectly
+7. **Poor performance under failure**: System is slowest when things go wrong
+
+**When Error Handling IS Appropriate:**
+
+Error handling should be used for **truly exceptional cases**:
+```python
+# ✅ CORRECT - Handling genuine errors
+def get_project(self, project_uuid: str):
+    try:
+        return self.api_client.get_project(project_uuid)
+    except NetworkError as e:
+        # Network failure is exceptional
+        logger.error(f"Network error fetching project: {e}")
+        raise IriusRiskApiError(f"Failed to connect to API: {e}")
+    except Timeout as e:
+        # Timeout is exceptional
+        logger.error(f"Timeout fetching project: {e}")
+        raise IriusRiskApiError(f"API request timed out: {e}")
+```
+
+**The Principle:**
+- **Exceptions are for exceptional circumstances** (network failures, timeouts, unexpected API changes)
+- **Conditionals are for business logic** (UUID vs reference ID, different input formats, user choices)
+- If you can determine what to do upfront, use conditional logic
+- If you're catching exceptions to try alternate approaches, you're doing control flow wrong
+
+**Common Indicators of Fallback Mechanism Abuse:**
+- Comments like "First try..." or "If that fails..." or "Fallback to..."
+- String matching on error messages
+- Nested try/except blocks
+- `except:` followed by alternate approach rather than error handling
+- Same operation called twice with different parameters
 
 ## Testing Patterns
 
@@ -662,10 +880,11 @@ Before submitting any code changes, verify:
 - [ ] No imports of deprecated globals
 
 **Configuration & Discovery:**
-- [ ] Uses Config class for all environment/config access
-- [ ] No direct `os.environ` access
+- [ ] Uses Config class for all environment/config access (no direct `os.environ` access)
+- [ ] Uses centralized utilities (no bypassing abstractions)
 - [ ] Uses `is_uuid_format()` instead of magic number UUID detection
 - [ ] Uses project resolution utilities from `utils/project_resolution.py`
+- [ ] Project ID resolution happens ONCE at service layer
 - [ ] Uses `find_project_root()` from `utils/project_discovery.py` for discovery
 - [ ] Does NOT import from `commands/mcp.py` (except in tests)
 
@@ -674,12 +893,16 @@ Before submitting any code changes, verify:
 - [ ] No bare `except Exception:` without re-raising or logging
 - [ ] No silent exception swallowing (`except: pass`)
 - [ ] Specific exceptions (ValidationError, IriusRiskApiError) used appropriately
+- [ ] No try/catch fallback mechanisms (exceptions are for errors, not control flow)
+- [ ] Input validation and normalization happens upfront, not in error handlers
 
 **Architecture & Organization:**
 - [ ] Code is in correct module (command/service/repository/utils)
 - [ ] Services contain business logic, not commands
 - [ ] Repositories only do data access, no business logic
 - [ ] Utils are stateless functions
+- [ ] No layer bypassing (commands call services, services call repositories, etc.)
+- [ ] Each layer only calls the layer directly below it
 - [ ] Follows established naming conventions
 
 **Code Quality:**
@@ -739,10 +962,12 @@ except ValidationError as e:
 **NEVER Do These:**
 - ❌ `api_client = ProjectApiClient()` - use Container
 - ❌ `from ..config import config` - no global exists, use `Config()`
-- ❌ `os.environ.get('VAR')` - use Config class
+- ❌ `os.environ.get('VAR')` - use Config class (don't bypass abstractions)
+- ❌ Commands calling repositories directly - use services (respect layer boundaries)
 - ❌ `if len(x) == 36 and x.count('-') == 4:` - use `is_uuid_format()`
 - ❌ `except Exception: pass` - always log or re-raise
 - ❌ Import from `commands/mcp.py` - except in tests
+- ❌ Try/catch fallback mechanisms - determine intent upfront, don't use exceptions for control flow
 
 **Where Does My Code Go?**
 - User I/O and CLI args → **Command**
@@ -761,6 +986,9 @@ When in doubt about architectural decisions:
 5. **Favor configuration classes** over environment variables
 6. **Favor Path objects** over string paths
 7. **Favor specific exceptions** over generic ones
+8. **Favor upfront validation** over try/catch fallback mechanisms
+9. **Favor conditional logic** over exceptions for control flow
+10. **Respect layer boundaries** - each layer only calls the layer directly below it
 
 **If you're unsure**: Ask for clarification rather than guess. Check this guide first, then review existing properly-architected command files as examples.
 
