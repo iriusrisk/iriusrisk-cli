@@ -14,6 +14,7 @@ from .commands.components import component
 from .commands.updates import updates
 from .commands.reports import reports
 from .commands.issue_trackers import issue_tracker
+from .commands.config_cmd import config
 
 
 @click.group(invoke_without_command=True)
@@ -30,31 +31,16 @@ def cli(ctx, version, verbose, debug, quiet, log_file, log_level):
     This tool enables developers and security engineers to integrate 
     IriusRisk into their software development lifecycle.
     
-    Examples:
-        iriusrisk help                    # Show detailed help
-        iriusrisk --help                  # Show basic help
-        iriusrisk init                    # Initialize project configuration
-        iriusrisk project list            # List projects
-        iriusrisk reports generate        # Generate and download reports
-        iriusrisk otm import example.otm  # Import OTM threat model
-        iriusrisk mcp                     # MCP server (invoked by AI tools, not run directly)
-        iriusrisk mcp-example             # Generate example mcp.json file
+    \b
+    Quick Start:
+      iriusrisk config set-hostname <hostname>
+      iriusrisk config set-api-key
+      iriusrisk init
+      iriusrisk project list
     
-    Configuration:
-        Set the following environment variables or create a .env file:
-        - IRIUS_HOSTNAME: Your IriusRisk instance hostname
-        - IRIUS_API_TOKEN: Your API token for authentication
-        
-    Logging Options:
-        --verbose, -v    Enable verbose output to stderr
-        --debug          Enable debug output to stderr  
-        --quiet, -q      Suppress non-essential output
-        --log-file FILE  Write logs to specified file
-        --log-level LEVEL Set log level (DEBUG, INFO, WARN, ERROR)
-        
-    Environment Variables:
-        IRIUSRISK_DEBUG=1        Enable debug mode
-        IRIUSRISK_LOG_FILE=file  Set log file path
+    \b
+    For detailed help run:
+      iriusrisk help
     """
     # Configure logging based on CLI options and environment variables
     from .utils.logging_config import configure_cli_logging
@@ -117,14 +103,26 @@ DESCRIPTION:
     command-line interface.
 
 CONFIGURATION:
-    Before using the CLI, you need to configure your IriusRisk connection:
+    Before using the CLI, you need to configure your IriusRisk connection.
     
-    1. Create a .env file in your current directory, or
-    2. Set environment variables directly
+    Option 1 - User-level configuration (recommended):
+        iriusrisk config set-hostname https://your-instance.iriusrisk.com
+        iriusrisk config set-api-key  # Prompts securely for API key
+        iriusrisk config show  # View current configuration
+        
+    Option 2 - Environment variables:
+        export IRIUS_HOSTNAME=https://your-instance.iriusrisk.com
+        export IRIUS_API_KEY=your-api-token-here
+        
+    Option 3 - Project .env file:
+        echo "IRIUS_HOSTNAME=https://your-instance.iriusrisk.com" > .env
+        echo "IRIUS_API_KEY=your-api-token-here" >> .env
     
-    Required variables:
-        IRIUS_HOSTNAME    - Your IriusRisk instance URL (e.g., https://your-instance.iriusrisk.com)
-        IRIUS_API_TOKEN   - Your API token for authentication
+    Configuration priority (highest to lowest):
+        1. Environment variables (IRIUS_HOSTNAME, IRIUS_API_KEY)
+        2. Project .env file
+        3. Project config (.iriusrisk/project.json - hostname only)
+        4. User config (~/.iriusrisk/config.json)
 
 LOGGING OPTIONS:
     By default, the CLI operates quietly with minimal output. Use these options to control logging:
@@ -151,6 +149,11 @@ BASIC USAGE:
     iriusrisk --quiet project list   # Minimal output, only results
 
 AVAILABLE COMMANDS:
+    Configuration:
+        iriusrisk config set-hostname <hostname>        # Set default hostname
+        iriusrisk config set-api-key                    # Set default API key (prompts securely)
+        iriusrisk config show                           # Show current configuration
+    
     Project Initialization:
         iriusrisk init                              # Initialize new project configuration
         iriusrisk init -n "My Web App"             # Initialize new project with name
@@ -224,9 +227,13 @@ PLANNED COMMANDS (coming soon):
         iriusrisk project fetch <project_id>                # Download project data
 
 EXAMPLES:
-    # Set up configuration
+    # Set up configuration (recommended)
+    iriusrisk config set-hostname https://your-instance.iriusrisk.com
+    iriusrisk config set-api-key  # Prompts securely for API key
+    
+    # Or use environment variables / .env file
     echo "IRIUS_HOSTNAME=https://your-instance.iriusrisk.com" > .env
-    echo "IRIUS_API_TOKEN=your-api-token-here" >> .env
+    echo "IRIUS_API_KEY=your-api-token-here" >> .env
     
     # Test your connection
     iriusrisk test
@@ -316,6 +323,7 @@ def mcp_example():
 
 
 # Add command groups
+cli.add_command(config)
 cli.add_command(project)
 cli.add_command(otm)
 cli.add_command(mcp)

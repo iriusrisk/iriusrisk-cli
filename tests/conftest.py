@@ -101,9 +101,8 @@ def patch_api_client(monkeypatch):
                     return wrapper
                 
                 with patch('iriusrisk_cli.cli_context.pass_cli_context', mock_pass_cli_context):
-                    # Patch any remaining global references for backward compatibility
-                    with patch('iriusrisk_cli.api_client.api_client', mock_client):
-                        yield mock_client
+                    # No longer need to patch api_client global as it's lazy-loaded
+                    yield mock_client
 
 
 # All fixtures and helpers are now imported from tests.utils.fixtures

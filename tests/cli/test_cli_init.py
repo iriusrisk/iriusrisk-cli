@@ -39,9 +39,9 @@ class TestInitCommand:
             assert "Generated reference ID:" in result.output
             assert "✅ Initialized new IriusRisk project" in result.output
             
-            # Check that .iriusRisk directory was created
-            irius_dir = tmp_path / ".iriusRisk"
-            assert irius_dir.exists(), ".iriusRisk directory should be created"
+            # Check that .iriusrisk directory was created
+            irius_dir = tmp_path / ".iriusrisk"
+            assert irius_dir.exists(), ".iriusrisk directory should be created"
             
             # Check that project.json was created with correct content
             project_file = irius_dir / "project.json"
@@ -72,7 +72,7 @@ class TestInitCommand:
             assert "✅ Initialized new IriusRisk project" in result.output
             
             # Check project.json content
-            project_file = tmp_path / ".iriusRisk" / "project.json"
+            project_file = tmp_path / ".iriusrisk" / "project.json"
             with open(project_file) as f:
                 config = json.load(f)
             
@@ -95,7 +95,7 @@ class TestInitCommand:
             assert "API Service" in result.output
             
             # Check project.json content
-            project_file = tmp_path / ".iriusRisk" / "project.json"
+            project_file = tmp_path / ".iriusrisk" / "project.json"
             with open(project_file) as f:
                 config = json.load(f)
             
@@ -156,7 +156,7 @@ class TestInitCommand:
             )
             
             # Check project.json content
-            project_file = tmp_path / ".iriusRisk" / "project.json"
+            project_file = tmp_path / ".iriusrisk" / "project.json"
             with open(project_file) as f:
                 config = json.load(f)
             
@@ -194,28 +194,28 @@ class TestInitCommand:
             assert result.exit_code != 0, "Command should fail for non-existent project"
             assert "No project found with reference ID 'non-existent'" in result.output
             
-            # Should not create .iriusRisk directory
-            irius_dir = tmp_path / ".iriusRisk"
-            assert not irius_dir.exists(), ".iriusRisk directory should not be created"
+            # Should not create .iriusrisk directory
+            irius_dir = tmp_path / ".iriusrisk"
+            assert not irius_dir.exists(), ".iriusrisk directory should not be created"
             
         finally:
             os.chdir(original_cwd)
     
     def test_init_directory_already_exists(self, cli_runner, mock_api_client, tmp_path):
-        """Test 'iriusrisk init' when .iriusRisk directory already exists."""
+        """Test 'iriusrisk init' when .iriusrisk directory already exists."""
         original_cwd = Path.cwd()
         try:
             import os
             os.chdir(tmp_path)
             
-            # Create existing .iriusRisk directory
-            irius_dir = tmp_path / ".iriusRisk"
+            # Create existing .iriusrisk directory
+            irius_dir = tmp_path / ".iriusrisk"
             irius_dir.mkdir()
             
             result = cli_runner.invoke(cli, ['init', '--name', 'Test Project'])
             
             assert result.exit_code != 0, "Command should fail when directory exists"
-            assert ".iriusRisk directory already exists" in result.output
+            assert ".iriusrisk directory already exists" in result.output
             assert "Use --force to overwrite" in result.output
             
         finally:
@@ -228,8 +228,8 @@ class TestInitCommand:
             import os
             os.chdir(tmp_path)
             
-            # Create existing .iriusRisk directory with old config
-            irius_dir = tmp_path / ".iriusRisk"
+            # Create existing .iriusrisk directory with old config
+            irius_dir = tmp_path / ".iriusrisk"
             irius_dir.mkdir()
             old_config = {"name": "Old Project"}
             with open(irius_dir / "project.json", 'w') as f:
@@ -328,7 +328,7 @@ class TestInitCommandIntegration:
             assert result.exit_code == 0
             
             # Verify directory structure
-            irius_dir = tmp_path / ".iriusRisk"
+            irius_dir = tmp_path / ".iriusrisk"
             assert irius_dir.exists()
             assert irius_dir.is_dir()
             

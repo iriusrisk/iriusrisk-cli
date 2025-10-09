@@ -83,28 +83,75 @@ $ pip install iriusrisk-cli
 
 ## Configuration
 
-Before using the CLI, you need to configure your IriusRisk connection. You can do this in two ways:
+Before using the CLI, you need to configure your IriusRisk connection. The CLI supports multiple configuration methods with a clear priority order.
 
-### Option 1: Create a .env file (Recommended)
+### Recommended: User-Level Configuration
+
+Set up your credentials once for use across all projects:
+
+```bash
+# Set your default IriusRisk hostname
+iriusrisk config set-hostname https://your-instance.iriusrisk.com
+
+# Set your API key (prompts securely, not stored in shell history)
+iriusrisk config set-api-key
+
+# View your current configuration
+iriusrisk config show
+```
+
+This approach:
+- Keeps your API key secure (not in project files)
+- Works across all projects automatically
+- Can be overridden per-project or per-session
+
+### Configuration Priority
+
+The CLI checks configuration sources in this order (highest to lowest):
+
+1. **Environment variables** - `IRIUS_HOSTNAME` and `IRIUS_API_KEY` (or `IRIUS_API_TOKEN`)
+2. **Project .env file** - `.env` in your project directory
+3. **Project config** - `.iriusrisk/project.json` (hostname only, never API credentials)
+4. **User config** - `~/.iriusrisk/config.json` (set via `iriusrisk config` commands)
+
+Each setting is resolved independently, so you can mix sources (e.g., API key from user config, hostname from environment variable).
+
+### Alternative Configuration Methods
+
+#### Option 2: Project .env file
 
 Create a `.env` file in your project directory:
 
 ```bash
-# Create .env file
 cat > .env << EOF
 IRIUS_HOSTNAME=https://your-instance.iriusrisk.com
-IRIUS_API_TOKEN=your-api-token-here
+IRIUS_API_KEY=your-api-token-here
 EOF
 ```
 
-### Option 2: Set environment variables directly
+**Warning**: If using `.env` files, add them to `.gitignore` to avoid committing credentials.
+
+#### Option 3: Environment variables
 
 ```bash
 export IRIUS_HOSTNAME=https://your-instance.iriusrisk.com
-export IRIUS_API_TOKEN=your-api-token-here
+export IRIUS_API_KEY=your-api-token-here
 ```
 
-**Note**: The CLI will first look for a `.env` file in the current directory, then fall back to environment variables.
+#### Option 4: Project-specific hostname
+
+For teams working with different IriusRisk instances, you can set a hostname in the project config:
+
+```bash
+# Manually edit .iriusrisk/project.json and add:
+{
+  "hostname": "https://dev-instance.iriusrisk.com",
+  "project_id": "...",
+  ...
+}
+```
+
+**Note**: API credentials should never be stored in project config files.
 
 ## Logging and Output Control
 
@@ -287,10 +334,14 @@ $ iriusrisk countermeasures get <project> --top-10    # gets the top 10 highest 
 
 ## Authentication
 
-Authentication is done using an API key. The hostname and API keys should be loaded from environment variables. We can look for a .env file first in the current directory, and if that does not exist, we should look in the environment itself. The environment variables we would be looking for are as follows:
+Authentication is done using an API key. Configuration can be set via:
 
-* IRIUS_HOSTNAME
-* IRIUS_API_TOKEN
+1. User config: `iriusrisk config set-hostname` and `iriusrisk config set-api-key`
+2. Environment variables: `IRIUS_HOSTNAME` and `IRIUS_API_KEY` (or `IRIUS_API_TOKEN`)
+3. Project .env file
+4. Project config (hostname only)
+
+See the Configuration section above for detailed setup instructions.
 
 
 

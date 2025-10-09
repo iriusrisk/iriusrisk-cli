@@ -34,10 +34,10 @@ def list(output_format: str):
     for synchronization with IriusRisk.
     """
     try:
-        # Find .iriusRisk directory
-        iriusrisk_dir = Path.cwd() / '.iriusRisk'
+        # Find .iriusrisk directory
+        iriusrisk_dir = Path.cwd() / '.iriusrisk'
         if not iriusrisk_dir.exists():
-            click.echo("No .iriusRisk directory found. Run 'iriusrisk sync' first.", err=True)
+            click.echo("No .iriusrisk directory found. Run 'iriusrisk sync' first.", err=True)
             raise click.Abort()
         
         tracker = get_update_tracker(iriusrisk_dir)
@@ -90,10 +90,10 @@ def list(output_format: str):
 def stats(applied: bool, output_format: str):
     """Show statistics about tracked updates."""
     try:
-        # Find .iriusRisk directory
-        iriusrisk_dir = Path.cwd() / '.iriusRisk'
+        # Find .iriusrisk directory
+        iriusrisk_dir = Path.cwd() / '.iriusrisk'
         if not iriusrisk_dir.exists():
-            click.echo("No .iriusRisk directory found. Run 'iriusrisk sync' first.", err=True)
+            click.echo("No .iriusrisk directory found. Run 'iriusrisk sync' first.", err=True)
             raise click.Abort()
         
         tracker = get_update_tracker(iriusrisk_dir)
@@ -143,10 +143,10 @@ def clear():
     This removes all status update tracking. Use with caution.
     """
     try:
-        # Find .iriusRisk directory
-        iriusrisk_dir = Path.cwd() / '.iriusRisk'
+        # Find .iriusrisk directory
+        iriusrisk_dir = Path.cwd() / '.iriusrisk'
         if not iriusrisk_dir.exists():
-            click.echo("No .iriusRisk directory found. Run 'iriusrisk sync' first.", err=True)
+            click.echo("No .iriusrisk directory found. Run 'iriusrisk sync' first.", err=True)
             raise click.Abort()
         
         tracker = get_update_tracker(iriusrisk_dir)
@@ -168,10 +168,10 @@ def cleanup():
     while preserving any pending updates for retry.
     """
     try:
-        # Find .iriusRisk directory
-        iriusrisk_dir = Path.cwd() / '.iriusRisk'
+        # Find .iriusrisk directory
+        iriusrisk_dir = Path.cwd() / '.iriusrisk'
         if not iriusrisk_dir.exists():
-            click.echo("No .iriusRisk directory found. Run 'iriusrisk sync' first.", err=True)
+            click.echo("No .iriusrisk directory found. Run 'iriusrisk sync' first.", err=True)
             raise click.Abort()
         
         tracker = get_update_tracker(iriusrisk_dir)

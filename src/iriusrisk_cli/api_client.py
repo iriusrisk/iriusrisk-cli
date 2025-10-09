@@ -174,5 +174,6 @@ class IriusRiskApiClient:
         return self.report_client.get_project_issue_trackers(project_id, page, size)
 
 
-# Global API client instance
-api_client = IriusRiskApiClient()
+# Global API client instance - removed to prevent eager config loading
+# Use container.get(IriusRiskApiClient) instead
+# api_client = IriusRiskApiClient()

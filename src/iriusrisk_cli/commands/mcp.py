@@ -100,8 +100,8 @@ When you detect these patterns, respond like:
 
 ## 🚫 CRITICAL: DO NOT USE CLI COMMANDS DIRECTLY
 **NEVER use `iriusrisk` CLI commands like `iriusrisk countermeasures list` or `iriusrisk threats list`.**
-**ALWAYS use MCP tools and read the downloaded JSON files from .iriusRisk/ directory instead.**
-**Example: Instead of `iriusrisk countermeasures list`, read .iriusRisk/countermeasures.json file.**
+**ALWAYS use MCP tools and read the downloaded JSON files from .iriusrisk/ directory instead.**
+**Example: Instead of `iriusrisk countermeasures list`, read .iriusrisk/countermeasures.json file.**
 
 ## 🚨 CRITICAL COUNTERMEASURE UPDATE REQUIREMENTS 🚨
 **FOR ANY COUNTERMEASURE STATUS CHANGE:**
@@ -137,7 +137,7 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 ### 3. sync(project_path)
 - **Purpose**: Synchronizes with IriusRisk to pull down components, trust zones, and project data
 - **When to use**: Before creating threat models to ensure access to latest component library
-- **Parameters**: project_path - Full path to the project directory (where .iriusRisk should be created)
+- **Parameters**: project_path - Full path to the project directory (where .iriusrisk should be created)
 - **Returns**: Status message indicating what was synced and where files were saved
 
 ### 4. import_otm(otm_file_path)
@@ -238,7 +238,7 @@ Use IriusRisk MCP tools when:
 ### Best Practices
 1. **MANDATORY Initialization**: ALWAYS call initialize_iriusrisk_workflow() first to get critical workflow instructions
 2. **🚫 DO NOT USE CLI COMMANDS**: NEVER use `iriusrisk` CLI commands directly. Always use MCP tools and read downloaded JSON files instead
-3. **📁 Use Downloaded JSON Files**: Read threats.json, countermeasures.json, components.json from .iriusRisk/ directory instead of CLI commands
+3. **📁 Use Downloaded JSON Files**: Read threats.json, countermeasures.json, components.json from .iriusrisk/ directory instead of CLI commands
 4. **Version Checking**: Use get_cli_version() when users report issues or when compatibility is a concern
 5. **Sync First**: Use sync() before any threat modeling to ensure access to latest components and trust zones
 6. **Threat Model Creation**: Use create_threat_model() when users want to create threat models from source material
@@ -370,7 +370,7 @@ AI Response: Use TWO separate track_countermeasure_update() calls:
 ### Scenario 16: Creating Issue Tracker Tickets
 User: "I need to create tickets for the authentication countermeasures so the team can implement them"
 AI Response: 
-1. First, read .iriusRisk/countermeasures.json to find authentication-related countermeasures
+1. First, read .iriusrisk/countermeasures.json to find authentication-related countermeasures
 2. Use create_countermeasure_issue() for each authentication countermeasure that needs team implementation
 3. The issue creation requests will be tracked and the actual issues will be created when sync() is run
 
@@ -378,7 +378,7 @@ AI Response:
 User: "Mark the SQL injection countermeasure as required and create an issue tracker ticket for it"
 AI Response:
 ❌ WRONG: `iriusrisk countermeasures list | grep -i "injection"`
-✅ CORRECT: Read .iriusRisk/countermeasures.json, search for SQL injection countermeasures, then use track_countermeasure_update() and create_countermeasure_issue()
+✅ CORRECT: Read .iriusrisk/countermeasures.json, search for SQL injection countermeasures, then use track_countermeasure_update() and create_countermeasure_issue()
 
 ### Scenario 18: CRITICAL Two-Step Process for ALL Status Changes
 When changing ANY countermeasure status, ALWAYS make TWO separate calls:
@@ -464,7 +464,7 @@ track_countermeasure_update(
         syncs threats and countermeasures if a project already exists.
         
         Args:
-            project_path: Full path to the project directory (where .iriusRisk should be created)
+            project_path: Full path to the project directory (where .iriusrisk should be created)
         
         Returns:
             Status message indicating what was synced and where files were saved.
@@ -494,14 +494,14 @@ track_countermeasure_update(
                     error_msg = f"❌ Project path is not a directory: {project_path}"
                     logger.error(error_msg)
                     return error_msg
-                output_dir = str(project_root / '.iriusRisk')
+                output_dir = str(project_root / '.iriusrisk')
             else:
                 project_root = Path.cwd()
-                output_dir = str(project_root / '.iriusRisk')
+                output_dir = str(project_root / '.iriusrisk')
             
             # Read project.json to get project_id if available
             project_config = None
-            project_json_path = project_root / '.iriusRisk' / 'project.json'
+            project_json_path = project_root / '.iriusrisk' / 'project.json'
             logger.info(f"Looking for project.json at: {project_json_path}")
             if project_json_path.exists():
                 try:
@@ -742,7 +742,7 @@ track_countermeasure_update(
             else:
                 # Try to get project ID from project.json first
                 from pathlib import Path
-                project_json_path = Path.cwd() / '.iriusRisk' / 'project.json'
+                project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
                 resolved_project_id = None
                 
                 if project_json_path.exists():
@@ -846,7 +846,7 @@ After completing the threat modeling workflow (sync → create OTM → import �
 
 ## Available Data Files
 
-After the final sync() step, you have access to these JSON files in the .iriusRisk/ directory:
+After the final sync() step, you have access to these JSON files in the .iriusrisk/ directory:
 
 ### 1. threats.json
 **Contains all threats that IriusRisk identified**, including:
@@ -1073,7 +1073,7 @@ Remember: You are helping users understand and act on IriusRisk's professional s
                 resolved_project_id = project_id
             else:
                 # Try to get project ID from project.json first
-                project_json_path = Path.cwd() / '.iriusRisk' / 'project.json'
+                project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
                 resolved_project_id = None
                 
                 if project_json_path.exists():
@@ -1148,13 +1148,13 @@ Remember: You are helping users understand and act on IriusRisk's professional s
             
             # Create filename and determine project directory
             try:
-                # Find the project directory by looking for .iriusRisk/project.json
+                # Find the project directory by looking for .iriusrisk/project.json
                 project_root = None
                 current_dir = Path.cwd()
                 
-                # Check current directory and parent directories for .iriusRisk/project.json
+                # Check current directory and parent directories for .iriusrisk/project.json
                 for check_dir in [current_dir] + list(current_dir.parents):
-                    project_json_path = check_dir / '.iriusRisk' / 'project.json'
+                    project_json_path = check_dir / '.iriusrisk' / 'project.json'
                     if project_json_path.exists():
                         project_root = check_dir
                         try:
@@ -1644,7 +1644,7 @@ dataflows:
 
 ### WHAT YOU MUST DO:
 1. **MUST use the sync() MCP tool first to get latest components and trust zones**
-2. **MUST read the .iriusRisk/components.json and .iriusRisk/trust-zones.json files for component and trust zone mapping**
+2. **MUST read the .iriusrisk/components.json and .iriusrisk/trust-zones.json files for component and trust zone mapping**
 3. **ONLY create the architectural design (components, trust zones, data flows)**
 4. **MUST use the import_otm() MCP tool to upload the OTM to IriusRisk**
 5. **MUST verify the upload was successful**
@@ -1659,9 +1659,9 @@ You MUST complete steps 0-7. Step 8 is only done when user requests security fin
 
 ☐ Step 0: SYNC FIRST - Use sync(project_path) MCP tool to pull down latest IriusRisk components and trust zones  
 ☐ Step 1: Analyze source material and identify architectural components
-☐ Step 2: Check for .iriusRisk/project.json file and read project name/ID if it exists
+☐ Step 2: Check for .iriusrisk/project.json file and read project name/ID if it exists
 ☐ Step 3: Create OTM file with ONLY components, trust zones, and data flows (use project.json data)
-☐ Step 4: Read .iriusRisk/components.json and .iriusRisk/trust-zones.json files (DO NOT use CLI component commands)
+☐ Step 4: Read .iriusrisk/components.json and .iriusrisk/trust-zones.json files (DO NOT use CLI component commands)
 ☐ Step 5: Use import_otm() MCP tool to upload OTM file to IriusRisk
 ☐ Step 6: Use project_status() MCP tool to verify project is ready
 ☐ Step 7: Present results and offer user options (refine architecture OR download security findings)
@@ -1677,7 +1677,7 @@ Use the sync(project_path) MCP tool to pull down the latest IriusRisk component 
 ```
 
 **⚠️ CRITICAL: You MUST provide the full project path to sync():**
-- Use the full absolute path to the directory where you want the .iriusRisk folder created
+- Use the full absolute path to the directory where you want the .iriusrisk folder created
 - This should be the root directory of the user's project
 - Example: sync("/Users/username/my-project")
 
@@ -1690,7 +1690,7 @@ Use the sync(project_path) MCP tool to pull down the latest IriusRisk component 
 **What sync() does:**
 - Always downloads the complete IriusRisk component library
 - If a project is configured, also downloads current threats and countermeasures
-- Saves all data to .iriusRisk/ directory for use in threat modeling
+- Saves all data to .iriusrisk/ directory for use in threat modeling
 - Returns status showing what was synced and where files are located
 
 ### Step 1: Analyze Source Material
@@ -1713,9 +1713,9 @@ Use the sync(project_path) MCP tool to pull down the latest IriusRisk component 
 
 ### Step 2: Check for Existing Project Configuration
 
-**⚠️ IMPORTANT: Always check for .iriusRisk/project.json first:**
+**⚠️ IMPORTANT: Always check for .iriusrisk/project.json first:**
 
-1. **Look for .iriusRisk/project.json file** in the current directory or parent directories
+1. **Look for .iriusrisk/project.json file** in the current directory or parent directories
 2. **If project.json exists**, read the project configuration:
    - `name` - Project name to use in OTM
    - `project_id` - Project ID to use in OTM  
@@ -1727,7 +1727,7 @@ Use the sync(project_path) MCP tool to pull down the latest IriusRisk component 
 Create an OTM (Open Threat Model) file with ONLY the architectural design:
 
 **⚠️ IMPORTANT: Use project.json data if it exists**
-- If there's a `.iriusRisk/project.json` file, use the `name` and `project_id` from that file
+- If there's a `.iriusrisk/project.json` file, use the `name` and `project_id` from that file
 - If no project.json exists, use descriptive names from the source material
 
 **🔥🔥🔥 CRITICAL DATAFLOW RULE - MOST COMMON ERROR 🔥🔥🔥**
@@ -1745,8 +1745,8 @@ Create an OTM (Open Threat Model) file with ONLY the architectural design:
 ```yaml
 otmVersion: 0.1.0
 project:
-  name: "[Use name from .iriusRisk/project.json OR project name from source material]"
-  id: "[Use project_id from .iriusRisk/project.json OR generate unique-project-id]"
+  name: "[Use name from .iriusrisk/project.json OR project name from source material]"
+  id: "[Use project_id from .iriusrisk/project.json OR generate unique-project-id]"
   description: "[Brief description of the system]"
 
 trustZones:
@@ -1831,7 +1831,7 @@ dataflows:
 - Any other `iriusrisk component` commands
 
 **✅ REQUIRED: Use ONLY the synced JSON file:**
-1. **Read the `.iriusRisk/components.json` file** that was created by the sync() tool
+1. **Read the `.iriusrisk/components.json` file** that was created by the sync() tool
 2. **Search through the JSON data programmatically** to find component types
 3. **Use file reading tools** to examine the components.json structure
 
@@ -1974,7 +1974,7 @@ dataflows:
 2. **What this sync does:**
    - Downloads all threats that IriusRisk automatically generated
    - Downloads all countermeasures that IriusRisk automatically suggested  
-   - Updates the local .iriusRisk/ directory with complete threat model data
+   - Updates the local .iriusrisk/ directory with complete threat model data
    - Provides access to IriusRisk's security analysis
 
 ### Step 10: REQUIRED Analysis Guide - Help Users Explore Results
@@ -2078,9 +2078,9 @@ dataflows:
 ### MANDATORY Execution Workflow:
 ```bash
 # 0. REQUIRED FIRST: Use sync() MCP tool to download component library
-# This creates .iriusRisk/components.json with all available components
+# This creates .iriusrisk/components.json with all available components
 
-# 1. Read and analyze .iriusRisk/components.json for component mapping
+# 1. Read and analyze .iriusrisk/components.json for component mapping
 # DO NOT use CLI component commands - use the JSON file directly
 
 # 2. Create OTM file with ONLY architectural components (NO THREATS/CONTROLS)
@@ -2149,7 +2149,7 @@ When creating threat models as an AI assistant:
 
 ### BEFORE COMPLETING THE TASK, VERIFY:
 ☐ Used sync() MCP tool FIRST to download latest components, trust zones, and project data
-☐ Read and used ONLY the .iriusRisk/components.json and .iriusRisk/trust-zones.json files for component and trust zone mapping
+☐ Read and used ONLY the .iriusrisk/components.json and .iriusrisk/trust-zones.json files for component and trust zone mapping
 ☐ Did NOT use any CLI component search or component list commands
 ☐ Created OTM file with ONLY architecture (components, trust zones, data flows)
 ☐ Did NOT add any threats, mitigations, controls, or vulnerabilities sections
@@ -2174,7 +2174,7 @@ When creating threat models as an AI assistant:
 ### ROLE DIVISION:
 **What the AI MUST do:**
 - Use sync() MCP tool FIRST before any other work
-- Read and use ONLY the .iriusRisk/components.json file for component mapping
+- Read and use ONLY the .iriusrisk/components.json file for component mapping
 - DO NOT use CLI component search or component list commands
 - Analyze source material and identify architectural components ONLY
 - Create OTM file with components, trust zones, and data flows ONLY
@@ -2220,9 +2220,9 @@ When creating threat models as an AI assistant:
             # Find project root and get update tracker
             project_root, _ = _find_project_root_and_config()
             if not project_root:
-                return "Error: Could not find project directory with .iriusRisk folder. Make sure you're in a project directory or have run sync() first."
+                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
             
-            iriusrisk_dir = project_root / '.iriusRisk'
+            iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
             
             # Track the update
@@ -2289,9 +2289,9 @@ When creating threat models as an AI assistant:
             # Find project root and get update tracker
             project_root, _ = _find_project_root_and_config()
             if not project_root:
-                return "Error: Could not find project directory with .iriusRisk folder. Make sure you're in a project directory or have run sync() first."
+                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
             
-            iriusrisk_dir = project_root / '.iriusRisk'
+            iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
             
             # Track the update
@@ -2334,7 +2334,7 @@ When creating threat models as an AI assistant:
             # Find project root and get update tracker
             project_root, project_config = _find_project_root_and_config()
             if not project_root:
-                return "❌ Error: Could not find project directory with .iriusRisk folder. Make sure you're in a project directory or have run sync() first."
+                return "❌ Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
             
             if not project_config:
                 return "❌ Error: Could not find project configuration. Make sure you have a valid project setup."
@@ -2349,7 +2349,7 @@ When creating threat models as an AI assistant:
             else:
                 tracker_name = issue_tracker_id
             
-            iriusrisk_dir = project_root / '.iriusRisk'
+            iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
             
             # Track the issue creation request
@@ -2378,9 +2378,9 @@ When creating threat models as an AI assistant:
             # Find project root and get update tracker
             project_root, _ = _find_project_root_and_config()
             if not project_root:
-                return "Error: Could not find project directory with .iriusRisk folder. Make sure you're in a project directory or have run sync() first."
+                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
             
-            iriusrisk_dir = project_root / '.iriusRisk'
+            iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
             
             pending_updates = tracker.get_pending_updates()
@@ -2430,9 +2430,9 @@ When creating threat models as an AI assistant:
             # Find project root and get update tracker
             project_root, _ = _find_project_root_and_config()
             if not project_root:
-                return "Error: Could not find project directory with .iriusRisk folder. Make sure you're in a project directory or have run sync() first."
+                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
             
-            iriusrisk_dir = project_root / '.iriusRisk'
+            iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
             
             cleared_count = tracker.clear_all_updates()

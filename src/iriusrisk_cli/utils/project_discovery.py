@@ -18,7 +18,7 @@ def find_project_root(
     check_workspace_env: bool = True,
     check_home_subdirs: bool = True
 ) -> Tuple[Path, Optional[Dict[str, Any]]]:
-    """Find the project root directory containing .iriusRisk/project.json.
+    """Find the project root directory containing .iriusrisk/project.json.
     
     This function performs a sophisticated search for project configuration:
     1. Checks workspace environment variables (if enabled)
@@ -93,10 +93,10 @@ def find_project_root(
                 except (PermissionError, OSError):
                     continue
     
-    # Walk through all potential paths looking for .iriusRisk/project.json
+    # Walk through all potential paths looking for .iriusrisk/project.json
     for path in workspace_paths_to_try:
         try:
-            project_json_path = path / '.iriusRisk' / 'project.json'
+            project_json_path = path / '.iriusrisk' / 'project.json'
             if project_json_path.exists():
                 project_root = path
                 try:
@@ -112,7 +112,7 @@ def find_project_root(
             continue
     
     # If still no project found, use starting/current working directory
-    if project_root == current_dir and not (current_dir / '.iriusRisk' / 'project.json').exists():
+    if project_root == current_dir and not (current_dir / '.iriusrisk' / 'project.json').exists():
         project_root = current_dir
         logger.debug(f"No project config found, using current directory: {project_root}")
     

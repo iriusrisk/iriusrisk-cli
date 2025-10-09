@@ -46,8 +46,8 @@ class TestTemporaryProject:
             assert project_dir.exists()
             assert project_dir.name == "test-proj"
             
-            # Check .iriusRisk directory structure
-            iriusrisk_dir = project_dir / ".iriusRisk"
+            # Check .iriusrisk directory structure
+            iriusrisk_dir = project_dir / ".iriusrisk"
             assert iriusrisk_dir.exists()
             
             # Check project.json

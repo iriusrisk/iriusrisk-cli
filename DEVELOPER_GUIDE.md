@@ -65,12 +65,28 @@ def show(project_id):
     # Implementation here
 ```
 
-### Environment Variables
+### Configuration
+
+The CLI supports multiple configuration methods. For development:
+
 ```bash
+# Option 1: User config (recommended for development)
+iriusrisk config set-hostname https://your-instance.iriusrisk.com
+iriusrisk config set-api-key  # prompts securely for API key
+
+# Option 2: Project .env file
+cat > .env << EOF
 IRIUS_HOSTNAME=https://your-instance.iriusrisk.com
-IRIUS_API_TOKEN=your-api-token-here
+IRIUS_API_KEY=your-api-token-here
 IRIUS_LOG_RESPONSES=true  # Optional: for debugging
+EOF
+
+# Option 3: Environment variables
+export IRIUS_HOSTNAME=https://your-instance.iriusrisk.com
+export IRIUS_API_KEY=your-api-token-here
 ```
+
+Note: Both `IRIUS_API_KEY` and `IRIUS_API_TOKEN` are supported for backward compatibility.
 
 ## Debugging
 
@@ -83,8 +99,9 @@ iriusrisk project list
 
 ### Common Issues
 - **Import errors**: Run `pip install -e .`
-- **Test failures**: Check environment variables in `.env`
+- **Test failures**: Check configuration using `iriusrisk config show`
 - **API errors**: Verify credentials and network access
+- **Config not found**: Ensure either user config (~/.iriusrisk/config.json), .env file, or environment variables are set
 
 ## Pull Request Guidelines
 

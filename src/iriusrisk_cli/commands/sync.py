@@ -22,12 +22,12 @@ logger = logging.getLogger(__name__)
 
 
 def _ensure_iriusrisk_directory() -> Path:
-    """Ensure the .iriusRisk directory exists in the current working directory.
+    """Ensure the .iriusrisk directory exists in the current working directory.
     
     Returns:
-        Path to the .iriusRisk directory
+        Path to the .iriusrisk directory
     """
-    iriusrisk_dir = Path.cwd() / '.iriusRisk'
+    iriusrisk_dir = Path.cwd() / '.iriusrisk'
     iriusrisk_dir.mkdir(exist_ok=True)
     return iriusrisk_dir
 
@@ -232,7 +232,7 @@ def sync_data_to_directory(project_id: Optional[str] = None,
     
     Args:
         project_id: Project UUID or reference ID (optional if default project configured)
-        output_dir: Output directory (default: .iriusRisk in current directory)
+        output_dir: Output directory (default: .iriusrisk in current directory)
         threats_only: Only sync threats data
         countermeasures_only: Only sync countermeasures data
         components_only: Only sync system components data
@@ -388,7 +388,7 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
     If critical errors occur, it can preserve the updates for retry.
     
     Args:
-        output_path: Path to the .iriusRisk directory containing updates.json
+        output_path: Path to the .iriusrisk directory containing updates.json
         project_id: Resolved project UUID for API calls (required for issue creation)
         api_client: IriusRisk API client instance (optional, will create from container if not provided)
         
@@ -613,7 +613,7 @@ def _save_json_file(data: Dict[str, Any], file_path: Path, data_type: str) -> No
 @click.option('--countermeasures-only', is_flag=True, help='Only sync countermeasures data')
 @click.option('--components-only', is_flag=True, help='Only sync system components data')
 @click.option('--trust-zones-only', is_flag=True, help='Only sync system trust zones data')
-@click.option('--output-dir', '-o', help='Output directory (default: .iriusRisk)')
+@click.option('--output-dir', '-o', help='Output directory (default: .iriusrisk)')
 @click.option('--format', '-f', 'output_format',
               type=click.Choice(['json', 'pretty'], case_sensitive=False),
               default='pretty', help='Output format for JSON files')
@@ -623,7 +623,7 @@ def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bo
     
     This command downloads all threats and countermeasures data for a project,
     plus all system components and trust zones data, and saves them as JSON files in the 
-    .iriusRisk directory for offline analysis.
+    .iriusrisk directory for offline analysis.
     
     Args:
         project_id: Project UUID or reference ID (optional if default project configured)
@@ -689,7 +689,7 @@ def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bo
             logger.debug(f"Using custom output directory: {output_path}")
         else:
             output_path = _ensure_iriusrisk_directory()
-            logger.debug(f"Using default .iriusRisk directory: {output_path}")
+            logger.debug(f"Using default .iriusrisk directory: {output_path}")
         
         logger.info(f"Synchronizing data to: {output_path.absolute()}")
         click.echo(f"Synchronizing data to: {output_path.absolute()}")
@@ -839,7 +839,7 @@ def sync_data_to_directory(project_id: Optional[str] = None, output_dir: Optiona
     
     Args:
         project_id: Project ID to sync (optional)
-        output_dir: Output directory path (defaults to .iriusRisk in current directory)
+        output_dir: Output directory path (defaults to .iriusrisk in current directory)
         
     Returns:
         Dictionary containing sync results and metadata

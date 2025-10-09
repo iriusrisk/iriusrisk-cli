@@ -34,12 +34,12 @@ def temp_dir():
 
 @pytest.fixture
 def project_dir(temp_dir):
-    """Fixture that provides a temporary project directory with .iriusRisk setup."""
+    """Fixture that provides a temporary project directory with .iriusrisk setup."""
     project_path = temp_dir / "test_project"
     project_path.mkdir()
     
-    # Create .iriusRisk directory
-    iriusrisk_dir = project_path / ".iriusRisk"
+    # Create .iriusrisk directory
+    iriusrisk_dir = project_path / ".iriusrisk"
     iriusrisk_dir.mkdir()
     
     # Create sample project.json

@@ -22,10 +22,10 @@ class UpdateTracker:
         """Initialize the update tracker.
         
         Args:
-            iriusrisk_dir: Path to .iriusRisk directory. If None, uses current directory.
+            iriusrisk_dir: Path to .iriusrisk directory. If None, uses current directory.
         """
         if iriusrisk_dir is None:
-            iriusrisk_dir = Path.cwd() / '.iriusRisk'
+            iriusrisk_dir = Path.cwd() / '.iriusrisk'
         
         self.iriusrisk_dir = iriusrisk_dir
         self.updates_file = iriusrisk_dir / 'updates.json'
@@ -299,7 +299,7 @@ def get_update_tracker(iriusrisk_dir: Optional[Path] = None) -> UpdateTracker:
     """Get an instance of the update tracker.
     
     Args:
-        iriusrisk_dir: Path to .iriusRisk directory. If None, uses current directory.
+        iriusrisk_dir: Path to .iriusrisk directory. If None, uses current directory.
         
     Returns:
         UpdateTracker instance

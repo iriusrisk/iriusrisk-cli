@@ -297,7 +297,7 @@ def diagram(cli_ctx, project_id: Optional[str], size: str, output: Optional[str]
         else:
             logger.debug("No project ID provided, attempting to resolve from configuration")
             # Try to get project ID from project.json first
-            project_json_path = Path.cwd() / '.iriusRisk' / 'project.json'
+            project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
             resolved_project_id = None
             
             if project_json_path.exists():
@@ -351,7 +351,7 @@ def diagram(cli_ctx, project_id: Optional[str], size: str, output: Optional[str]
             try:
                 if resolved_project_id and not project_id:
                     # We're using default project, try to get a nice name
-                    project_json_path = Path.cwd() / '.iriusRisk' / 'project.json'
+                    project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
                     if project_json_path.exists():
                         with open(project_json_path, 'r') as f:
                             project_config = json.load(f)

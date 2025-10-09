@@ -74,12 +74,17 @@ def update_project_config(new_config: Dict[str, Any]) -> None:
         new_config: New configuration dictionary to save
         
     Raises:
+        ValueError: If config contains forbidden fields like api_token
         Exception: If unable to write configuration file
     """
-    project_dir = Path.cwd() / ".iriusRisk"
+    # Validate config to ensure no sensitive fields
+    from ..config import validate_project_config
+    validate_project_config(new_config)
+    
+    project_dir = Path.cwd() / ".iriusrisk"
     project_file = project_dir / "project.json"
     
-    # Ensure the .iriusRisk directory exists
+    # Ensure the .iriusrisk directory exists
     project_dir.mkdir(exist_ok=True)
     
     try:

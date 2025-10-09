@@ -241,7 +241,7 @@ class TestMainCLIIntegration:
         
         # Should contain environment variable documentation
         assert "IRIUS_HOSTNAME" in result.output
-        assert "IRIUS_API_TOKEN" in result.output
+        assert "IRIUS_API_KEY" in result.output
     
     def test_cli_version_integration(self, cli_runner, mock_env_vars):
         """Test version command with environment setup."""

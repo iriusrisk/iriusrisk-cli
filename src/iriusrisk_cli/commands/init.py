@@ -54,11 +54,11 @@ def _generate_reference_id(project_name: str) -> str:
 @click.option('--name', '-n', help='Project name (will prompt if not provided)')
 @click.option('--project-ref', '-p', help='Project reference ID (will generate from name if not provided)')
 @click.option('--existing-ref', '-r', help='Existing project reference ID to fetch from IriusRisk instance')
-@click.option('--force', '-f', is_flag=True, help='Overwrite existing .iriusRisk directory')
+@click.option('--force', '-f', is_flag=True, help='Overwrite existing .iriusrisk directory')
 def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional[str], force: bool):
     """Initialize a new or existing IriusRisk project in the current directory.
     
-    This command creates a .iriusRisk directory with a project.json file
+    This command creates a .iriusrisk directory with a project.json file
     containing project configuration. This allows other commands to use
     the project by default without requiring a project ID parameter.
     
@@ -73,12 +73,12 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
         iriusrisk init --force                  # Overwrite existing config
     """
     current_dir = Path.cwd()
-    irisrisk_dir = current_dir / ".iriusRisk"
+    irisrisk_dir = current_dir / ".iriusrisk"
     project_file = irisrisk_dir / "project.json"
     
-    # Check if .iriusRisk directory already exists
+    # Check if .iriusrisk directory already exists
     if irisrisk_dir.exists() and not force:
-        click.echo(f"❌ .iriusRisk directory already exists in {current_dir}")
+        click.echo(f"❌ .iriusrisk directory already exists in {current_dir}")
         click.echo("Use --force to overwrite existing configuration.")
         raise click.Abort()
     
@@ -155,7 +155,7 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
         }
     
     try:
-        # Create .iriusRisk directory
+        # Create .iriusrisk directory
         irisrisk_dir.mkdir(exist_ok=True)
         
         # Write project.json file

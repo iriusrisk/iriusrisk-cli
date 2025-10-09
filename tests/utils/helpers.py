@@ -44,8 +44,8 @@ class TemporaryProject:
         self.project_dir = self.temp_dir / self.project_name
         self.project_dir.mkdir()
         
-        # Create .iriusRisk directory structure
-        iriusrisk_dir = self.project_dir / ".iriusRisk"
+        # Create .iriusrisk directory structure
+        iriusrisk_dir = self.project_dir / ".iriusrisk"
         iriusrisk_dir.mkdir()
         
         # Create project.json

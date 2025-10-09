@@ -26,7 +26,7 @@ class Container:
         Args:
             config: Configuration instance (creates new one if not provided)
         """
-        self._config = config or Config()
+        self._config = config  # Don't create Config yet - lazy load it
         self._instances: Dict[Type, Any] = {}
         self._factories: Dict[Type, Callable[[], Any]] = {}
         
@@ -35,8 +35,8 @@ class Container:
     
     def _register_factories(self):
         """Register factory functions for creating instances."""
-        # Configuration (singleton)
-        self._factories[Config] = lambda: self._config
+        # Configuration (singleton) - lazy load
+        self._factories[Config] = lambda: self._config if self._config is not None else Config()
         
         # API Client (singleton)
         self._factories[IriusRiskApiClient] = lambda: IriusRiskApiClient(

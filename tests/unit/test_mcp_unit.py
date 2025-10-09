@@ -22,7 +22,7 @@ class TestMCPProjectRootFinding:
         """Test finding project root in current directory."""
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
-            iriusrisk_dir = temp_path / '.iriusRisk'
+            iriusrisk_dir = temp_path / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             project_config = {
@@ -48,7 +48,7 @@ class TestMCPProjectRootFinding:
             subdir = temp_path / 'subdir' / 'nested'
             subdir.mkdir(parents=True)
             
-            iriusrisk_dir = temp_path / '.iriusRisk'
+            iriusrisk_dir = temp_path / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             project_config = {'project_id': 'parent-project'}
@@ -69,7 +69,7 @@ class TestMCPProjectRootFinding:
             workspace_path = Path(temp_dir) / 'workspace'
             workspace_path.mkdir()
             
-            iriusrisk_dir = workspace_path / '.iriusRisk'
+            iriusrisk_dir = workspace_path / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             project_config = {'project_id': 'env-project'}
@@ -94,7 +94,7 @@ class TestMCPProjectRootFinding:
             project_dir = src_dir / 'my_project'
             project_dir.mkdir()
             
-            iriusrisk_dir = project_dir / '.iriusRisk'
+            iriusrisk_dir = project_dir / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             project_config = {'project_id': 'home-src-project'}
@@ -113,7 +113,7 @@ class TestMCPProjectRootFinding:
         """Test handling of invalid project.json files."""
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
-            iriusrisk_dir = temp_path / '.iriusRisk'
+            iriusrisk_dir = temp_path / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             # Create invalid JSON file
@@ -363,7 +363,7 @@ class TestMCPErrorHandling:
         """Test handling when project.json file doesn't exist."""
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
-            iriusrisk_dir = temp_path / '.iriusRisk'
+            iriusrisk_dir = temp_path / '.iriusrisk'
             iriusrisk_dir.mkdir()
             # Don't create project.json file
             
@@ -417,7 +417,7 @@ class TestMCPPathHandling:
             workspace2.mkdir()
             
             # Create project in workspace2
-            iriusrisk_dir = workspace2 / '.iriusRisk'
+            iriusrisk_dir = workspace2 / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             project_config = {'project_id': 'multi-env-project'}
@@ -454,8 +454,8 @@ class TestMCPPathHandling:
             project1_dir.mkdir()
             project2_dir.mkdir()
             
-            # Only project2 has .iriusRisk
-            iriusrisk_dir = project2_dir / '.iriusRisk'
+            # Only project2 has .iriusrisk
+            iriusrisk_dir = project2_dir / '.iriusrisk'
             iriusrisk_dir.mkdir()
             
             project_config = {'project_id': 'nested-project'}
