@@ -79,23 +79,23 @@ def handle_api_error(error: requests.RequestException, operation: str = "API req
     if hasattr(error, 'response') and error.response is not None:
         status_code = error.response.status_code
         
-        # Try to extract error message from response
+        # Try to extract clean error message from response
         try:
             response_data = error.response.json()
-            error_message = response_data.get('message', str(error))
+            error_message = response_data.get('message', '')
         except:
-            error_message = error.response.text[:500] if error.response.text else str(error)
+            error_message = ''
             response_data = None
         
         # Map HTTP status codes to specific exceptions
         if status_code == 401:
             return AuthenticationError(
-                message=f"{operation} failed: {error_message}",
+                message=f"{operation} failed: authentication required",
                 details={'status_code': status_code, 'response_data': response_data}
             )
         elif status_code == 403:
             return AuthorizationError(
-                message=f"{operation} failed: {error_message}",
+                message=f"{operation} failed: permission denied",
                 details={'status_code': status_code, 'response_data': response_data}
             )
         elif status_code == 404:
@@ -104,6 +104,11 @@ def handle_api_error(error: requests.RequestException, operation: str = "API req
             resource_id = "unknown"
             if "project" in operation.lower():
                 resource_type = "Project"
+                # Try to extract project ID from operation string
+                import re
+                match = re.search(r"'([^']+)'", operation)
+                if match:
+                    resource_id = match.group(1)
             elif "threat" in operation.lower():
                 resource_type = "Threat"
             elif "countermeasure" in operation.lower():
@@ -115,27 +120,43 @@ def handle_api_error(error: requests.RequestException, operation: str = "API req
                 details={'status_code': status_code, 'response_data': response_data}
             )
         elif status_code == 400:
+            # For 400 errors, provide context-specific messages
+            user_friendly_message = error_message if error_message else operation
+            
+            # Special handling for common 400 scenarios
+            if "project" in operation.lower() and "retrieving" in operation.lower():
+                # 400 on project retrieval usually means invalid/non-existent project ID
+                import re
+                match = re.search(r"'([^']+)'", operation)
+                if match:
+                    project_id = match.group(1)
+                    user_friendly_message = f"Project '{project_id}' not found or invalid"
+                else:
+                    user_friendly_message = "Project not found or invalid"
+            
             return ValidationError(
-                message=f"{operation} failed: {error_message}",
+                message=user_friendly_message,
                 details={'status_code': status_code, 'response_data': response_data}
             )
         elif status_code >= 500:
+            clean_message = error_message if error_message else "server error"
             return APIError(
-                message=f"Server error during {operation}: {error_message}",
+                message=f"Server error during {operation}: {clean_message}",
                 status_code=status_code,
                 response_data=response_data
             )
         else:
+            clean_message = error_message if error_message else f"HTTP {status_code}"
             return APIError(
-                message=f"{operation} failed: {error_message}",
+                message=f"{operation} failed: {clean_message}",
                 status_code=status_code,
                 response_data=response_data
             )
     else:
         # Network-level error (no response)
         return NetworkError(
-            message=f"{operation} failed: {str(error)}",
-            details={'original_error': str(error)}
+            message=f"Cannot connect to IriusRisk server",
+            details={'original_error': str(error), 'operation': operation}
         )
 
 

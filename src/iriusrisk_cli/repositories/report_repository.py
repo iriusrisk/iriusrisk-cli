@@ -59,7 +59,8 @@ class ReportRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to retrieve reports for project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving reports for project '{project_id}'")
     
     def generate_report(self, project_id: str, report_type: str, 
@@ -93,7 +94,8 @@ class ReportRepository(BaseRepository):
             return operation_id
             
         except Exception as e:
-            logger.error(f"Failed to start generation of {report_type} report: {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"starting generation of {report_type} report")
     
     def get_operation_status(self, operation_id: str) -> Dict[str, Any]:
@@ -117,7 +119,8 @@ class ReportRepository(BaseRepository):
             return status_data
             
         except Exception as e:
-            logger.error(f"Failed to check status of operation '{operation_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"checking status of operation '{operation_id}'")
     
     def wait_for_completion(self, operation_id: str, timeout: int = 300) -> Dict[str, Any]:
@@ -191,7 +194,8 @@ class ReportRepository(BaseRepository):
             return content
             
         except Exception as e:
-            logger.error(f"Failed to download report from '{download_url}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"downloading report from '{download_url}'")
     
     def get_report_types(self, project_id: str) -> Dict[str, Any]:

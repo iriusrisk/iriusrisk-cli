@@ -186,7 +186,9 @@ def log_api_request(
         error: Exception if request failed
     """
     if error:
-        logger.error(f"API request failed: {method} {url} - Error: {error}")
+        # Log API failures at DEBUG level to avoid cluttering user output
+        # The error will be properly handled and displayed by the error handling layer
+        logger.debug(f"API request failed: {method} {url} - Error: {error}")
     else:
         level = logging.INFO if status_code and status_code < 400 else logging.WARNING
         message = f"API request: {method} {url}"

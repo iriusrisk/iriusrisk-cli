@@ -394,15 +394,10 @@ class BaseApiClient:
                 error=e
             )
             
-            if hasattr(e, 'response') and e.response is not None:
-                try:
-                    error_data = e.response.json()
-                    error_msg = error_data.get('message', str(e))
-                except:
-                    error_msg = f"HTTP {e.response.status_code}: {e.response.text}"
-            else:
-                error_msg = str(e)
-            raise requests.RequestException(f"API request failed: {error_msg}")
+            # Re-raise the original exception without modifying it
+            # This preserves the original error information for proper handling
+            # by the error handling layer which will provide user-friendly messages
+            raise
     
     def _make_request_binary(self, method: str, endpoint: str, base_url: Optional[str] = None, **kwargs) -> bytes:
         """Make a request to the API and return binary response.
@@ -466,12 +461,7 @@ class BaseApiClient:
                 error=e
             )
             
-            if hasattr(e, 'response') and e.response is not None:
-                try:
-                    error_data = e.response.json()
-                    error_msg = error_data.get('message', str(e))
-                except:
-                    error_msg = f"HTTP {e.response.status_code}: {e.response.text}"
-            else:
-                error_msg = str(e)
-            raise requests.RequestException(f"API request failed: {error_msg}")
+            # Re-raise the original exception without modifying it
+            # This preserves the original error information for proper handling
+            # by the error handling layer which will provide user-friendly messages
+            raise

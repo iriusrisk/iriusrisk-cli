@@ -55,7 +55,8 @@ class CountermeasureRepository(BaseRepository):
         except IriusRiskError:
             raise
         except Exception as e:
-            logger.error(f"Failed to retrieve countermeasure '{countermeasure_id}' from project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving countermeasure '{countermeasure_id}' from project '{project_id}'")
     
     def list_all(self, project_id: str, page: int = 0, size: int = 20,
@@ -118,7 +119,8 @@ class CountermeasureRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to retrieve countermeasures from project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving countermeasures from project '{project_id}'")
     
     def search(self, project_id: str, search_string: str) -> Dict[str, Any]:
@@ -174,7 +176,8 @@ class CountermeasureRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to search countermeasures for '{search_string}' in project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"searching countermeasures for '{search_string}' in project '{project_id}'")
     
     def update_status(self, countermeasure_id: str, status: str,
@@ -235,7 +238,8 @@ class CountermeasureRepository(BaseRepository):
             return result
             
         except Exception as e:
-            logger.error(f"Failed to update countermeasure '{countermeasure_id}' to status '{status}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"updating countermeasure '{countermeasure_id}' to status '{status}'")
     
     def create_issue(self, project_id: str, countermeasure_id: str,
@@ -266,7 +270,8 @@ class CountermeasureRepository(BaseRepository):
             return result
             
         except Exception as e:
-            logger.error(f"Failed to create issue for countermeasure '{countermeasure_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"creating issue for countermeasure '{countermeasure_id}'")
     
     def get_issue_tracker_profiles(self) -> Dict[str, Any]:
@@ -292,7 +297,8 @@ class CountermeasureRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to retrieve issue tracker profiles: {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, "retrieving issue tracker profiles")
     
     def find_countermeasure_by_reference_or_uuid(self, project_id: str, 
@@ -332,7 +338,8 @@ class CountermeasureRepository(BaseRepository):
             return None
             
         except Exception as e:
-            logger.error(f"Failed to find countermeasure '{countermeasure_id}' in project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"finding countermeasure '{countermeasure_id}' in project '{project_id}'")
     
     def _build_countermeasure_filter_expression(self, search_string: Optional[str] = None,

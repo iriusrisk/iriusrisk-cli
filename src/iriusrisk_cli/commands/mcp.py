@@ -516,8 +516,8 @@ track_countermeasure_update(
             # Get project_id from project.json if available
             project_id = None
             if project_config:
-                # Prefer reference_id (new format) over project_id (legacy format)
-                project_id = project_config.get('reference_id') or project_config.get('project_id')
+                # Prefer project_id (UUID) for existing projects, fall back to reference_id
+                project_id = project_config.get('project_id') or project_config.get('reference_id')
             
             # Use the shared sync logic
             results = sync_data_to_directory(
@@ -536,7 +536,7 @@ track_countermeasure_update(
             output_lines.append(f"📄 project.json exists: {project_json_path.exists()}")
             
             if project_config:
-                # Show the actual project ID we're using (reference_id or project_id)
+                # Show the reference ID for display (more readable than UUID)
                 display_id = project_config.get('reference_id') or project_config.get('project_id', 'Unknown')
                 output_lines.append(f"📋 Using project: {project_config.get('name', 'Unknown')} (ID: {display_id})")
             else:

@@ -55,7 +55,8 @@ class ThreatRepository(BaseRepository):
         except IriusRiskError:
             raise
         except Exception as e:
-            logger.error(f"Failed to retrieve threat '{threat_id}' from project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving threat '{threat_id}' from project '{project_id}'")
     
     def list_all(self, project_id: str, page: int = 0, size: int = 20,
@@ -118,7 +119,8 @@ class ThreatRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to retrieve threats from project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving threats from project '{project_id}'")
     
     def search(self, project_id: str, search_string: str, 
@@ -177,7 +179,8 @@ class ThreatRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to search threats for '{search_string}' in project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"searching threats for '{search_string}' in project '{project_id}'")
     
     def update_status(self, threat_id: str, status: str, 
@@ -245,7 +248,8 @@ class ThreatRepository(BaseRepository):
         except IriusRiskError:
             raise
         except Exception as e:
-            logger.error(f"Failed to update threat '{threat_id}' to status '{status}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"updating threat '{threat_id}' to status '{status}'")
     
     def _build_threat_filter_expression(self, search_string: Optional[str] = None,

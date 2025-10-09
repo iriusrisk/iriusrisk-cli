@@ -1,6 +1,7 @@
 """Table formatting utilities for IriusRisk CLI."""
 
 import click
+import textwrap
 from typing import List, Dict, Any, Optional, Callable
 from tabulate import tabulate
 
@@ -9,6 +10,49 @@ class TableFormatter:
     """Centralized table formatting for consistent output across commands."""
     
     DEFAULT_TABLE_FORMAT = 'grid'
+    MAX_TABLE_WIDTH = 100  # Maximum table width in characters
+    MAX_CELL_WIDTH = 80    # Maximum width for individual cells
+    
+    @staticmethod
+    def wrap_cell_text(text: str, max_width: int = None) -> str:
+        """Wrap text in a table cell to fit within max width.
+        
+        Args:
+            text: Text to wrap
+            max_width: Maximum width for the cell (defaults to MAX_CELL_WIDTH)
+            
+        Returns:
+            Wrapped text with newlines
+        """
+        if not text or not isinstance(text, str):
+            return str(text) if text is not None else ""
+        
+        max_width = max_width or TableFormatter.MAX_CELL_WIDTH
+        
+        # If text is already short enough, return as-is
+        if len(text) <= max_width:
+            return text
+        
+        # Wrap the text
+        return textwrap.fill(text, width=max_width, break_long_words=False, break_on_hyphens=False)
+    
+    @staticmethod
+    def wrap_table_data(data: List[List[Any]], max_width: int = None) -> List[List[Any]]:
+        """Wrap all text in table data.
+        
+        Args:
+            data: List of rows, where each row is a list of values
+            max_width: Maximum width for cells
+            
+        Returns:
+            Data with wrapped text
+        """
+        max_width = max_width or TableFormatter.MAX_CELL_WIDTH
+        wrapped_data = []
+        for row in data:
+            wrapped_row = [TableFormatter.wrap_cell_text(str(cell), max_width) for cell in row]
+            wrapped_data.append(wrapped_row)
+        return wrapped_data
     
     @staticmethod
     def format_table(data: List[List[Any]], 
@@ -25,7 +69,9 @@ class TableFormatter:
             Formatted table string
         """
         fmt = table_format or TableFormatter.DEFAULT_TABLE_FORMAT
-        return tabulate(data, headers=headers, tablefmt=fmt)
+        # Wrap text in cells before passing to tabulate
+        wrapped_data = TableFormatter.wrap_table_data(data)
+        return tabulate(wrapped_data, headers=headers, tablefmt=fmt)
     
     @staticmethod
     def print_table(data: List[List[Any]], 

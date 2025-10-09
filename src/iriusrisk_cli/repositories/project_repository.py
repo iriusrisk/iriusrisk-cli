@@ -37,7 +37,8 @@ class ProjectRepository(BaseRepository):
         except IriusRiskError:
             raise
         except Exception as e:
-            logger.error(f"Failed to retrieve project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving project '{project_id}'")
     
     def list_all(self, page: int = 0, size: int = 20, 
@@ -107,7 +108,8 @@ class ProjectRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to retrieve projects: {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, "retrieving projects")
     
     def search(self, search_string: str, page: int = 0, size: int = 20,
@@ -168,7 +170,8 @@ class ProjectRepository(BaseRepository):
         except IriusRiskError:
             raise
         except Exception as e:
-            logger.error(f"Failed to search projects for '{search_string}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"searching projects for '{search_string}'")
     
     def get_artifacts(self, project_id: str, page: int = 0, size: int = 100) -> Dict[str, Any]:
@@ -201,7 +204,8 @@ class ProjectRepository(BaseRepository):
             }
             
         except Exception as e:
-            logger.error(f"Failed to retrieve artifacts for project '{project_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving artifacts for project '{project_id}'")
     
     def get_artifact_content(self, artifact_id: str, size: str = 'ORIGINAL') -> Dict[str, Any]:
@@ -225,7 +229,8 @@ class ProjectRepository(BaseRepository):
             return content
             
         except Exception as e:
-            logger.error(f"Failed to retrieve content for artifact '{artifact_id}': {e}")
+            # Don't log here - let the error handling layer handle it
+            # to avoid duplicate error messages
             self._handle_error(e, f"retrieving content for artifact '{artifact_id}'")
     
     def _build_filter_expression(self, name: Optional[str] = None,

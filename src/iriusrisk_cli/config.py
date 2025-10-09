@@ -220,16 +220,18 @@ class Config:
     def get_default_project_id(self) -> Optional[str]:
         """Get the default project ID from local project configuration.
         
-        For new projects, this returns the reference_id (human-readable).
-        For legacy projects, this returns the project_id (UUID).
+        For projects initialized from existing IriusRisk projects, this returns
+        the UUID (project_id). For new projects that haven't been created yet,
+        this returns the reference_id.
         
         Returns:
             Project ID string or None if not configured
         """
         project_config = self.get_project_config()
         if project_config:
-            # Prefer reference_id (new format) over project_id (legacy format)
-            return project_config.get('reference_id') or project_config.get('project_id')
+            # Prefer project_id (UUID) if available (for existing projects)
+            # Fall back to reference_id for new projects that haven't been created yet
+            return project_config.get('project_id') or project_config.get('reference_id')
         return None
     
     def get_default_project_name(self) -> Optional[str]:
