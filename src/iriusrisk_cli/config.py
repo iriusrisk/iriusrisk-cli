@@ -309,13 +309,13 @@ def save_user_config(hostname: Optional[str] = None, api_token: Optional[str] = 
 
 
 def validate_project_config(config: Dict[str, Any]) -> None:
-    """Validate project configuration to ensure security rules.
+    """Validate project configuration to ensure security rules and proper structure.
     
     Args:
         config: Project configuration dictionary to validate
         
     Raises:
-        ValueError: If config contains forbidden fields like api_token
+        ValueError: If config contains forbidden fields or invalid prompt customizations
     """
     forbidden_fields = ['api_token', 'api_key', 'token', 'password', 'secret']
     found_forbidden = [field for field in forbidden_fields if field in config]
@@ -325,3 +325,66 @@ def validate_project_config(config: Dict[str, Any]) -> None:
             f"Project config must not contain sensitive fields: {', '.join(found_forbidden)}. "
             "Use 'iriusrisk config set-api-key' to set API credentials in user config instead."
         )
+    
+    # Validate prompts structure if present
+    if 'prompts' in config:
+        prompts = config['prompts']
+        
+        if not isinstance(prompts, dict):
+            raise ValueError("'prompts' field must be a dictionary")
+        
+        # Valid MCP tool names that support prompt customization
+        valid_tool_names = [
+            'initialize_iriusrisk_workflow',
+            'threats_and_countermeasures',
+            'analyze_source_material',
+            'create_threat_model',
+            'architecture_and_design_review',
+            'security_development_advisor'
+        ]
+        
+        # Valid customization actions
+        valid_actions = ['prefix', 'postfix', 'replace']
+        
+        for tool_name, customization in prompts.items():
+            # Check if tool name is valid
+            if tool_name not in valid_tool_names:
+                raise ValueError(
+                    f"Invalid tool name in prompts: '{tool_name}'. "
+                    f"Valid tool names are: {', '.join(valid_tool_names)}"
+                )
+            
+            # Check if customization is a dictionary
+            if not isinstance(customization, dict):
+                raise ValueError(
+                    f"Customization for tool '{tool_name}' must be a dictionary"
+                )
+            
+            # Check if at least one valid action is present
+            if not any(action in customization for action in valid_actions):
+                raise ValueError(
+                    f"Customization for tool '{tool_name}' must include at least one of: "
+                    f"{', '.join(valid_actions)}"
+                )
+            
+            # Validate each action
+            for action, text in customization.items():
+                if action not in valid_actions:
+                    raise ValueError(
+                        f"Invalid action '{action}' for tool '{tool_name}'. "
+                        f"Valid actions are: {', '.join(valid_actions)}"
+                    )
+                
+                if not isinstance(text, str):
+                    raise ValueError(
+                        f"Text for action '{action}' in tool '{tool_name}' must be a string"
+                    )
+                
+                # Warn if text is suspiciously long (might be a copy-paste error)
+                if len(text) > 10000:
+                    import logging
+                    logger = logging.getLogger(__name__)
+                    logger.warning(
+                        f"Prompt customization for '{tool_name}.{action}' is very long "
+                        f"({len(text)} characters). This may be unintentional."
+                    )

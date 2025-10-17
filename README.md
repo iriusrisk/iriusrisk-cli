@@ -319,6 +319,40 @@ The generated configuration looks like:
 }
 ```
 
+### Customizing MCP Prompts
+
+You can customize the prompts that MCP tools provide to AI assistants by adding a `prompts` section to your `.iriusrisk/project.json` file. This allows you to add organization-specific security standards, compliance requirements, or technology constraints.
+
+**Example:**
+
+```json
+{
+  "name": "my-project",
+  "project_id": "abc-123",
+  "prompts": {
+    "threats_and_countermeasures": {
+      "prefix": "Organization Security Standards:\n- All implementations must use approved cryptography libraries\n- Follow ACME Corp Secure Coding Guidelines\n\n"
+    },
+    "security_development_advisor": {
+      "postfix": "\n\nCompliance Note: This is a HIPAA-regulated application."
+    }
+  }
+}
+```
+
+**Available actions:**
+- `prefix` - Add text before the default prompt
+- `postfix` - Add text after the default prompt  
+- `replace` - Completely replace the default prompt
+
+**Customizable tools:**
+- `initialize_iriusrisk_workflow`
+- `threats_and_countermeasures`
+- `analyze_source_material`
+- `create_threat_model`
+- `architecture_and_design_review`
+- `security_development_advisor`
+
 ## Planned Commands
 
 These commands will be added in future versions:

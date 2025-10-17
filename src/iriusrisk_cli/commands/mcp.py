@@ -32,6 +32,78 @@ def _find_project_root_and_config():
     return find_project_root()
 
 
+def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
+    """Apply any configured prompt customizations from project.json.
+    
+    This allows users to customize MCP tool prompts on a per-project basis by adding
+    a 'prompts' section to their project.json file. Supports three actions:
+    - prefix: Add text before the base prompt
+    - postfix: Add text after the base prompt
+    - replace: Completely replace the base prompt
+    
+    Args:
+        tool_name: Name of the MCP tool function (e.g., 'threats_and_countermeasures')
+        base_prompt: The default prompt text for the tool
+        
+    Returns:
+        The customized prompt text, or the base prompt if no customizations exist
+        
+    Example project.json structure:
+        {
+          "prompts": {
+            "threats_and_countermeasures": {
+              "prefix": "Organization-specific rules here\\n\\n",
+              "postfix": "\\n\\nAdditional requirements here"
+            },
+            "create_threat_model": {
+              "replace": "Completely custom prompt"
+            }
+          }
+        }
+    """
+    from pathlib import Path
+    
+    # Debug logging
+    logger.info(f"_apply_prompt_customizations called for tool: {tool_name}")
+    logger.info(f"Current working directory: {Path.cwd()}")
+    
+    # Use the same project discovery logic as other MCP tools
+    project_root, project_config = find_project_root()
+    logger.info(f"Project root found: {project_root}")
+    logger.info(f"Project config loaded: {project_config is not None}")
+    if project_config:
+        logger.info(f"Project config keys: {list(project_config.keys())}")
+        logger.info(f"Has prompts section: {'prompts' in project_config}")
+    
+    if not project_config:
+        logger.info(f"No project config found, returning base prompt for {tool_name}")
+        return base_prompt
+    
+    customizations = project_config.get('prompts', {}).get(tool_name, {})
+    logger.info(f"Customizations for {tool_name}: {customizations}")
+    
+    if not customizations:
+        logger.info(f"No customizations found for {tool_name}")
+        return base_prompt
+    
+    # Handle replace first (it overrides everything)
+    if 'replace' in customizations:
+        logger.info(f"Applying 'replace' customization to {tool_name}")
+        logger.info(f"Replace text length: {len(customizations['replace'])} characters")
+        return customizations['replace']
+    
+    # Apply prefix and/or postfix
+    result = base_prompt
+    if 'prefix' in customizations:
+        logger.info(f"Applying 'prefix' customization to {tool_name}")
+        result = customizations['prefix'] + result
+    if 'postfix' in customizations:
+        logger.info(f"Applying 'postfix' customization to {tool_name}")
+        result = result + customizations['postfix']
+    
+    return result
+
+
 @click.command()
 @pass_cli_context
 def mcp(cli_ctx):
@@ -407,7 +479,7 @@ track_countermeasure_update(
 - All tools are asynchronous and return strings
 """
         logger.info("Provided critical IriusRisk workflow instructions to AI assistant")
-        return instructions
+        return _apply_prompt_customizations('initialize_iriusrisk_workflow', instructions)
     
     @mcp_server.tool()
     async def get_cli_version() -> str:
@@ -951,7 +1023,7 @@ Your role: Make IriusRisk's professional security analysis accessible and action
 """
         
         logger.info("Provided threats and countermeasures instructions to AI assistant")
-        return instructions
+        return _apply_prompt_customizations('threats_and_countermeasures', instructions)
     
     @mcp_server.tool()
     async def show_diagram(project_id: str = None, size: str = "PREVIEW") -> str:
@@ -1345,7 +1417,7 @@ Result: Single, comprehensive threat model for holistic IriusRisk analysis acros
 """
         
         logger.info("Provided source material analysis instructions to AI assistant")
-        return instructions
+        return _apply_prompt_customizations('analyze_source_material', instructions)
     
     @mcp_server.tool()
     async def create_threat_model() -> str:
@@ -1610,7 +1682,7 @@ Before completing:
 - Most common error: Using trust zone IDs in dataflows instead of component IDs
 """
         logger.info("Provided CreateThreatModel instructions to AI assistant")
-        return instructions
+        return _apply_prompt_customizations('create_threat_model', instructions)
     
     @mcp_server.tool()
     async def track_threat_update(threat_id: str, status: str, reason: str, context: str = None, comment: str = None) -> str:
@@ -2155,7 +2227,7 @@ This tool is just a **trigger**. Don't try to replicate the workflow logic here.
 Call `initialize_iriusrisk_workflow()` immediately to get the full instructions."""
 
         logger.info("Provided architecture and design review guidance")
-        return guidance
+        return _apply_prompt_customizations('architecture_and_design_review', guidance)
     
     @mcp_server.tool()
     async def security_development_advisor() -> str:
@@ -2319,7 +2391,7 @@ I can help create a threat model. Just let me know."]
 → Clear security intent → Strong recommendation → Get permission → Proceed if YES"""
 
         logger.info("MCP security_development_advisor called")
-        return guidance
+        return _apply_prompt_customizations('security_development_advisor', guidance)
 
     try:
         logger.info("MCP server initialized successfully")
