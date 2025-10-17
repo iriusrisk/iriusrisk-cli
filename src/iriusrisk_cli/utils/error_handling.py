@@ -155,7 +155,7 @@ def handle_api_error(error: requests.RequestException, operation: str = "API req
     else:
         # Network-level error (no response)
         return NetworkError(
-            message=f"Cannot connect to IriusRisk server",
+            message=f"{operation} failed: Cannot connect to IriusRisk server",
             details={'original_error': str(error), 'operation': operation}
         )
 
