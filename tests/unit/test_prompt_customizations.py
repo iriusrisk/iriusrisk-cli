@@ -169,20 +169,20 @@ class TestPromptCustomizationApplication:
     
     def test_no_customization_returns_base_prompt(self):
         """Test that base prompt is returned when no customization exists."""
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=None):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=(None, None)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
             assert result == 'Base prompt text'
     
     def test_no_project_config_returns_base_prompt(self):
         """Test that base prompt is returned when project config doesn't exist."""
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value={}):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', {})):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
             assert result == 'Base prompt text'
     
     def test_no_prompts_section_returns_base_prompt(self):
         """Test that base prompt is returned when prompts section doesn't exist."""
         project_config = {"name": "test-project"}
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
             assert result == 'Base prompt text'
     
@@ -194,7 +194,7 @@ class TestPromptCustomizationApplication:
                 "some_other_tool": {"prefix": "Other tool prefix"}
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
             assert result == 'Base prompt text'
     
@@ -208,7 +208,7 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
             assert result == 'PREFIX: Base prompt'
     
@@ -222,7 +222,7 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
             assert result == 'Base prompt :POSTFIX'
     
@@ -236,7 +236,7 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
             assert result == 'Completely custom prompt'
     
@@ -251,7 +251,7 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
             assert result == 'START: Base prompt :END'
     
@@ -267,7 +267,7 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
             assert result == 'Replacement text'
     
@@ -282,7 +282,7 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
             result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
             assert result == 'Line 1\nLine 2\n\nBase prompt\n\nFooter line 1\nFooter line 2'
     
@@ -304,7 +304,7 @@ class TestPromptCustomizationApplication:
                     tool_name: {"prefix": f"Custom for {tool_name}: "}
                 }
             }
-            with patch('src.iriusrisk_cli.utils.project.get_project_config', return_value=project_config):
+            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
                 result = _apply_prompt_customizations(tool_name, 'Base')
                 assert result == f"Custom for {tool_name}: Base"
 
