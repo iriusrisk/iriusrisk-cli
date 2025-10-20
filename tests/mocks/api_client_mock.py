@@ -301,6 +301,31 @@ class MockIriusRiskApiClient:
         """Mock create_countermeasure_issue method."""
         return self._get_response('POST', f'/projects/countermeasures/{countermeasure_id}/create-issue')
     
+    # Version API methods
+    def get_versions(self, project_id: str, **kwargs) -> Dict[str, Any]:
+        """Mock get_versions method."""
+        return self._get_response('GET', f'/projects/{project_id}/versions')
+    
+    def create_version(self, project_id: str, **kwargs) -> Dict[str, Any]:
+        """Mock create_version method."""
+        return self._get_response('POST', f'/projects/{project_id}/versions')
+    
+    def compare_versions(self, source_version_id: str, target_version_id: str, **kwargs) -> Dict[str, Any]:
+        """Mock compare_versions method."""
+        return self._get_response('POST', '/projects/versions/compare/changes')
+    
+    @property
+    def version_client(self):
+        """Return a mock version client that delegates to this mock."""
+        if not hasattr(self, '_version_client'):
+            version_client_mock = Mock()
+            version_client_mock.list_versions = self.get_versions
+            version_client_mock.create_version = self.create_version
+            version_client_mock.compare_versions = self.compare_versions
+            version_client_mock.get_async_operation_status = self.get_async_operation_status
+            self._version_client = version_client_mock
+        return self._version_client
+    
     # Test verification methods
     def get_call_log(self) -> list:
         """Get the log of API calls made during testing."""

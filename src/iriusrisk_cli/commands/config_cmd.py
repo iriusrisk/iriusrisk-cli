@@ -3,7 +3,7 @@
 import click
 from pathlib import Path
 from ..cli_context import pass_cli_context
-from ..config import save_user_config
+from ..config import save_user_config, save_project_config
 
 
 @click.group(name='config')
@@ -69,6 +69,10 @@ def show(cli_ctx):
                 click.echo(f"  reference_id: {project_config['reference_id']}")
             if 'hostname' in project_config:
                 click.echo(f"  hostname: {project_config['hostname']}")
+            if 'auto_versioning' in project_config:
+                auto_ver = project_config['auto_versioning']
+                status = "enabled" if auto_ver else "disabled"
+                click.echo(f"  auto_versioning: {status}")
         else:
             click.echo(f"Project config ({project_config_path}): not found")
         
@@ -246,5 +250,49 @@ def set_api_key():
         
     except (ValueError, OSError) as e:
         click.echo(f"❌ Configuration error: {e}", err=True)
+        raise click.Abort()
+
+
+@config.command(name='set-auto-versioning')
+@click.argument('enabled', type=click.BOOL, default=True, required=False)
+def set_auto_versioning(enabled: bool):
+    """Enable or disable automatic version creation on OTM imports.
+    
+    When enabled, a backup version snapshot will be created automatically
+    before each OTM import to track changes over time.
+    
+    This setting is stored in .iriusrisk/project.json and is project-specific.
+    
+    Examples:
+        iriusrisk config set-auto-versioning        # Enable (defaults to true)
+        iriusrisk config set-auto-versioning true   # Enable explicitly
+        iriusrisk config set-auto-versioning false  # Disable
+    """
+    try:
+        save_project_config(auto_versioning=enabled)
+        
+        project_config_path = Path.cwd() / ".iriusrisk" / "project.json"
+        status = "enabled" if enabled else "disabled"
+        status_emoji = "✅" if enabled else "⏸️"
+        
+        click.echo(f"{status_emoji} Auto-versioning {status} for this project")
+        click.echo(f"   Saved to: {project_config_path}")
+        click.echo()
+        
+        if enabled:
+            click.echo("📸 Automatic version snapshots will be created:")
+            click.echo("   • Before each OTM import (when updating existing projects)")
+            click.echo("   • Versions include timestamp and description")
+            click.echo("   • Snapshots can be viewed with: iriusrisk project versions list")
+        else:
+            click.echo("⏸️  Automatic version snapshots are disabled")
+            click.echo("   • Manual snapshots can still be created with:")
+            click.echo("     iriusrisk project versions create --name <name>")
+        
+    except ValueError as e:
+        click.echo(f"❌ Configuration error: {e}", err=True)
+        raise click.Abort()
+    except OSError as e:
+        click.echo(f"❌ Failed to save configuration: {e}", err=True)
         raise click.Abort()
 

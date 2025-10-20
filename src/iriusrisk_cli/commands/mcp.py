@@ -1434,6 +1434,8 @@ Result: Single, comprehensive threat model for holistic IriusRisk analysis acros
 ## Executive Summary
 Create OTM files to model system architecture for IriusRisk threat analysis. Your role: architecture modeling only (components, trust zones, data flows). Do NOT create threats or controls—IriusRisk generates those automatically. Always: sync() first → create OTM → import_otm() → project_status() → sync() to download results.
 
+**⚠️ CRITICAL: Dataflows ONLY connect components to components. NEVER use trust zone IDs in dataflows - this causes import failure.**
+
 ## Critical Error #1: Dataflows Connect Components, NOT Trust Zones
 
 **Most common OTM import failure:** Using trust zone IDs in dataflows instead of component IDs.
@@ -1490,7 +1492,7 @@ Complete steps 0-7. Step 8 only when user requests security findings:
 - ☐ Step 0: **sync(project_path)** - Download components & trust zones
 - ☐ Step 1: Analyze source material - Identify architectural components
 - ☐ Step 2: Check `.iriusrisk/project.json` - Read project name/ID if exists
-- ☐ Step 3: Create OTM file - ONLY components, trust zones, dataflows
+- ☐ Step 3: Create OTM file - ONLY components, trust zones, dataflows (dataflows connect components ONLY)
 - ☐ Step 4: Map components - Use exact referenceId from components.json
 - ☐ Step 5: **import_otm()** - Upload OTM to IriusRisk
 - ☐ Step 6: **project_status()** - Verify project ready
@@ -1529,7 +1531,30 @@ Complete steps 0-7. Step 8 only when user requests security findings:
 
 **Use project.json if exists:** Read `.iriusrisk/project.json` and use `name` and `project_id` from that file. Otherwise, create descriptive names.
 
-**OTM Template:**
+## Parent Relationship Rules
+
+**Simple principle:** A component's parent represents WHERE it physically resides or executes.
+
+**Use `parent: { trustZone: "zone-id" }` when:**
+- The component is standalone infrastructure (VPCs, networks, databases, storage)
+- The component is externally hosted (third-party APIs, SaaS services)
+- The component has no containing infrastructure in your model
+
+**Use `parent: { component: "component-id" }` when:**
+- The component runs inside another component
+- Examples: Application runs in VM, Service runs in container, Function runs in serverless platform
+
+**Common patterns:**
+- Network infrastructure → trust zone parent
+- Compute infrastructure (VM, container platform) → trust zone parent
+- Applications/services running on compute → component parent (the compute hosting it)
+- Databases/storage → trust zone parent (unless hosted on specific infrastructure you're modeling)
+- External/third-party services → trust zone parent (typically "internet" zone)
+
+**⚠️ REMEMBER: Trust zones define LOCATION. Components define THINGS. Dataflows connect THINGS (components), not locations (trust zones).**
+
+## Complete Example
+
 ```yaml
 otmVersion: 0.1.0
 project:
@@ -1538,7 +1563,6 @@ project:
   description: "[brief system description]"
 
 trustZones:
-  # Define trust zones - use simple IDs
   - id: "internet"
     name: "Internet"
     risk:
@@ -1547,41 +1571,139 @@ trustZones:
     name: "DMZ"
     risk:
       trustRating: 3
-  - id: "internal"
-    name: "Internal Network"
+  - id: "application"
+    name: "Application Zone"
+    risk:
+      trustRating: 5
+  - id: "data"
+    name: "Data Zone"
     risk:
       trustRating: 7
 
 components:
-  # Infrastructure components - parent is trust zone
-  - id: "load-balancer-1"
+  # External client - in internet zone
+  - id: "web-browser"
+    name: "Web Browser"
+    type: "[exact referenceId from components.json]"
+    parent:
+      trustZone: "internet"
+  
+  # Load balancer - standalone in DMZ
+  - id: "alb"
     name: "Application Load Balancer"
     type: "[exact referenceId from components.json]"
     parent:
       trustZone: "dmz"
-    
-  # Business logic - nested within infrastructure
+  
+  # Container platform - standalone in application zone
+  - id: "ecs-cluster"
+    name: "ECS Cluster"
+    type: "[exact referenceId from components.json]"
+    parent:
+      trustZone: "application"
+  
+  # Application services - run inside container platform
   - id: "auth-service"
     name: "Authentication Service"
     type: "[exact referenceId from components.json]"
     parent:
-      component: "load-balancer-1"  # nested
-    
-  # Data components - parent is trust zone or component
+      component: "ecs-cluster"  # runs in ECS
+  
+  - id: "api-service"
+    name: "API Service"
+    type: "[exact referenceId from components.json]"
+    parent:
+      component: "ecs-cluster"  # runs in ECS
+  
+  # Database - standalone in data zone
   - id: "user-db"
     name: "User Database"
     type: "[exact referenceId from components.json]"
     parent:
-      trustZone: "internal"
+      trustZone: "data"
+  
+  # External API - in internet zone
+  - id: "payment-api"
+    name: "Payment Processor API"
+    type: "[exact referenceId from components.json]"
+    parent:
+      trustZone: "internet"
 
 dataflows:
-  # CRITICAL: Use COMPONENT IDs, never trust zone IDs
+  # ⚠️⚠️⚠️ CRITICAL: Dataflows ONLY connect components (never trust zones) ⚠️⚠️⚠️
+  # Use component IDs like "web-browser", "alb", "api-service" (defined above)
+  # NEVER use trust zone IDs like "internet", "dmz", "application" in dataflows
+  
   - id: "user-request"
-    source: "load-balancer-1"  # component ID ✅
-    destination: "auth-service"  # component ID ✅
-    # NOT: source: "dmz" ❌ (trust zone - causes failure)
+    source: "web-browser"      # component ID ✅
+    destination: "alb"          # component ID ✅
+  
+  - id: "alb-to-api"
+    source: "alb"               # component ID ✅
+    destination: "api-service"  # component ID ✅
+  
+  - id: "api-to-auth"
+    source: "api-service"       # component ID ✅
+    destination: "auth-service" # component ID ✅
+  
+  - id: "auth-to-db"
+    source: "auth-service"      # component ID ✅
+    destination: "user-db"      # component ID ✅
+  
+  - id: "api-to-payment"
+    source: "api-service"       # component ID ✅
+    destination: "payment-api"  # component ID ✅
 
 # Do NOT add: threats, mitigations, controls (IriusRisk generates these)
+```
+
+## Invalid Examples - Common Mistakes
+
+```yaml
+# ❌ WRONG: Using trust zone IDs in dataflows (MOST COMMON ERROR)
+# This is the #1 cause of OTM import failures
+dataflows:
+  - id: "bad-flow"
+    source: "internet"  # ❌ Trust zone ID - IMPORT WILL FAIL
+    destination: "dmz"  # ❌ Trust zone ID - IMPORT WILL FAIL
+  
+  - id: "another-bad-flow"
+    source: "application"  # ❌ Trust zone ID - IMPORT WILL FAIL
+    destination: "data"    # ❌ Trust zone ID - IMPORT WILL FAIL
+
+# Why wrong? Trust zones are containers/locations, not things that communicate.
+# You can't send data "to DMZ" - you send it to a component IN the DMZ.
+
+# ❌ WRONG: Service nested in load balancer
+# Load balancers route TO services, they don't host them
+- id: "my-service"
+  parent:
+    component: "load-balancer"  # WRONG
+
+# ❌ WRONG: Abbreviated component type
+- id: "my-db"
+  type: "postgres"  # WRONG - not exact referenceId
+
+# ✅ CORRECT alternatives:
+# Service runs in compute infrastructure (VM/container/serverless)
+- id: "my-service"
+  parent:
+    component: "ecs-cluster"  # Runs in ECS
+
+# Or if no compute infrastructure is modeled:
+- id: "my-service"
+  parent:
+    trustZone: "application"  # Standalone in app zone
+
+# Dataflow connects components
+dataflows:
+  - id: "good-flow"
+    source: "load-balancer"  # Component ID
+    destination: "my-service"  # Component ID
+
+# Use exact referenceId from components.json
+- id: "my-db"
+  type: "CD-V2-POSTGRESQL-DATABASE"  # Exact referenceId
 ```
 
 ### Step 4: Map Components to IriusRisk Types
@@ -1679,7 +1801,8 @@ Before completing:
 **Remember:**
 - AI role: Architecture modeling only
 - IriusRisk role: Threat identification and security analysis (automatic)
-- Most common error: Using trust zone IDs in dataflows instead of component IDs
+- **MOST COMMON ERROR: Using trust zone IDs in dataflows instead of component IDs**
+- **Before submitting OTM: Verify EVERY dataflow source/destination is a component ID from the components section above, NOT a trust zone ID**
 """
         logger.info("Provided CreateThreatModel instructions to AI assistant")
         return _apply_prompt_customizations('create_threat_model', instructions)
@@ -2392,6 +2515,151 @@ I can help create a threat model. Just let me know."]
 
         logger.info("MCP security_development_advisor called")
         return _apply_prompt_customizations('security_development_advisor', guidance)
+    
+    @mcp_server.tool()
+    async def list_project_versions(project_id: str = None) -> str:
+        """List all version snapshots for a project.
+        
+        This tool lists all saved version snapshots of a project. Versions are point-in-time
+        snapshots that can be used to track changes, compare different states, or restore
+        previous configurations.
+        
+        Args:
+            project_id: Project UUID or reference ID (optional if project.json exists in current directory)
+            
+        Returns:
+            Formatted list of versions with details about each snapshot.
+        """
+        logger.info(f"MCP list_project_versions called with project_id={project_id}")
+        
+        try:
+            from ..container import get_container
+            from ..services.version_service import VersionService
+            
+            container = get_container()
+            version_service = container.get(VersionService)
+            
+            # Resolve project ID
+            if not project_id:
+                project_root, project_config = find_project_root()
+                if project_config:
+                    project_id = project_config.get('project_id')
+                
+                if not project_id:
+                    return "❌ No project ID provided and no project.json found in current directory"
+            
+            # Resolve to UUID
+            resolved_project_id = resolve_project_id_to_uuid_strict(project_id)
+            logger.info(f"Resolved project ID to UUID: {resolved_project_id}")
+            
+            # List versions
+            result = version_service.list_versions(resolved_project_id, page=0, size=50)
+            versions = result.get('versions', [])
+            total = result.get('page_info', {}).get('totalElements', 0)
+            
+            if not versions:
+                return f"📋 No versions found for project {project_id}\n\nℹ️  Versions are snapshots created manually or automatically during OTM imports when auto_versioning is enabled."
+            
+            # Format output
+            output = [f"📋 Project Versions for {project_id}"]
+            output.append(f"   Total versions: {total}")
+            output.append("")
+            
+            for idx, version in enumerate(versions, 1):
+                version_id = version.get('id', 'Unknown')
+                name = version.get('name', 'Unnamed')
+                description = version.get('description', 'No description')
+                created = version.get('creationDate', 'Unknown')
+                created_by = version.get('creationUser', 'Unknown')
+                operation = version.get('operation', 'none')
+                
+                output.append(f"{idx}. {name}")
+                output.append(f"   ID: {version_id}")
+                output.append(f"   Description: {description}")
+                output.append(f"   Created: {created}")
+                output.append(f"   Created by: {created_by}")
+                output.append(f"   Status: {operation}")
+                output.append("")
+            
+            logger.info(f"Successfully listed {len(versions)} versions for project {resolved_project_id}")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to list project versions: {str(e)}"
+            logger.error(f"MCP list_project_versions failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def create_project_version(name: str, description: str = None, project_id: str = None) -> str:
+        """Create a new version snapshot of a project.
+        
+        This tool creates a point-in-time snapshot of a project's current state. The snapshot
+        includes all threat model data, components, threats, and countermeasures. This is useful
+        for tracking changes over time or creating backups before making significant modifications.
+        
+        Args:
+            name: Name for the version (e.g., "v1.0", "Before API refactor")
+            description: Optional description of what this version represents
+            project_id: Project UUID or reference ID (optional if project.json exists in current directory)
+            
+        Returns:
+            Success message with version details or error message.
+        """
+        logger.info(f"MCP create_project_version called: name={name}, project_id={project_id}")
+        
+        try:
+            from ..container import get_container
+            from ..services.version_service import VersionService
+            
+            container = get_container()
+            version_service = container.get(VersionService)
+            
+            # Resolve project ID
+            if not project_id:
+                project_root, project_config = find_project_root()
+                if project_config:
+                    project_id = project_config.get('project_id')
+                
+                if not project_id:
+                    return "❌ No project ID provided and no project.json found in current directory"
+            
+            # Resolve to UUID
+            resolved_project_id = resolve_project_id_to_uuid_strict(project_id)
+            logger.info(f"Resolved project ID to UUID: {resolved_project_id}")
+            
+            # Create version (with wait=True to ensure it completes)
+            result = version_service.create_version(
+                project_id=resolved_project_id,
+                name=name,
+                description=description,
+                wait=True,
+                timeout=300
+            )
+            
+            # Check if successful
+            state = result.get('state', '').lower()
+            if state == 'completed':
+                output = [f"✅ Version created successfully!"]
+                output.append(f"   Name: {name}")
+                if description:
+                    output.append(f"   Description: {description}")
+                output.append(f"   Project: {project_id}")
+                output.append("")
+                output.append("ℹ️  The version snapshot has been saved and can be used for:")
+                output.append("   • Comparing changes between versions")
+                output.append("   • Restoring previous configurations (via UI)")
+                output.append("   • Tracking threat model evolution")
+                
+                logger.info(f"Successfully created version '{name}' for project {resolved_project_id}")
+                return "\n".join(output)
+            else:
+                error_msg = result.get('errorMessage', 'Unknown error')
+                return f"❌ Version creation failed: {error_msg}"
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to create project version: {str(e)}"
+            logger.error(f"MCP create_project_version failed: {e}")
+            return error_msg
 
     try:
         logger.info("MCP server initialized successfully")

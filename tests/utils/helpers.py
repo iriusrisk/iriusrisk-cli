@@ -211,12 +211,14 @@ class ServiceTestBase:
         from iriusrisk_cli.repositories.threat_repository import ThreatRepository
         from iriusrisk_cli.repositories.countermeasure_repository import CountermeasureRepository
         from iriusrisk_cli.repositories.report_repository import ReportRepository
+        from iriusrisk_cli.repositories.version_repository import VersionRepository
         
         return {
             'project': Mock(spec=ProjectRepository),
             'threat': Mock(spec=ThreatRepository),
             'countermeasure': Mock(spec=CountermeasureRepository),
-            'report': Mock(spec=ReportRepository)
+            'report': Mock(spec=ReportRepository),
+            'version': Mock(spec=VersionRepository)
         }
 
 

@@ -1,0 +1,47 @@
+{
+  "endpoint": "/projects/{id}/versions",
+  "method": "POST",
+  "responses": {
+    "200": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/versions",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/versions",
+        "query_params": {},
+        "request_body": {
+          "name": "v1.0",
+          "description": "New version"
+        },
+        "status": 200,
+        "response_data": {
+          "id": "async-op-12345678",
+          "state": "pending",
+          "createdAt": "2025-01-15T10:30:00.000+0000",
+          "_links": {
+            "self": {
+              "href": "https://release.iriusrisk.com/api/v2/async-operations/async-op-12345678"
+            }
+          }
+        }
+      }
+    ],
+    "403": [
+      {
+        "url": "https://release.iriusrisk.com/api/v2/projects/42c54d68-dca1-4ec5-806f-4d5a84b2be0c/versions",
+        "method": "POST",
+        "endpoint_pattern": "/projects/{id}/versions",
+        "query_params": {},
+        "request_body": {
+          "name": "v1.0"
+        },
+        "status": 403,
+        "response_data": {
+          "title": "Forbidden",
+          "status": 403,
+          "detail": "User does not have permission to create versions"
+        }
+      }
+    ]
+  }
+}
+

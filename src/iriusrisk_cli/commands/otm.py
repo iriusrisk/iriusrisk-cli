@@ -2,12 +2,18 @@
 
 import click
 import json
+import logging
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
 from ..container import get_container
 from ..api_client import IriusRiskApiClient
+from ..config import Config
 from ..utils.project import resolve_project_id, get_project_context_info
+from ..services.version_service import VersionService
+
+logger = logging.getLogger(__name__)
 
 
 @click.group()
@@ -57,6 +63,36 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
         # Get API client from container
         container = get_container()
         api_client = container.get(IriusRiskApiClient)
+        
+        # Check for auto-versioning configuration
+        config = Config()
+        project_config = config.get_project_config()
+        auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
+        
+        # Handle auto-versioning if enabled and we're updating a project
+        if auto_versioning_enabled and update:
+            logger.info("Auto-versioning is enabled, creating backup version before import")
+            click.echo("📸 Auto-versioning enabled: Creating backup version before import...")
+            
+            try:
+                version_service = container.get(VersionService)
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                version_name = f"Auto-backup before import {timestamp}"
+                
+                # Create version and wait for completion
+                version_service.create_version(
+                    project_id=update,
+                    name=version_name,
+                    description="Automatic backup created by CLI before OTM import",
+                    wait=True,
+                    timeout=300
+                )
+                click.echo("✅ Backup version created successfully")
+            except Exception as e:
+                # Log the error but continue with import
+                logger.warning(f"Failed to create backup version: {e}")
+                click.echo(f"⚠️  Warning: Could not create backup version: {e}")
+                click.echo("   Continuing with import...")
         
         if update:
             # Explicit update of existing project

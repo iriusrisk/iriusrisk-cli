@@ -308,6 +308,49 @@ def save_user_config(hostname: Optional[str] = None, api_token: Optional[str] = 
     user_config_file.chmod(0o600)
 
 
+def save_project_config(**kwargs) -> None:
+    """Save project configuration to .iriusrisk/project.json in current directory.
+    
+    This function preserves existing values if the parameter is None.
+    Only updates the specified fields, leaving others unchanged.
+    
+    Args:
+        **kwargs: Configuration fields to save (e.g., auto_versioning=True)
+        
+    Raises:
+        ValueError: If config file is malformed or contains forbidden fields
+        OSError: If directory cannot be created or file cannot be written
+    """
+    project_dir = Path.cwd() / ".iriusrisk"
+    project_config_file = project_dir / "project.json"
+    
+    # Check if project exists
+    if not project_config_file.exists():
+        raise ValueError(
+            "No project.json found in current directory. "
+            "Run 'iriusrisk otm import' first to create a project."
+        )
+    
+    # Load existing config
+    try:
+        with open(project_config_file, 'r') as f:
+            existing_config = json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        raise ValueError(f"Existing project config is malformed: {e}")
+    
+    # Update with new values
+    for key, value in kwargs.items():
+        if value is not None:
+            existing_config[key] = value
+    
+    # Validate the updated config
+    validate_project_config(existing_config)
+    
+    # Write config file
+    with open(project_config_file, 'w') as f:
+        json.dump(existing_config, f, indent=2)
+
+
 def validate_project_config(config: Dict[str, Any]) -> None:
     """Validate project configuration to ensure security rules and proper structure.
     

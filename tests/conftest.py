@@ -47,10 +47,12 @@ def patch_api_client(monkeypatch):
     from iriusrisk_cli.repositories.threat_repository import ThreatRepository
     from iriusrisk_cli.repositories.countermeasure_repository import CountermeasureRepository
     from iriusrisk_cli.repositories.report_repository import ReportRepository
+    from iriusrisk_cli.repositories.version_repository import VersionRepository
     from iriusrisk_cli.services.project_service import ProjectService
     from iriusrisk_cli.services.threat_service import ThreatService
     from iriusrisk_cli.services.countermeasure_service import CountermeasureService
     from iriusrisk_cli.services.report_service import ReportService
+    from iriusrisk_cli.services.version_service import VersionService
     
     # Create mock config
     mock_config = Config()
@@ -60,6 +62,7 @@ def patch_api_client(monkeypatch):
     threat_repository = ThreatRepository(api_client=mock_client)
     countermeasure_repository = CountermeasureRepository(api_client=mock_client)
     report_repository = ReportRepository(api_client=mock_client)
+    version_repository = VersionRepository(api_client=mock_client.version_client)
     
     # Create real service instances with our mock repositories
     project_service = ProjectService(
@@ -70,6 +73,10 @@ def patch_api_client(monkeypatch):
     threat_service = ThreatService(threat_repository=threat_repository)
     countermeasure_service = CountermeasureService(countermeasure_repository=countermeasure_repository)
     report_service = ReportService(report_repository=report_repository)
+    version_service = VersionService(
+        version_repository=version_repository,
+        report_repository=report_repository
+    )
     
     # Create a mock service factory
     mock_service_factory = MagicMock(spec=ServiceFactory)
@@ -77,6 +84,7 @@ def patch_api_client(monkeypatch):
     mock_service_factory.get_threat_service.return_value = threat_service
     mock_service_factory.get_countermeasure_service.return_value = countermeasure_service
     mock_service_factory.get_report_service.return_value = report_service
+    mock_service_factory.get_version_service.return_value = version_service
     
     # Create a mock CLI context
     mock_cli_context = MagicMock(spec=CliContext)
@@ -84,10 +92,17 @@ def patch_api_client(monkeypatch):
     mock_cli_context.get_service_factory.return_value = mock_service_factory
     
     # Create a mock container
+    from iriusrisk_cli.services.version_service import VersionService
+    
     mock_container = MagicMock(spec=Container)
     mock_container.get.side_effect = lambda service_type: {
         Config: mock_config,
-        ServiceFactory: mock_service_factory
+        ServiceFactory: mock_service_factory,
+        VersionService: version_service,
+        ProjectService: project_service,
+        ThreatService: threat_service,
+        CountermeasureService: countermeasure_service,
+        ReportService: report_service
     }.get(service_type, MagicMock())
     
     # Patch the container system and CLI context more comprehensively

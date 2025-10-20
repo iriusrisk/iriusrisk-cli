@@ -15,6 +15,7 @@ from .commands.updates import updates
 from .commands.reports import reports
 from .commands.issue_trackers import issue_tracker
 from .commands.config_cmd import config
+from .commands.versions import versions
 
 
 @click.group(invoke_without_command=True)
@@ -336,6 +337,9 @@ cli.add_command(updates)
 cli.add_command(reports)
 cli.add_command(issue_tracker)
 
+# Add versions as subcommand to project
+project.add_command(versions)
+
 # Add plural aliases for commands (hidden from help to keep it clean)
 # Create hidden aliases that point to the same command groups
 @cli.group(name='projects', hidden=True)
@@ -367,6 +371,9 @@ for cmd in countermeasure.commands.values():
     countermeasures_alias.add_command(cmd)
 for cmd in component.commands.values():
     components_alias.add_command(cmd)
+
+# Also add projects alias to main CLI
+cli.add_command(projects_alias)
 
 
 if __name__ == '__main__':

@@ -8,10 +8,12 @@ from .repositories.project_repository import ProjectRepository
 from .repositories.threat_repository import ThreatRepository
 from .repositories.countermeasure_repository import CountermeasureRepository
 from .repositories.report_repository import ReportRepository
+from .repositories.version_repository import VersionRepository
 from .services.project_service import ProjectService
 from .services.threat_service import ThreatService
 from .services.countermeasure_service import CountermeasureService
 from .services.report_service import ReportService
+from .services.version_service import VersionService
 
 
 class ServiceFactory:
@@ -34,12 +36,14 @@ class ServiceFactory:
         self._threat_repository = None
         self._countermeasure_repository = None
         self._report_repository = None
+        self._version_repository = None
         
         # Cache service instances for lifecycle management
         self._project_service = None
         self._threat_service = None
         self._countermeasure_service = None
         self._report_service = None
+        self._version_service = None
     
     @property
     def api_client(self) -> IriusRiskApiClient:
@@ -78,6 +82,14 @@ class ServiceFactory:
             )
         return self._report_repository
     
+    def get_version_repository(self) -> VersionRepository:
+        """Get or create a VersionRepository instance."""
+        if self._version_repository is None:
+            self._version_repository = VersionRepository(
+                api_client=self._api_client.version_client
+            )
+        return self._version_repository
+    
     def get_project_service(self) -> ProjectService:
         """Get or create a ProjectService instance with proper dependency injection."""
         if self._project_service is None:
@@ -112,6 +124,15 @@ class ServiceFactory:
             )
         return self._report_service
     
+    def get_version_service(self) -> VersionService:
+        """Get or create a VersionService instance with proper dependency injection."""
+        if self._version_service is None:
+            self._version_service = VersionService(
+                version_repository=self.get_version_repository(),
+                report_repository=self.get_report_repository()
+            )
+        return self._version_service
+    
     def cleanup(self):
         """Clean up resources and reset service instances."""
         # Clear cached repository instances
@@ -119,12 +140,14 @@ class ServiceFactory:
         self._threat_repository = None
         self._countermeasure_repository = None
         self._report_repository = None
+        self._version_repository = None
         
         # Clear cached service instances
         self._project_service = None
         self._threat_service = None
         self._countermeasure_service = None
         self._report_service = None
+        self._version_service = None
         
         # Close any sessions if needed
         if hasattr(self._api_client, 'session') and self._api_client.session:
