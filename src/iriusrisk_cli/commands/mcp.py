@@ -5,6 +5,7 @@ import asyncio
 import sys
 import logging
 from typing import Any
+from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 from .. import __version__
 from ..cli_context import pass_cli_context
@@ -32,6 +33,102 @@ def _find_project_root_and_config():
     return find_project_root()
 
 
+def _load_prompt(prompt_name: str) -> str:
+    """Load prompt instructions from external file.
+    
+    Prompts are stored in the prompts/ directory as markdown files.
+    This allows easier editing and version control of AI instructions.
+    
+    Args:
+        prompt_name: Name of the prompt file (without .md extension)
+        
+    Returns:
+        The prompt content as a string
+        
+    Raises:
+        FileNotFoundError: If the prompt file doesn't exist
+        IOError: If the file cannot be read
+    """
+    prompts_dir = Path(__file__).parent.parent / 'prompts'
+    prompt_file = prompts_dir / f'{prompt_name}.md'
+    
+    try:
+        with open(prompt_file, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        logger.error(f"Prompt file not found: {prompt_file}")
+        raise FileNotFoundError(f"Prompt file '{prompt_name}.md' not found in {prompts_dir}")
+    except IOError as e:
+        logger.error(f"Error reading prompt file {prompt_file}: {e}")
+        raise
+
+
+def _load_prompt_text(value, iriusrisk_dir: Path, action_name: str) -> str:
+    """Load prompt text from either a string or a file reference.
+    
+    Args:
+        value: Either a string (used directly) or a dict with 'file' key (loaded from file)
+        iriusrisk_dir: Path to the .iriusrisk directory (for resolving relative paths)
+        action_name: Name of the action (prefix/postfix/replace) for error messages
+        
+    Returns:
+        The prompt text as a string
+        
+    Raises:
+        ValueError: If the value format is invalid
+        FileNotFoundError: If the file doesn't exist
+        IOError: If the file cannot be read
+    """
+    # If it's a string, use it directly
+    if isinstance(value, str):
+        return value
+    
+    # If it's a dict, expect a 'file' key
+    if isinstance(value, dict):
+        if 'file' not in value:
+            raise ValueError(
+                f"Dictionary value for '{action_name}' must contain a 'file' key. "
+                f"Got: {list(value.keys())}"
+            )
+        
+        file_path = value['file']
+        if not isinstance(file_path, str):
+            raise ValueError(f"File path for '{action_name}' must be a string, got: {type(file_path)}")
+        
+        # Convert to Path object
+        path = Path(file_path)
+        
+        # If not absolute, make it relative to .iriusrisk directory
+        if not path.is_absolute():
+            path = iriusrisk_dir / path
+        
+        # Check if file exists
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Prompt file for '{action_name}' not found: {path}\n"
+                f"(resolved from: {file_path})"
+            )
+        
+        if not path.is_file():
+            raise ValueError(f"Prompt path for '{action_name}' is not a file: {path}")
+        
+        # Read and return the file contents
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            logger.info(f"Loaded {len(content)} characters from file: {path}")
+            return content
+        except IOError as e:
+            logger.error(f"Error reading prompt file {path}: {e}")
+            raise IOError(f"Failed to read prompt file for '{action_name}': {path}") from e
+    
+    # Invalid type
+    raise ValueError(
+        f"Prompt customization '{action_name}' must be either a string or a dict with 'file' key. "
+        f"Got: {type(value)}"
+    )
+
+
 def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
     """Apply any configured prompt customizations from project.json.
     
@@ -40,6 +137,10 @@ def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
     - prefix: Add text before the base prompt
     - postfix: Add text after the base prompt
     - replace: Completely replace the base prompt
+    
+    Each action can be specified as either:
+    - A string value (used directly)
+    - A dict with 'file' key (loaded from file, relative to .iriusrisk directory)
     
     Args:
         tool_name: Name of the MCP tool function (e.g., 'threats_and_countermeasures')
@@ -53,10 +154,10 @@ def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
           "prompts": {
             "threats_and_countermeasures": {
               "prefix": "Organization-specific rules here\\n\\n",
-              "postfix": "\\n\\nAdditional requirements here"
+              "postfix": {"file": "custom_prompts/additional_rules.md"}
             },
             "create_threat_model": {
-              "replace": "Completely custom prompt"
+              "replace": {"file": "custom_prompts/my_workflow.md"}
             }
           }
         }
@@ -86,20 +187,45 @@ def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
         logger.info(f"No customizations found for {tool_name}")
         return base_prompt
     
+    # Get the .iriusrisk directory for resolving relative file paths
+    if project_root:
+        # Convert to Path if it's a string (handles both real usage and mocked tests)
+        if isinstance(project_root, str):
+            project_root = Path(project_root)
+        iriusrisk_dir = project_root / '.iriusrisk'
+    else:
+        iriusrisk_dir = Path.cwd() / '.iriusrisk'
+    
     # Handle replace first (it overrides everything)
     if 'replace' in customizations:
         logger.info(f"Applying 'replace' customization to {tool_name}")
-        logger.info(f"Replace text length: {len(customizations['replace'])} characters")
-        return customizations['replace']
+        try:
+            replacement_text = _load_prompt_text(customizations['replace'], iriusrisk_dir, 'replace')
+            logger.info(f"Replace text length: {len(replacement_text)} characters")
+            return replacement_text
+        except (ValueError, FileNotFoundError, IOError) as e:
+            logger.error(f"Error loading 'replace' customization for {tool_name}: {e}")
+            raise
     
     # Apply prefix and/or postfix
     result = base_prompt
     if 'prefix' in customizations:
         logger.info(f"Applying 'prefix' customization to {tool_name}")
-        result = customizations['prefix'] + result
+        try:
+            prefix_text = _load_prompt_text(customizations['prefix'], iriusrisk_dir, 'prefix')
+            result = prefix_text + result
+        except (ValueError, FileNotFoundError, IOError) as e:
+            logger.error(f"Error loading 'prefix' customization for {tool_name}: {e}")
+            raise
+    
     if 'postfix' in customizations:
         logger.info(f"Applying 'postfix' customization to {tool_name}")
-        result = result + customizations['postfix']
+        try:
+            postfix_text = _load_prompt_text(customizations['postfix'], iriusrisk_dir, 'postfix')
+            result = result + postfix_text
+        except (ValueError, FileNotFoundError, IOError) as e:
+            logger.error(f"Error loading 'postfix' customization for {tool_name}: {e}")
+            raise
     
     return result
 
@@ -149,335 +275,7 @@ def mcp(cli_ctx):
         """
         logger.info("MCP tool invoked: initialize_iriusrisk_workflow")
         logger.debug("Providing workflow instructions to AI assistant")
-        instructions = """# IriusRisk MCP Workflow Instructions for AI Assistants
-
-## Executive Summary
-This MCP provides AI assistants with tools for professional threat modeling via IriusRisk CLI. Key workflow: sync() → analyze source → create OTM → import_otm() → project_status() → sync() → analyze results. Always use MCP tools and JSON files instead of direct CLI commands. Call initialize_iriusrisk_workflow() first for complete instructions.
-
-## CRITICAL: Determine If Complete Threat Model Exists and Get User Permission
-
-**A complete threat model requires BOTH project initialization AND threat analysis in IriusRisk.**
-
-### Step 1: Call sync() First
-
-Always start by calling `sync()` to download latest data. This is safe whether or not a threat model exists.
-
-### Step 2: Check What sync() Downloaded
-
-After calling `sync()`, check what files exist in `.iriusrisk/` directory:
-
-### Scenario A: Complete Threat Model Exists (Use Automatically)
-
-Files present:
-- ✅ `project.json` - Project initialized
-- ✅ `threats.json` WITH actual threat data (not empty, has threat entries)
-- ✅ `countermeasures.json` WITH actual countermeasure data (not empty, has countermeasure entries)
-- ✅ `components.json` - Component library
-- ✅ `trust-zones.json` - Trust zones
-
-**Action: Use threat model automatically - NO permission needed**
-
-The user has already created this threat model, so use it:
-1. Call `threats_and_countermeasures()` for analysis guidance
-2. Read and analyze the threats.json and countermeasures.json files
-3. Present integrated architecture + security review with threat findings
-
-### Scenario B: No Threat Model (Assess User Intent and Ask Permission)
-
-Files present:
-- Either `project.json` exists BUT `threats.json`/`countermeasures.json` are missing/empty
-- OR no `project.json` at all
-
-**Action: Determine user intent BEFORE proceeding**
-
-#### B1: User Made EXPLICIT Security Request
-
-User said: "Is this secure?", "Security review", "What are the security risks?", "Vulnerabilities", "Threats"
-
-**Response to user:**
-```
-"To provide a comprehensive security assessment, I recommend creating a threat 
-model with IriusRisk. This will give you professional threat analysis rather 
-than generic security advice.
-
-Would you like me to help create a threat model? This will:
-- Systematically identify security threats specific to your architecture
-- Provide prioritized countermeasures with implementation guidance
-- Generate compliance reports (OWASP, PCI DSS, etc.)
-- Take about 10-15 minutes to set up"
-```
-
-**Wait for user response:**
-- If YES → Call `create_threat_model()` and proceed with workflow
-- If NO → Provide general security guidance with disclaimer
-
-#### B2: User Made GENERAL Architecture Request
-
-User said: "Review the architecture", "How does this work?", "Explain the system", "What does this code do?"
-
-**Response to user:**
-```
-"I can provide an architecture review. I notice this project doesn't have a 
-threat model yet.
-
-Would you also like a security-aware analysis? I can help create an IriusRisk 
-threat model that integrates security findings with your architecture documentation.
-
-Options:
-1. Architecture review only (I'll explain the structure and components)
-2. Architecture + threat modeling (adds systematic security analysis)
-
-What would you prefer?"
-```
-
-**Wait for user response:**
-- If option 2 → Call `create_threat_model()` and proceed with threat modeling
-- If option 1 → Provide architecture review, note threat modeling available later
-
-#### B3: User is Planning Security-Impacting Changes
-
-User said: "I'm adding [payment integration]", "Building [authentication]", "Implementing [data handling]"
-
-**Assess security impact:**
-
-**High security impact** (external integrations, sensitive data, auth, public endpoints):
-```
-"This change has significant security implications. I strongly recommend 
-creating/updating a threat model to identify potential security issues early.
-
-Shall I help with that? It will save time fixing security issues later vs. in production."
-```
-
-**Wait for response** - if YES, proceed with workflow
-
-**Medium/Low security impact** (internal refactoring, UI, docs):
-```
-[Provide requested guidance]
-
-[Optional light mention: "If you want security analysis, I can help create a threat model."]
-```
-
-### Step 3: If User Agrees to Threat Modeling
-
-**Call `create_threat_model()`** to get OTM creation instructions, then:
-1. Create OTM file modeling the architecture
-2. Call `import_otm()` to upload and trigger IriusRisk analysis  
-3. Call `project_status()` to verify processing
-4. Call `sync()` again to download generated threats/countermeasures
-5. Present integrated architecture + security review
-
-### Step 4: If User Declines or Just Wants Architecture Review
-
-**Provide value anyway:**
-```
-[Provide architecture/security guidance based on code analysis]
-
-Note: This is based on code-level review. For comprehensive threat analysis 
-with IriusRisk's professional security assessment, I can help create a threat 
-model anytime.
-```
-
-### Key Principles
-
-1. **Existing threat models = use automatically** (user already invested effort, no permission needed)
-2. **Security-explicit requests = recommend strongly** (user wants security focus, but still ask)
-3. **General architecture = offer as option** (respect user autonomy)
-4. **Always ask permission** before creating new threat models
-5. **Provide value regardless** - useful guidance even without threat modeling
-
-### Critical Notes
-
-- **`project.json` alone does NOT mean a threat model exists!** 
-- Threat model only exists if `threats.json` and `countermeasures.json` have actual data
-- **DO NOT invent threats or countermeasures** - they come from IriusRisk after OTM import
-- **DO NOT force threat modeling** - respect user choice and provide value either way
-
-## Proactive Threat Model Engagement
-
-**CRITICAL: Threat models are first-class architectural artifacts.** When users ask about architecture, design, security posture, or system understanding, proactively engage the threat model.
-
-**Always suggest threat modeling when:**
-- **Understanding architecture/design**: "Explain this system", "How does this work?", "What's the architecture?", "Review the codebase"
-- **Assessing security posture**: "Is this secure?", "What are the risks?", "Security review", "Vulnerabilities"
-- **Making architectural changes**: Adding services, modifying data flows, changing trust boundaries, infrastructure updates
-- **Working with security-sensitive areas**: External integrations, data handling, auth/authz, public endpoints, admin interfaces
-
-**Examples of when to engage:**
-- User: "I want to understand this project's architecture" → Check for `.iriusrisk/` → Offer threat model review
-- User: "What are the security concerns?" → Sync threats → Present findings
-- User: "I'm adding [any feature]" → Assess security impact → Offer threat model update
-- User: "How does authentication work?" → Check threat model for auth components → Explain with security context
-
-**Action:** When detected, say: "I see this is an [architecture/security/change] question. Let me check your IriusRisk threat model for comprehensive security analysis." Then call appropriate MCP tools.
-
-## Critical Rules
-
-### 1. Use MCP Tools, Not CLI Commands
-**NEVER** run CLI commands like `iriusrisk countermeasures list` or `iriusrisk threats list`.  
-**ALWAYS** use MCP tools and read JSON files from `.iriusrisk/` directory instead.  
-Example: Instead of CLI commands, read `.iriusrisk/countermeasures.json` directly.
-
-### 2. Countermeasure Updates Require Two Calls
-The IriusRisk API requires status updates and comments to be sent separately. For ANY countermeasure status change:
-
-**Step 1:** Update status only (no comment parameter)
-```
-track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Added input validation")
-```
-
-**Step 2:** Add explanatory comment (with HTML formatting)
-```
-track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Adding details", 
-  comment="<p><strong>Implementation:</strong></p><ul><li>Added validation in api.py</li></ul>")
-```
-
-**Why:** IriusRisk API design requires separate calls for status vs. comment updates.  
-**HTML Required:** Comments must use HTML tags (`<p>`, `<strong>`, `<ul><li>`, `<code>`, `<pre>`) not Markdown.  
-**Character Limit:** Keep comments under 1000 characters (IriusRisk database constraint).
-
-## Overview
-The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to interact with IriusRisk CLI functionality. This MCP server enables seamless integration between AI systems and IriusRisk threat modeling capabilities.
-
-## Available Tools
-
-### Architecture & Design Review (START HERE for architecture questions)
-1. **architecture_and_design_review()** - PRIMARY tool for architecture/design/security reviews
-   - Call when: "Review the architecture", "What does this do?", "How does this work?", "Is this secure?"
-   - Guides you to check for existing threat models FIRST before any analysis
-   - Provides instructions for security-aware architecture reviews
-
-### Core Workflow Tools
-2. **initialize_iriusrisk_workflow()** - Get these complete workflow instructions (call first for threat model creation)
-3. **get_cli_version()** - Get IriusRisk CLI version
-4. **sync(project_path)** - Download components, trust zones, and project data from IriusRisk
-5. **import_otm(otm_file_path)** - Upload OTM file to create/update project in IriusRisk
-6. **project_status(project_id)** - Check project details and processing status
-
-### Analysis & Guidance Tools
-7. **threats_and_countermeasures()** - Get instructions for analyzing security findings
-8. **analyze_source_material()** - Get guidance for analyzing mixed repositories (code + infrastructure + policies)
-9. **create_threat_model()** - Get step-by-step threat model creation instructions
-
-### Reporting Tools
-10. **list_standards(project_id)** - List available compliance standards (OWASP, PCI DSS, NIST, etc.)
-11. **generate_report(report_type, format, project_id, output_path, standard)** - Generate/download reports (countermeasure, threat, compliance, risk-summary)
-
-### Status Tracking Tools
-12. **track_threat_update(threat_id, status, reason, context, comment)** - Track threat status changes for later sync (status: accept/mitigate/expose/partly-mitigate/hidden)
-13. **track_countermeasure_update(countermeasure_id, status, reason, context, comment)** - Track countermeasure status changes (see Two-Call Rule above)
-14. **get_pending_updates()** - Review pending updates before sync
-15. **clear_updates()** - Clear update queue
-16. **create_countermeasure_issue(countermeasure_id, issue_tracker_id)** - Queue issue tracker ticket creation
-
-## Common Workflows
-
-### Architecture/Design Review Workflow (MOST COMMON)
-1. **architecture_and_design_review()** - Triggers threat model engagement
-2. **initialize_iriusrisk_workflow()** - Get complete workflow instructions
-3. **sync()** - ALWAYS call first to download available data
-4. **Check downloaded files** in `.iriusrisk/` directory:
-   - If `threats.json` and `countermeasures.json` have data → Read and present findings
-   - If files missing/empty but `project.json` exists → Call `create_threat_model()` and import OTM
-   - If no `project.json` → Call `create_threat_model()` and create from scratch
-
-### Threat Model Creation Workflow
-1. sync(project_path) - Download latest component library
-2. analyze_source_material() - Get analysis guidance (for mixed repos)
-3. create_threat_model() - Get OTM creation instructions
-4. [Create OTM file based on guidance]
-5. import_otm(otm_file_path) - Upload to IriusRisk
-6. project_status() - Verify processing complete
-7. sync(project_path) - Download generated threats/countermeasures
-8. threats_and_countermeasures() - Get analysis instructions
-
-### Security Implementation Tracking Workflow
-1. sync() - Download current threats/countermeasures
-2. threats_and_countermeasures() - Get analysis guidance
-3. [Implement security measures in code]
-4. track_threat_update() / track_countermeasure_update() - Track changes (remember: two calls for countermeasures)
-5. get_pending_updates() - Review pending changes
-6. sync() - Apply updates to IriusRisk
-7. [Verify updated statuses in downloaded JSON]
-
-### Report Generation Workflow
-1. list_standards() - See available compliance standards
-2. generate_report(report_type, format, standard) - Generate report
-3. [Report downloaded to local file]
-
-## Key Best Practices
-- Always call `sync()` FIRST to download available data
-- Check what `sync()` downloaded to determine next steps:
-  - `threats.json` has data → Analyze and present
-  - `threats.json` missing/empty → Create threat model with OTM
-- Use MCP tools and JSON files, not CLI commands
-- Never run CLI commands like `iriusrisk threats list`
-- Use two separate calls for countermeasure status changes
-- Batch updates together, then sync once
-- Use HTML formatting in comments (not Markdown)
-- Keep comments under 1000 characters
-- **DO NOT invent threats** - read them from `threats.json` or create OTM to generate them
-
-## Example Usage Scenarios
-
-**User:** "I want to understand this project's architecture"  
-**AI:** 
-1. Call `architecture_and_design_review()` → Get trigger guidance
-2. Call `initialize_iriusrisk_workflow()` → Get complete instructions  
-3. Call `sync()` → Download available data
-4. Check if `threats.json` has data:
-   - YES → Call `threats_and_countermeasures()` → Present integrated review
-   - NO → Call `create_threat_model()` → Guide OTM creation → import_otm() → Wait for processing → sync() again
-
-**User:** "What does this codebase do?"  
-**AI:** Same as above - sync() first, check what's downloaded, then either present findings or create threat model.
-
-**User:** "Is this system secure? What are the risks?"  
-**AI:** Call sync() → Check `threats.json`:
-- If has data → Present risk analysis from actual threats
-- If empty/missing → "No threat analysis yet. Let me help create a threat model..." → Follow creation workflow
-
-**User:** "I want to create a threat model from my Node.js + Terraform repository"  
-**AI:** Call sync() → analyze_source_material() → create_threat_model() → [create OTM] → import_otm() → project_status() → sync()
-
-**User:** "I'm adding a new API endpoint"  
-**AI:** Check threat model exists → Assess impact → "This changes your attack surface. Let me update the threat model..." → Guide OTM update.
-
-**User:** "Help me understand the threats in my system"  
-**AI:** Call threats_and_countermeasures() for analysis instructions, then read and analyze `.iriusrisk/threats.json`
-
-**User:** "I've implemented input validation. How do I track this?"  
-**AI:** Make two calls to track_countermeasure_update():
-1. Update status: `status="implemented", reason="Added input validation"`
-2. Add comment: `status="implemented", reason="Adding details", comment="<p><strong>Implementation:</strong></p><ul><li>Added validation middleware in api.py</li></ul>"`
-
-**User:** "Find the SQL injection countermeasure"  
-**AI:** ✅ Read `.iriusrisk/countermeasures.json` and search programmatically  
-(NOT: ❌ Run `iriusrisk countermeasures list`)
-
-## Reference: Countermeasure Update Example
-
-```python
-# Step 1: Update status
-track_countermeasure_update(
-    countermeasure_id="abc-123",
-    status="implemented",
-    reason="Implemented input validation"
-)
-
-# Step 2: Add detailed comment
-track_countermeasure_update(
-    countermeasure_id="abc-123",
-    status="implemented",
-    reason="Adding implementation details",
-    comment="<p><strong>Implementation:</strong></p><ul><li>Added middleware in <code>api.py</code></li><li>Uses pydantic validation</li></ul>"
-)
-```
-
-## Technical Notes
-- MCP communicates via stdio
-- Logging: logs/mcp_server.log
-- All tools are asynchronous and return strings
-"""
+        instructions = _load_prompt("initialize_iriusrisk_workflow")
         logger.info("Provided critical IriusRisk workflow instructions to AI assistant")
         return _apply_prompt_customizations('initialize_iriusrisk_workflow', instructions)
     
@@ -874,153 +672,7 @@ track_countermeasure_update(
         """
         logger.info("Providing threats and countermeasures instructions via MCP")
         
-        instructions = """# Threats and Countermeasures Analysis Instructions for AI Assistants
-
-## Executive Summary
-After completing the threat modeling workflow, IriusRisk generates threats and countermeasures saved to `.iriusrisk/` directory. Your role: read these JSON files, explain findings in business terms, prioritize by risk, provide implementation guidance and code examples. Do NOT create new threats, modify risk ratings, or analyze source code for vulnerabilities—that's IriusRisk's job.
-
-## Available Data Files
-
-After sync(), read these JSON files from `.iriusrisk/` directory:
-
-**1. threats.json** - All threats IriusRisk identified:
-- Threat descriptions, categories, risk ratings (likelihood/impact)
-- Affected components, attack vectors, STRIDE classifications, CWE mappings
-
-**2. countermeasures.json** - All security controls and mitigations:
-- Control descriptions, implementation guidance, risk reduction effectiveness
-- Associated threats, implementation status, priority, industry standards (NIST, ISO 27001)
-- Cost and effort estimates
-
-**3. components.json** - Component library reference:
-- Available component types, properties, configurations
-
-## Your Role as AI Assistant
-
-**Do:**
-- Read and analyze JSON files when users ask about their threat model
-- Explain threats in business terms for non-security experts
-- Prioritize threats by risk level (focus on critical issues)
-- Provide implementation guidance and code examples for countermeasures
-- Create summaries and reports of security findings
-- Reference specific threat/countermeasure IDs from the data
-
-**Do NOT:**
-- Create new threats or countermeasures (use only what IriusRisk generated)
-- Modify risk ratings assigned by IriusRisk
-- Ignore high-risk threats in favor of easier ones
-- Analyze source code for vulnerabilities (that's IriusRisk's role)
-- Speculate about potential security flaws not in the data
-
-## Common User Questions & Responses
-
-**Q: "What are the main security concerns with my system?"**  
-A: Read threats.json → identify high-risk threats → group by category → provide prioritized summary with business impact
-
-**Q: "Tell me more about the SQL injection threat"**  
-A: Find threat in threats.json → explain attack scenario simply → show affected components → reference related countermeasures
-
-**Q: "How do I implement input validation?"**  
-A: Find countermeasure in countermeasures.json → provide code examples in their stack → explain best practices → reference industry standards
-
-**Q: "What should I fix first?"**  
-A: Sort threats by risk rating (likelihood × impact) → consider implementation effort → recommend prioritized action plan focusing on quick wins and critical issues
-
-**Q: "Does this help with GDPR compliance?"**  
-A: Review countermeasures for privacy controls → map threats to data protection requirements → identify gaps → suggest additional measures
-
-## JSON File Structure Examples
-
-### threats.json structure:
-```json
-{
-  "metadata": {
-    "project_id": "...",
-    "total_count": 45,
-    "sync_timestamp": "..."
-  },
-  "threats": [
-    {
-      "id": "threat-123",
-      "name": "SQL Injection via User Input",
-      "description": "Attackers can inject malicious SQL...",
-      "riskRating": "HIGH",
-      "likelihood": 4,
-      "impact": 5,
-      "components": ["web-app-component-id"],
-      "categories": ["Input Validation", "Database Security"],
-      "cwe": ["CWE-89"],
-      "stride": ["Tampering", "Information Disclosure"]
-    }
-  ]
-}
-```
-
-### countermeasures.json structure:
-```json
-{
-  "metadata": {
-    "project_id": "...",
-    "total_count": 67,
-    "sync_timestamp": "..."
-  },
-  "countermeasures": [
-    {
-      "id": "control-456",
-      "name": "Input Validation and Sanitization",
-      "description": "Implement comprehensive input validation...",
-      "threats": ["threat-123", "threat-124"],
-      "priority": "HIGH",
-      "effort": "MEDIUM",
-      "status": "NOT_IMPLEMENTED",
-      "frameworks": ["NIST CSF", "OWASP Top 10"],
-      "implementation": "Use parameterized queries..."
-    }
-  ]
-}
-```
-
-## Response Templates
-
-**Executive Summary:**
-"IriusRisk identified [X] threats across [Y] categories. Highest priority:
-1. [threat] - affects [components] - mitigate with [control]
-2. [threat] - affects [components] - mitigate with [control]"
-
-**Implementation Guide:**
-"To implement [countermeasure]:
-- **What it does**: [explanation from data]
-- **Why it's important**: [risk context from threats.json]
-- **How to implement**: [code example in their stack]
-- **Testing**: [validation approach]
-- **Standards**: [from countermeasures.json]"
-
-**Risk Context:**
-"This threat has [risk rating] because:
-- Likelihood: [X/5] - [explanation from data]
-- Impact: [Y/5] - [business impact]
-- Affected: [components from threats.json]
-- Action: [from countermeasures.json]"
-
-## Code Generation Guidelines
-
-When generating code examples:
-1. Use countermeasure descriptions as requirements
-2. Target their technology stack (ask if unclear)
-3. Include error handling and security best practices
-4. Add comments explaining security rationale
-5. Reference the specific threat being mitigated
-
-## Integration with Development Workflow
-
-Help users integrate security practices:
-- **Code reviews**: Generate security checklists from countermeasures
-- **Testing**: Create security test cases from threat scenarios
-- **Monitoring**: Suggest logging/alerting for threat detection
-- **Documentation**: Generate security requirements from the data
-
-Your role: Make IriusRisk's professional security analysis accessible and actionable for users' specific context.
-"""
+        instructions = _load_prompt("threats_and_countermeasures")
         
         logger.info("Provided threats and countermeasures instructions to AI assistant")
         return _apply_prompt_customizations('threats_and_countermeasures', instructions)
@@ -1210,211 +862,7 @@ Your role: Make IriusRisk's professional security analysis accessible and action
         """
         logger.info("Providing source material analysis instructions via MCP")
         
-        instructions = """# Source Material Analysis Instructions for AI Assistants
-
-## Executive Summary
-Analyze mixed repositories (application code + infrastructure + policies + docs) to extract ALL components for ONE unified threat model. Your role: architecture modeling only—extract components, trust zones, and data flows. Do NOT identify vulnerabilities or security flaws; IriusRisk handles that automatically. Create a single comprehensive threat model covering all layers.
-
-## Critical Principle: One Comprehensive Threat Model
-Create ONE unified threat model including ALL components from ALL source types. Do NOT create separate models for code vs. infrastructure—IriusRisk works best with a complete, holistic view of the entire system.
-
-## Your Role: Architecture Modeling Only
-**Do:** Extract components, trust zones, and data flows  
-**Do NOT:** Identify vulnerabilities, threats, security flaws, or speculate about weaknesses  
-**Why:** IriusRisk performs all security analysis automatically
-
-## Component Types to Extract
-
-### 1. Application/Functional Components
-**From source code, APIs, microservices:**
-- **Business Logic Components**: Payment processing, user authentication, order management, reporting engines
-- **Application Services**: User management service, notification service, audit service, integration service
-- **API Endpoints**: REST APIs, GraphQL endpoints, webhook receivers, internal APIs
-- **Background Processes**: Batch jobs, scheduled tasks, data processing pipelines, cleanup services
-- **Client Applications**: Web frontends, mobile apps, desktop applications, CLI tools
-
-### 2. Data Components
-**From databases, data flows, storage systems:**
-- **Data Stores**: SQL databases, NoSQL databases, data warehouses, caches (Redis, Memcached)
-- **Data Processing**: ETL pipelines, stream processing, data analytics engines, ML model training
-- **Data Storage**: File systems, object storage (S3), content delivery networks, backup systems
-- **Data Flows**: Customer data, transaction data, audit logs, analytics data, configuration data
-
-### 3. Infrastructure/Network Components
-**From Terraform, cloud configurations, network diagrams:**
-- **Compute Resources**: Virtual machines, containers, serverless functions, auto-scaling groups
-- **Network Infrastructure**: VPCs, subnets, NAT gateways, internet gateways, VPN connections
-- **Load Balancing**: Application load balancers, network load balancers, API gateways, reverse proxies
-- **Security Infrastructure**: Firewalls, security groups, NACLs, WAF, DDoS protection
-
-### 4. Cloud Services Components
-**From cloud provider configurations:**
-- **Serverless**: Lambda functions, Step Functions, EventBridge, SQS, SNS
-- **Managed Services**: RDS, DynamoDB, ElastiCache, Elasticsearch, CloudSearch
-- **Storage Services**: S3 buckets, EFS, EBS volumes, Glacier, backup services
-- **Monitoring/Logging**: CloudWatch, CloudTrail, X-Ray, application monitoring tools
-- **Identity/Access**: IAM roles, Cognito, Active Directory, SSO providers
-
-### 5. Integration Components
-**From API configurations, message queues, external services:**
-- **Message Queues**: SQS, RabbitMQ, Kafka, EventBridge, pub/sub systems
-- **External APIs**: Third-party payment processors, social media APIs, mapping services
-- **Integration Platforms**: API management platforms, ESBs, webhook processors
-- **Communication**: Email services, SMS services, push notification services
-
-### 6. Security/Compliance Components
-**From security policies, compliance documentation:**
-- **Authentication Systems**: OAuth providers, SAML IdPs, multi-factor authentication
-- **Authorization Systems**: Role-based access control, attribute-based access control
-- **Encryption Services**: Key management systems, HSMs, certificate authorities
-- **Compliance Tools**: Audit logging, compliance monitoring, policy enforcement points
-
-## Source Analysis Strategy
-
-### Phase 1: Repository Scanning and Categorization
-1. **Identify all source types** in the repository:
-   - Application source code (multiple languages/frameworks)
-   - Infrastructure as Code (Terraform, CloudFormation, Kubernetes)
-   - Configuration files (Docker, CI/CD, environment configs)
-   - Security policies and compliance documentation
-   - Architecture documentation and diagrams
-   - Database schemas and migration scripts
-
-2. **Catalog components by source type**:
-   - Create inventory of what each source type reveals
-   - Note overlaps and relationships between sources
-   - Identify gaps where components are referenced but not defined
-
-### Phase 2: Component Extraction and Classification
-
-**From Application Code:** Extract business logic (auth services, business domain services, API endpoints, background jobs, data access layers, integrations). Extract components separately from infrastructure—they'll be nested within infrastructure components (containers, VMs). Focus on what business functions exist and how they interact.
-
-**From Infrastructure Code (Terraform/CloudFormation):** Extract cloud resources, security groups/ACLs, load balancers, database instances, monitoring configs, IAM roles, encryption configs.
-
-**From Security Policies/Documentation:** Identify required controls, compliance frameworks, data classification, network segmentation policies, incident response procedures, third-party integration requirements, regulatory compliance (GDPR, HIPAA, SOX).
-
-**From Configuration/Deployment Files:** Discover container definitions, orchestration, environment configs, CI/CD pipelines, monitoring/observability, backup/DR setups.
-
-### Phase 3: Component Consolidation and Relationship Mapping
-
-**1. Merge overlapping components:** Consolidate same logical component appearing in multiple sources into one with comprehensive properties.
-
-**2. Plan nesting hierarchy:**
-- Infrastructure layer → Cloud resources, VMs, containers, managed services
-- Business logic layer → Application services nested within infrastructure
-- Data layer → Databases/storage (nested or standalone)
-- Integration layer → External APIs, message queues, third-party services
-
-**3. Establish relationships:** Nesting (business logic within infrastructure), data flows (between components and data stores), network connections (between infrastructure), dependencies (microservices ↔ external APIs), trust relationships (between security domains).
-
-**4. Define trust zones:**
-- Internet Zone (trust rating: 1) - Public-facing components, external APIs
-- DMZ Zone (3) - Load balancers, web servers, API gateways
-- Application Zone (5) - Business logic services, application servers
-- Data Zone (7) - Databases, caches, data processing
-- Management Zone (8) - Admin interfaces, monitoring, logging
-- Security Zone (10) - Authentication services, key management, audit systems
-
-## Component Mapping to IriusRisk Types
-
-**CRITICAL:** Always read `.iriusrisk/components.json` to find exact `referenceId` values. Search the JSON file for keywords related to your component (e.g., search for "payment", "database", "API", "lambda"). Use the exact `referenceId` field value as the component `type` in your OTM file.
-
-**Mapping process:**
-1. Identify component from source material (e.g., "payment processing service")
-2. Search `.iriusrisk/components.json` for related keywords
-3. Find matching component with appropriate `referenceId`
-4. Use that exact `referenceId` as the `type` in OTM (e.g., `type: "CD-V2-PAYMENT-PROCESSOR"`)
-
-**Common component categories to search for:**
-- Business logic: payment, authentication, authorization, user management, audit
-- Data: SQL database, NoSQL, document database, data warehouse, file storage
-- Cloud: AWS/Azure/GCP services (lambda, S3, RDS, VPC, API gateway)
-- Integration: message queue, external API, webhook, CDN
-
-## Trust Zone Assignment
-
-**Business Logic:** Assign based on data sensitivity
-- Public APIs → DMZ or Application Zone (rating: 3-5)
-- Internal services → Application Zone (5)
-- Data processing → Data Zone (7)
-- Admin functions → Management Zone (8)
-
-**Infrastructure:** Assign based on network position
-- Internet-facing → Internet or DMZ Zone (1-3)
-- Internal networking → Application Zone (5)
-- Data storage → Data Zone (7)
-- Management tools → Management Zone (8)
-
-**Cloud Services:** Consider managed service security
-- Managed databases → Data Zone (7)
-- Serverless functions → Application Zone (5)
-- Object storage → Data Zone (7)
-
-## Data Flow Patterns
-
-**Cross-Layer Flows:**
-1. User Request: Internet → Load Balancer → API Gateway → Business Logic → Database
-2. Data Processing: Database → ETL → Analytics → Reporting
-3. Integration: External API → Message Queue → Processor → Internal DB
-4. Monitoring: All Components → Logging → Monitoring Dashboard → Alerts
-
-**Security-Relevant Flows:** Authentication tokens, sensitive data (PII/financial), audit logs, secrets distribution, backup data
-
-## Quality Assurance Checklist
-
-Before creating OTM, verify:
-- ☐ All source types analyzed (code, infrastructure, policies, docs)
-- ☐ Component coverage: business logic, data, infrastructure, cloud, integration
-- ☐ Data flows connect all related components
-- ☐ Trust zones assigned appropriately based on security posture
-- ☐ Overlapping components consolidated (no duplication)
-- ☐ Single threat model covers entire system end-to-end
-
-## Example: E-Commerce Multi-Source Analysis
-
-**Sources:** Node.js app + Terraform AWS + security policies + API docs
-
-**Extracted Components with Nesting:**
-```yaml
-components:
-  # Infrastructure (from Terraform) - in trust zones
-  - id: "ecs-cluster"
-    type: "[exact referenceId from components.json]"
-    parent: { trustZone: "application" }
-  - id: "api-gateway"
-    type: "[exact referenceId from components.json]"
-    parent: { trustZone: "dmz" }
-    
-  # Business Logic (from code) - nested in infrastructure
-  - id: "user-service"
-    type: "[exact referenceId from components.json]"
-    parent: { component: "ecs-cluster" }  # nested in ECS
-  - id: "payment-processor"
-    type: "[exact referenceId from components.json]"
-    parent: { component: "ecs-cluster" }  # nested in ECS
-    
-  # Data Layer - can be nested or standalone
-  - id: "user-database"
-    type: "[exact referenceId from components.json]"
-    parent: { trustZone: "data" }
-
-dataflows:
-  - id: "user-registration"
-    source: "api-gateway"
-    destination: "user-service"
-  - id: "payment-processing"
-    source: "payment-processor"
-    destination: "payment-api"
-```
-
-## Workflow Integration
-
-1. Call analyze_source_material() for guidance
-2. Call create_threat_model() for OTM creation workflow
-3. Execute: sync() → create OTM → import_otm() → project_status() → sync()
-
-Result: Single, comprehensive threat model for holistic IriusRisk analysis across all system layers.
-"""
+        instructions = _load_prompt("analyze_source_material")
         
         logger.info("Provided source material analysis instructions to AI assistant")
         return _apply_prompt_customizations('analyze_source_material', instructions)
@@ -1429,381 +877,7 @@ Result: Single, comprehensive threat model for holistic IriusRisk analysis acros
         Returns:
             Detailed instructions for creating threat models from source material.
         """
-        instructions = """# IriusRisk Threat Model Creation Instructions for AI Assistants
-
-## Executive Summary
-Create OTM files to model system architecture for IriusRisk threat analysis. Your role: architecture modeling only (components, trust zones, data flows). Do NOT create threats or controls—IriusRisk generates those automatically. Always: sync() first → create OTM → import_otm() → project_status() → sync() to download results.
-
-**⚠️ CRITICAL: Dataflows ONLY connect components to components. NEVER use trust zone IDs in dataflows - this causes import failure.**
-
-## Critical Error #1: Dataflows Connect Components, NOT Trust Zones
-
-**Most common OTM import failure:** Using trust zone IDs in dataflows instead of component IDs.
-
-```yaml
-# ✅ CORRECT - Component to Component:
-dataflows:
-  - id: "user-to-app"
-    source: "mobile-app"      # component ID
-    destination: "web-server" # component ID
-
-# ❌ WRONG - Trust Zone IDs (CAUSES IMPORT FAILURE):
-dataflows:
-  - id: "bad-flow"
-    source: "internet"        # trust zone ID - FAILS!
-    destination: "dmz"        # trust zone ID - FAILS!
-```
-
-**Rule:** Trust zones CONTAIN components. Dataflows CONNECT components directly.
-
-## Critical Error #2: Component Types Must Use Exact referenceId
-
-```yaml
-# ✅ CORRECT:
-type: "CD-V2-AWS-ECS-CLUSTER"  # exact referenceId from components.json
-
-# ❌ WRONG:
-type: "aws-ecs"  # abbreviated - causes mapping failure
-```
-
-**Rule:** Read `.iriusrisk/components.json`, find the `referenceId` field, use it exactly.
-
-## Your Role: Architecture Modeling Only
-
-**Do:**
-- Extract components from source code, infrastructure, documentation
-- Map components to IriusRisk types using exact referenceId values
-- Define trust zones and component relationships
-- Create data flows between components
-
-**Do NOT:**
-- Identify threats, vulnerabilities, or security flaws
-- Create mitigations, controls, or countermeasures
-- Add threats/mitigations sections to OTM file
-- Analyze code for security issues
-- Run CLI commands like `iriusrisk component search`
-
-**Why:** IriusRisk automatically generates all threats and controls after OTM import.
-
-## Required Workflow Checklist
-
-Complete steps 0-7. Step 8 only when user requests security findings:
-
-- ☐ Step 0: **sync(project_path)** - Download components & trust zones
-- ☐ Step 1: Analyze source material - Identify architectural components
-- ☐ Step 2: Check `.iriusrisk/project.json` - Read project name/ID if exists
-- ☐ Step 3: Create OTM file - ONLY components, trust zones, dataflows (dataflows connect components ONLY)
-- ☐ Step 4: Map components - Use exact referenceId from components.json
-- ☐ Step 5: **import_otm()** - Upload OTM to IriusRisk
-- ☐ Step 6: **project_status()** - Verify project ready
-- ☐ Step 7: Present results - Offer options (refine OR download findings)
-- ☐ Step 8: **sync()** again (only if user requests) - Download threats/countermeasures
-
-## Detailed Workflow
-
-### Step 0: sync(project_path) - Download Component Library
-
-**Mandatory first step.** Call sync() with full absolute project path (e.g., `sync("/Users/username/my-project")`).
-
-**What it does:**
-- Downloads complete IriusRisk component library to `.iriusrisk/components.json`
-- Downloads trust zones to `.iriusrisk/trust-zones.json`
-- If project exists, also downloads current threats/countermeasures
-- Prevents OTM import failures due to unknown component types
-
-### Step 1-2: Analyze Source & Check Configuration
-
-**Analyze source material:**
-- Identify infrastructure (VMs, containers, databases, load balancers)
-- Identify business logic (auth services, payment processing, user management)
-- Identify data components (databases, storage, queues, caches)
-- Identify external systems (third-party APIs, services)
-- Plan nesting (business logic runs within infrastructure)
-- Identify data flows between components
-- **Do NOT identify threats or security issues**
-
-**Check for existing project:**
-- Look for `.iriusrisk/project.json`
-- If exists, use `name` and `project_id` from that file
-- If not exists, create descriptive names from source material
-
-### Step 3: Create OTM File
-
-**Use project.json if exists:** Read `.iriusrisk/project.json` and use `name` and `project_id` from that file. Otherwise, create descriptive names.
-
-## Parent Relationship Rules
-
-**Simple principle:** A component's parent represents WHERE it physically resides or executes.
-
-**Use `parent: { trustZone: "zone-id" }` when:**
-- The component is standalone infrastructure (VPCs, networks, databases, storage)
-- The component is externally hosted (third-party APIs, SaaS services)
-- The component has no containing infrastructure in your model
-
-**Use `parent: { component: "component-id" }` when:**
-- The component runs inside another component
-- Examples: Application runs in VM, Service runs in container, Function runs in serverless platform
-
-**Common patterns:**
-- Network infrastructure → trust zone parent
-- Compute infrastructure (VM, container platform) → trust zone parent
-- Applications/services running on compute → component parent (the compute hosting it)
-- Databases/storage → trust zone parent (unless hosted on specific infrastructure you're modeling)
-- External/third-party services → trust zone parent (typically "internet" zone)
-
-**⚠️ REMEMBER: Trust zones define LOCATION. Components define THINGS. Dataflows connect THINGS (components), not locations (trust zones).**
-
-## Complete Example
-
-```yaml
-otmVersion: 0.1.0
-project:
-  name: "[from project.json or descriptive name]"
-  id: "[from project.json or generate unique ID]"
-  description: "[brief system description]"
-
-trustZones:
-  - id: "internet"
-    name: "Internet"
-    risk:
-      trustRating: 1
-  - id: "dmz"
-    name: "DMZ"
-    risk:
-      trustRating: 3
-  - id: "application"
-    name: "Application Zone"
-    risk:
-      trustRating: 5
-  - id: "data"
-    name: "Data Zone"
-    risk:
-      trustRating: 7
-
-components:
-  # External client - in internet zone
-  - id: "web-browser"
-    name: "Web Browser"
-    type: "[exact referenceId from components.json]"
-    parent:
-      trustZone: "internet"
-  
-  # Load balancer - standalone in DMZ
-  - id: "alb"
-    name: "Application Load Balancer"
-    type: "[exact referenceId from components.json]"
-    parent:
-      trustZone: "dmz"
-  
-  # Container platform - standalone in application zone
-  - id: "ecs-cluster"
-    name: "ECS Cluster"
-    type: "[exact referenceId from components.json]"
-    parent:
-      trustZone: "application"
-  
-  # Application services - run inside container platform
-  - id: "auth-service"
-    name: "Authentication Service"
-    type: "[exact referenceId from components.json]"
-    parent:
-      component: "ecs-cluster"  # runs in ECS
-  
-  - id: "api-service"
-    name: "API Service"
-    type: "[exact referenceId from components.json]"
-    parent:
-      component: "ecs-cluster"  # runs in ECS
-  
-  # Database - standalone in data zone
-  - id: "user-db"
-    name: "User Database"
-    type: "[exact referenceId from components.json]"
-    parent:
-      trustZone: "data"
-  
-  # External API - in internet zone
-  - id: "payment-api"
-    name: "Payment Processor API"
-    type: "[exact referenceId from components.json]"
-    parent:
-      trustZone: "internet"
-
-dataflows:
-  # ⚠️⚠️⚠️ CRITICAL: Dataflows ONLY connect components (never trust zones) ⚠️⚠️⚠️
-  # Use component IDs like "web-browser", "alb", "api-service" (defined above)
-  # NEVER use trust zone IDs like "internet", "dmz", "application" in dataflows
-  
-  - id: "user-request"
-    source: "web-browser"      # component ID ✅
-    destination: "alb"          # component ID ✅
-  
-  - id: "alb-to-api"
-    source: "alb"               # component ID ✅
-    destination: "api-service"  # component ID ✅
-  
-  - id: "api-to-auth"
-    source: "api-service"       # component ID ✅
-    destination: "auth-service" # component ID ✅
-  
-  - id: "auth-to-db"
-    source: "auth-service"      # component ID ✅
-    destination: "user-db"      # component ID ✅
-  
-  - id: "api-to-payment"
-    source: "api-service"       # component ID ✅
-    destination: "payment-api"  # component ID ✅
-
-# Do NOT add: threats, mitigations, controls (IriusRisk generates these)
-```
-
-## Invalid Examples - Common Mistakes
-
-```yaml
-# ❌ WRONG: Using trust zone IDs in dataflows (MOST COMMON ERROR)
-# This is the #1 cause of OTM import failures
-dataflows:
-  - id: "bad-flow"
-    source: "internet"  # ❌ Trust zone ID - IMPORT WILL FAIL
-    destination: "dmz"  # ❌ Trust zone ID - IMPORT WILL FAIL
-  
-  - id: "another-bad-flow"
-    source: "application"  # ❌ Trust zone ID - IMPORT WILL FAIL
-    destination: "data"    # ❌ Trust zone ID - IMPORT WILL FAIL
-
-# Why wrong? Trust zones are containers/locations, not things that communicate.
-# You can't send data "to DMZ" - you send it to a component IN the DMZ.
-
-# ❌ WRONG: Service nested in load balancer
-# Load balancers route TO services, they don't host them
-- id: "my-service"
-  parent:
-    component: "load-balancer"  # WRONG
-
-# ❌ WRONG: Abbreviated component type
-- id: "my-db"
-  type: "postgres"  # WRONG - not exact referenceId
-
-# ✅ CORRECT alternatives:
-# Service runs in compute infrastructure (VM/container/serverless)
-- id: "my-service"
-  parent:
-    component: "ecs-cluster"  # Runs in ECS
-
-# Or if no compute infrastructure is modeled:
-- id: "my-service"
-  parent:
-    trustZone: "application"  # Standalone in app zone
-
-# Dataflow connects components
-dataflows:
-  - id: "good-flow"
-    source: "load-balancer"  # Component ID
-    destination: "my-service"  # Component ID
-
-# Use exact referenceId from components.json
-- id: "my-db"
-  type: "CD-V2-POSTGRESQL-DATABASE"  # Exact referenceId
-```
-
-### Step 4: Map Components to IriusRisk Types
-
-**Read `.iriusrisk/components.json`** (created by sync() in Step 0). Do NOT run CLI commands.
-
-**Process:**
-1. Search components.json for keywords related to your component
-2. Find the `referenceId` field in matching component
-3. Use exact `referenceId` as `type` in OTM
-
-**Example:**
-```json
-// In components.json:
-{
-  "name": "AWS ECS Cluster",
-  "referenceId": "CD-V2-AWS-ECS-CLUSTER",
-  "category": "Container Orchestration"
-}
-```
-
-```yaml
-# In your OTM:
-- id: "my-cluster"
-  type: "CD-V2-AWS-ECS-CLUSTER"  # exact referenceId ✅
-  # NOT: type: "aws-ecs" ❌ (abbreviated - fails)
-```
-
-### Step 5: import_otm() - Upload to IriusRisk
-
-Call **import_otm("[path-to-otm-file.otm]")**
-
-What happens:
-- Validates and uploads OTM file to IriusRisk
-- Creates new project or updates existing
-- Triggers automatic threat generation
-- Returns project ID, name, and status
-
-### Step 6: project_status() - Verify Success
-
-Call **project_status()**
-
-Verifies:
-- Project exists and accessible
-- Import processing complete
-- Project ready for use
-- No error messages
-
-### Step 7: Present Results & Offer Options
-
-**Do NOT automatically run sync** - let user decide:
-
-**Summary:** List components mapped, trust zones defined, dataflows created, confirm successful import.
-
-**Offer options:**
-- **A:** Download generated threats/countermeasures (sync again)
-- **B:** Refine architecture first
-- **C:** Ask questions before proceeding
-
-**Why wait:** Gives IriusRisk time to process, lets user control pace, allows architecture refinement.
-
-### Step 8: sync() Again - Download Security Findings (User Requested Only)
-
-When user requests, call **sync(project_path)** again to download:
-- Generated threats (threats.json)
-- Generated countermeasures (countermeasures.json)
-- Complete threat model data
-
-### Step 9: threats_and_countermeasures() - Analysis Guidance
-
-After downloading security data, call **threats_and_countermeasures()** to get instructions for:
-- Reading threats.json and countermeasures.json
-- Explaining security findings to users
-- Generating code examples and implementation guidance
-- Security analysis best practices
-
-## Trust Zone Guidelines
-- Internet (rating: 1) - External-facing, public APIs
-- DMZ (rating: 3) - Load balancers, web servers
-- Internal (rating: 7) - Application servers, internal APIs
-- Secure (rating: 10) - Databases, auth servers
-
-## Final Validation Checklist
-
-Before completing:
-- ☐ Used sync() first - Downloaded components.json
-- ☐ Read components.json for component mapping (not CLI commands)
-- ☐ Created OTM with ONLY architecture (no threats/controls)
-- ☐ **Validated all dataflows use component IDs (not trust zone IDs)**
-- ☐ Used exact referenceId values for component types
-- ☐ Used import_otm() to upload
-- ☐ Used project_status() to verify
-- ☐ Presented user with options
-
-**Remember:**
-- AI role: Architecture modeling only
-- IriusRisk role: Threat identification and security analysis (automatic)
-- **MOST COMMON ERROR: Using trust zone IDs in dataflows instead of component IDs**
-- **Before submitting OTM: Verify EVERY dataflow source/destination is a component ID from the components section above, NOT a trust zone ID**
-"""
+        instructions = _load_prompt("create_threat_model")
         logger.info("Provided CreateThreatModel instructions to AI assistant")
         return _apply_prompt_customizations('create_threat_model', instructions)
     
@@ -2319,35 +1393,7 @@ Before completing:
         """
         logger.info("MCP architecture_and_design_review called")
         
-        guidance = """# Architecture and Design Review - Trigger Point
-
-You've been asked to review architecture, design, or system structure.
-
-## NEXT STEP: Call initialize_iriusrisk_workflow()
-
-**Immediately call:**
-```
-initialize_iriusrisk_workflow()
-```
-
-That tool contains all the instructions for:
-- How to check for existing threat model data
-- Whether to use existing threat model or recommend creating one
-- When to ask user permission vs. using automatically
-- Complete workflow with proper sync() → check → decide → act
-
-## Why?
-
-The workflow tool has the complete decision logic for:
-- Using existing threat models automatically (user's own work)
-- Assessing user intent (security vs. general architecture request)
-- Asking permission appropriately before creating new threat models
-- Providing value regardless of user choice
-
-## Remember
-
-This tool is just a **trigger**. Don't try to replicate the workflow logic here. 
-Call `initialize_iriusrisk_workflow()` immediately to get the full instructions."""
+        guidance = _load_prompt("architecture_and_design_review")
 
         logger.info("Provided architecture and design review guidance")
         return _apply_prompt_customizations('architecture_and_design_review', guidance)
@@ -2368,150 +1414,7 @@ Call `initialize_iriusrisk_workflow()` immediately to get the full instructions.
         Returns:
             Security assessment and guidance on when to recommend threat modeling.
         """
-        
-        guidance = """# Security Development Advisor
-
-## Purpose
-
-Help developers assess security impact of their work and recommend threat modeling when appropriate, while respecting their autonomy and workflow.
-
-## Step 1: Check for Existing Threat Model
-
-**Call sync() to see what exists**
-
-### If Threat Model Exists (threats.json has data)
-
-**Automatically use it for security guidance:**
-- The developer has already invested in threat modeling
-- Read threats.json and countermeasures.json
-- Provide security guidance based on existing threat analysis
-- Suggest updates if their planned work impacts the threat model
-
-Example response:
-```
-"I see you have a threat model. Let me check what security considerations 
-apply to [their work]...
-
-[Provide guidance based on threat model data]
-
-Note: Your planned change may require updating the threat model. Would you 
-like help with that?"
-```
-
-## Step 2: Assess Security Impact (No Existing Threat Model)
-
-**Categorize the developer's work:**
-
-### High Security Impact
-- Third-party integrations (payment processors, auth providers, external APIs)
-- Sensitive data handling (PII, financial, health information, credentials)
-- Authentication/authorization changes
-- Public-facing endpoints or APIs
-- Changes crossing trust boundaries
-
-**Recommendation strength: STRONG**
-
-Response:
-```
-"This work has significant security implications. I strongly recommend creating 
-a threat model to identify potential issues early. This is especially important 
-for [specific risk, e.g., 'payment integrations' or 'handling customer data'].
-
-Benefits:
-- Identify security issues during development, not in production
-- Get specific countermeasure recommendations
-- Meet compliance requirements (PCI DSS, SOC 2, etc.)
-- Takes about 10-15 minutes to set up
-
-Would you like me to help create a threat model?
-
-[Wait for response]
-- If YES → Call initialize_iriusrisk_workflow() and proceed
-- If NO → Provide general security guidance with disclaimer about limitations
-```
-
-### Medium Security Impact  
-- Internal API changes
-- Database schema modifications
-- Infrastructure updates
-- Microservice additions
-
-**Recommendation strength: MODERATE**
-
-Response:
-```
-"For this type of work, a threat model would help identify security considerations.
-
-I can help create one if you'd like, or provide general security guidance for now.
-What would you prefer?
-
-[Wait for response - proceed based on user choice]
-```
-
-### Low Security Impact
-- UI changes
-- Internal refactoring
-- Documentation updates
-- Performance optimizations
-
-**Recommendation strength: LIGHT MENTION**
-
-Response:
-```
-[Provide requested guidance]
-
-[Optionally at end: "If you want a comprehensive security analysis for this project, 
-I can help create a threat model. Just let me know."]
-```
-
-## Step 3: Provide Value Regardless of Choice
-
-### If User Agrees to Threat Modeling
-
-1. Call `initialize_iriusrisk_workflow()` for complete instructions
-2. Follow the workflow to create/update threat model
-3. Present integrated security guidance
-
-### If User Declines
-
-**Provide helpful security guidance anyway:**
-- General security best practices for their work
-- Common vulnerabilities to watch for
-- Framework/library security recommendations
-- Remind them: "Threat modeling is available anytime if you change your mind"
-
-## Key Principles
-
-1. **Use existing threat models automatically** - No permission needed
-2. **High-impact changes = strong recommendation** - But still let user decide
-3. **Medium-impact changes = offer as option** - Balanced suggestion
-4. **Low-impact changes = light mention** - Don't be pushy
-5. **Always provide value** - Security advice is useful even without threat modeling
-6. **Respect workflow** - Don't disrupt developers who are in the zone
-
-## DO NOT
-
-- ❌ Force threat modeling on developers working on low-risk changes
-- ❌ Automatically create threat models without permission
-- ❌ Make developers feel guilty for declining
-- ❌ Interrupt flow for trivial changes
-- ✅ Make compelling case for high-risk work
-- ✅ Provide useful security advice regardless of choice
-- ✅ Remember threat modeling is available if they change their mind
-
-## Example Scenarios
-
-**Scenario 1: Adding Stripe integration**
-→ High impact → Strong recommendation → Get permission → Proceed if YES
-
-**Scenario 2: Refactoring internal function**
-→ Low impact → Provide advice → Light mention of threat modeling available
-
-**Scenario 3: Building new REST API**
-→ Medium-high impact → Strong recommendation → Let user decide
-
-**Scenario 4: User explicitly asks "Is this secure?"**
-→ Clear security intent → Strong recommendation → Get permission → Proceed if YES"""
+        guidance = _load_prompt("security_development_advisor")
 
         logger.info("MCP security_development_advisor called")
         return _apply_prompt_customizations('security_development_advisor', guidance)

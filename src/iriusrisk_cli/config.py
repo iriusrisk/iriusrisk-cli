@@ -411,23 +411,49 @@ def validate_project_config(config: Dict[str, Any]) -> None:
                 )
             
             # Validate each action
-            for action, text in customization.items():
+            for action, value in customization.items():
                 if action not in valid_actions:
                     raise ValueError(
                         f"Invalid action '{action}' for tool '{tool_name}'. "
                         f"Valid actions are: {', '.join(valid_actions)}"
                     )
                 
-                if not isinstance(text, str):
+                # Value can be either a string or a dict with 'file' key
+                if isinstance(value, str):
+                    # Direct string value - warn if suspiciously long
+                    if len(value) > 10000:
+                        import logging
+                        logger = logging.getLogger(__name__)
+                        logger.warning(
+                            f"Prompt customization for '{tool_name}.{action}' is very long "
+                            f"({len(value)} characters). This may be unintentional."
+                        )
+                elif isinstance(value, dict):
+                    # Dict must have 'file' key
+                    if 'file' not in value:
+                        raise ValueError(
+                            f"Dictionary value for '{tool_name}.{action}' must contain a 'file' key. "
+                            f"Got keys: {list(value.keys())}"
+                        )
+                    
+                    # File path must be a string
+                    file_path = value['file']
+                    if not isinstance(file_path, str):
+                        raise ValueError(
+                            f"File path for '{tool_name}.{action}' must be a string, "
+                            f"got: {type(file_path).__name__}"
+                        )
+                    
+                    # Warn about suspicious file paths
+                    if file_path.startswith('~'):
+                        import logging
+                        logger = logging.getLogger(__name__)
+                        logger.warning(
+                            f"File path for '{tool_name}.{action}' uses '~' which may not expand correctly. "
+                            f"Consider using absolute paths or paths relative to .iriusrisk directory."
+                        )
+                else:
                     raise ValueError(
-                        f"Text for action '{action}' in tool '{tool_name}' must be a string"
-                    )
-                
-                # Warn if text is suspiciously long (might be a copy-paste error)
-                if len(text) > 10000:
-                    import logging
-                    logger = logging.getLogger(__name__)
-                    logger.warning(
-                        f"Prompt customization for '{tool_name}.{action}' is very long "
-                        f"({len(text)} characters). This may be unintentional."
+                        f"Value for action '{action}' in tool '{tool_name}' must be either "
+                        f"a string or a dict with 'file' key. Got: {type(value).__name__}"
                     )

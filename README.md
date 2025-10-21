@@ -323,7 +323,9 @@ The generated configuration looks like:
 
 You can customize the prompts that MCP tools provide to AI assistants by adding a `prompts` section to your `.iriusrisk/project.json` file. This allows you to add organization-specific security standards, compliance requirements, or technology constraints.
 
-**Example:**
+#### Inline String Customization
+
+For short customizations, use strings directly in the configuration:
 
 ```json
 {
@@ -340,10 +342,62 @@ You can customize the prompts that MCP tools provide to AI assistants by adding 
 }
 ```
 
+#### File-Based Customization
+
+For complex or lengthy customizations, reference external files. Files are resolved relative to the `.iriusrisk` directory:
+
+```json
+{
+  "name": "my-project",
+  "project_id": "abc-123",
+  "prompts": {
+    "threats_and_countermeasures": {
+      "prefix": {"file": "custom_prompts/threat_standards.md"}
+    },
+    "create_threat_model": {
+      "replace": {"file": "custom_prompts/custom_workflow.md"}
+    }
+  }
+}
+```
+
+**File path resolution:**
+- Relative paths: Resolved from `.iriusrisk/` directory (e.g., `"custom_prompts/file.md"` → `.iriusrisk/custom_prompts/file.md`)
+- Absolute paths: Used as-is (e.g., `"/path/to/file.md"`)
+
+**Example directory structure:**
+```
+project/
+├── .iriusrisk/
+│   ├── project.json
+│   └── custom_prompts/
+│       ├── threat_standards.md
+│       └── custom_workflow.md
+```
+
+#### Mixing String and File Customizations
+
+You can combine inline strings and file references:
+
+```json
+{
+  "prompts": {
+    "threats_and_countermeasures": {
+      "prefix": "Quick note: Check OWASP Top 10\n\n",
+      "postfix": {"file": "custom_prompts/additional_guidelines.md"}
+    }
+  }
+}
+```
+
 **Available actions:**
 - `prefix` - Add text before the default prompt
 - `postfix` - Add text after the default prompt  
 - `replace` - Completely replace the default prompt
+
+Each action accepts either:
+- A string value (used directly)
+- A dict with `file` key (loaded from file)
 
 **Customizable tools:**
 - `initialize_iriusrisk_workflow`

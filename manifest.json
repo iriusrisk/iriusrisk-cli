@@ -1,0 +1,165 @@
+{
+  "name": "iriusrisk-cli",
+  "description": "AI-powered threat modeling integration for IriusRisk. Enables AI assistants to analyze codebases, create threat models, review security threats, implement countermeasures, and generate compliance reports.",
+  "version": "0.1.0",
+  "functions": [
+    {
+      "name": "initialize_iriusrisk_workflow",
+      "description": "Get critical usage instructions for AI assistants. Must be called first before using other tools.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "get_cli_version",
+      "description": "Get the current version of IriusRisk CLI.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "sync",
+      "description": "Synchronize with IriusRisk to pull down components, trust zones, and project data.",
+      "parameters": [
+        {"name": "project_path", "type": "string", "required": false, "description": "Full path to the project directory"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "import_otm",
+      "description": "Import an OTM (Open Threat Model) file to create or update a project in IriusRisk.",
+      "parameters": [
+        {"name": "otm_file_path", "type": "string", "required": true, "description": "Path to the OTM file to import"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "project_status",
+      "description": "Check the status of a project in IriusRisk.",
+      "parameters": [
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "threats_and_countermeasures",
+      "description": "Get instructions for reading and exploring threats and countermeasures data.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "show_diagram",
+      "description": "Download and display the project threat model diagram as a PNG image.",
+      "parameters": [
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"},
+        {"name": "size", "type": "string", "required": false, "default": "PREVIEW", "description": "Image size: ORIGINAL, PREVIEW, or THUMBNAIL"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "analyze_source_material",
+      "description": "Get instructions for analyzing mixed source repositories (code, infrastructure, policies, documentation).",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "create_threat_model",
+      "description": "Get step-by-step instructions for creating an IriusRisk threat model.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "track_threat_update",
+      "description": "Track a threat status update for later synchronization with IriusRisk.",
+      "parameters": [
+        {"name": "threat_id", "type": "string", "required": true, "description": "UUID of the threat (from threats.json 'id' field)"},
+        {"name": "status", "type": "string", "required": true, "description": "New status: accept, mitigate, expose, partly-mitigate, hidden"},
+        {"name": "reason", "type": "string", "required": true, "description": "Explanation of why the status is being changed"},
+        {"name": "context", "type": "string", "required": false, "description": "Optional context about changes"},
+        {"name": "comment", "type": "string", "required": false, "description": "HTML-formatted comment with implementation details"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "track_countermeasure_update",
+      "description": "Track a countermeasure status update for later synchronization with IriusRisk.",
+      "parameters": [
+        {"name": "countermeasure_id", "type": "string", "required": true, "description": "UUID of the countermeasure (from countermeasures.json 'id' field)"},
+        {"name": "status", "type": "string", "required": true, "description": "New status: required, recommended, implemented, rejected, not-applicable"},
+        {"name": "reason", "type": "string", "required": true, "description": "Explanation of why the status is being changed"},
+        {"name": "context", "type": "string", "required": false, "description": "Optional context about changes"},
+        {"name": "comment", "type": "string", "required": false, "description": "HTML-formatted comment (required for 'implemented' status)"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "create_countermeasure_issue",
+      "description": "Track an issue creation request for a countermeasure in the issue tracker.",
+      "parameters": [
+        {"name": "countermeasure_id", "type": "string", "required": true, "description": "UUID of the countermeasure"},
+        {"name": "issue_tracker_id", "type": "string", "required": false, "description": "Optional specific issue tracker ID"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "get_pending_updates",
+      "description": "Get all pending threat and countermeasure updates that haven't been synced yet.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "clear_updates",
+      "description": "Clear all tracked updates (both pending and applied).",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "list_standards",
+      "description": "List available compliance standards for reports (OWASP Top 10, PCI DSS, NIST, ISO, etc).",
+      "parameters": [
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID (uses current project if not specified)"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "generate_report",
+      "description": "Generate and download an IriusRisk report (countermeasure, threat, compliance, risk-summary).",
+      "parameters": [
+        {"name": "report_type", "type": "string", "required": false, "default": "countermeasure", "description": "Type: countermeasure, threat, compliance, risk-summary"},
+        {"name": "format", "type": "string", "required": false, "default": "pdf", "description": "Format: pdf, html, xlsx, csv, xls"},
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID"},
+        {"name": "output_path", "type": "string", "required": false, "description": "Where to save the report file"},
+        {"name": "standard", "type": "string", "required": false, "description": "Standard reference ID for compliance reports"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "architecture_and_design_review",
+      "description": "Get guidance for architecture and design reviews with optional threat modeling.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "security_development_advisor",
+      "description": "Get security guidance and recommendations for development work.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "list_project_versions",
+      "description": "List all version snapshots for a project.",
+      "parameters": [
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "create_project_version",
+      "description": "Create a new version snapshot of a project.",
+      "parameters": [
+        {"name": "name", "type": "string", "required": true, "description": "Name for the version snapshot"},
+        {"name": "description", "type": "string", "required": false, "description": "Optional description for the version"},
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"}
+      ],
+      "returns": {"type": "string"}
+    }
+  ]
+}
