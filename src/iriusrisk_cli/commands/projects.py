@@ -535,7 +535,7 @@ def _format_projects_output(projects_data: list, output_format: str, include_ver
     
     # Define field mappings for projects
     base_field_mappings = [
-        {'key': 'id', 'truncate': 12},
+        {'key': 'id'},  # No truncation - IDs needed for operations
         {'key': 'name'},
         {'key': 'referenceId'},
         {'key': 'workflowState.name', 'csv_key': 'workflowState'},

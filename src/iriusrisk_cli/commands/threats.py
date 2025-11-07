@@ -347,7 +347,7 @@ def _format_threats_output(threats_data: list, output_format: str,
     
     # Define field mappings for threats
     field_mappings = [
-        {'key': 'id', 'truncate': 12},
+        {'key': 'id'},  # No truncation - IDs needed for operations
         {'key': 'name'},
         {'key': 'referenceId'},
         {'key': 'description', 'truncate': 40},

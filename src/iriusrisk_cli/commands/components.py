@@ -285,7 +285,7 @@ def _print_components_table(components: list, page_info: dict):
             description = description[:47] + '...'
         
         row = [
-            component.get('id', '')[:8] + '...' if len(component.get('id', '')) > 8 else component.get('id', ''),
+            component.get('id', ''),  # Full ID - needed for operations
             name,
             component.get('referenceId', ''),
             component.get('category', {}).get('name', ''),
@@ -320,7 +320,7 @@ def _format_components_output(components_data: list, output_format: str,
     
     # Define field mappings for components
     field_mappings = [
-        {'key': 'id', 'truncate': 12},
+        {'key': 'id'},  # No truncation - IDs needed for operations
         {'key': 'referenceId'},
         {'key': 'name'},
         {'key': 'category.name', 'csv_key': 'category'},

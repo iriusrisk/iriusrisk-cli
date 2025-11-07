@@ -429,7 +429,7 @@ def _format_countermeasures_output(countermeasures_data: list, output_format: st
     
     # Define field mappings for countermeasures
     field_mappings = [
-        {'key': 'ref', 'csv_key': 'id', 'truncate': 12},
+        {'key': 'ref', 'csv_key': 'id'},  # No truncation - IDs needed for operations
         {'key': 'name'},
         {'key': 'ref', 'csv_key': 'referenceId'},
         {'key': 'risk'},

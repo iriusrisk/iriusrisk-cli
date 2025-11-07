@@ -366,7 +366,7 @@ def print_projects_table(projects: List[Dict], include_versions: bool = False, p
         )
         
         row = [
-            TableFormatter.truncate_field(str(project.get('id', 'N/A')), 12),  # Truncate UUID
+            TableFormatter.format_optional(str(project.get('id', 'N/A'))),  # Full ID - needed for operations
             TableFormatter.format_optional(project.get('name')),
             TableFormatter.format_optional(project.get('referenceId')),
             workflow_name,

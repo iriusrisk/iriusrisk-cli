@@ -274,7 +274,7 @@ def _print_issue_tracker_profiles_table(profiles: list, page_info: dict):
             status += " (Default)"
         
         row = [
-            profile.get('id', '')[:8] + '...',  # Truncate ID for readability
+            profile.get('id', ''),  # Full ID - needed for operations
             profile.get('name', ''),
             profile.get('issueTrackerType', ''),
             status

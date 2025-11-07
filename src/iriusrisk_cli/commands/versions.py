@@ -272,7 +272,7 @@ def _format_versions_output(versions_data: list, output_format: str,
     
     # Define field mappings for versions
     field_mappings = [
-        {'key': 'id', 'truncate': 12},
+        {'key': 'id'},  # No truncation - IDs needed for operations
         {'key': 'name'},
         {'key': 'description', 'truncate': 40},
         {'key': 'operation'},
@@ -313,7 +313,7 @@ def _format_changes_output(changes_data: list, output_format: str,
         {'key': 'elementType'},
         {'key': 'changeType'},
         {'key': 'elementName'},
-        {'key': 'elementId', 'truncate': 12}
+        {'key': 'elementId'}  # No truncation - IDs needed for operations
     ]
     
     # Create table headers
