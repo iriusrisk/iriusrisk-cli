@@ -1,0 +1,24 @@
+# Include documentation and metadata files
+include README.md
+include LICENSE
+include CHANGELOG.md
+include requirements.txt
+include manifest.json
+
+# Include prompt templates used by MCP
+recursive-include src/iriusrisk_cli/prompts *.md
+
+# Exclude test files and development artifacts
+recursive-exclude tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * .DS_Store
+exclude .gitignore
+exclude pytest.ini
+exclude DEVELOPER_GUIDE.md
+exclude FEEDME.md
+
+# Exclude logs and captured responses
+prune logs
+prune captured_responses
+
