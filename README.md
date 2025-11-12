@@ -62,7 +62,21 @@ When integrated through MCP, AI assistants can:
 
 ## Installation
 
-### For Development (Current)
+### From PyPI
+
+Eventually users will be able to install the CLI using:
+
+```bash
+$ pip install iriusrisk-cli
+```
+
+For Mac users using Homebrew, we suggest installing it with:
+
+```bash
+$ pipx install iriusrisk-cli
+```
+
+### For Development
 
 Clone this repository and install in development mode:
 
@@ -73,13 +87,6 @@ $ cd iriusrisk_cli
 $ pip install -e .
 ```
 
-### From PyPI (Future)
-
-Eventually users will be able to install the CLI using:
-
-```bash
-$ pip install iriusrisk-cli
-```
 
 ## Configuration
 
