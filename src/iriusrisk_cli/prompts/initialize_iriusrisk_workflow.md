@@ -171,12 +171,12 @@ The IriusRisk API requires status updates and comments to be sent separately. Fo
 
 **Step 1:** Update status only (no comment parameter)
 ```
-track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Added input validation")
+track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Added input validation", project_path="/absolute/path/to/project")
 ```
 
 **Step 2:** Add explanatory comment (with HTML formatting)
 ```
-track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Adding details", 
+track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Adding details", project_path="/absolute/path/to/project",
   comment="<p><strong>Implementation:</strong></p><ul><li>Added validation in api.py</li></ul>")
 ```
 
@@ -212,11 +212,13 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 11. **generate_report(report_type, format, project_id, output_path, standard)** - Generate/download reports (countermeasure, threat, compliance, risk-summary)
 
 ### Status Tracking Tools
-12. **track_threat_update(threat_id, status, reason, context, comment)** - Track threat status changes for later sync (status: accept/mitigate/expose/partly-mitigate/hidden)
-13. **track_countermeasure_update(countermeasure_id, status, reason, context, comment)** - Track countermeasure status changes (see Two-Call Rule above)
-14. **get_pending_updates()** - Review pending updates before sync
-15. **clear_updates()** - Clear update queue
-16. **create_countermeasure_issue(countermeasure_id, issue_tracker_id)** - Queue issue tracker ticket creation
+12. **track_threat_update(threat_id, status, reason, project_path, context, comment)** - Track threat status changes for later sync (status: accept/mitigate/expose/partly-mitigate/hidden)
+13. **track_countermeasure_update(countermeasure_id, status, reason, project_path, context, comment)** - Track countermeasure status changes (see Two-Call Rule above)
+14. **get_pending_updates(project_path)** - Review pending updates before sync
+15. **clear_updates(project_path)** - Clear update queue
+16. **create_countermeasure_issue(countermeasure_id, project_path, issue_tracker_id)** - Queue issue tracker ticket creation
+
+**CRITICAL:** Always pass `project_path` parameter with the ABSOLUTE path to the project directory (where `.iriusrisk` is located) to all update tracking functions.
 
 ## Common Workflows
 
@@ -240,12 +242,12 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 8. threats_and_countermeasures() - Get analysis instructions
 
 ### Security Implementation Tracking Workflow
-1. sync() - Download current threats/countermeasures
+1. sync(project_path) - Download current threats/countermeasures
 2. threats_and_countermeasures() - Get analysis guidance
 3. [Implement security measures in code]
-4. track_threat_update() / track_countermeasure_update() - Track changes (remember: two calls for countermeasures)
-5. get_pending_updates() - Review pending changes
-6. sync() - Apply updates to IriusRisk
+4. track_threat_update(..., project_path) / track_countermeasure_update(..., project_path) - Track changes (remember: two calls for countermeasures, always pass project_path)
+5. get_pending_updates(project_path) - Review pending changes
+6. sync(project_path) - Apply updates to IriusRisk
 7. [Verify updated statuses in downloaded JSON]
 
 ### Report Generation Workflow
@@ -296,8 +298,8 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 
 **User:** "I've implemented input validation. How do I track this?"  
 **AI:** Make two calls to track_countermeasure_update():
-1. Update status: `status="implemented", reason="Added input validation"`
-2. Add comment: `status="implemented", reason="Adding details", comment="<p><strong>Implementation:</strong></p><ul><li>Added validation middleware in api.py</li></ul>"`
+1. Update status: `countermeasure_id="...", status="implemented", reason="Added input validation", project_path="/absolute/path/to/project"`
+2. Add comment: `countermeasure_id="...", status="implemented", reason="Adding details", project_path="/absolute/path/to/project", comment="<p><strong>Implementation:</strong></p><ul><li>Added validation middleware in api.py</li></ul>"`
 
 **User:** "Find the SQL injection countermeasure"  
 **AI:** ✅ Read `.iriusrisk/countermeasures.json` and search programmatically  
@@ -310,7 +312,8 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 track_countermeasure_update(
     countermeasure_id="abc-123",
     status="implemented",
-    reason="Implemented input validation"
+    reason="Implemented input validation",
+    project_path="/absolute/path/to/project"
 )
 
 # Step 2: Add detailed comment
@@ -318,6 +321,7 @@ track_countermeasure_update(
     countermeasure_id="abc-123",
     status="implemented",
     reason="Adding implementation details",
+    project_path="/absolute/path/to/project",
     comment="<p><strong>Implementation:</strong></p><ul><li>Added middleware in <code>api.py</code></li><li>Uses pydantic validation</li></ul>"
 )
 ```

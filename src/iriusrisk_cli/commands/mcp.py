@@ -678,7 +678,7 @@ def mcp(cli_ctx):
         return _apply_prompt_customizations('threats_and_countermeasures', instructions)
     
     @mcp_server.tool()
-    async def show_diagram(project_id: str = None, size: str = "PREVIEW") -> str:
+    async def show_diagram(project_path: str, project_id: str = None, size: str = "PREVIEW") -> str:
         """Download and display the project threat model diagram.
         
         This tool downloads the project's automatically generated threat model diagram
@@ -686,24 +686,33 @@ def mcp(cli_ctx):
         and data flows that were modeled in the OTM.
         
         Args:
+            project_path: Full path to the project directory (where .iriusrisk is located)
             project_id: Project ID or reference ID (optional if project.json exists)
             size: Image size - ORIGINAL, PREVIEW, or THUMBNAIL (default: PREVIEW)
             
         Returns:
             Status message with diagram file location and details.
         """
+        from pathlib import Path
+        import base64
+        
         logger.info(f"Downloading project diagram via MCP for project: {project_id or 'default'}")
+        logger.debug(f"Project path: {project_path}")
         
         try:
-            from pathlib import Path
-            import base64
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
             
-            # Resolve project ID from argument, project.json, or default configuration
+            # Resolve project ID from argument or project.json
             if project_id:
                 resolved_project_id = project_id
             else:
-                # Try to get project ID from project.json first
-                project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
+                # Try to get project ID from project.json
+                project_json_path = project_root / '.iriusrisk' / 'project.json'
                 resolved_project_id = None
                 
                 if project_json_path.exists():
@@ -715,12 +724,8 @@ def mcp(cli_ctx):
                     except Exception as e:
                         logger.warning(f"Could not read project.json: {e}")
                 
-                # Fall back to config if no project.json
                 if not resolved_project_id:
-                    resolved_project_id = config.get_default_project_id()
-                
-                if not resolved_project_id:
-                    error_msg = "❌ No project ID provided and no default project configured. Use show_diagram(project_id) or set up a project with 'iriusrisk init'."
+                    error_msg = "❌ No project ID found in project.json. Please provide project_id parameter or ensure project.json exists."
                     logger.error(error_msg)
                     return error_msg
             
@@ -776,40 +781,27 @@ def mcp(cli_ctx):
                 logger.error(error_msg)
                 return error_msg
             
-            # Create filename and determine project directory
+            # Create filename from project configuration
             try:
-                # Find the project directory by looking for .iriusrisk/project.json
-                project_root = None
-                current_dir = Path.cwd()
-                
-                # Check current directory and parent directories for .iriusrisk/project.json
-                for check_dir in [current_dir] + list(current_dir.parents):
-                    project_json_path = check_dir / '.iriusrisk' / 'project.json'
-                    if project_json_path.exists():
-                        project_root = check_dir
-                        try:
-                            with open(project_json_path, 'r') as f:
-                                project_config = json.load(f)
-                            project_name = project_config.get('name', 'project')
-                            # Clean up project name for filename
-                            clean_name = "".join(c for c in project_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
-                            clean_name = clean_name.replace(' ', '-').lower()
-                            filename = f"{clean_name}-diagram-{size.lower()}.png"
-                            break
-                        except (json.JSONDecodeError, OSError, IOError, KeyError) as e:
-                            # If we can't read or parse project.json, continue looking
-                            logger.debug(f"Failed to parse {project_json_path}: {e}")
-                            continue
-                
-                if not project_root:
-                    # Fallback to current directory if no project.json found
-                    project_root = current_dir
+                project_json_path = project_root / '.iriusrisk' / 'project.json'
+                if project_json_path.exists():
+                    try:
+                        with open(project_json_path, 'r') as f:
+                            project_config = json.load(f)
+                        project_name = project_config.get('name', 'project')
+                        # Clean up project name for filename
+                        clean_name = "".join(c for c in project_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+                        clean_name = clean_name.replace(' ', '-').lower()
+                        filename = f"{clean_name}-diagram-{size.lower()}.png"
+                    except (json.JSONDecodeError, OSError, IOError, KeyError) as e:
+                        logger.debug(f"Failed to parse project.json: {e}")
+                        filename = f"threat-model-diagram-{size.lower()}.png"
+                else:
                     filename = f"threat-model-diagram-{size.lower()}.png"
                     
             except (OSError, RuntimeError) as e:
-                # If path operations fail, use current directory fallback
-                logger.debug(f"Failed to determine project directory: {e}")
-                project_root = Path.cwd()
+                # If path operations fail, use generic filename
+                logger.debug(f"Failed to determine filename: {e}")
                 filename = f"threat-model-diagram-{size.lower()}.png"
             
             # Decode base64 and save to project directory
@@ -882,7 +874,7 @@ def mcp(cli_ctx):
         return _apply_prompt_customizations('create_threat_model', instructions)
     
     @mcp_server.tool()
-    async def track_threat_update(threat_id: str, status: str, reason: str, context: str = None, comment: str = None) -> str:
+    async def track_threat_update(threat_id: str, status: str, reason: str, project_path: str, context: str = None, comment: str = None) -> str:
         """Track a threat status update for later synchronization with IriusRisk.
         
         Use this tool when implementing security measures that address specific threats.
@@ -893,6 +885,7 @@ def mcp(cli_ctx):
                       NOT the "referenceId" field. Must be a UUID like "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
             status: New status (accept, mitigate, expose, partly-mitigate, hidden)
             reason: Brief explanation of why the status is being changed
+            project_path: Full path to the project directory (where .iriusrisk is located)
             context: Optional context about what was implemented or changed
             comment: HTML-formatted comment with implementation details, code snippets, and technical notes.
                     Use HTML tags: <p>, <strong>, <ul><li>, <code>, <pre>
@@ -900,13 +893,18 @@ def mcp(cli_ctx):
         Returns:
             Status message indicating the update was tracked
         """
+        from pathlib import Path
+        
         logger.info(f"Tracking threat update via MCP: {threat_id} -> {status}")
+        logger.debug(f"Project path: {project_path}")
         
         try:
-            # Find project root and get update tracker
-            project_root, _ = _find_project_root_and_config()
-            if not project_root:
-                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
             
             iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
@@ -927,7 +925,7 @@ def mcp(cli_ctx):
             return f"❌ Error tracking threat update: {e}"
     
     @mcp_server.tool()
-    async def track_countermeasure_update(countermeasure_id: str, status: str, reason: str, context: str = None, comment: str = None) -> str:
+    async def track_countermeasure_update(countermeasure_id: str, status: str, reason: str, project_path: str, context: str = None, comment: str = None) -> str:
         """Track a countermeasure status update for later synchronization with IriusRisk.
         
         Use this tool when implementing countermeasures or security controls.
@@ -958,6 +956,7 @@ def mcp(cli_ctx):
                               NOT the "referenceId" field. Must be a UUID like "3dc8a266-a837-4356-ad9a-b446c1535f54")
             status: New status (required, recommended, implemented, rejected, not-applicable)
             reason: Brief explanation of why the status is being changed
+            project_path: Full path to the project directory (where .iriusrisk is located)
             context: Optional context about what was implemented or changed
             comment: REQUIRED for 'implemented' status - HTML-formatted comment with implementation details, 
                     code snippets, configuration changes, file paths, and testing approach
@@ -965,17 +964,22 @@ def mcp(cli_ctx):
         Returns:
             Status message indicating the update was tracked
         """
+        from pathlib import Path
+        
         logger.info(f"Tracking countermeasure update via MCP: {countermeasure_id} -> {status}")
+        logger.debug(f"Project path: {project_path}")
         
         try:
             # Check comment length limit (IriusRisk has ~1000 character limit)
             if comment and len(comment) > 1000:
                 return f"❌ Error: Comment is {len(comment)} characters, but IriusRisk has a 1000 character limit. Please shorten the comment and try again."
             
-            # Find project root and get update tracker
-            project_root, _ = _find_project_root_and_config()
-            if not project_root:
-                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
             
             iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
@@ -996,7 +1000,7 @@ def mcp(cli_ctx):
             return f"❌ Error tracking countermeasure update: {e}"
     
     @mcp_server.tool()
-    async def create_countermeasure_issue(countermeasure_id: str, issue_tracker_id: str = None) -> str:
+    async def create_countermeasure_issue(countermeasure_id: str, project_path: str, issue_tracker_id: str = None) -> str:
         """Track an issue creation request for a countermeasure.
         
         This tool tracks a request to create a ticket in the issue tracker for the specified
@@ -1009,18 +1013,34 @@ def mcp(cli_ctx):
             countermeasure_id: The UUID of the countermeasure to create an issue for
                               (use the "id" field from countermeasures.json, NOT the "referenceId" field.
                               Must be a UUID like "3dc8a266-a837-4356-ad9a-b446c1535f54")
+            project_path: Full path to the project directory (where .iriusrisk is located)
             issue_tracker_id: Optional specific issue tracker ID to use (if not provided, uses default)
             
         Returns:
             Status message indicating whether the issue creation request was tracked
         """
+        from pathlib import Path
+        
         logger.info(f"Tracking issue creation request for countermeasure via MCP: {countermeasure_id}")
+        logger.debug(f"Project path: {project_path}")
         
         try:
-            # Find project root and get update tracker
-            project_root, project_config = _find_project_root_and_config()
-            if not project_root:
-                return "❌ Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
+            
+            # Read project config for issue tracker settings
+            project_json_path = project_root / '.iriusrisk' / 'project.json'
+            project_config = None
+            if project_json_path.exists():
+                try:
+                    with open(project_json_path, 'r') as f:
+                        project_config = json.load(f)
+                except Exception as e:
+                    logger.warning(f"Could not read project.json: {e}")
             
             if not project_config:
                 return "❌ Error: Could not find project configuration. Make sure you have a valid project setup."
@@ -1052,19 +1072,27 @@ def mcp(cli_ctx):
             return f"❌ Error tracking issue creation request for countermeasure {countermeasure_id}: {e}"
     
     @mcp_server.tool()
-    async def get_pending_updates() -> str:
+    async def get_pending_updates(project_path: str) -> str:
         """Get all pending threat and countermeasure updates that haven't been synced yet.
+        
+        Args:
+            project_path: Full path to the project directory (where .iriusrisk is located)
         
         Returns:
             Summary of pending updates and statistics
         """
+        from pathlib import Path
+        
         logger.info("Getting pending updates via MCP")
+        logger.debug(f"Project path: {project_path}")
         
         try:
-            # Find project root and get update tracker
-            project_root, _ = _find_project_root_and_config()
-            if not project_root:
-                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
             
             iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
@@ -1101,22 +1129,30 @@ def mcp(cli_ctx):
             return f"❌ Error getting pending updates: {e}"
     
     @mcp_server.tool()
-    async def clear_updates() -> str:
+    async def clear_updates(project_path: str) -> str:
         """Clear all tracked updates (both pending and applied).
         
         Use this tool carefully - it will remove all tracked status changes.
         This is useful if you want to start fresh or if there are issues with the updates.
         
+        Args:
+            project_path: Full path to the project directory (where .iriusrisk is located)
+        
         Returns:
             Status message indicating how many updates were cleared
         """
+        from pathlib import Path
+        
         logger.info("Clearing all updates via MCP")
+        logger.debug(f"Project path: {project_path}")
         
         try:
-            # Find project root and get update tracker
-            project_root, _ = _find_project_root_and_config()
-            if not project_root:
-                return "Error: Could not find project directory with .iriusrisk folder. Make sure you're in a project directory or have run sync() first."
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
             
             iriusrisk_dir = project_root / '.iriusrisk'
             tracker = get_update_tracker(iriusrisk_dir)
@@ -1185,7 +1221,7 @@ def mcp(cli_ctx):
             return f"❌ Failed to list standards: {str(e)}"
     
     @mcp_server.tool()
-    async def generate_report(report_type: str = "countermeasure", format: str = "pdf", project_id: str = None, output_path: str = None, standard: str = None) -> str:
+    async def generate_report(report_type: str = "countermeasure", format: str = "pdf", project_path: str = None, project_id: str = None, output_path: str = None, standard: str = None) -> str:
         """Generate and download an IriusRisk report.
         
         This tool generates various types of reports from IriusRisk projects and downloads them to the specified location.
@@ -1195,6 +1231,7 @@ def mcp(cli_ctx):
             report_type: Type of report to generate. Options: "countermeasure", "threat", "compliance", "risk-summary". 
                         Also accepts natural language like "compliance report", "countermeasure report", etc.
             format: Output format for the report. Options: "pdf", "html", "xlsx", "csv", "xls". Defaults to "pdf".
+            project_path: Full path to the project directory (where .iriusrisk is located). Used to save report if output_path not specified.
             project_id: Project ID to generate report for. Uses current project if not specified.
             output_path: Where to save the report file. Auto-generates filename if not provided.
             standard: Standard reference ID or UUID for compliance reports (required for compliance reports).
@@ -1210,6 +1247,7 @@ def mcp(cli_ctx):
             from pathlib import Path
             
             logger.info(f"MCP generate_report called: type={report_type}, format={format}, project_id={project_id}")
+            logger.debug(f"Project path: {project_path}")
             
             # Report type mappings - handle natural language
             report_mappings = {
@@ -1286,7 +1324,14 @@ def mcp(cli_ctx):
             
             # Generate output filename if not specified
             if not output_path:
-                output_path = f"{display_type}_report.{format}"
+                # Use project_path if provided, otherwise current directory
+                if project_path:
+                    project_root = Path(project_path).resolve()
+                    if not project_root.exists() or not project_root.is_dir():
+                        return f"❌ Invalid project path: {project_path}"
+                    output_path = str(project_root / f"{display_type}_report.{format}")
+                else:
+                    output_path = f"{display_type}_report.{format}"
             
             output_file = Path(output_path)
             

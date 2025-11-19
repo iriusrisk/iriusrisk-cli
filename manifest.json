@@ -1,7 +1,7 @@
 {
   "name": "iriusrisk-cli",
   "description": "AI-powered threat modeling integration for IriusRisk. Enables AI assistants to analyze codebases, create threat models, review security threats, implement countermeasures, and generate compliance reports.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "functions": [
     {
       "name": "initialize_iriusrisk_workflow",
@@ -49,6 +49,7 @@
       "name": "show_diagram",
       "description": "Download and display the project threat model diagram as a PNG image.",
       "parameters": [
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"},
         {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"},
         {"name": "size", "type": "string", "required": false, "default": "PREVIEW", "description": "Image size: ORIGINAL, PREVIEW, or THUMBNAIL"}
       ],
@@ -73,6 +74,7 @@
         {"name": "threat_id", "type": "string", "required": true, "description": "UUID of the threat (from threats.json 'id' field)"},
         {"name": "status", "type": "string", "required": true, "description": "New status: accept, mitigate, expose, partly-mitigate, hidden"},
         {"name": "reason", "type": "string", "required": true, "description": "Explanation of why the status is being changed"},
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"},
         {"name": "context", "type": "string", "required": false, "description": "Optional context about changes"},
         {"name": "comment", "type": "string", "required": false, "description": "HTML-formatted comment with implementation details"}
       ],
@@ -85,6 +87,7 @@
         {"name": "countermeasure_id", "type": "string", "required": true, "description": "UUID of the countermeasure (from countermeasures.json 'id' field)"},
         {"name": "status", "type": "string", "required": true, "description": "New status: required, recommended, implemented, rejected, not-applicable"},
         {"name": "reason", "type": "string", "required": true, "description": "Explanation of why the status is being changed"},
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"},
         {"name": "context", "type": "string", "required": false, "description": "Optional context about changes"},
         {"name": "comment", "type": "string", "required": false, "description": "HTML-formatted comment (required for 'implemented' status)"}
       ],
@@ -95,6 +98,7 @@
       "description": "Track an issue creation request for a countermeasure in the issue tracker.",
       "parameters": [
         {"name": "countermeasure_id", "type": "string", "required": true, "description": "UUID of the countermeasure"},
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"},
         {"name": "issue_tracker_id", "type": "string", "required": false, "description": "Optional specific issue tracker ID"}
       ],
       "returns": {"type": "string"}
@@ -102,13 +106,17 @@
     {
       "name": "get_pending_updates",
       "description": "Get all pending threat and countermeasure updates that haven't been synced yet.",
-      "parameters": [],
+      "parameters": [
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"}
+      ],
       "returns": {"type": "string"}
     },
     {
       "name": "clear_updates",
       "description": "Clear all tracked updates (both pending and applied).",
-      "parameters": [],
+      "parameters": [
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"}
+      ],
       "returns": {"type": "string"}
     },
     {
@@ -125,6 +133,7 @@
       "parameters": [
         {"name": "report_type", "type": "string", "required": false, "default": "countermeasure", "description": "Type: countermeasure, threat, compliance, risk-summary"},
         {"name": "format", "type": "string", "required": false, "default": "pdf", "description": "Format: pdf, html, xlsx, csv, xls"},
+        {"name": "project_path", "type": "string", "required": false, "description": "Full path to the project directory (for saving report if output_path not provided)"},
         {"name": "project_id", "type": "string", "required": false, "description": "Project ID"},
         {"name": "output_path", "type": "string", "required": false, "description": "Where to save the report file"},
         {"name": "standard", "type": "string", "required": false, "description": "Standard reference ID for compliance reports"}
