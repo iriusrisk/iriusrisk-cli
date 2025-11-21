@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="iriusrisk-cli",
-    version="0.1.1",
+    version="0.2.0",
     author="IriusRisk",
     author_email="support@iriusrisk.com",
     description="AI-powered threat modeling integration for IriusRisk. Command line interface and MCP server for security analysis.",

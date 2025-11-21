@@ -1,7 +1,7 @@
 {
   "name": "iriusrisk-cli",
   "description": "AI-powered threat modeling integration for IriusRisk. Enables AI assistants to analyze codebases, create threat models, review security threats, implement countermeasures, and generate compliance reports.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "functions": [
     {
       "name": "initialize_iriusrisk_workflow",
