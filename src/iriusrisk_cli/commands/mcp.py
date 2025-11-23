@@ -53,7 +53,7 @@ def mcp(cli_ctx, server, host, port):
         logger.info(f"Starting IriusRisk MCP server in HTTP mode on {host}:{port}")
         from ..mcp.http_server import run_http_server
         run_http_server(cli_ctx, host, port)
-            else:
+    else:
         # Stdio mode (default)
         logger.info("Starting IriusRisk MCP server in stdio mode")
         from ..mcp.stdio_server import run_stdio_server
