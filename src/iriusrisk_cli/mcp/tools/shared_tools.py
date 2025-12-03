@@ -82,7 +82,44 @@ def register_shared_tools(mcp_server, api_client, transport_mode):
         Returns:
             Detailed instructions for creating threat models from source material.
         """
+        # Load base instructions
         instructions = _load_prompt("create_threat_model")
+        
+        # Add HTTP-specific trust zone warning if in HTTP mode
+        if transport_mode == TransportMode.HTTP:
+            http_addendum = """
+
+## ⚠️ CRITICAL FOR HTTP MODE: Trust Zone UUIDs
+
+You are in HTTP mode (stateless). When working with trust zones:
+
+1. **Call `get_trust_zones()` first** to get the trust zone library as JSON
+2. **Parse the JSON response carefully**
+3. **Extract the `id` field** from each trust zone (this is a UUID like "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c")
+4. **Use those EXACT UUIDs** in your OTM file
+5. **DO NOT use the `name` field as the ID**
+6. **DO NOT invent trust zone IDs**
+
+The response from get_trust_zones() looks like:
+```json
+[
+  {
+    "id": "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c",
+    "name": "Internet",
+    "risk": {"trustRating": 1}
+  }
+]
+```
+
+Use the `id` value "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c" in your OTM, NOT "Internet" or "internet".
+
+**Component Library:**
+- Instead of reading `.iriusrisk/components.json`, use `search_components(query="...")`
+- Instead of reading `.iriusrisk/trust-zones.json`, use `get_trust_zones()`
+- Extract exact `id` and `referenceId` values from JSON responses
+"""
+            instructions = instructions + http_addendum
+        
         logger.info("Provided CreateThreatModel instructions to AI assistant")
         return _apply_prompt_customizations('create_threat_model', instructions)
     

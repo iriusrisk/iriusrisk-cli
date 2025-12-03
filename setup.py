@@ -64,6 +64,12 @@ setup(
         "python-dotenv>=0.19.0",
         "tabulate>=0.8.0",
         "mcp>=1.0.0",
+        "rapidfuzz>=3.0.0",
+        "PyJWT>=2.8.0",
+        "cryptography>=41.0.0",
+        "httpx>=0.24.0",
+        "starlette>=0.27.0",
+        "uvicorn>=0.22.0",
     ],
     entry_points={
         "console_scripts": [
