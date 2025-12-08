@@ -46,7 +46,7 @@ def run_http_server(cli_ctx, host: str, port: int, oauth_config_file: str = None
             user_count = len(oauth_config.get('user_mappings', {}))
             provider_name = oauth_config.get('oauth', {}).get('provider', {}).get('name', 'unknown')
             logger.info(f"Loaded OAuth config with {user_count} user mappings")
-            logger.info(f"OAuth mode enabled: {provider_name} provider, {user_count} mapped users")
+            logger.info(f"OAuth mode enabled with {user_count} mapped users")
             
             # Create OAuth server for handling OAuth flow
             if base_url:
