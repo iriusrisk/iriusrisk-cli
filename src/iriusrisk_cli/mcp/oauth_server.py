@@ -62,7 +62,7 @@ class OAuthServer:
         self.sessions: Dict[str, Dict[str, Any]] = {}  # session_id -> session data
         
         logger.info(f"OAuth server initialized with base_url: {self.base_url}")
-        logger.info(f"Provider: {self.provider_config.get('name', 'unknown')}")
+        logger.info("OAuth provider configured")
         logger.info(f"User mappings: {len(self.user_mappings)}")
     
     def _generate_session_id(self) -> str:
