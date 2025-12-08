@@ -38,7 +38,7 @@ def run_http_server(cli_ctx, host: str, port: int, oauth_config_file: str = None
     oauth_server = None
     oauth_config = None
     if oauth_config_file:
-        logger.info(f"Loading OAuth configuration from: {oauth_config_file}")
+        logger.info("Loading OAuth configuration")
         try:
             from .oauth_server import OAuthServer, load_oauth_config
             
