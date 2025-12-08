@@ -153,7 +153,9 @@ class TestMCPOAuthOptions:
         call_args, call_kwargs = mock_run_http.call_args
         assert str(config_file) in str(call_args) or str(config_file) in call_kwargs.values()
         # Check that 'https://example.com' was passed exactly as an argument (positional or keyword)
-        assert 'https://example.com' in call_args or any(
+        assert any(
+            arg == 'https://example.com' for arg in call_args
+        ) or any(
             v == 'https://example.com' for v in call_kwargs.values()
         )
     
