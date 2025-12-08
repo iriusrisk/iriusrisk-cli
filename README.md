@@ -66,16 +66,14 @@ When integrated through MCP, AI assistants can:
 
 ### From PyPI
 
-Eventually users will be able to install the CLI using:
-
 ```bash
-$ pip install iriusrisk-cli
+pip install iriusrisk-cli
 ```
 
-For Mac users using Homebrew, we suggest installing it with:
+For Mac users using Homebrew, we recommend using pipx for isolated installation:
 
 ```bash
-$ pipx install iriusrisk-cli
+pipx install iriusrisk-cli
 ```
 
 ### For Development
