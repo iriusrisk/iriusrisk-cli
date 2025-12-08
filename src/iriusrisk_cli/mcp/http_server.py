@@ -215,7 +215,7 @@ def run_http_server(cli_ctx, host: str, port: int, oauth_config_file: str = None
                 })
                 return
             
-            logger.debug(f"Token validated for user: {token_info.get('email')}")
+            logger.debug("Token validated successfully")
         
         # Everything else goes to MCP app (it handles /mcp internally)
         await mcp_app(scope, receive, send)
