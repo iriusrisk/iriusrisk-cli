@@ -30,6 +30,26 @@ def my_command():
 - Use factory functions for complex initialization
 - Maintain singleton lifecycle for stateful services
 
+**Exception: MCP HTTP Mode Per-Request Authentication**
+
+The MCP HTTP server (`mcp/http_server.py`, `mcp/auth.py`) is an accepted exception to the DI rule. In HTTP mode, each request carries its own credentials (either via OAuth token mapping or direct API key headers), requiring per-request API client instantiation:
+
+```python
+# ✅ ACCEPTED in mcp/auth.py and mcp/http_server.py ONLY
+# HTTP mode creates request-scoped API clients because credentials vary per-request
+config = Config()
+config._api_key = credentials_from_request['api_key']
+config._hostname = credentials_from_request['hostname']
+api_client = IriusRiskApiClient(config)
+```
+
+This pattern is necessary because:
+- The DI Container assumes application-wide configuration
+- HTTP mode supports multi-tenant scenarios where each request may use different IriusRisk instances
+- Credentials are extracted from request headers or OAuth token mappings at runtime
+
+The stdio mode correctly uses the Container pattern since credentials are configured once at startup.
+
 ### 2. Configuration and Project Discovery
 
 **Use Config class for all configuration access** - never access `os.environ` directly.

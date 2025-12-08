@@ -110,7 +110,7 @@ def run_http_server(cli_ctx, host: str, port: int, oauth_config_file: str = None
             
             # Fallback to direct API key authentication
             from .auth import create_api_client_from_request
-            return create_api_client_from_request(request, oauth_config=None)
+            return create_api_client_from_request(request)
             
         except Exception as e:
             logger.error(f"Failed to get API client from request: {e}")

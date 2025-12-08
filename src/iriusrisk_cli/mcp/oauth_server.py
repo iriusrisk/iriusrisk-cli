@@ -78,13 +78,13 @@ class OAuthServer:
         return secrets.token_urlsafe(48)
     
     def _verify_pkce(self, code_verifier: str, code_challenge: str, method: str = "S256") -> bool:
-        """Verify PKCE code challenge."""
+        """Verify PKCE code challenge using timing-safe comparison."""
         if method == "S256":
             hash_digest = hashlib.sha256(code_verifier.encode()).digest()
             computed = base64.urlsafe_b64encode(hash_digest).decode().rstrip("=")
-            return computed == code_challenge
+            return secrets.compare_digest(computed, code_challenge)
         elif method == "plain":
-            return code_verifier == code_challenge
+            return secrets.compare_digest(code_verifier, code_challenge)
         return False
     
     def get_user_iriusrisk_credentials(self, email: str) -> Optional[Dict[str, str]]:
@@ -220,7 +220,7 @@ class OAuthServer:
         """
         try:
             body = await request.json()
-        except:
+        except Exception:
             body = {}
         
         client_id = self._generate_client_id()

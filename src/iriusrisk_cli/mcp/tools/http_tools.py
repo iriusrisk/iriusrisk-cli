@@ -70,7 +70,7 @@ def register_http_tools(mcp_server, get_api_client_func):
                 request = context.request_context.request
                 hostname = request.headers.get("X-IriusRisk-Hostname", "")
                 project_url = _build_project_url(hostname, project_uuid)
-            except:
+            except Exception:
                 project_url = None
             
             # Format overview
@@ -747,7 +747,7 @@ def register_http_tools(mcp_server, get_api_client_func):
                 request = context.request_context.request
                 hostname = request.headers.get("X-IriusRisk-Hostname", "")
                 project_url = _build_project_url(hostname, project_uuid)
-            except:
+            except Exception:
                 project_url = None
             
             # Format output
@@ -958,7 +958,7 @@ def register_http_tools(mcp_server, get_api_client_func):
                 request = context.request_context.request
                 hostname = request.headers.get("X-IriusRisk-Hostname", "")
                 project_url = _build_project_url(hostname, result.get('id', project_id))
-            except:
+            except Exception:
                 project_url = None
             
             output = []

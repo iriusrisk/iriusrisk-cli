@@ -9,6 +9,7 @@ import json
 from click.testing import CliRunner
 
 from iriusrisk_cli.main import cli
+from iriusrisk_cli import __version__
 
 
 class TestMainCLICommands:
@@ -38,7 +39,7 @@ class TestMainCLICommands:
         
         assert result.exit_code == 0, f"Version command failed: {result.output}"
         assert "IriusRisk CLI version" in result.output
-        assert "0.1.1" in result.output  # Current version
+        assert __version__ in result.output
     
     def test_cli_version_flag(self, cli_runner):
         """Test 'iriusrisk --version' flag."""
@@ -46,7 +47,7 @@ class TestMainCLICommands:
         
         assert result.exit_code == 0, f"Version flag failed: {result.output}"
         assert "IriusRisk CLI version" in result.output
-        assert "0.1.1" in result.output
+        assert __version__ in result.output
     
     def test_cli_help_flag(self, cli_runner):
         """Test 'iriusrisk --help' flag."""
