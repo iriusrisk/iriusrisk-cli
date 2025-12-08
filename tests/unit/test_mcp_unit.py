@@ -9,10 +9,8 @@ from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock, mock_open
 import asyncio
 
-from src.iriusrisk_cli.commands.mcp import (
-    _find_project_root_and_config,
-    setup_mcp_logging
-)
+from src.iriusrisk_cli.utils.project_discovery import find_project_root
+from src.iriusrisk_cli.utils.mcp_logging import setup_mcp_logging
 
 
 class TestMCPProjectRootFinding:
@@ -36,7 +34,7 @@ class TestMCPProjectRootFinding:
                 json.dump(project_config, f)
             
             with patch('pathlib.Path.cwd', return_value=temp_path):
-                root, config = _find_project_root_and_config()
+                root, config = find_project_root()
                 
                 assert root == temp_path
                 assert config == project_config
@@ -57,7 +55,7 @@ class TestMCPProjectRootFinding:
                 json.dump(project_config, f)
             
             with patch('pathlib.Path.cwd', return_value=subdir):
-                root, config = _find_project_root_and_config()
+                root, config = find_project_root()
                 
                 assert root == temp_path
                 assert config == project_config
@@ -79,7 +77,7 @@ class TestMCPProjectRootFinding:
             
             with patch.dict(os.environ, {'CURSOR_WORKSPACE': str(workspace_path)}):
                 with patch('pathlib.Path.cwd', return_value=Path('/different/path')):
-                    root, config = _find_project_root_and_config()
+                    root, config = find_project_root()
                     
                     assert root == workspace_path
                     assert config == project_config
@@ -104,7 +102,7 @@ class TestMCPProjectRootFinding:
             
             with patch('pathlib.Path.home', return_value=home_path):
                 with patch('pathlib.Path.cwd', return_value=Path('/different/path')):
-                    root, config = _find_project_root_and_config()
+                    root, config = find_project_root()
                     
                     assert root == project_dir
                     assert config == project_config
@@ -124,7 +122,7 @@ class TestMCPProjectRootFinding:
             with patch('pathlib.Path.cwd', return_value=temp_path):
                 with patch('pathlib.Path.home', return_value=temp_path):  # Mock home directory
                     with patch.dict('os.environ', {}, clear=True):  # Clear all environment variables
-                        root, config = _find_project_root_and_config()
+                        root, config = find_project_root()
                         
                         # Should continue searching and fall back to current directory
                         assert root == temp_path
@@ -137,7 +135,7 @@ class TestMCPProjectRootFinding:
             
             with patch('pathlib.Path.cwd', return_value=temp_path):
                 with patch('pathlib.Path.iterdir', side_effect=PermissionError("Access denied")):
-                    root, config = _find_project_root_and_config()
+                    root, config = find_project_root()
                     
                     # Should fall back to current directory
                     assert root == temp_path
@@ -150,7 +148,7 @@ class TestMCPProjectRootFinding:
             
             with patch('pathlib.Path.cwd', return_value=temp_path):
                 with patch('pathlib.Path.home', return_value=temp_path):
-                    root, config = _find_project_root_and_config()
+                    root, config = find_project_root()
                     
                     assert root == temp_path
                     assert config is None
@@ -231,80 +229,35 @@ class TestMCPLogging:
 class TestMCPServerTools:
     """Test MCP server tool implementations."""
     
-    def setup_method(self):
-        """Set up test environment."""
-        # Import the MCP server tools
-        import sys
-        from unittest.mock import patch
-        
-        # Mock the FastMCP server to avoid actual server startup
-        self.mock_server = Mock()
-        
-        # We'll need to patch the actual MCP tool functions when they're called
-        # Since they're async and use the actual API client
-    
-    def test_mcp_initialize_workflow(self):
-        """Test MCP initialize workflow tool."""
-        # Import the actual MCP module to test the tools
+    def test_mcp_command_exists_and_callable(self):
+        """Test MCP command exists and can be imported."""
         from src.iriusrisk_cli.commands import mcp
         
-        # Mock the FastMCP server and its tool decorator
-        with patch('src.iriusrisk_cli.commands.mcp.FastMCP') as mock_fastmcp:
-            mock_app = Mock()
-            mock_fastmcp.return_value = mock_app
-            
-            # Since we can't easily test the actual async tools without running the server,
-            # we'll test the tool registration and basic functionality
-            
-            # Verify that the MCP command exists and can be imported
-            assert hasattr(mcp, 'mcp')
-            assert callable(mcp.mcp)
+        # Verify that the MCP command exists and can be imported
+        assert hasattr(mcp, 'mcp')
+        assert callable(mcp.mcp)
     
-    def test_mcp_server_initialization_with_project_config(self):
-        """Test MCP server initialization when project config exists."""
-        project_config = {
-            'project_id': 'test-project-uuid',
-            'project_name': 'Test Project',
-            'reference_id': 'test-ref'
-        }
+    def test_stdio_server_module_exists(self):
+        """Test that stdio server module exists and has run function."""
+        from src.iriusrisk_cli.mcp import stdio_server
         
-        with patch('src.iriusrisk_cli.commands.mcp._find_project_root_and_config') as mock_find:
-            mock_find.return_value = (Path('/test/project'), project_config)
-            
-            with patch('src.iriusrisk_cli.commands.mcp.FastMCP') as mock_fastmcp:
-                with patch('src.iriusrisk_cli.commands.mcp.setup_mcp_logging'):
-                    mock_app = Mock()
-                    mock_fastmcp.return_value = mock_app
-                    
-                    # Import and test the MCP command
-                    from src.iriusrisk_cli.commands.mcp import mcp
-                    
-                    # The command should be callable
-                    assert callable(mcp)
+        assert hasattr(stdio_server, 'run_stdio_server')
+        assert callable(stdio_server.run_stdio_server)
     
-    def test_mcp_server_initialization_without_project_config(self):
-        """Test MCP server initialization when no project config exists."""
-        with patch('src.iriusrisk_cli.commands.mcp._find_project_root_and_config') as mock_find:
-            mock_find.return_value = (Path('/test/project'), None)
-            
-            with patch('src.iriusrisk_cli.commands.mcp.FastMCP') as mock_fastmcp:
-                with patch('src.iriusrisk_cli.commands.mcp.setup_mcp_logging'):
-                    mock_app = Mock()
-                    mock_fastmcp.return_value = mock_app
-                    
-                    # Import and test the MCP command
-                    from src.iriusrisk_cli.commands.mcp import mcp
-                    
-                    # The command should be callable
-                    assert callable(mcp)
+    def test_http_server_module_exists(self):
+        """Test that HTTP server module exists and has run function."""
+        from src.iriusrisk_cli.mcp import http_server
+        
+        assert hasattr(http_server, 'run_http_server')
+        assert callable(http_server.run_http_server)
 
 
 class TestMCPDataOperations:
-    """Test MCP data operation helpers."""
+    """Test MCP data operation helpers - testing the actual module locations."""
     
-    def test_mcp_imports_sync_functions(self):
-        """Test that MCP module imports required sync functions."""
-        from src.iriusrisk_cli.commands.mcp import (
+    def test_sync_module_has_download_functions(self):
+        """Test that sync module has required download functions."""
+        from src.iriusrisk_cli.commands.sync import (
             _download_components_data,
             _download_trust_zones_data,
             _download_threats_data,
@@ -313,7 +266,7 @@ class TestMCPDataOperations:
             _save_json_file
         )
         
-        # Verify all required functions are imported
+        # Verify all required functions are importable
         assert callable(_download_components_data)
         assert callable(_download_trust_zones_data)
         assert callable(_download_threats_data)
@@ -321,24 +274,22 @@ class TestMCPDataOperations:
         assert callable(_ensure_iriusrisk_directory)
         assert callable(_save_json_file)
     
-    def test_mcp_imports_utility_functions(self):
-        """Test that MCP module imports required utility functions."""
-        from src.iriusrisk_cli.commands.mcp import (
+    def test_utility_functions_available(self):
+        """Test that utility functions are available from correct modules."""
+        from src.iriusrisk_cli.utils.project import (
             resolve_project_id,
-            get_project_context_info,
-            get_update_tracker
+            get_project_context_info
         )
         
-        # Verify all required utility functions are imported
+        # Verify utility functions are importable
         assert callable(resolve_project_id)
         assert callable(get_project_context_info)
-        assert callable(get_update_tracker)
     
-    def test_mcp_imports_api_client(self):
-        """Test that MCP module imports API client classes."""
-        from src.iriusrisk_cli.commands.mcp import ProjectApiClient
+    def test_api_client_available(self):
+        """Test that API client classes are available."""
+        from src.iriusrisk_cli.api.project_client import ProjectApiClient
         
-        # Verify API client classes are imported
+        # Verify API client class is importable
         assert ProjectApiClient is not None
 
 
@@ -353,7 +304,7 @@ class TestMCPErrorHandling:
                 with patch('pathlib.Path.home', return_value=temp_path):
                     with patch.dict('os.environ', {}, clear=True):
                         # Should not raise exception, should handle gracefully
-                        root, config = _find_project_root_and_config()
+                        root, config = find_project_root()
                         # Should return the home directory fallback
                         assert root == temp_path
                         assert config is None
@@ -369,7 +320,7 @@ class TestMCPErrorHandling:
             with patch('pathlib.Path.cwd', return_value=temp_path):
                 with patch('pathlib.Path.home', return_value=temp_path):  # Mock home directory
                     with patch.dict('os.environ', {}, clear=True):  # Clear all environment variables
-                        root, config = _find_project_root_and_config()
+                        root, config = find_project_root()
                         
                         assert root == temp_path
                         assert config is None
@@ -378,30 +329,36 @@ class TestMCPErrorHandling:
 class TestMCPIntegration:
     """Test MCP integration with other components."""
     
-    def test_mcp_version_import(self):
-        """Test that MCP module can import version information."""
-        from src.iriusrisk_cli.commands.mcp import __version__
+    def test_version_import(self):
+        """Test that version information is available."""
+        from src.iriusrisk_cli import __version__
         
-        # Verify version is imported
+        # Verify version is importable
         assert __version__ is not None
         assert isinstance(__version__, str)
     
-    def test_mcp_config_import(self):
-        """Test that MCP module can import configuration."""
+    def test_config_import(self):
+        """Test that configuration can be imported."""
         from src.iriusrisk_cli.config import Config
         
         # Verify config class is available
         config = Config()
         assert config is not None
     
-    def test_mcp_json_import(self):
-        """Test that MCP module can import JSON functionality."""
-        from src.iriusrisk_cli.commands.mcp import json
+    def test_shared_tools_module(self):
+        """Test that shared tools module is importable."""
+        from src.iriusrisk_cli.mcp.tools.shared_tools import (
+            register_shared_tools,
+            _load_prompt,
+            _apply_prompt_customizations,
+            _load_prompt_text
+        )
         
-        # Verify JSON module is imported
-        assert json is not None
-        assert hasattr(json, 'load')
-        assert hasattr(json, 'dump')
+        # Verify functions are importable
+        assert callable(register_shared_tools)
+        assert callable(_load_prompt)
+        assert callable(_apply_prompt_customizations)
+        assert callable(_load_prompt_text)
 
 
 class TestMCPPathHandling:
@@ -433,7 +390,7 @@ class TestMCPPathHandling:
             
             with patch.dict(os.environ, env_vars):
                 with patch('pathlib.Path.cwd', return_value=Path('/different/path')):
-                    root, config = _find_project_root_and_config()
+                    root, config = find_project_root()
                     
                     # Should find the project in workspace2
                     assert root == workspace2
@@ -464,7 +421,7 @@ class TestMCPPathHandling:
             
             with patch('pathlib.Path.home', return_value=home_path):
                 with patch('pathlib.Path.cwd', return_value=Path('/different/path')):
-                    root, config = _find_project_root_and_config()
+                    root, config = find_project_root()
                     
                     # Should find project2
                     assert root == project2_dir

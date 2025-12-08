@@ -5,6 +5,75 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2024-11-21
+
+### Added
+
+#### HTTP MCP Server Mode
+- **Remote MCP Server**: Added HTTP transport mode for MCP server, enabling remote AI assistant access
+  - New `--server` flag to run as HTTP server (default: localhost:8000)
+  - `--host` and `--port` options for custom server configuration
+  - Per-request authentication via HTTP headers (`X-IriusRisk-API-Key`, `X-IriusRisk-Hostname`)
+  - Multi-tenant support: each client uses their own IriusRisk credentials
+  - Stateless operation: no filesystem dependencies in HTTP mode
+  - Can be deployed behind reverse proxy (nginx) for HTTPS/TLS
+
+#### HTTP-Specific MCP Tools
+- `list_projects()` - List IriusRisk projects (no filters, default ordering)
+- `search_projects()` - **NEW** - Search for projects by name, tags, or workflow state
+- `get_project()` - Get detailed project information
+- `get_project_overview()` - **NEW** - Comprehensive project stats with threat/countermeasure summaries and risk insights
+- `org_risk_snapshot()` - **NEW** - Organization-wide risk view showing high-risk projects and portfolio metrics
+- `search_components()` - **NEW** - Intelligent fuzzy search with typo tolerance, partial matching, and multi-word support. Session-cached (first call downloads ~1.6MB, subsequent instant). Returns metadata showing category breakdown to guide AI refinement
+- `get_component_categories()` - **NEW** - Get list of component categories to help narrow searches
+- `get_trust_zones()` - **NEW** - Get complete trust zone library (small dataset, returns all)
+- `search_threats()` - **NEW** - Intelligent threat search with fuzzy matching, risk/status filtering, and session caching. Includes metadata with threat distribution
+- `search_countermeasures()` - **NEW** - Intelligent countermeasure search with fuzzy matching, status/priority filtering, and session caching. Includes metadata with countermeasure distribution
+- `update_threat_status()` - Direct API threat status updates
+- `update_countermeasure_status()` - Direct API countermeasure status updates
+- `import_otm()` - Import OTM from string content (not file path)
+- `get_diagram()` - Return base64 encoded diagram (not saved to disk)
+- `generate_report()` - **NOW AVAILABLE** - Generate reports and return as base64 (previously stdio-only)
+
+#### Architecture Improvements
+- Modular MCP structure with separate transport implementations
+- Organized tool registration by mode (shared/stdio/http)
+- Request-scoped API client creation for HTTP mode
+- HTTP authentication module with credential extraction
+- HTTP workflow documentation for AI assistants
+
+### Changed
+- **MCP Command**: Now supports both stdio (default) and HTTP modes
+- **Tool Organization**: Refactored tools into modular structure
+  - Shared tools: Work in both stdio and HTTP modes
+  - Stdio tools: Require filesystem access
+  - HTTP tools: Stateless, API-only operations
+- **Dependencies**: 
+  - Added rapidfuzz>=3.0.0 for intelligent fuzzy search
+  - Added PyJWT>=2.8.0 and cryptography>=41.0.0 for OAuth support
+
+### Security
+- Per-request credential handling in HTTP mode
+- No server-side credential storage (except OAuth bridge mapping)
+- Multi-tenant isolation
+- Support for deployment behind HTTPS reverse proxy
+
+### Experimental Features (Testing Only)
+- **OAuth Bridge**: HACKY workaround for OAuth-requiring clients (ChatGPT, etc.)
+  - `--oauth` flag enables OAuth mode
+  - `--oauth-config` specifies static user mapping file
+  - Validates OAuth tokens (JWT or introspection)
+  - Maps OAuth users to IriusRisk API credentials
+  - Provider-agnostic (Google, Okta, Azure AD, PingFederate, etc.)
+  - ⚠️ NOT production-ready - plaintext credentials in config file
+  - ⚠️ Use for testing until IriusRisk backend supports OAuth natively
+
+### Documentation
+- HTTP MCP Server implementation plan
+- HTTP workflow guide for AI assistants
+- Updated command help with transport mode examples
+- HTTP client configuration examples
+
 ## [0.1.1] - 2024-11-19
 
 ### Fixed
@@ -59,6 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configuration best practices
 - AI workflow examples
 
+[0.2.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.2.0
 [0.1.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.1
 [0.1.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.0
 

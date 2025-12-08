@@ -131,3 +131,6 @@ dmypy.json
 # IriusRisk CLI specific
 logs/
 data/
+
+# OAuth configuration (contains sensitive credentials)
+oauth_mapping.json

@@ -66,16 +66,14 @@ When integrated through MCP, AI assistants can:
 
 ### From PyPI
 
-Eventually users will be able to install the CLI using:
-
 ```bash
-$ pip install iriusrisk-cli
+pip install iriusrisk-cli
 ```
 
-For Mac users using Homebrew, we suggest installing it with:
+For Mac users using Homebrew, we recommend using pipx for isolated installation:
 
 ```bash
-$ pipx install iriusrisk-cli
+pipx install iriusrisk-cli
 ```
 
 ### For Development
@@ -415,6 +413,127 @@ Each action accepts either:
 - `create_threat_model`
 - `architecture_and_design_review`
 - `security_development_advisor`
+
+### MCP HTTP Server Mode
+
+In addition to the default stdio transport for local AI assistants, the CLI supports an HTTP server mode for remote AI assistant access. This enables integration with web-based AI tools and multi-user scenarios.
+
+```bash
+# Start HTTP server on default localhost:8000
+iriusrisk mcp --server
+
+# Custom host and port
+iriusrisk mcp --server --host 0.0.0.0 --port 9000
+
+# With verbose logging
+iriusrisk --verbose mcp --server --port 8080
+```
+
+#### HTTP Mode Authentication
+
+**Option 1: Direct API Key Headers**
+
+Clients authenticate by passing IriusRisk credentials in request headers:
+
+```bash
+# Example curl request to HTTP mode server
+curl -X POST http://localhost:8000/mcp \
+  -H "Content-Type: application/json" \
+  -H "X-IriusRisk-API-Key: your-api-key-here" \
+  -H "X-IriusRisk-Hostname: https://your-instance.iriusrisk.com" \
+  -d '{"method": "tools/list", "params": {}}'
+```
+
+Required headers:
+- `X-IriusRisk-API-Key`: Your IriusRisk API key
+- `X-IriusRisk-Hostname`: Full URL to your IriusRisk instance (e.g., `https://your-instance.iriusrisk.com`)
+
+**Option 2: OAuth Authentication**
+
+For multi-user scenarios, OAuth authentication maps authenticated users to their IriusRisk credentials:
+
+```bash
+# Start with OAuth enabled
+iriusrisk mcp --server \
+  --oauth \
+  --oauth-config oauth_mapping.json \
+  --base-url https://your-public-url.com
+
+# With path prefix (for reverse proxy setups)
+iriusrisk mcp --server \
+  --oauth \
+  --oauth-config oauth_mapping.json \
+  --base-url https://your-domain.com/mcp-server \
+  --path-prefix /mcp-server
+```
+
+OAuth options:
+- `--oauth`: Enable OAuth authentication mode
+- `--oauth-config <path>`: Path to OAuth configuration file (required with `--oauth`)
+- `--base-url <url>`: Public URL for OAuth callbacks (required with `--oauth`)
+- `--path-prefix <path>`: URL path prefix for all endpoints
+
+#### OAuth Configuration
+
+Create an `oauth_mapping.json` file (see `oauth_mapping.example.json` for a template):
+
+```json
+{
+  "oauth": {
+    "provider": {
+      "name": "google",
+      "client_id": "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+      "client_secret": "YOUR_GOOGLE_CLIENT_SECRET"
+    }
+  },
+  "user_mappings": {
+    "user@example.com": {
+      "iriusrisk_api_key": "users-iriusrisk-api-key",
+      "iriusrisk_hostname": "https://your-instance.iriusrisk.com",
+      "enabled": true
+    }
+  }
+}
+```
+
+**Important**: Keep `oauth_mapping.json` secure and never commit it to version control. It's included in `.gitignore` by default.
+
+#### OAuth Endpoints
+
+When OAuth is enabled, the server exposes these endpoints:
+- `/.well-known/oauth-authorization-server` - OAuth 2.0 discovery
+- `/.well-known/openid-configuration` - OpenID Connect discovery
+- `/.well-known/oauth-protected-resource` - Protected resource metadata (RFC 9728)
+- `/oauth/register` - Dynamic client registration
+- `/oauth/authorize` - Authorization endpoint
+- `/oauth/callback` - OAuth callback handler
+- `/oauth/token` - Token endpoint
+- `/mcp` - MCP protocol endpoint (requires Bearer token)
+
+#### HTTP Mode Examples
+
+```bash
+# Development: Local HTTP server with direct API key auth
+iriusrisk mcp --server
+
+# Development: Custom port with debug logging
+iriusrisk --debug mcp --server --port 3000
+
+# Production: OAuth with Google authentication
+iriusrisk mcp --server \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --oauth \
+  --oauth-config /etc/iriusrisk/oauth_mapping.json \
+  --base-url https://mcp.example.com
+
+# Behind reverse proxy with path prefix
+iriusrisk mcp --server \
+  --oauth \
+  --oauth-config oauth_mapping.json \
+  --base-url https://api.example.com/iriusrisk \
+  --path-prefix /iriusrisk
+```
 
 ## Planned Commands
 

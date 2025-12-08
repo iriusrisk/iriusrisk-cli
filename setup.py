@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="iriusrisk-cli",
-    version="0.1.1",
+    version="0.2.0",
     author="IriusRisk",
     author_email="support@iriusrisk.com",
     description="AI-powered threat modeling integration for IriusRisk. Command line interface and MCP server for security analysis.",
@@ -64,6 +64,12 @@ setup(
         "python-dotenv>=0.19.0",
         "tabulate>=0.8.0",
         "mcp>=1.0.0",
+        "rapidfuzz>=3.0.0",
+        "PyJWT>=2.8.0",
+        "cryptography>=41.0.0",
+        "httpx>=0.24.0",
+        "starlette>=0.27.0",
+        "uvicorn>=0.22.0",
     ],
     entry_points={
         "console_scripts": [

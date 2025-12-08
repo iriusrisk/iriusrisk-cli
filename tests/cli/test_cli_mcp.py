@@ -28,7 +28,7 @@ class TestMCPCommands:
         assert 'server' in result.output.lower()
         assert 'AI' in result.output or 'ai' in result.output.lower()
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_server_startup(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP server startup is attempted."""
         # Mock the FastMCP class and its run method
@@ -45,7 +45,7 @@ class TestMCPCommands:
         mock_fastmcp_class.assert_called_once_with("iriusrisk-cli")
         mock_server.run.assert_called_once_with(transport='stdio')
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_server_with_mock_api_client(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP server works with mocked API client."""
         # Mock the FastMCP class and its run method
@@ -66,7 +66,7 @@ class TestMCPCommands:
 class TestMCPServerBehavior:
     """Test MCP server behavior and integration."""
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_server_exception_handling(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP server handles exceptions gracefully."""
         # Mock the FastMCP class and make run method raise an exception
@@ -83,7 +83,7 @@ class TestMCPServerBehavior:
         mock_fastmcp_class.assert_called_once_with("iriusrisk-cli")
         mock_server.run.assert_called_once_with(transport='stdio')
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_server_keyboard_interrupt(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP server handles KeyboardInterrupt gracefully."""
         # Mock the FastMCP class and make run method raise KeyboardInterrupt
@@ -100,7 +100,7 @@ class TestMCPServerBehavior:
         mock_fastmcp_class.assert_called_once_with("iriusrisk-cli")
         mock_server.run.assert_called_once_with(transport='stdio')
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_server_initialization(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP server is properly initialized."""
         # Mock the FastMCP class
@@ -131,7 +131,7 @@ class TestMCPIntegration:
         assert_cli_success(result)
         assert 'mcp' in result.output, "MCP command should be listed in main help"
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_with_environment_variables(self, mock_fastmcp_class, cli_runner, mock_api_client, mock_env_vars):
         """Test that MCP works with environment variables set."""
         mock_server = MagicMock()
@@ -147,7 +147,7 @@ class TestMCPIntegration:
         mock_fastmcp_class.assert_called_once_with("iriusrisk-cli")
         mock_server.run.assert_called_once_with(transport='stdio')
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_server_uses_api_client(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP server has access to API client functionality."""
         mock_server = MagicMock()
@@ -167,7 +167,7 @@ class TestMCPIntegration:
 @pytest.mark.integration
 def test_mcp_command_integration(cli_runner, mock_api_client, mock_env_vars):
     """Integration test for MCP command with full mock setup."""
-    with patch('iriusrisk_cli.commands.mcp.FastMCP') as mock_fastmcp_class:
+    with patch('iriusrisk_cli.mcp.stdio_server.FastMCP') as mock_fastmcp_class:
         # Mock the FastMCP class to avoid actually starting it
         mock_server = MagicMock()
         mock_fastmcp_class.return_value = mock_server
@@ -199,7 +199,7 @@ class TestMCPCommandValidation:
         assert 'server' in output_lower, "Should mention server"
         assert 'protocol' in output_lower or 'ai' in output_lower, "Should mention protocol or AI"
     
-    @patch('iriusrisk_cli.commands.mcp.FastMCP')
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
     def test_mcp_no_extra_arguments(self, mock_fastmcp_class, cli_runner, mock_api_client):
         """Test that MCP command doesn't accept extra arguments."""
         mock_server = MagicMock()

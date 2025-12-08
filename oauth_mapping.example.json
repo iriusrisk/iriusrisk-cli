@@ -1,0 +1,33 @@
+{
+  "_comment": "OAuth Bridge Configuration for IriusRisk MCP Server",
+  "_instructions": "Copy this file to oauth_mapping.json and fill in your actual values",
+  "_warning": "KEEP oauth_mapping.json SECURE! It contains API keys and OAuth secrets.",
+  
+  "oauth": {
+    "provider": {
+      "name": "google",
+      "issuer": "https://accounts.google.com",
+      "discovery_url": "https://accounts.google.com/.well-known/openid-configuration",
+      "client_id": "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+      "client_secret": "YOUR_GOOGLE_CLIENT_SECRET",
+      "jwks_uri": "https://www.googleapis.com/oauth2/v3/certs",
+      "user_claim": "email",
+      "_note": "Create OAuth credentials at https://console.cloud.google.com/apis/credentials"
+    }
+  },
+  
+  "user_mappings": {
+    "user@example.com": {
+      "iriusrisk_api_key": "YOUR_IRIUSRISK_API_KEY_UUID",
+      "iriusrisk_hostname": "https://your-instance.iriusrisk.com",
+      "enabled": true,
+      "description": "Example user - replace with actual user email"
+    },
+    "another.user@example.com": {
+      "iriusrisk_api_key": "ANOTHER_USER_API_KEY_UUID",
+      "iriusrisk_hostname": "https://your-instance.iriusrisk.com",
+      "enabled": true,
+      "description": "Another example user mapping"
+    }
+  }
+}
