@@ -103,7 +103,7 @@ def create_api_client_from_request(request) -> "IriusRiskApiClient":
     config._hostname = hostname
     
     # Create and return API client
-    logger.debug(f"Creating request-scoped API client for hostname: {hostname}")
+    logger.debug("Creating request-scoped API client")
     api_client = IriusRiskApiClient(config)
     logger.debug(f"API client created successfully")
     
