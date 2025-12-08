@@ -152,8 +152,10 @@ class TestMCPOAuthOptions:
         
         call_args, call_kwargs = mock_run_http.call_args
         assert str(config_file) in str(call_args) or str(config_file) in call_kwargs.values()
-        # Check that 'https://example.com' was passed as an argument (positional or keyword)
-        assert 'https://example.com' in call_args or 'https://example.com' in call_kwargs.values()
+        # Check that 'https://example.com' was passed exactly as an argument (positional or keyword)
+        assert 'https://example.com' in call_args or any(
+            v == 'https://example.com' for v in call_kwargs.values()
+        )
     
     def test_oauth_config_nonexistent_file(self, cli_runner):
         """Test error when oauth-config file doesn't exist."""
