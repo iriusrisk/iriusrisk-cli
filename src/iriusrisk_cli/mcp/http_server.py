@@ -92,7 +92,7 @@ def run_http_server(cli_ctx, host: str, port: int, oauth_config_file: str = None
                     token_info = oauth_server.validate_token(token)
                     
                     if token_info:
-                        logger.debug(f"Token validated for user: {token_info.get('email')}")
+                        logger.debug("Token validated successfully.")
                         
                         # Create API client with IriusRisk credentials from mapping
                         from ..api_client import IriusRiskApiClient
