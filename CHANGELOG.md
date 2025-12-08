@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2024-12-08
+
+### Fixed
+- **Project List - Archived Column**: Fixed bug where all projects showed "Archived: Yes" regardless of actual status. The `create_row_transformer` in table formatting was converting boolean `False` to string `"False"` before passing to `format_boolean`, which then evaluated the non-empty string as truthy.
+- **Threat List - Status Column**: Fixed bug where threat status column showed "N/A" for all threats. The field mapping incorrectly used `'status'` instead of `'state'` which is the actual API field name.
+
 ## [0.2.0] - 2024-11-21
 
 ### Added
@@ -128,6 +134,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configuration best practices
 - AI workflow examples
 
+[0.2.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.2.1
 [0.2.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.2.0
 [0.1.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.1
 [0.1.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.0

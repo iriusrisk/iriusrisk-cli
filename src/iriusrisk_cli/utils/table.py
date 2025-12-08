@@ -294,6 +294,13 @@ class TableFormatter:
                 # Extract value
                 if '.' in key_path:
                     value = TableFormatter.format_nested_value(data, key_path, default)
+                elif formatter:
+                    # When a custom formatter is provided, pass the raw value
+                    # (or default if None) to let the formatter handle it properly.
+                    # This prevents format_optional from converting booleans to strings
+                    # before boolean formatters can process them.
+                    raw_value = data.get(key_path)
+                    value = raw_value if raw_value is not None else default
                 else:
                     value = TableFormatter.format_optional(data.get(key_path), default)
                 

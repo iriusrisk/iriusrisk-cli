@@ -352,7 +352,7 @@ def _format_threats_output(threats_data: list, output_format: str,
         {'key': 'referenceId'},
         {'key': 'description', 'truncate': 40},
         {'key': 'risk'},
-        {'key': 'status'},
+        {'key': 'state'},  # API returns 'state', not 'status'
         {'key': 'category'},
         {'key': 'created', 'formatter': lambda x: TableFormatter.format_timestamp(x, 'date')},
         {'key': 'updated', 'formatter': lambda x: TableFormatter.format_timestamp(x, 'date')}
@@ -362,7 +362,7 @@ def _format_threats_output(threats_data: list, output_format: str,
     table_headers = ['ID', 'Name', 'Reference ID', 'Description', 'Risk', 'Status', 'Category', 'Created', 'Updated']
     
     # Create CSV headers
-    csv_headers = ['id', 'name', 'referenceId', 'description', 'risk', 'status', 'category', 'created', 'updated']
+    csv_headers = ['id', 'name', 'referenceId', 'description', 'risk', 'state', 'category', 'created', 'updated']
     
     # Create transformers
     row_transformer = TableFormatter.create_row_transformer(field_mappings)
