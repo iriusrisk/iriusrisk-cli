@@ -151,7 +151,927 @@ def register_stdio_tools(mcp_server, api_client):
             
             return error_msg
     
-    # Additional stdio tools will be added here
-    # track_threat_update, track_countermeasure_update, get_pending_updates, etc.
-    # For now, focusing on the core implementation structure
+    @mcp_server.tool()
+    async def import_otm(otm_file_path: str, project_id: str = None) -> str:
+        """Import an OTM (Open Threat Model) file to create or update a project.
+        
+        In stdio mode, provide a file path to the OTM file. The file will be read
+        from the local filesystem and imported to IriusRisk.
+        
+        Args:
+            otm_file_path: Path to the OTM file (relative or absolute)
+            project_id: Optional project UUID to update (creates new project if not provided)
+        
+        Returns:
+            Status message with project details
+        """
+        logger.info(f"MCP tool invoked: import_otm (file={otm_file_path}, project_id={project_id})")
+        
+        try:
+            # Resolve file path
+            otm_path = Path(otm_file_path)
+            if not otm_path.is_absolute():
+                otm_path = Path.cwd() / otm_path
+            
+            if not otm_path.exists():
+                error_msg = f"❌ OTM file not found: {otm_file_path}"
+                logger.error(error_msg)
+                return error_msg
+            
+            if not otm_path.is_file():
+                error_msg = f"❌ Path is not a file: {otm_file_path}"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Read OTM content
+            try:
+                with open(otm_path, 'r', encoding='utf-8') as f:
+                    otm_content = f.read()
+            except Exception as e:
+                error_msg = f"❌ Failed to read OTM file: {str(e)}"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Validate it's valid JSON or YAML
+            try:
+                # Try parsing as JSON first
+                json.loads(otm_content)
+            except json.JSONDecodeError:
+                # Try YAML
+                try:
+                    import yaml
+                    yaml.safe_load(otm_content)
+                except (ImportError, Exception) as e:
+                    error_msg = f"❌ Invalid OTM format (not valid JSON or YAML): {str(e)}"
+                    logger.error(error_msg)
+                    return error_msg
+            
+            # Import via API
+            if project_id:
+                # Update existing project
+                result = api_client.update_project_with_otm_content(project_id, otm_content)
+                action = "updated"
+            else:
+                # Create new project (or auto-update if exists)
+                result = api_client.import_otm_content(otm_content, auto_update=True)
+                action = result.get('action', 'created')
+            
+            result_project_id = result.get('id', 'Unknown')
+            project_name = result.get('name', 'Unknown')
+            
+            # Build output
+            output = []
+            output.append(f"✅ OTM import successful!")
+            output.append(f"Action: Project {action}")
+            output.append(f"Project ID: {result_project_id}")
+            output.append(f"Project Name: {project_name}")
+            output.append("")
+            output.append("💡 Next steps:")
+            output.append("  1. Run sync() to download threats and countermeasures")
+            output.append("  2. Review threats and countermeasures data in .iriusrisk/")
+            
+            logger.info(f"OTM imported successfully: {project_name} ({result_project_id})")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to import OTM: {str(e)}"
+            logger.error(f"MCP import_otm failed: {e}")
+            return error_msg
+    
+    # ============================================================================
+    # NOTE: Search tools intentionally NOT included in stdio mode
+    # ============================================================================
+    # In stdio mode, AI assistants have direct file system access and can read
+    # .iriusrisk/*.json files directly. They can perform more flexible and powerful
+    # analysis by reading the raw JSON rather than using pre-built search tools.
+    # 
+    # Tools NOT included:
+    # - search_components (AI reads .iriusrisk/components.json directly)
+    # - get_component_categories (AI extracts from components.json directly)
+    # - get_trust_zones (AI reads .iriusrisk/trust-zones.json directly)
+    # - search_threats (AI reads .iriusrisk/threats.json directly)
+    # - search_countermeasures (AI reads .iriusrisk/countermeasures.json directly)
+    #
+    # This approach provides more flexibility and eliminates unnecessary abstraction
+    # layers when direct file access is available.
+    # ============================================================================
+    
+    # ============================================================================
+    # API-based tools (work in both modes, but stdio can use API client)
+    # ============================================================================
+    
+    @mcp_server.tool()
+    async def list_projects(page: int = 0, size: int = 10) -> str:
+        """List IriusRisk projects with default ordering.
+        
+        Returns a simple list of projects without filtering. Use search_projects()
+        to find specific projects by name or criteria.
+        
+        Args:
+            page: Page number for pagination (default: 0)
+            size: Number of results per page (default: 10)
+        
+        Returns:
+            Formatted list of projects with IDs, names, and key details
+        """
+        logger.info(f"MCP tool invoked: list_projects (page={page}, size={size})")
+        
+        try:
+            response = api_client.get_projects(page=page, size=size)
+            projects = response.get('_embedded', {}).get('items', [])
+            page_info = response.get('page', {})
+            total = page_info.get('totalElements', 0)
+            
+            if not projects:
+                return f"No projects found. Total projects: {total}"
+            
+            # Format output
+            output = []
+            output.append(f"📋 IriusRisk Projects (Total: {total})\n")
+            output.append(f"Showing page {page + 1} ({len(projects)} results)\n")
+            
+            for idx, project in enumerate(projects, 1):
+                name = project.get('name', 'Unknown')
+                project_id = project.get('id', 'Unknown')
+                ref_id = project.get('referenceId', 'None')
+                workflow = project.get('workflowState', {}).get('name', 'Unknown')
+                updated = project.get('modelUpdated', 'Unknown')
+                
+                output.append(f"{idx}. **{name}**")
+                output.append(f"   UUID: {project_id}")
+                output.append(f"   Reference ID: {ref_id}")
+                output.append(f"   Workflow: {workflow}")
+                output.append(f"   Last Updated: {updated}")
+                output.append("")
+            
+            if total > (page + 1) * size:
+                output.append(f"💡 More results available. Use page={page + 1} to see next page.")
+            
+            output.append(f"\n💡 To search for specific projects, use search_projects(query='...')")
+            
+            logger.info(f"Listed {len(projects)} projects successfully")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to list projects: {str(e)}"
+            logger.error(f"MCP list_projects failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def search_projects(query: str, filter_tags: str = None, 
+                             filter_workflow_state: str = None, page: int = 0, size: int = 20) -> str:
+        """Search IriusRisk projects by name, tags, or workflow state.
+        
+        Args:
+            query: Search term for project name (partial match, case-insensitive)
+            filter_tags: Filter projects by tags (space-separated)
+            filter_workflow_state: Filter by workflow state
+            page: Page number for pagination (default: 0)
+            size: Number of results per page (default: 20)
+        
+        Returns:
+            Formatted list of matching projects with IDs, names, and key details
+        """
+        logger.info(f"MCP tool invoked: search_projects (query={query}, page={page})")
+        
+        try:
+            # Build filter expression
+            filters = []
+            if query:
+                filters.append(f"'name'~'{query}'")
+            if filter_tags:
+                for tag in filter_tags.split():
+                    filters.append(f"'tags'~'{tag}'")
+            if filter_workflow_state:
+                filters.append(f"'workflowState.name'='{filter_workflow_state}'")
+            
+            filter_expr = ":AND:".join(filters) if filters else None
+            
+            response = api_client.get_projects(page=page, size=size, filter_expression=filter_expr)
+            projects = response.get('_embedded', {}).get('items', [])
+            page_info = response.get('page', {})
+            total = page_info.get('totalElements', 0)
+            
+            if not projects:
+                return f"No projects found matching query: '{query}'" if query else "No projects found."
+            
+            # Format output
+            output = []
+            if query:
+                output.append(f"🔍 Search results for '{query}': {total} project(s) found\n")
+            else:
+                output.append(f"📋 Found {total} project(s)\n")
+            output.append(f"Showing page {page + 1} ({len(projects)} results)\n")
+            
+            for idx, project in enumerate(projects, 1):
+                name = project.get('name', 'Unknown')
+                project_id = project.get('id', 'Unknown')
+                ref_id = project.get('referenceId', 'None')
+                workflow = project.get('workflowState', {}).get('name', 'Unknown')
+                updated = project.get('modelUpdated', 'Unknown')
+                
+                output.append(f"{idx}. **{name}**")
+                output.append(f"   UUID: {project_id}")
+                output.append(f"   Reference ID: {ref_id}")
+                output.append(f"   Workflow: {workflow}")
+                output.append(f"   Last Updated: {updated}")
+                output.append("")
+            
+            if total > (page + 1) * size:
+                output.append(f"💡 More results available. Use page={page + 1} to see next page.")
+            
+            logger.info(f"Search returned {len(projects)} projects")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to search projects: {str(e)}"
+            logger.error(f"MCP search_projects failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def get_project(project_id: str) -> str:
+        """Get detailed information about a specific project.
+        
+        Args:
+            project_id: Project UUID or reference ID
+        
+        Returns:
+            Detailed project information including metadata and status
+        """
+        logger.info(f"MCP tool invoked: get_project (project_id={project_id})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict
+            
+            # Resolve to UUID if needed
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Get project details
+            project = api_client.get_project(project_uuid)
+            
+            # Format output
+            output = []
+            output.append("📊 Project Details:\n")
+            output.append(f"Name: {project.get('name', 'Unknown')}")
+            output.append(f"UUID: {project.get('id', 'Unknown')}")
+            output.append(f"Reference ID: {project.get('referenceId', 'None')}")
+            output.append(f"Description: {project.get('description', 'No description')}")
+            output.append(f"Workflow State: {project.get('workflowState', {}).get('name', 'Unknown')}")
+            output.append(f"Last Updated: {project.get('modelUpdated', 'Unknown')}")
+            output.append(f"Archived: {'Yes' if project.get('isArchived', False) else 'No'}")
+            
+            tags = project.get('tags', [])
+            if tags:
+                output.append(f"Tags: {', '.join(tags)}")
+            
+            logger.info(f"Retrieved project details for {project_uuid}")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to get project: {str(e)}"
+            logger.error(f"MCP get_project failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def update_threat_status(project_id: str, threat_id: str, status: str, 
+                                   reason: str, comment: str = None) -> str:
+        """Update threat status with local tracking.
+        
+        Updates the threat status in IriusRisk and tracks the change locally
+        in .iriusrisk/pending_updates.json for future reference.
+        
+        Args:
+            project_id: Project UUID or reference ID
+            threat_id: Threat UUID
+            status: New status (accept, mitigate, expose, partly-mitigate, hidden)
+            reason: Explanation for the status change
+            comment: Optional HTML-formatted comment with details
+        
+        Returns:
+            Confirmation message
+        """
+        logger.info(f"MCP tool invoked: update_threat_status (project={project_id}, threat={threat_id}, status={status})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict
+            from ...utils.project_discovery import find_project_root
+            
+            # Resolve to UUID if needed
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Update threat status via API
+            api_client.update_threat_status(project_uuid, threat_id, status)
+            
+            # Add comment if provided
+            if comment:
+                api_client.create_threat_comment(threat_id, comment)
+            
+            # Track locally for future reference
+            try:
+                project_root, _ = find_project_root()
+                if project_root:
+                    updates_file = project_root / '.iriusrisk' / 'pending_updates.json'
+                    updates_file.parent.mkdir(parents=True, exist_ok=True)
+                    
+                    # Load existing updates
+                    updates = []
+                    if updates_file.exists():
+                        with open(updates_file, 'r') as f:
+                            updates = json.load(f)
+                    
+                    # Add new update
+                    from datetime import datetime
+                    updates.append({
+                        'type': 'threat_status',
+                        'project_id': project_uuid,
+                        'threat_id': threat_id,
+                        'status': status,
+                        'reason': reason,
+                        'comment': comment,
+                        'timestamp': datetime.now().isoformat()
+                    })
+                    
+                    # Save updates
+                    with open(updates_file, 'w') as f:
+                        json.dump(updates, f, indent=2)
+                    
+                    logger.info(f"Tracked update locally in {updates_file}")
+            except Exception as track_error:
+                logger.warning(f"Could not track update locally: {track_error}")
+            
+            logger.info(f"Updated threat {threat_id} to status {status}")
+            return f"✅ Threat status updated to '{status}' (tracked locally)"
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to update threat status: {str(e)}"
+            logger.error(f"MCP update_threat_status failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def update_countermeasure_status(project_id: str, countermeasure_id: str, 
+                                          status: str, reason: str, comment: str = None) -> str:
+        """Update countermeasure status with local tracking.
+        
+        Updates the countermeasure status in IriusRisk and tracks the change locally
+        in .iriusrisk/pending_updates.json for future reference.
+        
+        Args:
+            project_id: Project UUID or reference ID
+            countermeasure_id: Countermeasure UUID
+            status: New status (required, recommended, implemented, rejected, not-applicable)
+            reason: Explanation for the status change
+            comment: Optional HTML-formatted comment with implementation details
+        
+        Returns:
+            Confirmation message
+        """
+        logger.info(f"MCP tool invoked: update_countermeasure_status (project={project_id}, cm={countermeasure_id}, status={status})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict
+            from ...utils.project_discovery import find_project_root
+            
+            # Resolve to UUID if needed
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Update countermeasure status via API
+            api_client.update_countermeasure_status(project_uuid, countermeasure_id, status)
+            
+            # Add comment if provided
+            if comment:
+                api_client.create_countermeasure_comment(countermeasure_id, comment)
+            
+            # Track locally for future reference
+            try:
+                project_root, _ = find_project_root()
+                if project_root:
+                    updates_file = project_root / '.iriusrisk' / 'pending_updates.json'
+                    updates_file.parent.mkdir(parents=True, exist_ok=True)
+                    
+                    # Load existing updates
+                    updates = []
+                    if updates_file.exists():
+                        with open(updates_file, 'r') as f:
+                            updates = json.load(f)
+                    
+                    # Add new update
+                    from datetime import datetime
+                    updates.append({
+                        'type': 'countermeasure_status',
+                        'project_id': project_uuid,
+                        'countermeasure_id': countermeasure_id,
+                        'status': status,
+                        'reason': reason,
+                        'comment': comment,
+                        'timestamp': datetime.now().isoformat()
+                    })
+                    
+                    # Save updates
+                    with open(updates_file, 'w') as f:
+                        json.dump(updates, f, indent=2)
+                    
+                    logger.info(f"Tracked update locally in {updates_file}")
+            except Exception as track_error:
+                logger.warning(f"Could not track update locally: {track_error}")
+            
+            logger.info(f"Updated countermeasure {countermeasure_id} to status {status}")
+            return f"✅ Countermeasure status updated to '{status}' (tracked locally)"
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to update countermeasure status: {str(e)}"
+            logger.error(f"MCP update_countermeasure_status failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def generate_report(project_id: str, report_type: str = "countermeasure",
+                             format: str = "pdf", standard: str = None) -> str:
+        """Generate and save an IriusRisk report to local directory.
+        
+        Generates various types of reports from IriusRisk projects and saves them
+        to the .iriusrisk/reports directory.
+        
+        Args:
+            project_id: Project UUID or reference ID
+            report_type: Type - countermeasure, threat, compliance, risk-summary (default: countermeasure)
+            format: Format - pdf, html, xlsx, csv, xls (default: pdf)
+            standard: Standard reference ID for compliance reports (required for compliance type)
+        
+        Returns:
+            Success message with file path
+        """
+        logger.info(f"MCP tool invoked: generate_report (project={project_id}, type={report_type}, format={format})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict, is_uuid_format
+            from ...utils.project_discovery import find_project_root
+            import time
+            
+            # Report type mappings
+            report_mappings = {
+                'countermeasure': 'technical-countermeasure-report',
+                'threat': 'technical-threat-report',
+                'compliance': 'compliance-report',
+                'risk-summary': 'residual-risk',
+                'risk': 'residual-risk',
+            }
+            
+            api_report_type = report_mappings.get(report_type.lower(), report_type)
+            
+            # Resolve project ID
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Handle compliance reports that require a standard
+            standard_uuid = None
+            if 'compliance' in report_type.lower():
+                if not standard:
+                    return "❌ Compliance reports require a 'standard' parameter."
+                
+                # Resolve standard
+                if is_uuid_format(standard):
+                    standard_uuid = standard
+                else:
+                    standards = api_client.get_project_standards(project_uuid)
+                    for std in standards:
+                        if std.get('referenceId') == standard:
+                            standard_uuid = std.get('id')
+                            break
+                    if not standard_uuid:
+                        return f"❌ Standard '{standard}' not found"
+            
+            # Generate report
+            operation_id = api_client.generate_report(
+                project_id=project_uuid,
+                report_type=api_report_type,
+                format=format.lower(),
+                standard=standard_uuid
+            )
+            
+            # Poll for completion
+            timeout = 120
+            start_time = time.time()
+            
+            while time.time() - start_time < timeout:
+                status_response = api_client.get_async_operation_status(operation_id)
+                status = status_response.get('status')
+                
+                if status == 'finished-success':
+                    break
+                elif status in ['finished-error', 'finished-failure', 'failed']:
+                    return f"❌ Report generation failed: {status_response.get('errorMessage', 'Unknown error')}"
+                elif status in ['pending', 'in-progress']:
+                    time.sleep(2)
+                else:
+                    return f"❌ Unknown operation status: {status}"
+            else:
+                return f"❌ Report generation timed out after {timeout} seconds"
+            
+            # Get the generated report
+            reports = api_client.get_project_reports(project_uuid)
+            if not reports:
+                return "❌ No reports found after generation"
+            
+            # Find the most recent report of correct type
+            target_report = None
+            for report in reports:
+                if (report.get('reportType') == api_report_type and 
+                    report.get('format') == format.lower()):
+                    target_report = report
+                    break
+            
+            if not target_report:
+                return "❌ Generated report not found"
+            
+            # Download report content
+            download_url = target_report.get('_links', {}).get('download', {}).get('href')
+            if not download_url:
+                return "❌ No download link found"
+            
+            content = api_client.download_report_content_from_url(download_url)
+            
+            # Save to .iriusrisk/reports directory
+            project_root, _ = find_project_root()
+            if not project_root:
+                project_root = Path.cwd()
+            
+            reports_dir = project_root / '.iriusrisk' / 'reports'
+            reports_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Create filename
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            filename = f"{report_type}-{timestamp}.{format.lower()}"
+            filepath = reports_dir / filename
+            
+            # Write file
+            filepath.write_bytes(content)
+            
+            output = []
+            output.append(f"✅ Report generated and saved successfully")
+            output.append(f"Type: {report_type}")
+            output.append(f"Format: {format.upper()}")
+            output.append(f"Size: {len(content):,} bytes")
+            output.append(f"File: {filepath}")
+            
+            logger.info(f"Generated {format} report and saved to {filepath}")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to generate report: {str(e)}"
+            logger.error(f"MCP generate_report failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def get_diagram(project_id: str, size: str = "PREVIEW") -> str:
+        """Get project diagram and save to local directory.
+        
+        Downloads the project threat model diagram as a PNG image and saves it
+        to the .iriusrisk/diagrams directory.
+        
+        Args:
+            project_id: Project UUID or reference ID
+            size: Image size - ORIGINAL, PREVIEW, or THUMBNAIL (default: PREVIEW)
+        
+        Returns:
+            Success message with file path
+        """
+        logger.info(f"MCP tool invoked: get_diagram (project_id={project_id}, size={size})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict
+            from ...utils.project_discovery import find_project_root
+            import base64
+            
+            # Resolve to UUID if needed
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Get artifacts
+            artifacts_response = api_client.get_project_artifacts(project_uuid, page=0, size=100)
+            artifacts = artifacts_response.get('_embedded', {}).get('items', [])
+            
+            if not artifacts:
+                return "❌ No diagram artifacts found for this project"
+            
+            # Find diagram artifact
+            diagram_artifact = next((a for a in artifacts if a.get('visible', True)), artifacts[0])
+            artifact_id = diagram_artifact.get('id')
+            
+            # Get the artifact content
+            content_response = api_client.get_project_artifact_content(artifact_id, size=size.upper())
+            base64_content = content_response.get('content')
+            
+            if not base64_content:
+                return "❌ No image content found in diagram artifact"
+            
+            # Decode base64 content
+            image_bytes = base64.b64decode(base64_content)
+            
+            # Save to .iriusrisk/diagrams directory
+            project_root, _ = find_project_root()
+            if not project_root:
+                project_root = Path.cwd()
+            
+            diagrams_dir = project_root / '.iriusrisk' / 'diagrams'
+            diagrams_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Create filename
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            filename = f"diagram-{size.lower()}-{timestamp}.png"
+            filepath = diagrams_dir / filename
+            
+            # Write file
+            filepath.write_bytes(image_bytes)
+            
+            output = []
+            output.append(f"✅ Diagram downloaded and saved successfully")
+            output.append(f"Size: {size}")
+            output.append(f"File size: {len(image_bytes):,} bytes")
+            output.append(f"File: {filepath}")
+            
+            logger.info(f"Retrieved diagram and saved to {filepath}")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to get diagram: {str(e)}"
+            logger.error(f"MCP get_diagram failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def show_diagram(project_id: str = None, size: str = "PREVIEW") -> str:
+        """Download and display the project threat model diagram.
+        
+        This tool downloads the project's automatically generated threat model diagram
+        as a PNG image and saves it to the .iriusrisk directory.
+        
+        Args:
+            project_id: Project ID or reference ID (optional if project.json exists)
+            size: Image size - ORIGINAL, PREVIEW, or THUMBNAIL (default: PREVIEW)
+            
+        Returns:
+            Status message with diagram file location and details.
+        """
+        logger.info(f"MCP tool invoked: show_diagram (project_id={project_id}, size={size})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict
+            from ...utils.project_discovery import find_project_root
+            import base64
+            
+            # Find project root
+            project_root, project_config = find_project_root()
+            if not project_root:
+                project_root = Path.cwd()
+            
+            # Resolve project ID
+            if not project_id and project_config:
+                project_id = project_config.get('reference_id') or project_config.get('project_id')
+            
+            if not project_id:
+                error_msg = "❌ No project ID provided and no default project configured"
+                logger.error(error_msg)
+                return error_msg
+            
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Get artifacts (diagrams)
+            artifacts_response = api_client.get_project_artifacts(project_uuid, page=0, size=100)
+            artifacts = artifacts_response.get('_embedded', {}).get('items', [])
+            
+            if not artifacts:
+                error_msg = "❌ No diagram artifacts found for this project"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Find diagram artifact (first visible one)
+            diagram_artifact = next((a for a in artifacts if a.get('visible', True)), artifacts[0])
+            artifact_id = diagram_artifact.get('id')
+            
+            # Get the artifact content
+            content_response = api_client.get_project_artifact_content(artifact_id, size=size.upper())
+            base64_content = content_response.get('content')
+            
+            if not base64_content:
+                error_msg = "❌ No image content found in diagram artifact"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Decode and save to file
+            image_data = base64.b64decode(base64_content)
+            
+            # Create diagrams directory
+            diagrams_dir = project_root / '.iriusrisk' / 'diagrams'
+            diagrams_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Save file
+            filename = f"diagram-{size.lower()}.png"
+            diagram_path = diagrams_dir / filename
+            
+            with open(diagram_path, 'wb') as f:
+                f.write(image_data)
+            
+            # Build output
+            output = []
+            output.append("🖼️  Threat Model Diagram Downloaded")
+            output.append(f"📁 Project: {project_id}")
+            output.append(f"📏 Size: {size}")
+            output.append(f"💾 Saved to: {diagram_path}")
+            output.append(f"📊 File size: {len(image_data):,} bytes")
+            output.append("")
+            output.append("💡 Open the PNG file in any image viewer to see your threat model diagram")
+            
+            logger.info(f"Diagram saved to {diagram_path}")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to download diagram: {str(e)}"
+            logger.error(f"MCP show_diagram failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def generate_report(report_type: str = "countermeasure", format: str = "pdf", 
+                             project_id: str = None, output_path: str = None, standard: str = None) -> str:
+        """Generate and download an IriusRisk report.
+        
+        This tool generates various types of reports from IriusRisk projects and saves them
+        to the .iriusrisk/reports directory.
+        
+        Args:
+            report_type: Type of report - "countermeasure", "threat", "compliance", "risk-summary"
+            format: Output format - "pdf", "html", "xlsx", "csv", "xls" (default: "pdf")
+            project_id: Project ID or reference ID (optional if project.json exists)
+            output_path: Custom output path (optional, auto-generates if not provided)
+            standard: Standard reference ID for compliance reports (required for compliance type)
+        
+        Returns:
+            Status message with report file location and details.
+        """
+        logger.info(f"MCP tool invoked: generate_report (type={report_type}, format={format}, project_id={project_id})")
+        
+        try:
+            from ...utils.project_resolution import resolve_project_id_to_uuid_strict, is_uuid_format
+            from ...utils.project_discovery import find_project_root
+            import time
+            from datetime import datetime
+            
+            # Find project root
+            project_root, project_config = find_project_root()
+            if not project_root:
+                project_root = Path.cwd()
+            
+            # Report type mappings
+            report_mappings = {
+                'countermeasure': 'technical-countermeasure-report',
+                'countermeasures': 'technical-countermeasure-report',
+                'threat': 'technical-threat-report',
+                'threats': 'technical-threat-report',
+                'compliance': 'compliance-report',
+                'risk': 'residual-risk',
+                'risk-summary': 'residual-risk',
+            }
+            
+            # Normalize report type
+            normalized_type = report_type.lower().strip()
+            api_report_type = report_mappings.get(normalized_type, report_type)
+            
+            # Validate format
+            supported_formats = ['pdf', 'html', 'xlsx', 'csv', 'xls']
+            if format.lower() not in supported_formats:
+                error_msg = f"❌ Unsupported format: {format}. Supported: {', '.join(supported_formats)}"
+                logger.error(error_msg)
+                return error_msg
+            
+            format = format.lower()
+            
+            # Resolve project ID
+            if not project_id and project_config:
+                project_id = project_config.get('reference_id') or project_config.get('project_id')
+            
+            if not project_id:
+                error_msg = "❌ No project ID provided and no default project configured"
+                logger.error(error_msg)
+                return error_msg
+            
+            project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
+            
+            # Handle compliance reports that require a standard
+            standard_uuid = None
+            if 'compliance' in normalized_type:
+                if not standard:
+                    error_msg = "❌ Compliance reports require a 'standard' parameter. Use the CLI 'iriusrisk projects standards' command to see options."
+                    logger.error(error_msg)
+                    return error_msg
+                
+                # Resolve standard
+                if is_uuid_format(standard):
+                    standard_uuid = standard
+                else:
+                    standards = api_client.get_project_standards(project_uuid)
+                    for std in standards:
+                        if std.get('referenceId') == standard or std.get('name') == standard:
+                            standard_uuid = std.get('id')
+                            break
+                    if not standard_uuid:
+                        error_msg = f"❌ Standard '{standard}' not found"
+                        logger.error(error_msg)
+                        return error_msg
+            
+            # Generate report
+            logger.info(f"Generating {api_report_type} report in {format} format")
+            operation_id = api_client.generate_report(
+                project_id=project_uuid,
+                report_type=api_report_type,
+                format=format,
+                standard=standard_uuid
+            )
+            
+            # Poll for completion
+            timeout = 120
+            start_time = time.time()
+            
+            while time.time() - start_time < timeout:
+                status_response = api_client.get_async_operation_status(operation_id)
+                status = status_response.get('status')
+                
+                if status == 'finished-success':
+                    break
+                elif status in ['finished-error', 'finished-failure', 'failed']:
+                    error_msg = f"❌ Report generation failed: {status_response.get('errorMessage', 'Unknown error')}"
+                    logger.error(error_msg)
+                    return error_msg
+                elif status in ['pending', 'in-progress']:
+                    time.sleep(2)
+                else:
+                    error_msg = f"❌ Unknown operation status: {status}"
+                    logger.error(error_msg)
+                    return error_msg
+            else:
+                error_msg = f"❌ Report generation timed out after {timeout} seconds"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Get the generated report
+            reports = api_client.get_project_reports(project_uuid)
+            if not reports:
+                error_msg = "❌ No reports found after generation"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Find the most recent report of correct type
+            target_report = None
+            for report in reports:
+                if (report.get('reportType') == api_report_type and 
+                    report.get('format') == format):
+                    target_report = report
+                    break
+            
+            if not target_report:
+                error_msg = "❌ Generated report not found"
+                logger.error(error_msg)
+                return error_msg
+            
+            # Download report content
+            download_url = target_report.get('_links', {}).get('download', {}).get('href')
+            if not download_url:
+                error_msg = "❌ No download link found"
+                logger.error(error_msg)
+                return error_msg
+            
+            content = api_client.download_report_content_from_url(download_url)
+            
+            # Determine output path
+            if output_path:
+                report_path = Path(output_path)
+            else:
+                # Auto-generate filename
+                reports_dir = project_root / '.iriusrisk' / 'reports'
+                reports_dir.mkdir(parents=True, exist_ok=True)
+                
+                timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+                filename = f"{normalized_type}-report-{timestamp}.{format}"
+                report_path = reports_dir / filename
+            
+            # Save report
+            with open(report_path, 'wb') as f:
+                f.write(content)
+            
+            # Build output
+            output = []
+            output.append("📊 Report Generated Successfully")
+            output.append(f"📁 Project: {project_id}")
+            output.append(f"📄 Type: {report_type}")
+            output.append(f"📑 Format: {format.upper()}")
+            if standard:
+                output.append(f"📋 Standard: {standard}")
+            output.append(f"💾 Saved to: {report_path}")
+            output.append(f"📊 File size: {len(content):,} bytes")
+            output.append("")
+            output.append("💡 Open the file in your preferred application to view the report")
+            
+            logger.info(f"Report saved to {report_path}")
+            return "\n".join(output)
+            
+        except Exception as e:
+            error_msg = f"❌ Failed to generate report: {str(e)}"
+            logger.error(f"MCP generate_report failed: {e}")
+            return error_msg
 

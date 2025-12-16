@@ -6,7 +6,185 @@ This document defines the architectural patterns, structures, and conventions th
 
 ## Core Architectural Principles
 
-### 1. Dependency Injection (DI) - MANDATORY
+### 1. MCP Tool Architecture - Consistent User Experience Across Transports
+
+**Philosophy: Maximum Feature Parity Between stdio and HTTP Modes**
+
+The MCP (Model Context Protocol) server operates in two transport modes - stdio (for local AI assistants like Cursor, Claude Desktop) and HTTP (for remote/web access). **The goal is to provide as close to identical capabilities as possible**, regardless of which transport is used.
+
+**Key Principle: Same Tool, Different Implementation**
+
+A tool should be available in both modes unless there's a fundamental technical reason preventing it. The implementation may vary significantly, but the user experience should be consistent:
+
+```python
+# Example: search_components tool
+
+# Stdio implementation - reads from local file
+async def search_components_stdio(query: str, limit: int = 20):
+    """Search from .iriusrisk/components.json"""
+    with open('.iriusrisk/components.json') as f:
+        components = json.load(f)
+    return search_in_memory(components, query, limit)
+
+# HTTP implementation - API call with caching
+async def search_components_http(query: str, limit: int = 20):
+    """Search via API with session caching"""
+    components = await get_components_cached(api_client, mcp_server)
+    return search_in_memory(components, query, limit)
+```
+
+Both implementations return the same JSON structure, use the same parameters, and provide the same user experience. The difference is invisible to the AI assistant.
+
+**Decision Matrix: Should This Tool Be Available in Both Modes?**
+
+Ask these questions when deciding tool availability:
+
+1. **Can it work without filesystem state?** → Available in HTTP mode
+2. **Can it work with filesystem state OR API calls?** → Available in stdio mode
+3. **Is there a fundamental incompatibility?** → Mode-specific only
+
+**Examples:**
+
+| Tool | Stdio | HTTP | Reasoning |
+|------|-------|------|-----------|
+| `search_components` | ✅ | ✅ | Same data, different source (file vs API) |
+| `list_projects` | ✅ | ✅ | API call works in both modes |
+| `import_otm` | ✅ | ✅ | Takes file path (stdio) or content string (HTTP) |
+| `sync` | ✅ | ❌ | Fundamentally requires filesystem to write `.iriusrisk/` |
+| `update_threat_status` | ✅ | ✅ | Both can make API calls (stdio adds local tracking) |
+| `generate_report` | ✅ | ✅ | Saves to file (stdio) or returns base64 (HTTP) |
+
+**Tool Organization:**
+
+Tools are organized into three categories:
+
+1. **Shared Tools** (`mcp/tools/shared_tools.py`)
+   - Available in both modes with identical implementation
+   - Example: Guidance/instruction tools that return static markdown
+   - No API calls, no filesystem access
+
+2. **Mode-Specific Implementations** (same tool name, different files)
+   - Tool available in both modes but with different implementations
+   - Example: `search_components` (filesystem in stdio, API in HTTP)
+   - Register in both `stdio_tools.py` and `http_tools.py`
+
+3. **Truly Mode-Specific Tools** (rare)
+   - Only when fundamentally incompatible with the other mode
+   - Example: `sync` (requires filesystem write capability)
+
+**Implementation Patterns:**
+
+**Pattern 1: Data Access Tools (Different Sources, Same Interface)**
+```python
+# Stdio: Read from local .iriusrisk/*.json files
+async def search_threats_stdio(query=None, risk_level=None, limit=20):
+    threats = json.load(open('.iriusrisk/threats.json'))
+    return _search_threats_in_memory(threats, query, risk_level, limit)
+
+# HTTP: API call with caching
+async def search_threats_http(project_id, query=None, risk_level=None, limit=20):
+    threats = await _get_threats_cached(api_client, mcp_server, project_id)
+    return _search_threats_in_memory(threats, query, risk_level, limit)
+```
+
+**Pattern 2: Output Format Variations**
+```python
+# Stdio: Save to file, return file path
+async def generate_report_stdio(project_id, report_type, format):
+    content = api_client.generate_report(...)
+    filepath = save_to_file(content, f'.iriusrisk/reports/{report_type}.{format}')
+    return f"✅ Report saved to: {filepath}"
+
+# HTTP: Return base64 encoded content
+async def generate_report_http(project_id, report_type, format):
+    content = api_client.generate_report(...)
+    encoded = base64.b64encode(content).decode('ascii')
+    return f"✅ Report generated:\n{encoded}"
+```
+
+**Pattern 3: State Management Differences**
+```python
+# Stdio: Update API + track locally for future sync
+async def update_threat_status_stdio(threat_id, status, reason):
+    api_client.update_threat_status(threat_id, status)
+    track_update_locally(threat_id, status, reason)  # For pending_updates.json
+    return "✅ Status updated (will sync on next sync command)"
+
+# HTTP: Direct API update only
+async def update_threat_status_http(project_id, threat_id, status, reason):
+    api_client.update_threat_status(project_id, threat_id, status)
+    return "✅ Status updated"
+```
+
+**Benefits of This Approach:**
+
+1. **Consistent UX**: AI assistants learn one set of tools, not two
+2. **Mode switching**: Users can switch between stdio/HTTP without relearning
+3. **Documentation**: One reference doc covers both modes
+4. **Testing**: Shared logic can be tested once
+5. **Flexibility**: Implementation can evolve independently per mode
+
+**Anti-Pattern: Don't Create Mode-Specific Tool Names**
+
+```python
+# ❌ WRONG - Different tool names for same functionality
+async def search_components_local(...)  # Stdio version
+async def search_components_api(...)    # HTTP version
+
+# ✅ CORRECT - Same tool name, register in both modes
+async def search_components(...)        # Implementation varies by mode
+```
+
+**Documentation Requirement:**
+
+When adding or modifying MCP tools, document:
+1. Which modes support the tool
+2. Any parameter differences between modes
+3. Any output format differences
+4. Why any mode-specific exclusions exist
+
+**Exception: Search Tools in Stdio Mode**
+
+One important exception to the "maximize feature parity" principle:
+
+**Don't provide search/filter tools for local JSON files in stdio mode.**
+
+When AI assistants have direct filesystem access (stdio mode), they can read `.iriusrisk/*.json` files directly and perform more flexible and powerful analysis than pre-built search tools can offer.
+
+**Example - HTTP Mode (Needs Search Tools):**
+```python
+# HTTP mode: AI cannot read files, needs search tools
+search_components(query="lambda", category="AWS", limit=20)
+```
+
+**Example - Stdio Mode (Direct File Access Better):**
+```python
+# Stdio mode: AI reads file directly, can do arbitrary analysis
+components = json.load(open('.iriusrisk/components.json'))
+aws_lambda = [c for c in components 
+              if 'aws' in c['category'].lower() and 'lambda' in c['name'].lower()]
+# AI can then cross-reference with other files, perform complex filtering, etc.
+```
+
+**Tools intentionally NOT in stdio mode:**
+- `search_components` - AI reads `.iriusrisk/components.json` directly
+- `get_component_categories` - AI extracts from components.json directly
+- `get_trust_zones` - AI reads `.iriusrisk/trust-zones.json` directly
+- `search_threats` - AI reads `.iriusrisk/threats.json` directly
+- `search_countermeasures` - AI reads `.iriusrisk/countermeasures.json` directly
+
+This provides better user experience because AI can perform more sophisticated analysis than pre-built search tools allow.
+
+**Validation Checklist:**
+
+Before finalizing MCP tool changes:
+- [ ] Have I maximized feature parity between modes (except search tools for local JSON)?
+- [ ] Are mode-specific exclusions justified by technical constraints or direct file access?
+- [ ] Do both implementations return compatible data structures?
+- [ ] Is the user experience consistent across modes?
+- [ ] Have I documented any unavoidable differences?
+
+### 2. Dependency Injection (DI) - MANDATORY
 
 **Use the Container system exclusively** - never create instances directly.
 
