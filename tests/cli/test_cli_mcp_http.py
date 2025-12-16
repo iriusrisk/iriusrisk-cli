@@ -278,3 +278,4 @@ class TestMCPHTTPHelpText:
         output_lower = result.output.lower()
         assert 'callback' in output_lower or 'public' in output_lower or 'oauth' in output_lower
 
+

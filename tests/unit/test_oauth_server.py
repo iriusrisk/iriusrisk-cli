@@ -340,7 +340,7 @@ class TestOAuthMetadata:
             # Check CORS headers
             assert response.headers.get('access-control-allow-origin') == '*'
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_openid_configuration_endpoint(self):
         """Test OIDC discovery endpoint."""
@@ -361,7 +361,7 @@ class TestOAuthMetadata:
             assert 'userinfo_endpoint' in body
             assert 'openid' in body['scopes_supported']
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_protected_resource_metadata_endpoint(self):
         """Test RFC 9728 protected resource metadata endpoint."""
@@ -377,7 +377,7 @@ class TestOAuthMetadata:
             assert body['resource'] == 'https://example.com/test/mcp'
             assert 'https://example.com/test' in body['authorization_servers']
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
 
 
 class TestClientRegistration:
@@ -413,7 +413,7 @@ class TestClientRegistration:
             # Client should be stored
             assert body['client_id'] in self.server.clients
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_register_client_minimal(self):
         """Test client registration with minimal data."""
@@ -431,7 +431,7 @@ class TestClientRegistration:
             assert 'client_id' in body
             assert body['client_name'] == 'MCP Client'  # Default name
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
 
 
 class TestAuthorizationFlow:
@@ -473,7 +473,7 @@ class TestAuthorizationFlow:
             # Should have created a session
             assert len(self.server.sessions) == 1
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_authorize_invalid_response_type(self):
         """Test authorize with invalid response_type."""
@@ -493,7 +493,7 @@ class TestAuthorizationFlow:
             body = json.loads(response.body.decode())
             assert body['error'] == 'unsupported_response_type'
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
 
 
 class TestTokenEndpoint:
@@ -554,7 +554,7 @@ class TestTokenEndpoint:
             # Token should be stored
             assert body['access_token'] in self.server.tokens
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_with_pkce(self):
         """Test token exchange with PKCE verification."""
@@ -595,7 +595,7 @@ class TestTokenEndpoint:
             body = json.loads(response.body.decode())
             assert 'access_token' in body
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_invalid_pkce(self):
         """Test token exchange with invalid PKCE verifier."""
@@ -632,7 +632,7 @@ class TestTokenEndpoint:
             assert body['error'] == 'invalid_grant'
             assert 'code verifier' in body.get('error_description', '').lower()
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_missing_pkce(self):
         """Test token exchange missing required PKCE verifier."""
@@ -667,7 +667,7 @@ class TestTokenEndpoint:
             body = json.loads(response.body.decode())
             assert body['error'] == 'invalid_grant'
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_expired_code(self):
         """Test token exchange with expired auth code."""
@@ -702,7 +702,7 @@ class TestTokenEndpoint:
             assert body['error'] == 'invalid_grant'
             assert 'expired' in body.get('error_description', '').lower()
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_already_used_code(self):
         """Test token exchange with already-used auth code."""
@@ -737,7 +737,7 @@ class TestTokenEndpoint:
             assert body['error'] == 'invalid_grant'
             assert 'already used' in body.get('error_description', '').lower()
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_wrong_client_id(self):
         """Test token exchange with mismatched client ID."""
@@ -771,7 +771,7 @@ class TestTokenEndpoint:
             body = json.loads(response.body.decode())
             assert body['error'] == 'invalid_grant'
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
     
     def test_token_exchange_invalid_grant_type(self):
         """Test token exchange with unsupported grant type."""
@@ -790,7 +790,7 @@ class TestTokenEndpoint:
             body = json.loads(response.body.decode())
             assert body['error'] == 'unsupported_grant_type'
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
 
 
 class TestCORSHandling:
@@ -815,7 +815,7 @@ class TestCORSHandling:
             assert 'POST' in response.headers.get('access-control-allow-methods', '')
             assert 'Authorization' in response.headers.get('access-control-allow-headers', '')
         
-        asyncio.get_event_loop().run_until_complete(run_test())
+        asyncio.run(run_test())
 
 
 class TestOAuthRoutes:
