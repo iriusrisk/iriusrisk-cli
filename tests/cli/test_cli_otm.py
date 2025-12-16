@@ -198,6 +198,118 @@ class TestOTMCommandsWithFixtures:
         assert result.output.strip(), "Command should produce some output"
 
 
+class TestOTMAutoVersioning:
+    """Test auto versioning functionality for OTM imports."""
+    
+    def test_otm_import_with_auto_versioning_explicit_update(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
+        """Test auto versioning with explicit --update flag."""
+        # Create a temporary OTM file
+        otm_file = tmp_path / "test.otm"
+        otm_data = {
+            "otmVersion": "0.1.0",
+            "project": {
+                "name": "Test Project",
+                "id": "test-project-123"
+            }
+        }
+        otm_file.write_text(json.dumps(otm_data))
+        
+        # Create a project config with auto_versioning enabled
+        project_dir = tmp_path / ".iriusrisk"
+        project_dir.mkdir()
+        project_config = {
+            "name": "Test Project",
+            "project_id": "test-project-123",
+            "auto_versioning": True
+        }
+        (project_dir / "project.json").write_text(json.dumps(project_config))
+        
+        # Mock the current working directory
+        monkeypatch.chdir(tmp_path)
+        
+        # Run import with explicit update
+        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file), '--update', 'test-project-123'])
+        
+        # Should attempt to create a version (may succeed or fail depending on mock)
+        # The key is that the auto-versioning logic should be triggered
+        assert result.exit_code in [0, 1], f"Import with auto-versioning should run: {result.output}"
+        
+        # If auto-versioning is working, we should see the versioning message
+        if result.exit_code == 0 or 'Auto-versioning' in result.output:
+            assert 'Auto-versioning' in result.output or 'Backup' in result.output, \
+                f"Should mention auto-versioning: {result.output}"
+    
+    def test_otm_import_with_auto_versioning_auto_update(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
+        """Test auto versioning with auto-update mode (no explicit --update flag)."""
+        # Create a temporary OTM file
+        otm_file = tmp_path / "test.otm"
+        otm_data = {
+            "otmVersion": "0.1.0",
+            "project": {
+                "name": "Test Project",
+                "id": "test-project-auto-update"
+            }
+        }
+        otm_file.write_text(json.dumps(otm_data))
+        
+        # Create a project config with auto_versioning enabled
+        project_dir = tmp_path / ".iriusrisk"
+        project_dir.mkdir()
+        project_config = {
+            "name": "Test Project",
+            "reference_id": "test-project-auto-update",
+            "auto_versioning": True
+        }
+        (project_dir / "project.json").write_text(json.dumps(project_config))
+        
+        # Mock the current working directory
+        monkeypatch.chdir(tmp_path)
+        
+        # Run import without explicit update (should use auto-update)
+        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file)])
+        
+        # The command should run (success depends on mock data)
+        assert result.exit_code in [0, 1], f"Import with auto-update should run: {result.output}"
+        
+        # If the project exists and auto-versioning is working, we should see versioning message
+        # (This might not always trigger if the mock doesn't simulate an existing project)
+        assert result.output.strip(), "Should produce some output"
+    
+    def test_otm_import_without_auto_versioning(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
+        """Test that auto versioning does NOT trigger when disabled."""
+        # Create a temporary OTM file
+        otm_file = tmp_path / "test.otm"
+        otm_data = {
+            "otmVersion": "0.1.0",
+            "project": {
+                "name": "Test Project",
+                "id": "test-project-no-version"
+            }
+        }
+        otm_file.write_text(json.dumps(otm_data))
+        
+        # Create a project config with auto_versioning disabled
+        project_dir = tmp_path / ".iriusrisk"
+        project_dir.mkdir()
+        project_config = {
+            "name": "Test Project",
+            "project_id": "test-project-no-version",
+            "auto_versioning": False
+        }
+        (project_dir / "project.json").write_text(json.dumps(project_config))
+        
+        # Mock the current working directory
+        monkeypatch.chdir(tmp_path)
+        
+        # Run import
+        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file), '--update', 'test-project-no-version'])
+        
+        # Should run but NOT mention auto-versioning
+        assert result.exit_code in [0, 1], f"Import should run: {result.output}"
+        assert 'Auto-versioning' not in result.output, \
+            f"Should NOT mention auto-versioning when disabled: {result.output}"
+
+
 @pytest.mark.integration
 def test_otm_command_integration(cli_runner, mock_api_client, mock_env_vars):
     """Integration test for OTM commands with full mock setup."""

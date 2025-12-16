@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- **Auto Versioning - OTM Import**: Fixed bug where the `auto_versioning` configuration parameter was ignored during OTM imports with auto-update mode. Previously, auto-versioning only worked when explicitly using the `--update` flag, but not when the import command automatically detected and updated existing projects. Now, when auto-versioning is enabled, a backup version is created before updating a project in both explicit update (`--update PROJECT_ID`) and auto-update scenarios.
+
 ## [0.2.1] - 2024-12-08
 
 ### Fixed

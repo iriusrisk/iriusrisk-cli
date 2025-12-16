@@ -69,8 +69,33 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
         project_config = config.get_project_config()
         auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
         
-        # Handle auto-versioning if enabled and we're updating a project
-        if auto_versioning_enabled and update:
+        # Determine the project ID to version (if applicable)
+        project_id_to_version = None
+        
+        if auto_versioning_enabled:
+            if update:
+                # Explicit update - use the provided project ID
+                project_id_to_version = update
+            elif not no_auto_update:
+                # Auto-update mode - check if project exists by extracting ID from OTM file
+                try:
+                    # Extract project ID from OTM file
+                    from ..api.project_client import ProjectApiClient
+                    project_client = container.get(ProjectApiClient)
+                    potential_project_id = project_client._extract_project_id_from_otm(str(otm_path))
+                    
+                    if potential_project_id:
+                        # Check if project exists
+                        from ..utils.api_helpers import validate_project_exists
+                        exists, project_uuid = validate_project_exists(potential_project_id, project_client)
+                        if exists:
+                            project_id_to_version = project_uuid
+                            logger.info(f"Auto-versioning: Detected existing project '{potential_project_id}' that will be updated")
+                except Exception as e:
+                    logger.debug(f"Could not check if project exists for auto-versioning: {e}")
+        
+        # Create version if we determined a project needs versioning
+        if project_id_to_version:
             logger.info("Auto-versioning is enabled, creating backup version before import")
             click.echo("📸 Auto-versioning enabled: Creating backup version before import...")
             
@@ -81,7 +106,7 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
                 
                 # Create version and wait for completion
                 version_service.create_version(
-                    project_id=update,
+                    project_id=project_id_to_version,
                     name=version_name,
                     description="Automatic backup created by CLI before OTM import",
                     wait=True,
