@@ -530,7 +530,7 @@ DO NOT PROCEED with threat modeling until the project is initialized.
         Args:
             project_id: Project UUID or reference ID
             threat_id: Threat UUID
-            status: New status (accept, mitigate, expose, partly-mitigate, hidden)
+            status: New status (accept, mitigate, expose, partly-mitigate, hidden, not-applicable)
             reason: Explanation for the status change
             comment: HTML-formatted comment with decision details - REQUIRED for transparency.
                      Should include: why the decision was made, compensating controls,

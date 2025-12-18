@@ -44,6 +44,8 @@ class ThreatApiClient(BaseApiClient):
         }
         
         # Use V2 API threats query endpoint (POST with filter body)
+        # Note: Default filter includes most common states but excludes 'accept' and 'not-applicable'
+        # to focus on actionable threats. Callers can override with filter_expression if needed.
         filter_body = {
             "filters": {
                 "all": {

@@ -19,6 +19,35 @@ After sync(), read these JSON files from `.iriusrisk/` directory:
 **3. components.json** - Component library reference:
 - Available component types, properties, configurations
 
+## Threat Status Values and Their Meanings
+
+**CRITICAL:** Understand the difference between threat statuses - they are NOT synonymous!
+
+When updating threat status, use these values based on the situation:
+
+- **`not-applicable`** - The threat does NOT apply to this system or context. Use this when a threat is irrelevant for technical or architectural reasons.
+  - Example: "SQL injection via user input" when the system doesn't use a SQL database
+  - Example: "Weak authentication on mobile app" when there is no mobile app component
+  - **This means: "This threat doesn't exist in our architecture"**
+
+- **`accept`** - The threat IS real and applicable, but you acknowledge and accept the risk without implementing countermeasures. ALWAYS requires justification and comment.
+  - Example: Accepting a low-severity information disclosure threat after risk analysis shows minimal business impact
+  - Example: Accepting performance overhead of additional security checks due to resource constraints
+  - **This means: "This threat is real, but we've decided to live with the risk"**
+
+- **`expose`** - The threat is exposed and requires attention. This is the default state for newly identified threats that need review.
+
+- **`mitigate`** - Countermeasures are being implemented to reduce or eliminate the threat.
+
+- **`partly-mitigate`** - Some countermeasures are in place but the threat is not fully mitigated.
+
+- **`hidden`** - The threat is hidden from standard views but still tracked in the system.
+
+**IMPORTANT DISTINCTION:**
+- Use `not-applicable` when the threat **doesn't apply** to your system
+- Use `accept` when the threat **DOES apply** but you're **accepting the risk**
+- Never confuse these two - they have completely different security implications!
+
 ## Your Role as AI Assistant
 
 **Do:**
@@ -30,6 +59,7 @@ After sync(), read these JSON files from `.iriusrisk/` directory:
 - Reference specific threat/countermeasure IDs from the data
 - **ALWAYS add detailed comments when updating threat/countermeasure status**
 - **Document all AI-assisted implementations transparently**
+- **Use the correct threat status** - understand `not-applicable` vs `accept`
 
 **Do NOT:**
 - Create new threats or countermeasures (use only what IriusRisk generated)
@@ -40,6 +70,7 @@ After sync(), read these JSON files from `.iriusrisk/` directory:
 - **NEVER update status without adding a detailed comment**
 - **NEVER write directly to threats.json or countermeasures.json** - these are READ-ONLY
 - **NEVER modify the JSON files directly** - use MCP tools only
+- **NEVER confuse `not-applicable` with `accept`** - they mean different things!
 
 ## CRITICAL: Transparency Requirements
 

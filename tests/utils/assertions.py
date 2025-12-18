@@ -182,7 +182,7 @@ def assert_threat_structure(threat: Dict[str, Any]):
                 assert isinstance(threat[field], (int, float)), f"Threat {field} should be number"
                 assert 0 <= threat[field] <= 100, f"Threat {field} should be 0-100, got: {threat[field]}"
             elif field == 'state':
-                valid_states = ['expose', 'accept', 'mitigate', 'partly-mitigate', 'hidden']
+                valid_states = ['expose', 'accept', 'mitigate', 'partly-mitigate', 'hidden', 'not-applicable']
                 assert threat[field] in valid_states, \
                     f"Threat state should be one of {valid_states}, got: {threat[field]}"
             elif field == 'riskRating':

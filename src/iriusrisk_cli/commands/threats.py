@@ -265,7 +265,7 @@ def search(cli_ctx, search_string: str, project_id: Optional[str], page: int, si
 @threat.command()
 @click.argument('threat_id')
 @click.option('--status', '-s', required=True, 
-              type=click.Choice(['accept', 'mitigate', 'expose', 'partly-mitigate', 'hidden'], case_sensitive=False),
+              type=click.Choice(['accept', 'mitigate', 'expose', 'partly-mitigate', 'hidden', 'not-applicable'], case_sensitive=False),
               help='New status for the threat')
 @click.option('--reason', '-r', help='Reason for the status change (required for "accept" status)')
 @click.option('--comment', '-c', help='Detailed comment with implementation details and code snippets')

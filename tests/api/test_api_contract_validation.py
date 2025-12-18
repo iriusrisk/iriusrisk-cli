@@ -227,7 +227,7 @@ class TestAPIResponseSchemaValidation:
         expected_enums = {
             'status': ['ACTIVE', 'INACTIVE', 'ARCHIVED', 'DRAFT'],
             'state': {
-                'threat': ['expose', 'accept', 'mitigate', 'partly-mitigate', 'hidden'],
+                'threat': ['expose', 'accept', 'mitigate', 'partly-mitigate', 'hidden', 'not-applicable'],
                 'countermeasure': ['required', 'recommended', 'implemented', 'rejected', 'not-applicable']
             },
             'riskRating': ['VERY_LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH'],

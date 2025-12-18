@@ -788,7 +788,7 @@ def register_http_tools(mcp_server, get_api_client_func):
             project_id: Project UUID or reference ID
             query: Optional fuzzy search on threat name/description (e.g., "sql injection", "xss")
             risk_level: Optional filter by risk - critical, high, medium, low
-            status: Optional filter by status - expose, mitigate, accept, partly-mitigate, hidden
+            status: Optional filter by status - expose, mitigate, accept, partly-mitigate, hidden, not-applicable
             limit: Maximum matches to return (default: 20)
         
         Returns:
@@ -1044,7 +1044,7 @@ def register_http_tools(mcp_server, get_api_client_func):
         Args:
             project_id: Project UUID or reference ID
             threat_id: Threat UUID
-            status: New status (accept, mitigate, expose, partly-mitigate, hidden)
+            status: New status (accept, mitigate, expose, partly-mitigate, hidden, not-applicable)
             reason: Explanation for the status change
             comment: HTML-formatted comment with decision details - REQUIRED for transparency.
                      Should include: why the decision was made, compensating controls,

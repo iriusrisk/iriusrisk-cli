@@ -215,7 +215,7 @@ class TestThreatBusinessLogicValidation:
         }
         
         # Test valid threat states
-        valid_states = ['expose', 'accept', 'mitigate', 'partly-mitigate', 'hidden']
+        valid_states = ['expose', 'accept', 'mitigate', 'partly-mitigate', 'hidden', 'not-applicable']
         
         for state in valid_states:
             result = cli_runner.invoke(cli, ['threat', 'update', 'threat-123', 
