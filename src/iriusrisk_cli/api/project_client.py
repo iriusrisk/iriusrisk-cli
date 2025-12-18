@@ -319,16 +319,44 @@ class ProjectApiClient(BaseApiClient):
                             break
                     
                     if auto_update and (already_exists_error or 'already exists' in error_msg):
-                        # Extract project ID from OTM content
-                        project_id = self._extract_project_id_from_content(otm_content)
-                        if project_id:
-                            # Try to update the existing project instead
+                        # Extract project reference ID from OTM content
+                        project_ref_id = self._extract_project_id_from_content(otm_content)
+                        if project_ref_id:
+                            # Check if THIS reference ID exists in IriusRisk
+                            # The error might be about name conflict, not reference ID conflict
                             try:
-                                result = self.update_project_with_otm_content(project_id, otm_content)
-                                result['action'] = 'updated'
-                                return result
-                            except Exception as update_error:
-                                raise requests.RequestException(f"Failed to create new project (already exists) and failed to update existing project: {str(update_error)}")
+                                filter_expr = f"'referenceId'='{project_ref_id}'"
+                                response = self.get_projects(page=0, size=1, filter_expression=filter_expr)
+                                projects = response.get('_embedded', {}).get('items', [])
+                                
+                                if projects:
+                                    # This reference ID exists - update it
+                                    project_uuid = projects[0].get('id')
+                                    result = self.update_project_with_otm_content(project_uuid, otm_content)
+                                    result['action'] = 'updated'
+                                    return result
+                                else:
+                                    # Reference ID doesn't exist - this is a name conflict with a DIFFERENT project
+                                    # Get the project name from OTM for the error message
+                                    project_name = self._extract_project_name_from_content(otm_content)
+                                    raise requests.RequestException(
+                                        f"Cannot create project with reference ID '{project_ref_id}':\n"
+                                        f"IriusRisk already has a project named '{project_name}' with a DIFFERENT reference ID.\n\n"
+                                        f"You must resolve this conflict manually:\n"
+                                        f"  1. Delete the existing '{project_name}' project in IriusRisk, OR\n"
+                                        f"  2. Change the project name in your OTM file to something unique\n\n"
+                                        f"IriusRisk does not allow multiple projects with the same name, even if they have different reference IDs."
+                                    )
+                            except Exception as check_error:
+                                if "Cannot create project" in str(check_error):
+                                    raise
+                                # Lookup failed for some reason, try update anyway
+                                try:
+                                    result = self.update_project_with_otm_content(project_ref_id, otm_content)
+                                    result['action'] = 'updated'
+                                    return result
+                                except Exception as update_error:
+                                    raise requests.RequestException(f"Failed to create new project (already exists) and failed to update existing project: {str(update_error)}")
                         else:
                             raise requests.RequestException(f"Project already exists but could not determine project ID for update: {error_msg}")
                     else:
@@ -384,11 +412,40 @@ class ProjectApiClient(BaseApiClient):
             pass
         return None
     
+    def _extract_project_name_from_content(self, otm_content: str) -> Optional[str]:
+        """Extract project name from OTM content string.
+        
+        Args:
+            otm_content: OTM content as string
+            
+        Returns:
+            Project name if found, None otherwise
+        """
+        try:
+            # Try to parse as YAML first
+            try:
+                import yaml
+                otm_data = yaml.safe_load(otm_content)
+                return otm_data.get('project', {}).get('name')
+            except ImportError:
+                # yaml not available, try simple regex
+                match = re.search(r'name:\s*["\']([^"\']+)["\']', otm_content)
+                if match:
+                    return match.group(1)
+        except (AttributeError, KeyError, TypeError):
+            # YAML structure doesn't match expected format
+            pass
+        return None
+    
     def update_project_with_otm_file(self, project_id: str, otm_file_path: str) -> Dict[str, Any]:
         """Update an existing project with an OTM file.
         
+        NOTE: This method uses the V1 API endpoint PUT /products/otm/{project_id}
+        which accepts BOTH UUIDs and reference IDs directly. Do NOT resolve the
+        project_id to a UUID before calling this method - pass it through as-is.
+        
         Args:
-            project_id: Project ID to update
+            project_id: Project UUID or reference ID (both formats accepted by V1 API)
             otm_file_path: Path to the OTM file
             
         Returns:
@@ -440,8 +497,12 @@ class ProjectApiClient(BaseApiClient):
     def update_project_with_otm_content(self, project_id: str, otm_content: str) -> Dict[str, Any]:
         """Update an existing project with OTM content.
         
+        NOTE: This method uses the V1 API endpoint PUT /products/otm/{project_id}
+        which accepts BOTH UUIDs and reference IDs directly. Do NOT resolve the
+        project_id to a UUID before calling this method - pass it through as-is.
+        
         Args:
-            project_id: Project ID to update
+            project_id: Project UUID or reference ID (both formats accepted by V1 API)
             otm_content: OTM content as string
             
         Returns:
@@ -492,8 +553,12 @@ class ProjectApiClient(BaseApiClient):
     def export_project_as_otm(self, project_id: str) -> str:
         """Export a project as OTM format.
         
+        NOTE: This method uses the V1 API endpoint GET /products/otm/{project_id}
+        which accepts BOTH UUIDs and reference IDs directly. Do NOT resolve the
+        project_id to a UUID before calling this method - pass it through as-is.
+        
         Args:
-            project_id: Project ID to export
+            project_id: Project UUID or reference ID (both formats accepted by V1 API)
             
         Returns:
             OTM content as string

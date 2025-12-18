@@ -61,19 +61,47 @@ def register_stdio_tools(mcp_server, api_client):
                 project_root = Path.cwd()
                 output_dir = str(project_root / '.iriusrisk')
             
-            # Read project.json to get project_id if available
-            project_config = None
+            # CRITICAL CHECK: Verify project.json exists before proceeding
             project_json_path = project_root / '.iriusrisk' / 'project.json'
             logger.info(f"Looking for project.json at: {project_json_path}")
-            if project_json_path.exists():
-                try:
-                    with open(project_json_path, 'r') as f:
-                        project_config = json.load(f)
-                    logger.info(f"Successfully loaded project.json: {project_config.get('name', 'Unknown')}")
-                except Exception as e:
-                    logger.warning(f"Could not read project.json: {e}")
-            else:
-                logger.warning(f"project.json not found at: {project_json_path}")
+            
+            if not project_json_path.exists():
+                # Return clear error message visible to AI through MCP
+                error_msg = f"""⚠️  CRITICAL: No project.json file found at {project_json_path}
+
+This project has NOT been initialized with IriusRisk CLI.
+
+WHY THIS MATTERS:
+- Without project.json, there is no stable IriusRisk project ID
+- Each operation will attempt to create a NEW project
+- You cannot track threats, countermeasures, or project state across sessions
+- Sync operations will not function properly after threat model generation
+
+REQUIRED ACTION:
+Please ask the user to run this command in the project directory:
+
+    iriusrisk init
+
+This command will:
+1. Create a .iriusrisk/project.json file with a stable project reference ID
+2. Allow proper project tracking across MCP sessions
+3. Enable sync functionality to work correctly
+
+DO NOT PROCEED with threat modeling until the project is initialized.
+"""
+                logger.error("project.json not found - returning error to AI")
+                return error_msg
+            
+            # Read project.json to get project_id if available
+            project_config = None
+            try:
+                with open(project_json_path, 'r') as f:
+                    project_config = json.load(f)
+                logger.info(f"Successfully loaded project.json: {project_config.get('name', 'Unknown')}")
+            except Exception as e:
+                error_msg = f"❌ Could not read project.json: {e}\n\nPlease ensure the file is valid JSON."
+                logger.error(error_msg)
+                return error_msg
             
             # Get project_id from project.json if available
             project_id = None
@@ -160,7 +188,10 @@ def register_stdio_tools(mcp_server, api_client):
         
         Args:
             otm_file_path: Path to the OTM file (relative or absolute)
-            project_id: Optional project UUID to update (creates new project if not provided)
+            project_id: Optional project UUID or reference ID to update an EXISTING project.
+                       If provided, checks if project exists first. If project doesn't exist,
+                       creates a new project instead of failing with 404.
+                       If not provided, creates new project (or auto-updates if name matches).
         
         Returns:
             Status message with project details
@@ -206,11 +237,63 @@ def register_stdio_tools(mcp_server, api_client):
                     logger.error(error_msg)
                     return error_msg
             
+            # ============================================================================
+            # CRITICAL: V1 OTM API DOES NOT REQUIRE UUID RESOLUTION - DO NOT "FIX" THIS!
+            # ============================================================================
+            # The V1 API endpoint PUT /products/otm/{project_id} accepts BOTH:
+            #   - UUIDs (e.g., "a1b2c3d4-e5f6-...")
+            #   - Reference IDs (e.g., "my-project-ref")
+            #
+            # Unlike V2 API endpoints which STRICTLY require UUIDs in URL paths,
+            # the V1 OTM endpoints handle reference ID resolution internally.
+            #
+            # ❌ DO NOT add resolve_project_id_to_uuid_strict() here! ❌
+            # 
+            # Why this breaks if you add resolution:
+            #   1. Makes an unnecessary extra API call (performance penalty)
+            #   2. FAILS when updating by reference ID: tries to look up project that
+            #      may not exist yet, even though the V1 API would handle it correctly
+            #   3. Error message becomes confusing: "Project not found" when the real
+            #      issue is we're looking up before the API needs it
+            #   4. The CLI command (commands/otm.py line 125) doesn't do resolution
+            #      and works perfectly fine - MCP should match CLI behavior
+            #
+            # Example of what BREAKS if you add resolution:
+            #   import_otm("file.otm", project_id="badger-app-poug")
+            #   → Resolution tries: GET /projects?filter='referenceId'='badger-app-poug'
+            #   → No project found yet → Exception: "Project not found"
+            #   → But PUT /products/otm/badger-app-poug would have worked!
+            #
+            # When you DO need UUID resolution:
+            #   - V2 API endpoints: GET /v2/projects/{uuid}/threats
+            #   - See: mcp/tools/stdio_tools.py lines 510, 599 (threat/countermeasure updates)
+            #   - See: mcp/tools/stdio_tools.py lines 439, 680, 804 (get_project, reports, diagrams)
+            #
+            # This has been a RECURRING issue where someone "fixes" this by adding
+            # resolution, breaks OTM import, then it gets removed, then someone adds
+            # it back. If you're tempted to add resolve_project_id_to_uuid_strict()
+            # here, re-read these comments first!
+            # ============================================================================
+            
             # Import via API
             if project_id:
-                # Update existing project
-                result = api_client.update_project_with_otm_content(project_id, otm_content)
-                action = "updated"
+                # Check if project exists first before attempting update
+                # This avoids the 404 error when project_id is provided but project doesn't exist yet
+                from ...utils.api_helpers import validate_project_exists
+                from ...api.project_client import ProjectApiClient
+                project_client = ProjectApiClient()
+                
+                exists, resolved_uuid = validate_project_exists(project_id, project_client)
+                
+                if exists:
+                    # Project exists - update it
+                    result = api_client.update_project_with_otm_content(resolved_uuid or project_id, otm_content)
+                    action = "updated"
+                else:
+                    # Project doesn't exist - create it instead
+                    logger.info(f"Project '{project_id}' not found, creating new project instead")
+                    result = api_client.import_otm_content(otm_content, auto_update=True)
+                    action = result.get('action', 'created')
             else:
                 # Create new project (or auto-update if exists)
                 result = api_client.import_otm_content(otm_content, auto_update=True)
@@ -437,20 +520,38 @@ def register_stdio_tools(mcp_server, api_client):
                                    reason: str, comment: str = None) -> str:
         """Update threat status with local tracking.
         
+        TRANSPARENCY REQUIREMENT: For any status change, especially 'accept', you MUST
+        provide a detailed comment explaining why the decision was made, what compensating
+        controls exist, and who approved it. This is required for auditability and transparency.
+        
         Updates the threat status in IriusRisk and tracks the change locally
-        in .iriusrisk/pending_updates.json for future reference.
+        in .iriusrisk/updates.json for future reference.
         
         Args:
             project_id: Project UUID or reference ID
             threat_id: Threat UUID
             status: New status (accept, mitigate, expose, partly-mitigate, hidden)
             reason: Explanation for the status change
-            comment: Optional HTML-formatted comment with details
+            comment: HTML-formatted comment with decision details - REQUIRED for transparency.
+                     Should include: why the decision was made, compensating controls,
+                     business justification, and AI attribution. Use HTML tags.
         
         Returns:
-            Confirmation message
+            Confirmation message with transparency about comment creation
         """
         logger.info(f"MCP tool invoked: update_threat_status (project={project_id}, threat={threat_id}, status={status})")
+        
+        # Validate comment length (IriusRisk API limit is 1000 characters)
+        if comment and len(comment) > 1000:
+            error_msg = f"❌ Comment too long: {len(comment)} characters (max: 1000). Please shorten your comment and try again."
+            logger.error(error_msg)
+            return error_msg
+        
+        # Warn if no comment provided (transparency issue), especially for 'accept'
+        if not comment:
+            logger.warning(f"⚠️  Threat status update WITHOUT comment - transparency requirement not met!")
+            if status == 'accept':
+                logger.warning(f"⚠️  Risk acceptance WITHOUT justification comment is a serious compliance issue!")
         
         try:
             from ...utils.project_resolution import resolve_project_id_to_uuid_strict
@@ -459,48 +560,48 @@ def register_stdio_tools(mcp_server, api_client):
             # Resolve to UUID if needed
             project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
             
-            # Update threat status via API
-            api_client.update_threat_status(project_uuid, threat_id, status)
+            # Update threat status via API (note: API method is update_threat_state, not update_threat_status)
+            # Note: We don't pass comment here because we create it separately below for better error tracking
+            api_client.update_threat_state(threat_id, status, reason=reason)
+            logger.info(f"✅ Status updated successfully")
             
-            # Add comment if provided
+            # Add comment if provided - track success/failure separately for transparency
+            comment_status = ""
             if comment:
-                api_client.create_threat_comment(threat_id, comment)
+                try:
+                    api_client.create_threat_comment(threat_id, comment)
+                    logger.info(f"✅ Comment added successfully")
+                    comment_status = " with comment"
+                except Exception as comment_error:
+                    logger.error(f"❌ Comment creation failed: {comment_error}")
+                    comment_status = f"\n⚠️  WARNING: Status updated but comment creation FAILED: {comment_error}\nPlease manually add this comment in IriusRisk:\n{comment[:200]}..."
+            else:
+                if status == 'accept':
+                    comment_status = "\n⚠️  CRITICAL: Risk acceptance WITHOUT justification comment - this is a compliance issue. Please add a comment explaining why this risk was accepted."
+                else:
+                    comment_status = "\n⚠️  WARNING: No comment provided - transparency requirement not met. Please add a comment explaining the decision."
             
-            # Track locally for future reference
+            # Track locally using UpdateTracker
             try:
+                from ...utils.updates import get_update_tracker
                 project_root, _ = find_project_root()
                 if project_root:
-                    updates_file = project_root / '.iriusrisk' / 'pending_updates.json'
-                    updates_file.parent.mkdir(parents=True, exist_ok=True)
-                    
-                    # Load existing updates
-                    updates = []
-                    if updates_file.exists():
-                        with open(updates_file, 'r') as f:
-                            updates = json.load(f)
-                    
-                    # Add new update
-                    from datetime import datetime
-                    updates.append({
-                        'type': 'threat_status',
-                        'project_id': project_uuid,
-                        'threat_id': threat_id,
-                        'status': status,
-                        'reason': reason,
-                        'comment': comment,
-                        'timestamp': datetime.now().isoformat()
-                    })
-                    
-                    # Save updates
-                    with open(updates_file, 'w') as f:
-                        json.dump(updates, f, indent=2)
-                    
-                    logger.info(f"Tracked update locally in {updates_file}")
+                    iriusrisk_dir = project_root / '.iriusrisk'
+                    tracker = get_update_tracker(iriusrisk_dir)
+                    tracker.track_threat_update(
+                        threat_id=threat_id,
+                        status=status,
+                        reason=reason,
+                        comment=comment
+                    )
+                    # Mark as applied immediately since we just applied it (prevents duplicate comments on sync)
+                    tracker.mark_update_applied(threat_id, "threat")
+                    logger.info(f"Tracked and marked threat update as applied in {iriusrisk_dir / 'updates.json'}")
             except Exception as track_error:
                 logger.warning(f"Could not track update locally: {track_error}")
             
             logger.info(f"Updated threat {threat_id} to status {status}")
-            return f"✅ Threat status updated to '{status}' (tracked locally)"
+            return f"✅ Threat status updated to '{status}'{comment_status}"
             
         except Exception as e:
             error_msg = f"❌ Failed to update threat status: {str(e)}"
@@ -512,20 +613,36 @@ def register_stdio_tools(mcp_server, api_client):
                                           status: str, reason: str, comment: str = None) -> str:
         """Update countermeasure status with local tracking.
         
+        TRANSPARENCY REQUIREMENT: For any status change, especially 'implemented', you MUST
+        provide a detailed comment explaining what was done, how it was done, and what files
+        were modified. This is required for auditability and transparency.
+        
         Updates the countermeasure status in IriusRisk and tracks the change locally
-        in .iriusrisk/pending_updates.json for future reference.
+        in .iriusrisk/updates.json for future reference.
         
         Args:
             project_id: Project UUID or reference ID
             countermeasure_id: Countermeasure UUID
             status: New status (required, recommended, implemented, rejected, not-applicable)
             reason: Explanation for the status change
-            comment: Optional HTML-formatted comment with implementation details
+            comment: HTML-formatted comment with implementation details - REQUIRED for transparency.
+                     Should include: what was implemented, which files were modified, how it was
+                     tested, and AI attribution. Use HTML tags (<p>, <ul><li>, <code>, <strong>).
         
         Returns:
-            Confirmation message
+            Confirmation message with transparency about comment creation
         """
         logger.info(f"MCP tool invoked: update_countermeasure_status (project={project_id}, cm={countermeasure_id}, status={status})")
+        
+        # Validate comment length (IriusRisk API limit is 1000 characters)
+        if comment and len(comment) > 1000:
+            error_msg = f"❌ Comment too long: {len(comment)} characters (max: 1000). Please shorten your comment and try again."
+            logger.error(error_msg)
+            return error_msg
+        
+        # Warn if no comment provided (transparency issue)
+        if not comment:
+            logger.warning(f"⚠️  Countermeasure status update WITHOUT comment - transparency requirement not met!")
         
         try:
             from ...utils.project_resolution import resolve_project_id_to_uuid_strict
@@ -534,48 +651,45 @@ def register_stdio_tools(mcp_server, api_client):
             # Resolve to UUID if needed
             project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
             
-            # Update countermeasure status via API
-            api_client.update_countermeasure_status(project_uuid, countermeasure_id, status)
+            # Update countermeasure status via API (note: API method is update_countermeasure_state, not update_countermeasure_status)
+            # Note: We don't pass comment here because we create it separately below for better error tracking
+            api_client.update_countermeasure_state(countermeasure_id, status, reason=reason)
+            logger.info(f"✅ Status updated successfully")
             
-            # Add comment if provided
+            # Add comment if provided - track success/failure separately for transparency
+            comment_status = ""
             if comment:
-                api_client.create_countermeasure_comment(countermeasure_id, comment)
+                try:
+                    api_client.create_countermeasure_comment(countermeasure_id, comment)
+                    logger.info(f"✅ Comment added successfully")
+                    comment_status = " with comment"
+                except Exception as comment_error:
+                    logger.error(f"❌ Comment creation failed: {comment_error}")
+                    comment_status = f"\n⚠️  WARNING: Status updated but comment creation FAILED: {comment_error}\nPlease manually add this comment in IriusRisk:\n{comment[:200]}..."
+            else:
+                comment_status = "\n⚠️  WARNING: No comment provided - transparency requirement not met. Please add a comment explaining what was changed."
             
-            # Track locally for future reference
+            # Track locally using UpdateTracker
             try:
+                from ...utils.updates import get_update_tracker
                 project_root, _ = find_project_root()
                 if project_root:
-                    updates_file = project_root / '.iriusrisk' / 'pending_updates.json'
-                    updates_file.parent.mkdir(parents=True, exist_ok=True)
-                    
-                    # Load existing updates
-                    updates = []
-                    if updates_file.exists():
-                        with open(updates_file, 'r') as f:
-                            updates = json.load(f)
-                    
-                    # Add new update
-                    from datetime import datetime
-                    updates.append({
-                        'type': 'countermeasure_status',
-                        'project_id': project_uuid,
-                        'countermeasure_id': countermeasure_id,
-                        'status': status,
-                        'reason': reason,
-                        'comment': comment,
-                        'timestamp': datetime.now().isoformat()
-                    })
-                    
-                    # Save updates
-                    with open(updates_file, 'w') as f:
-                        json.dump(updates, f, indent=2)
-                    
-                    logger.info(f"Tracked update locally in {updates_file}")
+                    iriusrisk_dir = project_root / '.iriusrisk'
+                    tracker = get_update_tracker(iriusrisk_dir)
+                    tracker.track_countermeasure_update(
+                        countermeasure_id=countermeasure_id,
+                        status=status,
+                        reason=reason,
+                        comment=comment
+                    )
+                    # Mark as applied immediately since we just applied it (prevents duplicate comments on sync)
+                    tracker.mark_update_applied(countermeasure_id, "countermeasure")
+                    logger.info(f"Tracked and marked countermeasure update as applied in {iriusrisk_dir / 'updates.json'}")
             except Exception as track_error:
                 logger.warning(f"Could not track update locally: {track_error}")
             
             logger.info(f"Updated countermeasure {countermeasure_id} to status {status}")
-            return f"✅ Countermeasure status updated to '{status}' (tracked locally)"
+            return f"✅ Countermeasure status updated to '{status}'{comment_status}"
             
         except Exception as e:
             error_msg = f"❌ Failed to update countermeasure status: {str(e)}"

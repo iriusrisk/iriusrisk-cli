@@ -100,6 +100,7 @@ I can help create a threat model. Just let me know."]
 1. Call `initialize_iriusrisk_workflow()` for complete instructions
 2. Follow the workflow to create/update threat model
 3. Present integrated security guidance
+4. **When tracking implementations, ALWAYS add detailed comments** (see Transparency Requirements below)
 
 ### If User Declines
 
@@ -108,6 +109,56 @@ I can help create a threat model. Just let me know."]
 - Common vulnerabilities to watch for
 - Framework/library security recommendations
 - Remind them: "Threat modeling is available anytime if you change your mind"
+
+## Transparency Requirements for Implementations
+
+**CRITICAL: When developers implement security controls, you MUST document what was done.**
+
+If a developer says "I implemented [security control]", you MUST:
+
+1. **Verify what was implemented** - Ask for details if unclear:
+   - What files were modified?
+   - What specific security controls were added?
+   - How was it tested?
+
+2. **Update status with detailed comment:**
+
+```
+track_countermeasure_update(
+    countermeasure_id="...",
+    status="implemented",
+    reason="Developer implemented authentication",
+    project_path="/absolute/path",
+    comment="""<p><strong>AI-Documented Implementation:</strong></p>
+<ul>
+<li>Added JWT authentication in <code>src/auth/jwt.py</code></li>
+<li>Integrated bcrypt for password hashing</li>
+<li>Added token refresh mechanism</li>
+<li>Implemented rate limiting on auth endpoints</li>
+</ul>
+<p><strong>Files Modified:</strong></p>
+<ul>
+<li><code>src/auth/jwt.py</code> - JWT handling</li>
+<li><code>src/api/routes.py</code> - Protected endpoints</li>
+<li><code>tests/test_auth.py</code> - Auth tests</li>
+</ul>
+<p><em>Implementation by developer, documented by AI assistant.</em></p>"""
+)
+```
+
+3. **Never accept vague updates:**
+
+❌ User: "I fixed the SQL injection issue"  
+❌ AI: [Updates status without details]
+
+✅ User: "I fixed the SQL injection issue"  
+✅ AI: "That's great! Can you tell me what you implemented so I can document it properly? For example:
+- Did you use parameterized queries?
+- What files did you modify?
+- Did you add input validation?
+- How did you test it?"
+
+Then document with full details in the comment.
 
 ## Key Principles
 

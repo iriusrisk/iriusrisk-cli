@@ -48,6 +48,33 @@ def register_shared_tools(mcp_server, api_client, transport_mode):
             instructions = _load_prompt("http_workflow")
         else:
             instructions = _load_prompt("initialize_iriusrisk_workflow")
+            
+            # In stdio mode, add runtime check for project.json
+            from pathlib import Path
+            project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
+            if not project_json_path.exists():
+                # Prepend critical warning to instructions
+                runtime_warning = """
+🚨 CRITICAL RUNTIME CHECK: No project.json file detected!
+
+The project at {} has NOT been initialized.
+
+⚠️  DO NOT PROCEED with any threat modeling activities until the user runs:
+
+    iriusrisk init
+
+Without this initialization:
+- No stable project ID exists
+- Operations will fail or create duplicate projects
+- Cannot track threats/countermeasures across sessions
+
+STOP HERE and inform the user they must initialize the project first.
+
+═══════════════════════════════════════════════════════════════════════════
+
+""".format(Path.cwd())
+                instructions = runtime_warning + instructions
+                logger.warning("Runtime check: project.json missing - added warning to instructions")
         
         logger.info("Provided critical IriusRisk workflow instructions to AI assistant")
         return _apply_prompt_customizations('initialize_iriusrisk_workflow', instructions)

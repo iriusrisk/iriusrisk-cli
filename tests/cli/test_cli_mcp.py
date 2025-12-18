@@ -184,6 +184,63 @@ def test_mcp_command_integration(cli_runner, mock_api_client, mock_env_vars):
         mock_server.run.assert_called_once_with(transport='stdio')
 
 
+class TestMCPProjectInitializationCheck:
+    """Test MCP project initialization checks."""
+    
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
+    def test_mcp_starts_without_project_json(self, mock_fastmcp_class, cli_runner, mock_api_client, tmp_path):
+        """Test that MCP server starts even without project.json (tools will handle checks)."""
+        mock_server = MagicMock()
+        mock_fastmcp_class.return_value = mock_server
+        mock_server.run.return_value = None
+        
+        # Change to a temporary directory without project.json
+        import os
+        original_dir = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            
+            result = cli_runner.invoke(cli, ['mcp'])
+            
+            # Should start successfully (tools handle the validation)
+            assert result.exit_code == 0, f"MCP should start: {result.output}"
+            
+            # Should have attempted to start server
+            mock_fastmcp_class.assert_called_once_with("iriusrisk-cli")
+            mock_server.run.assert_called_once_with(transport='stdio')
+        finally:
+            os.chdir(original_dir)
+    
+    @patch('iriusrisk_cli.mcp.stdio_server.FastMCP')
+    def test_mcp_starts_with_project_json(self, mock_fastmcp_class, cli_runner, mock_api_client, tmp_path):
+        """Test that MCP server starts normally when project.json exists."""
+        mock_server = MagicMock()
+        mock_fastmcp_class.return_value = mock_server
+        mock_server.run.return_value = None
+        
+        # Create .iriusrisk directory with project.json
+        iriusrisk_dir = tmp_path / '.iriusrisk'
+        iriusrisk_dir.mkdir()
+        project_json = iriusrisk_dir / 'project.json'
+        project_json.write_text('{"name": "Test Project", "reference_id": "test-123"}')
+        
+        import os
+        original_dir = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            
+            result = cli_runner.invoke(cli, ['mcp'])
+            
+            # Should start normally
+            assert result.exit_code == 0, f"MCP should start normally: {result.output}"
+            
+            # Should have attempted to start server
+            mock_fastmcp_class.assert_called_once_with("iriusrisk-cli")
+            mock_server.run.assert_called_once_with(transport='stdio')
+        finally:
+            os.chdir(original_dir)
+
+
 class TestMCPCommandValidation:
     """Test MCP command validation and error cases."""
     

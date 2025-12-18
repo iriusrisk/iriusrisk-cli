@@ -454,18 +454,25 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
                     
                     # Create separate comment if provided
                     if comment:
-                        try:
-                            results["comment_results"].append(f"Creating comment for threat {update_id[:8]}...")
-                            threat_client.create_threat_comment(
-                                threat_id=update_id,
-                                comment=comment
-                            )
-                            results["comment_results"].append(f"✅ Comment created successfully for threat {update_id[:8]}")
-                        except Exception as comment_error:
-                            error_msg = f"Failed to create comment for threat {update_id[:8]}: {comment_error}"
-                            results["comment_results"].append(f"❌ {error_msg}")
+                        # Validate comment length before attempting to create it
+                        if len(comment) > 1000:
+                            error_msg = f"Comment for threat {update_id[:8]} is too long ({len(comment)} chars, max: 1000). Skipping comment creation."
+                            click.echo(f"    ⚠️  {error_msg}")
+                            results["comment_results"].append(f"⚠️  {error_msg}")
                             results["errors"].append(error_msg)
-                            # Don't fail the entire update just because comment creation failed
+                        else:
+                            try:
+                                results["comment_results"].append(f"Creating comment for threat {update_id[:8]}...")
+                                threat_client.create_threat_comment(
+                                    threat_id=update_id,
+                                    comment=comment
+                                )
+                                results["comment_results"].append(f"✅ Comment created successfully for threat {update_id[:8]}")
+                            except Exception as comment_error:
+                                error_msg = f"Failed to create comment for threat {update_id[:8]}: {comment_error}"
+                                results["comment_results"].append(f"❌ {error_msg}")
+                                results["errors"].append(error_msg)
+                                # Don't fail the entire update just because comment creation failed
                     
                 elif update_type == "countermeasure":
                     # Apply countermeasure update  
@@ -479,18 +486,25 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
                     
                     # Create separate comment if provided (countermeasure state API doesn't support comments)
                     if comment:
-                        try:
-                            results["comment_results"].append(f"Creating comment for countermeasure {update_id[:8]}...")
-                            countermeasure_client.create_countermeasure_comment(
-                                countermeasure_id=update_id,
-                                comment=comment
-                            )
-                            results["comment_results"].append(f"✅ Comment created successfully for {update_id[:8]}")
-                        except Exception as comment_error:
-                            error_msg = f"Failed to create comment for {update_id[:8]}: {comment_error}"
-                            results["comment_results"].append(f"❌ {error_msg}")
+                        # Validate comment length before attempting to create it
+                        if len(comment) > 1000:
+                            error_msg = f"Comment for countermeasure {update_id[:8]} is too long ({len(comment)} chars, max: 1000). Skipping comment creation."
+                            click.echo(f"    ⚠️  {error_msg}")
+                            results["comment_results"].append(f"⚠️  {error_msg}")
                             results["errors"].append(error_msg)
-                            # Don't fail the entire update just because comment creation failed
+                        else:
+                            try:
+                                results["comment_results"].append(f"Creating comment for countermeasure {update_id[:8]}...")
+                                countermeasure_client.create_countermeasure_comment(
+                                    countermeasure_id=update_id,
+                                    comment=comment
+                                )
+                                results["comment_results"].append(f"✅ Comment created successfully for {update_id[:8]}")
+                            except Exception as comment_error:
+                                error_msg = f"Failed to create comment for {update_id[:8]}: {comment_error}"
+                                results["comment_results"].append(f"❌ {error_msg}")
+                                results["errors"].append(error_msg)
+                                # Don't fail the entire update just because comment creation failed
                 
                 elif update_type == "issue_creation":
                     # Apply issue creation request

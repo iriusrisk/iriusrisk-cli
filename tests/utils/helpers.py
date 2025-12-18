@@ -91,14 +91,18 @@ components:
 - id: web-app
   name: Web Application
   type: web-application
+  description: Test web application component
   parent:
     trustZone: internet
+  tags: ["web", "test"]
 
 dataflows:
 - id: user-request
-  name: User Request
+  name: User Request Flow
   source: user
   destination: web-app
+  tags: ["http", "user-traffic"]
+  bidirectional: false
 """
     
     temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False)

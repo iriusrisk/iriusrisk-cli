@@ -925,7 +925,10 @@ def register_http_tools(mcp_server, get_api_client_func):
         
         Args:
             otm_content: OTM data as JSON string
-            project_id: Optional project UUID to update (creates new project if not provided)
+            project_id: Optional project UUID or reference ID to update an EXISTING project.
+                       If provided, checks if project exists first. If project doesn't exist,
+                       creates a new project instead of failing with 404.
+                       If not provided, creates new project (or auto-updates if name matches).
         
         Returns:
             Status message with project details
@@ -941,10 +944,61 @@ def register_http_tools(mcp_server, get_api_client_func):
             except json.JSONDecodeError as e:
                 return f"❌ Invalid OTM JSON: {str(e)}"
             
+            # ============================================================================
+            # CRITICAL: V1 OTM API DOES NOT REQUIRE UUID RESOLUTION - DO NOT "FIX" THIS!
+            # ============================================================================
+            # The V1 API endpoint PUT /products/otm/{project_id} accepts BOTH:
+            #   - UUIDs (e.g., "a1b2c3d4-e5f6-...")
+            #   - Reference IDs (e.g., "my-project-ref")
+            #
+            # Unlike V2 API endpoints which STRICTLY require UUIDs in URL paths,
+            # the V1 OTM endpoints handle reference ID resolution internally.
+            #
+            # ❌ DO NOT add resolve_project_id_to_uuid_strict() here! ❌
+            # 
+            # Why this breaks if you add resolution:
+            #   1. Makes an unnecessary extra API call (performance penalty)
+            #   2. FAILS when updating by reference ID: tries to look up project that
+            #      may not exist yet, even though the V1 API would handle it correctly
+            #   3. Error message becomes confusing: "Project not found" when the real
+            #      issue is we're looking up before the API needs it
+            #   4. The CLI command (commands/otm.py line 125) doesn't do resolution
+            #      and works perfectly fine - MCP should match CLI behavior
+            #
+            # Example of what BREAKS if you add resolution:
+            #   import_otm(otm_content, project_id="badger-app-poug")
+            #   → Resolution tries: GET /projects?filter='referenceId'='badger-app-poug'
+            #   → No project found yet → Exception: "Project not found"
+            #   → But PUT /products/otm/badger-app-poug would have worked!
+            #
+            # When you DO need UUID resolution:
+            #   - V2 API endpoints: GET /v2/projects/{uuid}/threats
+            #   - See: mcp/tools/http_tools.py lines 51, 739, 810, 881 (various V2 operations)
+            #   - See: utils/project_resolution.py for the resolution utility
+            #
+            # This has been a RECURRING issue where someone "fixes" this by adding
+            # resolution, breaks OTM import, then it gets removed, then someone adds
+            # it back. If you're tempted to add resolve_project_id_to_uuid_strict()
+            # here, re-read these comments first!
+            # ============================================================================
+            
             # Import via API
             if project_id:
-                # Update existing project
-                result = api_client.update_project_with_otm_content(project_id, otm_content)
+                # Check if project exists first before attempting update
+                # This avoids the 404 error when project_id is provided but project doesn't exist yet
+                from ...utils.api_helpers import validate_project_exists
+                from ...api.project_client import ProjectApiClient
+                project_client = ProjectApiClient()
+                
+                exists, resolved_uuid = validate_project_exists(project_id, project_client)
+                
+                if exists:
+                    # Project exists - update it
+                    result = api_client.update_project_with_otm_content(resolved_uuid or project_id, otm_content)
+                else:
+                    # Project doesn't exist - create it instead
+                    logger.info(f"Project '{project_id}' not found, creating new project instead")
+                    result = api_client.import_otm_content(otm_content, auto_update=True)
             else:
                 # Create new project
                 result = api_client.import_otm_content(otm_content, auto_update=True)
@@ -983,17 +1037,35 @@ def register_http_tools(mcp_server, get_api_client_func):
                                    reason: str, comment: str = None) -> str:
         """Update threat status directly (no local tracking).
         
+        TRANSPARENCY REQUIREMENT: For any status change, especially 'accept', you MUST
+        provide a detailed comment explaining why the decision was made, what compensating
+        controls exist, and who approved it. This is required for auditability and transparency.
+        
         Args:
             project_id: Project UUID or reference ID
             threat_id: Threat UUID
             status: New status (accept, mitigate, expose, partly-mitigate, hidden)
             reason: Explanation for the status change
-            comment: Optional HTML-formatted comment with details
+            comment: HTML-formatted comment with decision details - REQUIRED for transparency.
+                     Should include: why the decision was made, compensating controls,
+                     business justification, and AI attribution. Use HTML tags.
         
         Returns:
-            Confirmation message
+            Confirmation message with transparency about comment creation
         """
         logger.info(f"MCP HTTP tool invoked: update_threat_status (project={project_id}, threat={threat_id}, status={status})")
+        
+        # Validate comment length (IriusRisk API limit is 1000 characters)
+        if comment and len(comment) > 1000:
+            error_msg = f"❌ Comment too long: {len(comment)} characters (max: 1000). Please shorten your comment and try again."
+            logger.error(error_msg)
+            return error_msg
+        
+        # Warn if no comment provided (transparency issue), especially for 'accept'
+        if not comment:
+            logger.warning(f"⚠️  Threat status update WITHOUT comment - transparency requirement not met!")
+            if status == 'accept':
+                logger.warning(f"⚠️  Risk acceptance WITHOUT justification comment is a serious compliance issue!")
         
         try:
             api_client = get_api_client_func()
@@ -1002,15 +1074,29 @@ def register_http_tools(mcp_server, get_api_client_func):
             # Resolve to UUID if needed
             project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
             
-            # Update threat status via API
-            api_client.update_threat_status(project_uuid, threat_id, status)
+            # Update threat status via API (note: API method is update_threat_state, not update_threat_status)
+            # Note: We don't pass comment here because we create it separately below for better error tracking
+            api_client.update_threat_state(threat_id, status, reason=reason)
+            logger.info(f"✅ Status updated successfully")
             
-            # Add comment if provided
+            # Add comment if provided - track success/failure separately for transparency
+            comment_status = ""
             if comment:
-                api_client.create_threat_comment(threat_id, comment)
+                try:
+                    api_client.create_threat_comment(threat_id, comment)
+                    logger.info(f"✅ Comment added successfully")
+                    comment_status = " with comment"
+                except Exception as comment_error:
+                    logger.error(f"❌ Comment creation failed: {comment_error}")
+                    comment_status = f"\n⚠️  WARNING: Status updated but comment creation FAILED: {comment_error}\nPlease manually add this comment in IriusRisk:\n{comment[:200]}..."
+            else:
+                if status == 'accept':
+                    comment_status = "\n⚠️  CRITICAL: Risk acceptance WITHOUT justification comment - this is a compliance issue. Please add a comment explaining why this risk was accepted."
+                else:
+                    comment_status = "\n⚠️  WARNING: No comment provided - transparency requirement not met. Please add a comment explaining the decision."
             
             logger.info(f"Updated threat {threat_id} to status {status}")
-            return f"✅ Threat status updated to '{status}'"
+            return f"✅ Threat status updated to '{status}'{comment_status}"
             
         except Exception as e:
             error_msg = f"❌ Failed to update threat status: {str(e)}"
@@ -1022,17 +1108,33 @@ def register_http_tools(mcp_server, get_api_client_func):
                                           status: str, reason: str, comment: str = None) -> str:
         """Update countermeasure status directly (no local tracking).
         
+        TRANSPARENCY REQUIREMENT: For any status change, especially 'implemented', you MUST
+        provide a detailed comment explaining what was done, how it was done, and what files
+        were modified. This is required for auditability and transparency.
+        
         Args:
             project_id: Project UUID or reference ID
             countermeasure_id: Countermeasure UUID
             status: New status (required, recommended, implemented, rejected, not-applicable)
             reason: Explanation for the status change
-            comment: Optional HTML-formatted comment with implementation details
+            comment: HTML-formatted comment with implementation details - REQUIRED for transparency.
+                     Should include: what was implemented, which files were modified, how it was
+                     tested, and AI attribution. Use HTML tags (<p>, <ul><li>, <code>, <strong>).
         
         Returns:
-            Confirmation message
+            Confirmation message with transparency about comment creation
         """
         logger.info(f"MCP HTTP tool invoked: update_countermeasure_status (project={project_id}, cm={countermeasure_id}, status={status})")
+        
+        # Validate comment length (IriusRisk API limit is 1000 characters)
+        if comment and len(comment) > 1000:
+            error_msg = f"❌ Comment too long: {len(comment)} characters (max: 1000). Please shorten your comment and try again."
+            logger.error(error_msg)
+            return error_msg
+        
+        # Warn if no comment provided (transparency issue)
+        if not comment:
+            logger.warning(f"⚠️  Countermeasure status update WITHOUT comment - transparency requirement not met!")
         
         try:
             api_client = get_api_client_func()
@@ -1041,15 +1143,26 @@ def register_http_tools(mcp_server, get_api_client_func):
             # Resolve to UUID if needed
             project_uuid = resolve_project_id_to_uuid_strict(project_id, api_client)
             
-            # Update countermeasure status via API
-            api_client.update_countermeasure_status(project_uuid, countermeasure_id, status)
+            # Update countermeasure status via API (note: API method is update_countermeasure_state, not update_countermeasure_status)
+            # Note: We don't pass comment here because we create it separately below for better error tracking
+            api_client.update_countermeasure_state(countermeasure_id, status, reason=reason)
+            logger.info(f"✅ Status updated successfully")
             
-            # Add comment if provided
+            # Add comment if provided - track success/failure separately for transparency
+            comment_status = ""
             if comment:
-                api_client.create_countermeasure_comment(countermeasure_id, comment)
+                try:
+                    api_client.create_countermeasure_comment(countermeasure_id, comment)
+                    logger.info(f"✅ Comment added successfully")
+                    comment_status = " with comment"
+                except Exception as comment_error:
+                    logger.error(f"❌ Comment creation failed: {comment_error}")
+                    comment_status = f"\n⚠️  WARNING: Status updated but comment creation FAILED: {comment_error}\nPlease manually add this comment in IriusRisk:\n{comment[:200]}..."
+            else:
+                comment_status = "\n⚠️  WARNING: No comment provided - transparency requirement not met. Please add a comment explaining what was changed."
             
             logger.info(f"Updated countermeasure {countermeasure_id} to status {status}")
-            return f"✅ Countermeasure status updated to '{status}'"
+            return f"✅ Countermeasure status updated to '{status}'{comment_status}"
             
         except Exception as e:
             error_msg = f"❌ Failed to update countermeasure status: {str(e)}"

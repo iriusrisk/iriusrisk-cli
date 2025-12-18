@@ -121,6 +121,8 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
         
         if update:
             # Explicit update of existing project
+            # NOTE: We pass 'update' directly without UUID resolution because the V1 OTM API
+            # accepts both UUIDs and reference IDs. See api/project_client.py for details.
             click.echo(f"Updating project '{update}' with OTM file: {otm_file}")
             result = api_client.update_project_with_otm_file(update, str(otm_path))
             result['action'] = 'updated'
@@ -261,61 +263,44 @@ components:
   - id: "web-client"
     name: "Web Client"
     type: "web-application-client-side"
+    description: "Browser-based client application"
     parent:
       trustZone: "internet"
+    tags: ["client", "browser"]
     
   - id: "web-server"
     name: "Web Server"
     type: "web-application-server-side"
+    description: "Backend application server"
     parent:
       trustZone: "public-cloud"
+    tags: ["server", "api"]
     
   - id: "database"
     name: "Database"
     type: "sql-database"
+    description: "Application data store"
     parent:
       trustZone: "private-secured"
+    tags: ["database", "sql"]
 
 dataflows:
   - id: "client-to-server"
     name: "HTTP Requests"
     source: "web-client"
     destination: "web-server"
+    tags: ["http", "user-traffic"]
+    bidirectional: false
     
   - id: "server-to-db"
     name: "Database Queries"
     source: "web-server"
     destination: "database"
+    tags: ["sql", "internal"]
+    bidirectional: false
 
-threats:
-  - id: "sql-injection"
-    name: "SQL Injection Attack"
-    description: "Attacker could inject malicious SQL code"
-    categories: ["injection"]
-    cwes: ["89"]
-    risk:
-      likelihood: 4
-      impact: 4
-    
-  - id: "xss-attack"
-    name: "Cross-Site Scripting"
-    description: "Malicious scripts executed in user's browser"
-    categories: ["injection"]
-    cwes: ["79"]
-    risk:
-      likelihood: 3
-      impact: 3
-
-mitigations:
-  - id: "input-validation"
-    name: "Input Validation"
-    description: "Validate and sanitize all user inputs"
-    riskReduction: 30
-    
-  - id: "output-encoding"
-    name: "Output Encoding"
-    description: "Encode output to prevent script execution"
-    riskReduction: 25
+# Note: Do NOT include threats/mitigations sections
+# IriusRisk automatically generates threats and countermeasures after import
 """
     
     click.echo(example_otm)

@@ -28,6 +28,8 @@ After sync(), read these JSON files from `.iriusrisk/` directory:
 - Provide implementation guidance and code examples for countermeasures
 - Create summaries and reports of security findings
 - Reference specific threat/countermeasure IDs from the data
+- **ALWAYS add detailed comments when updating threat/countermeasure status**
+- **Document all AI-assisted implementations transparently**
 
 **Do NOT:**
 - Create new threats or countermeasures (use only what IriusRisk generated)
@@ -35,6 +37,72 @@ After sync(), read these JSON files from `.iriusrisk/` directory:
 - Ignore high-risk threats in favor of easier ones
 - Analyze source code for vulnerabilities (that's IriusRisk's role)
 - Speculate about potential security flaws not in the data
+- **NEVER update status without adding a detailed comment**
+- **NEVER write directly to threats.json or countermeasures.json** - these are READ-ONLY
+- **NEVER modify the JSON files directly** - use MCP tools only
+
+## CRITICAL: Transparency Requirements
+
+**Every status change MUST include a detailed comment.** When you help users implement countermeasures or update threat status, you MUST add comments explaining:
+
+- What was changed
+- Why it was changed
+- How it was implemented (for "implemented" status)
+- What files/code were modified
+- That this was AI-assisted
+
+**Example: Marking countermeasure as implemented**
+
+When a user says "I've implemented input validation", do NOT just update the status. You MUST:
+
+1. **Update the status:**
+```
+track_countermeasure_update(
+    countermeasure_id="cm-123",
+    status="implemented",
+    reason="Implemented input validation middleware",
+    project_path="/absolute/path/to/project"
+)
+```
+
+2. **Add detailed comment (MANDATORY):**
+```
+track_countermeasure_update(
+    countermeasure_id="cm-123",
+    status="implemented", 
+    reason="Adding implementation details",
+    project_path="/absolute/path/to/project",
+    comment="""<p><strong>AI-Assisted Implementation:</strong></p>
+<ul>
+<li>Added validation middleware in <code>src/api/middleware/validation.py</code></li>
+<li>Integrated pydantic v2 for schema validation</li>
+<li>Covers input sanitization for SQL injection prevention</li>
+<li>Added unit tests in <code>tests/api/test_validation.py</code></li>
+<li>Validated against OWASP Input Validation Cheat Sheet</li>
+</ul>
+<p><strong>Files Modified:</strong></p>
+<ul>
+<li><code>src/api/middleware/validation.py</code> - Main validation logic</li>
+<li><code>src/api/routes.py</code> - Integrated middleware</li>
+<li><code>tests/api/test_validation.py</code> - Test coverage</li>
+</ul>
+<p><em>This implementation was completed with AI assistance.</em></p>"""
+)
+```
+
+**Why This Matters:**
+
+- Users need to know what you did on their behalf
+- Security auditors need to verify implementations
+- Future developers need context for security decisions
+- Compliance requires documented security controls
+- Builds trust through transparency
+
+**NEVER:**
+- ❌ Update status without a comment
+- ❌ Use vague comments like "Implemented" or "Done"
+- ❌ Skip AI attribution
+- ❌ Forget to mention file names and specific changes
 
 ## Common User Questions & Responses
 

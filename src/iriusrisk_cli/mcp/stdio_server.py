@@ -6,6 +6,7 @@ AI assistant integration (Claude Desktop, Cursor, etc.).
 
 import logging
 import sys
+from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 from .transport import TransportMode
 from .tools import register_shared_tools, register_stdio_tools
@@ -20,6 +21,13 @@ def run_stdio_server(cli_ctx):
         cli_ctx: CLI context with config and API client
     """
     logger.info("Starting IriusRisk MCP server in stdio mode")
+    
+    # Log project.json status for debugging (check happens at tool invocation)
+    project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
+    if project_json_path.exists():
+        logger.info(f"Found project.json at: {project_json_path}")
+    else:
+        logger.warning(f"project.json not found at {project_json_path} - tools will return warnings")
     
     # Get config and API client from context
     config = cli_ctx.get_config()

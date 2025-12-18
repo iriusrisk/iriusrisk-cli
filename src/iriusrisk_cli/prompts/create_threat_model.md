@@ -17,12 +17,14 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 # ✅ CORRECT - Component to Component:
 dataflows:
   - id: "user-to-app"
+    name: "User to Application"  # REQUIRED field
     source: "mobile-app"      # component ID
     destination: "web-server" # component ID
 
 # ❌ WRONG - Trust Zone IDs (CAUSES IMPORT FAILURE):
 dataflows:
   - id: "bad-flow"
+    name: "Bad Flow"
     source: "internet"        # trust zone ID - FAILS!
     destination: "dmz"        # trust zone ID - FAILS!
 ```
@@ -72,7 +74,7 @@ type: "CD-V2-AWS-ECS"  # Missing "-CLUSTER" - FAILS
 
 - ☐ Step 0: **sync(project_path)** - Download components & trust zones
 - ☐ Step 1: Analyze source material - Identify architectural components
-- ☐ Step 2: Check `.iriusrisk/project.json` - Read project name/ID if exists
+- ☐ Step 2: Check `.iriusrisk/project.json` - Read project name/reference_id if exists
 - ☐ Step 3: Create OTM file - ONLY components, trust zones, dataflows (dataflows connect components ONLY)
 - ☐ Step 4: Map components - Use exact referenceId from components.json
 - ☐ Step 5: **import_otm()** - Upload OTM to IriusRisk
@@ -107,12 +109,16 @@ type: "CD-V2-AWS-ECS"  # Missing "-CLUSTER" - FAILS
 
 **Check for existing project:**
 - Look for `.iriusrisk/project.json`
-- If exists, use `name` and `project_id` from that file
+- If exists, use `name` and `reference_id` from that file
+- **CRITICAL:** Use `reference_id` (NOT `project_id`) - this is the human-readable ID that goes in the OTM file
 - If not exists, create descriptive names from source material
 
 ### Step 3: Create OTM File
 
-**Use project.json if exists:** Read `.iriusrisk/project.json` and use `name` and `project_id` from that file. Otherwise, create descriptive names.
+**Use project.json if exists:** Read `.iriusrisk/project.json` and use `name` and `reference_id` from that file. 
+**IMPORTANT:** The `reference_id` field from project.json becomes the `project.id` field in the OTM file. 
+The `project_id` (UUID) field should NOT be used in OTM files - that's the internal IriusRisk UUID.
+Otherwise, create descriptive names.
 
 ## CRITICAL: Trust Zone Setup
 
@@ -185,6 +191,52 @@ trustZones:
 
 **⚠️ REMEMBER: Trust zones define LOCATION. Components define THINGS. Dataflows connect THINGS (components), not locations (trust zones).**
 
+## Optional Fields Reference
+
+### Component Optional Fields
+
+Components can include these optional fields for better documentation and organization:
+
+```yaml
+components:
+  - id: "my-service"              # REQUIRED
+    name: "My Service"            # REQUIRED
+    type: "CD-V2-WEB-SERVICE"     # REQUIRED (exact referenceId)
+    parent:                       # REQUIRED (trustZone or component)
+      trustZone: "zone-id"
+    description: "Detailed description of what this component does"  # OPTIONAL
+    tags: ["api", "python", "rest"]  # OPTIONAL: helps categorize and search
+```
+
+### Dataflow Required and Optional Fields
+
+Dataflows have both required and optional fields:
+
+```yaml
+dataflows:
+  - id: "api-call"                    # REQUIRED: unique identifier
+    name: "API Request"               # REQUIRED: descriptive name (this was causing your error!)
+    source: "client"                  # REQUIRED: component ID
+    destination: "server"             # REQUIRED: component ID
+    tags: ["http", "rest", "public"]  # OPTIONAL: categorization tags
+    bidirectional: false              # OPTIONAL: true for two-way communication (default: false)
+```
+
+### Trust Zone Optional Fields
+
+Trust zones can include these fields:
+
+```yaml
+trustZones:
+  - id: "uuid-from-trust-zones-json"  # REQUIRED: exact ID from trust-zones.json
+    name: "Internet"                  # REQUIRED: descriptive name
+    type: "uuid-from-trust-zones-json"  # OPTIONAL: often same as id
+    risk:
+      trustRating: 1                  # REQUIRED: 1 (untrusted) to 100 (fully trusted)
+```
+
+**Note:** The `representations` section (for diagram positioning) is typically added by IriusRisk and not required in your OTM files.
+
 ## Complete Example
 
 **IMPORTANT:** This example uses placeholder trust zone IDs. In reality, you MUST read `.iriusrisk/trust-zones.json` and use the actual IDs from that file.
@@ -192,8 +244,8 @@ trustZones:
 ```yaml
 otmVersion: 0.1.0
 project:
-  name: "[from project.json or descriptive name]"
-  id: "[from project.json or generate unique ID]"
+  name: "[from project.json 'name' field or create descriptive name]"
+  id: "[from project.json 'reference_id' field or generate unique ID like 'my-app-x7k2']"
   description: "[brief system description]"
 
 trustZones:
@@ -220,51 +272,64 @@ components:
     type: "[exact referenceId from components.json]"
     parent:
       trustZone: "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c"  # Internet zone ID from trust-zones.json
+    tags: ["client", "browser"]  # Optional tags for categorization
   
   # Load balancer - standalone in public cloud zone
   # ⚠️ trustZone value MUST be an ID from trust-zones.json
   - id: "alb"
     name: "Application Load Balancer"
     type: "[exact referenceId from components.json]"
+    description: "AWS ALB distributing traffic to ECS containers"  # Optional description
     parent:
       trustZone: "2ab4effa-40b4-45de-ba93-9e4c3d4db85a"  # Public Cloud zone ID from trust-zones.json
+    tags: ["load-balancer", "public-facing"]
   
   # Container platform - standalone in public cloud zone
   # ⚠️ trustZone value MUST be an ID from trust-zones.json
   - id: "ecs-cluster"
     name: "ECS Cluster"
     type: "[exact referenceId from components.json]"
+    description: "Container orchestration platform"
     parent:
       trustZone: "2ab4effa-40b4-45de-ba93-9e4c3d4db85a"  # Public Cloud zone ID from trust-zones.json
+    tags: ["compute", "container-orchestration"]
   
   # Application services - run inside container platform
   - id: "auth-service"
     name: "Authentication Service"
     type: "[exact referenceId from components.json]"
+    description: "Handles user authentication and session management"
     parent:
       component: "ecs-cluster"  # runs in ECS
+    tags: ["authentication", "api", "internal-service"]
   
   - id: "api-service"
     name: "API Service"
     type: "[exact referenceId from components.json]"
+    description: "Main API endpoints for application functionality"
     parent:
       component: "ecs-cluster"  # runs in ECS
+    tags: ["api", "rest", "internal-service"]
   
   # Database - standalone in private secured zone
   # ⚠️ trustZone value MUST be an ID from trust-zones.json
   - id: "user-db"
     name: "User Database"
     type: "[exact referenceId from components.json]"
+    description: "PostgreSQL database storing user data and application state"
     parent:
       trustZone: "f0ba7722-39b6-4c81-8290-a30a248bb8d9"  # Private Secured zone ID from trust-zones.json
+    tags: ["database", "postgresql", "user-data"]
   
   # External API - in internet zone
   # ⚠️ trustZone value MUST be an ID from trust-zones.json
   - id: "payment-api"
     name: "Payment Processor API"
     type: "[exact referenceId from components.json]"
+    description: "Third-party payment processing service"
     parent:
       trustZone: "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c"  # Internet zone ID from trust-zones.json
+    tags: ["external-api", "payment", "third-party"]
 
 dataflows:
   # ⚠️⚠️⚠️ CRITICAL: Dataflows ONLY connect components (never trust zones) ⚠️⚠️⚠️
@@ -272,24 +337,35 @@ dataflows:
   # NEVER use trust zone IDs like "internet", "dmz", "application" in dataflows
   
   - id: "user-request"
-    source: "web-browser"      # component ID ✅
-    destination: "alb"          # component ID ✅
+    name: "User HTTP Requests"     # REQUIRED: Descriptive name
+    source: "web-browser"           # component ID ✅
+    destination: "alb"              # component ID ✅
+    tags: ["http", "user-traffic"] # Optional: categorization tags
   
   - id: "alb-to-api"
+    name: "Load Balanced Traffic"
     source: "alb"               # component ID ✅
     destination: "api-service"  # component ID ✅
+    tags: ["internal-routing"]  # Optional tags
   
   - id: "api-to-auth"
+    name: "Authentication Requests"
     source: "api-service"       # component ID ✅
     destination: "auth-service" # component ID ✅
+    tags: ["authentication", "internal-service"]
   
   - id: "auth-to-db"
+    name: "Database Queries"
     source: "auth-service"      # component ID ✅
     destination: "user-db"      # component ID ✅
+    tags: ["database-access", "sql"]
+    bidirectional: false        # Optional: set to true for two-way communication
   
   - id: "api-to-payment"
+    name: "Payment API Calls"
     source: "api-service"       # component ID ✅
     destination: "payment-api"  # component ID ✅
+    tags: ["external-integration", "payment"]
 
 # Do NOT add: threats, mitigations, controls (IriusRisk generates these)
 ```
@@ -338,6 +414,7 @@ components:
 # This causes import failures
 dataflows:
   - id: "data-flow"
+    name: "Data Flow"
     source: "api-gateway"  # ❌ This component doesn't exist in components section!
     destination: "my-service"
 
@@ -354,6 +431,7 @@ components:
 
 dataflows:
   - id: "data-flow"
+    name: "Data Flow"  # ✅ Has required name
     source: "api-gateway"  # ✅ Exists in components above
     destination: "my-service"  # ✅ Exists in components above
 
@@ -373,6 +451,7 @@ dataflows:
 # ❌ WRONG #5: Using trust zone IDs in dataflows (ALSO VERY COMMON)
 dataflows:
   - id: "bad-flow"
+    name: "Bad Flow"
     source: "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c"  # ❌ Trust zone ID - FAILS
     destination: "f0ba7722-39b6-4c81-8290-a30a248bb8d9"  # ❌ Trust zone ID - FAILS
 
@@ -419,6 +498,7 @@ dataflows:
 # Dataflow connects components
 dataflows:
   - id: "good-flow"
+    name: "Traffic Flow"  # Required name
     source: "load-balancer"  # Component ID
     destination: "my-service"  # Component ID
 
@@ -616,6 +696,7 @@ Before completing, validate ALL references:
 **Reference Validation (CRITICAL):**
 - ☐ **Verified all trust zone IDs in `parent: { trustZone: "x" }` exist in trust-zones.json**
 - ☐ **Verified all component IDs in `parent: { component: "x" }` exist in the OTM's components section (defined earlier/above)**
+- ☐ **Verified EVERY dataflow has a `name` field** (REQUIRED - this was causing your import error!)
 - ☐ **Verified all dataflow source IDs exist in the OTM's components section**
 - ☐ **Verified all dataflow destination IDs exist in the OTM's components section**
 - ☐ **Validated no dataflows use trust zone IDs (must use component IDs only)**

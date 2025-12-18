@@ -423,10 +423,12 @@ Before importing an OTM file, validate ALL references:
 - ☐ Every component has a parent (trustZone or component)
 
 **Dataflows (CRITICAL):**
+- ☐ **Every dataflow MUST have a `name` field** (this is REQUIRED - missing name causes import failure)
 - ☐ **Dataflows ONLY connect component IDs, NEVER trust zone IDs**
 - ☐ All dataflow source IDs are component IDs defined in the OTM
 - ☐ All dataflow destination IDs are component IDs defined in the OTM
 - ☐ **No dataflows reference trust zone IDs** (common error that causes import failure)
+- ☐ Optional: Add `tags` for categorization and `bidirectional: true` for two-way flows
 
 **Common Trust Zone Mapping Errors:**
 

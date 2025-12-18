@@ -93,6 +93,11 @@ class UpdateTracker:
         if status.lower() not in valid_statuses:
             raise ValueError(f"Invalid threat status: {status}. Must be one of: {valid_statuses}")
         
+        # Validate comment length (IriusRisk API limit is 1000 characters)
+        if comment and len(comment) > 1000:
+            logger.warning(f"Comment length ({len(comment)} chars) exceeds IriusRisk limit of 1000 characters")
+            raise ValueError(f"Comment too long: {len(comment)} characters (max: 1000). Please shorten the comment.")
+        
         update_entry = {
             "id": threat_id,
             "type": "threat",
@@ -132,6 +137,11 @@ class UpdateTracker:
         valid_statuses = ['required', 'recommended', 'implemented', 'rejected', 'not-applicable']
         if status.lower() not in valid_statuses:
             raise ValueError(f"Invalid countermeasure status: {status}. Must be one of: {valid_statuses}")
+        
+        # Validate comment length (IriusRisk API limit is 1000 characters)
+        if comment and len(comment) > 1000:
+            logger.warning(f"Comment length ({len(comment)} chars) exceeds IriusRisk limit of 1000 characters")
+            raise ValueError(f"Comment too long: {len(comment)} characters (max: 1000). Please shorten the comment.")
         
         update_entry = {
             "id": countermeasure_id,

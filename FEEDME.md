@@ -6,7 +6,179 @@ This document defines the architectural patterns, structures, and conventions th
 
 ## Core Architectural Principles
 
-### 1. MCP Tool Architecture - Consistent User Experience Across Transports
+### 1. Transparency and Documentation - CRITICAL
+
+**Philosophy: Maximum Transparency for All AI-Driven Changes**
+
+When AI assistants make changes to threats and countermeasures in IriusRisk on behalf of users, transparency is paramount. Users must be able to understand what was done, why it was done, and who (AI vs human) made the change.
+
+**MANDATORY: All Status Changes Must Include Comments**
+
+For ANY change to threats or countermeasures, the AI MUST add a comment explaining:
+- What was changed
+- Why the change was made
+- How it was implemented (for "implemented" status)
+- What code/files were modified (if applicable)
+- That the change was made by AI assistance
+
+**Examples of Required Comments:**
+
+```python
+# ✅ CORRECT - Countermeasure marked as implemented WITH detailed comment
+track_countermeasure_update(
+    countermeasure_id="abc-123",
+    status="implemented",
+    reason="Added input validation middleware",
+    comment="""<p><strong>AI-Assisted Implementation:</strong></p>
+<ul>
+<li>Added validation middleware in <code>src/api/middleware.py</code></li>
+<li>Integrated pydantic schemas for request validation</li>
+<li>Added unit tests in <code>tests/test_validation.py</code></li>
+<li>Covers SQL injection and XSS attack vectors</li>
+</ul>
+<p><em>This implementation was completed with AI assistance.</em></p>"""
+)
+
+# ✅ CORRECT - Threat accepted WITH explanation
+track_threat_update(
+    threat_id="threat-456",
+    status="accept",
+    reason="Risk accepted after business review",
+    comment="""<p><strong>Risk Acceptance Decision:</strong></p>
+<p>After reviewing with the security team, we've decided to accept this risk because:</p>
+<ul>
+<li>System is internal-only with strict network isolation</li>
+<li>Cost of mitigation exceeds potential impact</li>
+<li>Compensating controls in place (monitoring, alerting)</li>
+</ul>
+<p><em>Decision made by: [User Name], documented by AI assistant</em></p>"""
+)
+
+# ❌ WRONG - Status change WITHOUT comment
+track_countermeasure_update(
+    countermeasure_id="abc-123",
+    status="implemented",
+    reason="Added validation"
+    # Missing comment - users won't know what was done!
+)
+
+# ❌ WRONG - Vague comment that doesn't explain implementation
+track_countermeasure_update(
+    countermeasure_id="abc-123",
+    status="implemented",
+    reason="Done",
+    comment="<p>Implemented validation</p>"  # Too vague!
+)
+```
+
+**Comment Requirements:**
+
+1. **Always use HTML formatting** (not Markdown):
+   - `<p>` for paragraphs
+   - `<strong>` or `<b>` for emphasis
+   - `<ul><li>` for lists
+   - `<code>` for inline code
+   - `<pre><code>` for code blocks
+   - `<em>` for italics
+
+2. **Include specific details**:
+   - File names and paths where changes were made
+   - Function/class names that were modified
+   - What security controls were added
+   - Testing approach used
+
+3. **Identify AI involvement**:
+   - Include "AI-Assisted Implementation" or similar
+   - Makes it clear this was not manual documentation
+
+4. **Keep under 1000 characters** (IriusRisk database constraint)
+
+5. **Be actionable and audit-friendly**:
+   - Future developers should understand what was done
+   - Security auditors should be able to verify implementation
+   - Compliance teams should see documentation trail
+
+**When Comments Are Required:**
+
+- ✅ **Countermeasure status changes** (required → implemented, etc.)
+- ✅ **Threat status changes** (open → mitigate/accept/expose)
+- ✅ **Any "implemented" status** (MUST explain what was implemented)
+- ✅ **Risk acceptance decisions** (MUST explain why risk was accepted)
+- ✅ **Rejection of countermeasures** (MUST explain why not applicable)
+
+**Documentation in Code:**
+
+When implementing security countermeasures in code, also add code comments referencing the IriusRisk countermeasure:
+
+```python
+# ✅ CORRECT - Code comment references IriusRisk countermeasure
+def validate_user_input(data: str) -> str:
+    """
+    Validates and sanitizes user input.
+    
+    Security: Implements IriusRisk countermeasure CM-INPUT-VAL-001
+    Mitigates: SQL injection (THREAT-123), XSS (THREAT-124)
+    """
+    # Validation logic here
+```
+
+**Why This Matters:**
+
+1. **Auditability**: Security teams need to verify implementations
+2. **Compliance**: Many frameworks require documented security controls
+3. **Maintenance**: Future developers need context for security code
+4. **Trust**: Users need to see what the AI did on their behalf
+5. **Accountability**: Clear record of who made what changes when
+6. **Knowledge transfer**: Preserves security reasoning for the team
+
+**Validation Checklist:**
+
+Before any threat/countermeasure update:
+- [ ] Status change includes detailed comment
+- [ ] Comment uses HTML formatting
+- [ ] Comment explains what/why/how
+- [ ] Comment identifies AI assistance
+- [ ] Comment includes file/function names where applicable
+- [ ] Comment is under 1000 characters
+- [ ] For "implemented" status, comment describes the implementation
+- [ ] Code includes references to IriusRisk countermeasure IDs
+
+**Exception Handling:**
+
+If comment creation fails (API error), the AI MUST:
+1. Log the failure clearly
+2. Inform the user that the status was updated but comment failed
+3. Provide the comment text to the user so they can manually add it
+4. Never silently skip comment creation
+
+```python
+# ✅ CORRECT - Handle comment failures transparently
+result = track_countermeasure_update(...)
+if result.get('comment_error'):
+    print(f"❌ Warning: Status updated but comment creation failed")
+    print(f"Please manually add this comment in IriusRisk:")
+    print(comment_text)
+```
+
+**Anti-Patterns to Avoid:**
+
+```python
+# ❌ NEVER DO THIS - Silent status changes
+update_countermeasure_status(id, "implemented")  # No comment!
+
+# ❌ NEVER DO THIS - Generic comments
+comment = "<p>Implemented</p>"  # Too vague
+
+# ❌ NEVER DO THIS - Missing AI attribution
+comment = "<p>Added validation in api.py</p>"  # Looks like human wrote it
+
+# ❌ NEVER DO THIS - Skip comment because "it's obvious"
+# It's NEVER obvious to future readers - always document
+```
+
+This transparency principle is non-negotiable and applies to ALL AI-driven changes to IriusRisk data.
+
+### 2. MCP Tool Architecture - Consistent User Experience Across Transports
 
 **Philosophy: Maximum Feature Parity Between stdio and HTTP Modes**
 

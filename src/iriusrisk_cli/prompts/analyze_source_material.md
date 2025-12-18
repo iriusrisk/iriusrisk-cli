@@ -114,6 +114,10 @@ Create ONE unified threat model including ALL components from ALL source types. 
 - **Infrastructure:** Load balancers, web servers, application servers, container platforms, VMs
 - **Integration:** Message queues, external APIs, webhooks, CDNs, third-party services
 
+**Document with optional fields:**
+- **tags:** Categorize components for better organization (e.g., `["api", "python", "rest"]`)
+- **description:** Add context about what the component does and why it exists
+
 **Example extraction:**
 From Terraform you see: AWS WAF, ALB, ECS Cluster, RDS Database
 From code you see: Authentication Service, Payment Service, User API
@@ -147,6 +151,11 @@ Result: List these as architectural components (mapping to IriusRisk types happe
 4. Monitoring: All Components → Logging → Monitoring Dashboard → Alerts
 
 **Security-Relevant Flows:** Authentication tokens, sensitive data (PII/financial), audit logs, secrets distribution, backup data
+
+**Document dataflows with:**
+- **name:** REQUIRED - Descriptive name for the data flow
+- **tags:** Optional - Categorize flows (e.g., `["http", "sensitive-data", "authentication"]`)
+- **bidirectional:** Optional - Set to `true` for two-way communication (default: `false`)
 
 ## Quality Assurance Checklist
 
@@ -188,11 +197,16 @@ components:
 
 dataflows:
   - id: "user-registration"
+    name: "User Registration Flow"       # REQUIRED field
     source: "api-gateway"
     destination: "user-service"
+    tags: ["user-management", "registration"]  # Optional tags
   - id: "payment-processing"
+    name: "Payment Processing Flow"
     source: "payment-processor"
     destination: "payment-api"
+    tags: ["payment", "external-integration"]
+    bidirectional: false                # Optional: indicates one-way flow
 ```
 
 ## Workflow Integration
