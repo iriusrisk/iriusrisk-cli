@@ -93,6 +93,7 @@ def patch_api_client(monkeypatch):
     
     # Create a mock container
     from iriusrisk_cli.services.version_service import VersionService
+    from iriusrisk_cli.api_client import IriusRiskApiClient
     
     mock_container = MagicMock(spec=Container)
     mock_container.get.side_effect = lambda service_type: {
@@ -102,7 +103,8 @@ def patch_api_client(monkeypatch):
         ProjectService: project_service,
         ThreatService: threat_service,
         CountermeasureService: countermeasure_service,
-        ReportService: report_service
+        ReportService: report_service,
+        IriusRiskApiClient: mock_client
     }.get(service_type, MagicMock())
     
     # Patch the container system and CLI context more comprehensively

@@ -137,6 +137,9 @@ class ProjectApiClient(BaseApiClient):
     def import_otm_file(self, otm_file_path: str, auto_update: bool = True) -> Dict[str, Any]:
         """Import an OTM file to create a new project or update existing one.
         
+        Uses POST /products/otm to create a new project. If the project already exists
+        and auto_update is True, automatically falls back to updating the existing project.
+        
         Args:
             otm_file_path: Path to the OTM file to import
             auto_update: If True, automatically update existing project if it exists
@@ -193,34 +196,54 @@ class ProjectApiClient(BaseApiClient):
                     errors = error_data.get('errors', [])
                     already_exists_error = False
                     for error in errors:
-                        if 'already exists' in error.get('message', ''):
+                        if 'already exists' in str(error.get('message', '')).lower():
                             already_exists_error = True
                             break
                     
-                    if auto_update and (already_exists_error or 'already exists' in error_msg):
-                        # Extract project ID from error message or OTM file
-                        self.logger.info("Project already exists, attempting auto-update")
+                    if auto_update and (already_exists_error or 'already exists' in error_msg.lower()):
+                        # Extract project ID from OTM file
+                        self.logger.info("Project already exists, checking if it's the same project by ref ID")
                         project_id = self._extract_project_id_from_otm(otm_file_path)
-                        if project_id:
-                            # Try to update the existing project instead
-                            try:
-                                self.logger.info(f"Updating existing project: {project_id}")
-                                result = self.update_project_with_otm_file(project_id, otm_file_path)
-                                result['action'] = 'updated'
-                                
-                                # Log successful update
-                                project_name = result.get('name', 'Unknown')
-                                self.logger.info(f"Successfully updated project '{project_name}' (ID: {project_id})")
-                                
-                                return result
-                            except Exception as update_error:
-                                raise requests.RequestException(f"Failed to create new project (already exists) and failed to update existing project: {str(update_error)}")
-                        else:
-                            raise requests.RequestException(f"Project already exists but could not determine project ID for update: {error_msg}")
+                        
+                        if not project_id:
+                            raise requests.RequestException(f"Project already exists but could not determine project ID from OTM file: {error_msg}")
+                        
+                        # Check if a project with this ref ID actually exists
+                        from ..utils.api_helpers import validate_project_exists
+                        exists, project_uuid = validate_project_exists(project_id, self)
+                        
+                        if not exists:
+                            # Name conflict: project exists by name but not by ref ID
+                            project_name = self._extract_project_name_from_otm(otm_file_path) or "Unknown"
+                            raise requests.RequestException(
+                                f"NAME CONFLICT: A project named '{project_name}' already exists in IriusRisk "
+                                f"but with a different reference ID than '{project_id}' in your OTM file. "
+                                f"This means you're trying to import a different project with the same name. "
+                                f"\n\nTo resolve this conflict, you must either:"
+                                f"\n  1. Rename your project in the OTM file to a unique name"
+                                f"\n  2. Change the reference ID in your OTM file"
+                                f"\n  3. Rename or delete the existing project in IriusRisk"
+                            )
+                        
+                        # Project exists by ref ID - safe to update
+                        try:
+                            self.logger.info(f"Project exists with matching ref ID '{project_id}', proceeding with auto-update")
+                            result = self.update_project_with_otm_file(project_id, otm_file_path)
+                            result['action'] = 'updated'
+                            result['ref'] = project_id  # Add ref ID for reference
+                            result['uuid'] = project_uuid  # Add UUID for version operations
+                            
+                            # Log successful update
+                            project_name = result.get('name', 'Unknown')
+                            self.logger.info(f"Successfully updated project '{project_name}' (ID: {project_id})")
+                            
+                            return result
+                        except Exception as update_error:
+                            raise requests.RequestException(f"Failed to create new project (already exists) and failed to update existing project: {str(update_error)}")
                     else:
-                        # Regular 400 error handling
-                        if e.response.status_code == 400:
-                            error_msg += f" (Bad Request - check OTM file format. Server response: {e.response.text[:200]})"
+                        # Regular 400 error or auto_update disabled
+                        if 'already exists' in error_msg.lower():
+                            error_msg += "\n\nHint: Use auto_update=True to automatically update the existing project, or change the project name/ID in your OTM file."
                         raise requests.RequestException(f"OTM import failed: {error_msg}")
                 except ValueError:
                     # JSON parsing failed, fall through to general error handling
@@ -233,17 +256,45 @@ class ProjectApiClient(BaseApiClient):
                     error_msg = error_data.get('message', str(e))
                     if e.response.status_code == 401:
                         error_msg += " (Check your API token configuration)"
-                    elif e.response.status_code == 406:
-                        error_msg += " (Not Acceptable - check request headers and content type)"
                 except:
                     error_msg = f"HTTP {e.response.status_code}: {e.response.text[:500]}"
-                    if e.response.status_code == 401:
-                        error_msg += " (Check your API token configuration)"
-                    elif e.response.status_code == 406:
-                        error_msg += " (Not Acceptable - check request headers)"
             else:
                 error_msg = str(e)
             raise requests.RequestException(f"OTM import failed: {error_msg}")
+    
+    def _extract_project_name_from_otm(self, otm_file_path: str) -> Optional[str]:
+        """Extract project name from OTM file.
+        
+        Args:
+            otm_file_path: Path to the OTM file
+            
+        Returns:
+            Project name if found, None otherwise
+        """
+        try:
+            with open(otm_file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                
+            # Try to parse as JSON first (since the file appears to be JSON)
+            try:
+                import json
+                otm_data = json.loads(content)
+                return otm_data.get('project', {}).get('name')
+            except json.JSONDecodeError:
+                # Try YAML
+                try:
+                    import yaml
+                    otm_data = yaml.safe_load(content)
+                    return otm_data.get('project', {}).get('name')
+                except ImportError:
+                    # yaml not available, try simple regex
+                    import re
+                    match = re.search(r'name:\s*["\']?([^"\'\n]+)["\']?', content)
+                    if match:
+                        return match.group(1).strip()
+        except (AttributeError, KeyError, TypeError, FileNotFoundError):
+            pass
+        return None
     
     def _extract_project_id_from_otm(self, otm_file_path: str) -> Optional[str]:
         """Extract project ID from OTM file.
@@ -276,6 +327,9 @@ class ProjectApiClient(BaseApiClient):
     def import_otm_content(self, otm_content: str, auto_update: bool = True) -> Dict[str, Any]:
         """Import OTM content to create a new project or update existing one.
         
+        Uses POST /products/otm to create a new project. If the project already exists
+        and auto_update is True, automatically falls back to updating the existing project.
+        
         Args:
             otm_content: OTM content as string
             auto_update: If True, automatically update existing project if it exists
@@ -284,6 +338,9 @@ class ProjectApiClient(BaseApiClient):
             Project creation/update response with additional 'action' field
         """
         import requests
+        
+        # Log operation start
+        self.logger.info(f"Importing OTM content (auto_update={auto_update})")
         
         # Create a simple session with API token authentication
         session = requests.Session()
@@ -303,6 +360,12 @@ class ProjectApiClient(BaseApiClient):
             
             result = response.json()
             result['action'] = 'created'
+            
+            # Log successful creation
+            project_name = result.get('name', 'Unknown')
+            project_id = result.get('id', 'Unknown')
+            self.logger.info(f"Successfully created project '{project_name}' (ID: {project_id})")
+            
             return result
         except requests.RequestException as e:
             if hasattr(e, 'response') and e.response is not None and e.response.status_code == 400:
@@ -314,55 +377,54 @@ class ProjectApiClient(BaseApiClient):
                     errors = error_data.get('errors', [])
                     already_exists_error = False
                     for error in errors:
-                        if 'already exists' in error.get('message', ''):
+                        if 'already exists' in str(error.get('message', '')).lower():
                             already_exists_error = True
                             break
                     
-                    if auto_update and (already_exists_error or 'already exists' in error_msg):
-                        # Extract project reference ID from OTM content
-                        project_ref_id = self._extract_project_id_from_content(otm_content)
-                        if project_ref_id:
-                            # Check if THIS reference ID exists in IriusRisk
-                            # The error might be about name conflict, not reference ID conflict
-                            try:
-                                filter_expr = f"'referenceId'='{project_ref_id}'"
-                                response = self.get_projects(page=0, size=1, filter_expression=filter_expr)
-                                projects = response.get('_embedded', {}).get('items', [])
-                                
-                                if projects:
-                                    # This reference ID exists - update it
-                                    project_uuid = projects[0].get('id')
-                                    result = self.update_project_with_otm_content(project_uuid, otm_content)
-                                    result['action'] = 'updated'
-                                    return result
-                                else:
-                                    # Reference ID doesn't exist - this is a name conflict with a DIFFERENT project
-                                    # Get the project name from OTM for the error message
-                                    project_name = self._extract_project_name_from_content(otm_content)
-                                    raise requests.RequestException(
-                                        f"Cannot create project with reference ID '{project_ref_id}':\n"
-                                        f"IriusRisk already has a project named '{project_name}' with a DIFFERENT reference ID.\n\n"
-                                        f"You must resolve this conflict manually:\n"
-                                        f"  1. Delete the existing '{project_name}' project in IriusRisk, OR\n"
-                                        f"  2. Change the project name in your OTM file to something unique\n\n"
-                                        f"IriusRisk does not allow multiple projects with the same name, even if they have different reference IDs."
-                                    )
-                            except Exception as check_error:
-                                if "Cannot create project" in str(check_error):
-                                    raise
-                                # Lookup failed for some reason, try update anyway
-                                try:
-                                    result = self.update_project_with_otm_content(project_ref_id, otm_content)
-                                    result['action'] = 'updated'
-                                    return result
-                                except Exception as update_error:
-                                    raise requests.RequestException(f"Failed to create new project (already exists) and failed to update existing project: {str(update_error)}")
-                        else:
-                            raise requests.RequestException(f"Project already exists but could not determine project ID for update: {error_msg}")
+                    if auto_update and (already_exists_error or 'already exists' in error_msg.lower()):
+                        # Extract project ID from OTM content
+                        self.logger.info("Project already exists, checking if it's the same project by ref ID")
+                        project_id = self._extract_project_id_from_content(otm_content)
+                        
+                        if not project_id:
+                            raise requests.RequestException(f"Project already exists but could not determine project ID from OTM content: {error_msg}")
+                        
+                        # Check if a project with this ref ID actually exists
+                        from ..utils.api_helpers import validate_project_exists
+                        exists, project_uuid = validate_project_exists(project_id, self)
+                        
+                        if not exists:
+                            # Name conflict: project exists by name but not by ref ID
+                            project_name = self._extract_project_name_from_content(otm_content) or "Unknown"
+                            raise requests.RequestException(
+                                f"NAME CONFLICT: A project named '{project_name}' already exists in IriusRisk "
+                                f"but with a different reference ID than '{project_id}' in your OTM content. "
+                                f"This means you're trying to import a different project with the same name. "
+                                f"\n\nTo resolve this conflict, you must either:"
+                                f"\n  1. Rename your project in the OTM content to a unique name"
+                                f"\n  2. Change the reference ID in your OTM content"
+                                f"\n  3. Rename or delete the existing project in IriusRisk"
+                            )
+                        
+                        # Project exists by ref ID - safe to update
+                        try:
+                            self.logger.info(f"Project exists with matching ref ID '{project_id}', proceeding with auto-update")
+                            result = self.update_project_with_otm_content(project_id, otm_content)
+                            result['action'] = 'updated'
+                            result['ref'] = project_id  # Add ref ID for reference
+                            result['uuid'] = project_uuid  # Add UUID for version operations
+                            
+                            # Log successful update
+                            project_name = result.get('name', 'Unknown')
+                            self.logger.info(f"Successfully updated project '{project_name}' (ID: {project_id})")
+                            
+                            return result
+                        except Exception as update_error:
+                            raise requests.RequestException(f"Failed to create new project (already exists) and failed to update existing project: {str(update_error)}")
                     else:
-                        # Regular 400 error handling
-                        if e.response.status_code == 400:
-                            error_msg += f" (Bad Request - check OTM content format. Server response: {e.response.text[:200]})"
+                        # Regular 400 error or auto_update disabled
+                        if 'already exists' in error_msg.lower():
+                            error_msg += "\n\nHint: Use auto_update=True to automatically update the existing project, or change the project name/ID in your OTM content."
                         raise requests.RequestException(f"OTM import failed: {error_msg}")
                 except ValueError:
                     # JSON parsing failed, fall through to general error handling
@@ -375,14 +437,8 @@ class ProjectApiClient(BaseApiClient):
                     error_msg = error_data.get('message', str(e))
                     if e.response.status_code == 401:
                         error_msg += " (Check your API token configuration)"
-                    elif e.response.status_code == 406:
-                        error_msg += " (Not Acceptable - check request headers and content type)"
                 except:
                     error_msg = f"HTTP {e.response.status_code}: {e.response.text[:500]}"
-                    if e.response.status_code == 401:
-                        error_msg += " (Check your API token configuration)"
-                    elif e.response.status_code == 406:
-                        error_msg += " (Not Acceptable - check request headers)"
             else:
                 error_msg = str(e)
             raise requests.RequestException(f"OTM import failed: {error_msg}")
@@ -478,6 +534,8 @@ class ProjectApiClient(BaseApiClient):
                     error_msg = error_data.get('message', str(e))
                     if e.response.status_code == 401:
                         error_msg += " (Check your API token configuration)"
+                    elif e.response.status_code == 404:
+                        error_msg = f"Project not found or not updateable (project may not be in draft mode, may be locked, or may be read-only). Project ID: {project_id}"
                     elif e.response.status_code == 400:
                         error_msg += f" (Bad Request - check OTM file format. Server response: {e.response.text[:200]})"
                     elif e.response.status_code == 406:
@@ -486,6 +544,8 @@ class ProjectApiClient(BaseApiClient):
                     error_msg = f"HTTP {e.response.status_code}: {e.response.text[:500]}"
                     if e.response.status_code == 401:
                         error_msg += " (Check your API token configuration)"
+                    elif e.response.status_code == 404:
+                        error_msg = f"HTTP 404: Project not found or not updateable (project may not be in draft mode, may be locked, or may be read-only). Project ID: {project_id}"
                     elif e.response.status_code == 400:
                         error_msg += " (Bad Request - check OTM file format)"
                     elif e.response.status_code == 406:

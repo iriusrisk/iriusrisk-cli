@@ -266,12 +266,19 @@ def get_paginated_results(fetch_function: callable,
 
 
 def validate_project_exists(project_id: str,
-                          api_client: Optional[ProjectApiClient] = None) -> Tuple[bool, str]:
+                          api_client: Optional[ProjectApiClient] = None,
+                          project_name: Optional[str] = None) -> Tuple[bool, str]:
     """Validate that a project exists and return its UUID.
     
+    For OTM imports, ONLY checks reference ID (not name) because:
+    - Different OTM files may have same name but different reference IDs
+    - They should be treated as different projects
+    - Name matching can incorrectly update unrelated projects
+    
     Args:
-        project_id: Project ID (UUID or reference ID)
+        project_id: Project ID (UUID or reference ID)  
         api_client: Optional API client instance
+        project_name: Optional project name (currently ignored for OTM imports)
         
     Returns:
         Tuple of (exists, uuid) where exists is boolean and uuid is the project UUID
@@ -279,13 +286,16 @@ def validate_project_exists(project_id: str,
     if api_client is None:
         api_client = ProjectApiClient()
     
+    # Only try to find by reference ID
     try:
         project_uuid = resolve_project_id_to_uuid(project_id, api_client)
         # Try to fetch the project to confirm it exists
         api_client.get_project(project_uuid)
         return True, project_uuid
     except Exception:
-        return False, ""
+        pass
+    
+    return False, ""
 
 
 def batch_update_items(items: List[Dict[str, Any]],

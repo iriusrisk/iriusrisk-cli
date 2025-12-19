@@ -89,9 +89,9 @@ class TestIriusRiskApiClientCoordinator:
         client.project_client.import_otm_file = Mock(return_value={'id': 'project-123', 'action': 'created'})
         
         # Call the coordinator method
-        result = client.import_otm_file('/path/to/file.otm', auto_update=True)
+        result = client.import_otm_file('/path/to/file.otm')
         
-        # Verify delegation occurred
+        # Verify delegation occurred with default auto_update=True
         client.project_client.import_otm_file.assert_called_once_with('/path/to/file.otm', True)
         assert result == {'id': 'project-123', 'action': 'created'}
     

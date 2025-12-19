@@ -180,23 +180,24 @@ DO NOT PROCEED with threat modeling until the project is initialized.
             return error_msg
     
     @mcp_server.tool()
-    async def import_otm(otm_file_path: str, project_id: str = None) -> str:
+    async def import_otm(otm_file_path: str) -> str:
         """Import an OTM (Open Threat Model) file to create or update a project.
         
         In stdio mode, provide a file path to the OTM file. The file will be read
         from the local filesystem and imported to IriusRisk.
         
+        The tool automatically determines whether to create or update:
+        - Reads the project reference ID from the OTM file
+        - If a project with that ID exists in IriusRisk, it updates it (PUT)
+        - If no project exists with that ID, it creates a new one (POST)
+        
         Args:
             otm_file_path: Path to the OTM file (relative or absolute)
-            project_id: Optional project UUID or reference ID to update an EXISTING project.
-                       If provided, checks if project exists first. If project doesn't exist,
-                       creates a new project instead of failing with 404.
-                       If not provided, creates new project (or auto-updates if name matches).
         
         Returns:
             Status message with project details
         """
-        logger.info(f"MCP tool invoked: import_otm (file={otm_file_path}, project_id={project_id})")
+        logger.info(f"MCP tool invoked: import_otm (file={otm_file_path})")
         
         try:
             # Resolve file path
@@ -237,70 +238,16 @@ DO NOT PROCEED with threat modeling until the project is initialized.
                     logger.error(error_msg)
                     return error_msg
             
-            # ============================================================================
-            # CRITICAL: V1 OTM API DOES NOT REQUIRE UUID RESOLUTION - DO NOT "FIX" THIS!
-            # ============================================================================
-            # The V1 API endpoint PUT /products/otm/{project_id} accepts BOTH:
-            #   - UUIDs (e.g., "a1b2c3d4-e5f6-...")
-            #   - Reference IDs (e.g., "my-project-ref")
-            #
-            # Unlike V2 API endpoints which STRICTLY require UUIDs in URL paths,
-            # the V1 OTM endpoints handle reference ID resolution internally.
-            #
-            # ❌ DO NOT add resolve_project_id_to_uuid_strict() here! ❌
-            # 
-            # Why this breaks if you add resolution:
-            #   1. Makes an unnecessary extra API call (performance penalty)
-            #   2. FAILS when updating by reference ID: tries to look up project that
-            #      may not exist yet, even though the V1 API would handle it correctly
-            #   3. Error message becomes confusing: "Project not found" when the real
-            #      issue is we're looking up before the API needs it
-            #   4. The CLI command (commands/otm.py line 125) doesn't do resolution
-            #      and works perfectly fine - MCP should match CLI behavior
-            #
-            # Example of what BREAKS if you add resolution:
-            #   import_otm("file.otm", project_id="badger-app-poug")
-            #   → Resolution tries: GET /projects?filter='referenceId'='badger-app-poug'
-            #   → No project found yet → Exception: "Project not found"
-            #   → But PUT /products/otm/badger-app-poug would have worked!
-            #
-            # When you DO need UUID resolution:
-            #   - V2 API endpoints: GET /v2/projects/{uuid}/threats
-            #   - See: mcp/tools/stdio_tools.py lines 510, 599 (threat/countermeasure updates)
-            #   - See: mcp/tools/stdio_tools.py lines 439, 680, 804 (get_project, reports, diagrams)
-            #
-            # This has been a RECURRING issue where someone "fixes" this by adding
-            # resolution, breaks OTM import, then it gets removed, then someone adds
-            # it back. If you're tempted to add resolve_project_id_to_uuid_strict()
-            # here, re-read these comments first!
-            # ============================================================================
+            # Simple approach: Let the API client handle create-or-update logic
+            # The API client will try to create, and if it exists, automatically update
+            logger.info("Importing OTM content via API client")
+            result = api_client.import_otm_content(otm_content, auto_update=True)
             
-            # Import via API
-            if project_id:
-                # Check if project exists first before attempting update
-                # This avoids the 404 error when project_id is provided but project doesn't exist yet
-                from ...utils.api_helpers import validate_project_exists
-                from ...api.project_client import ProjectApiClient
-                project_client = ProjectApiClient()
-                
-                exists, resolved_uuid = validate_project_exists(project_id, project_client)
-                
-                if exists:
-                    # Project exists - update it
-                    result = api_client.update_project_with_otm_content(resolved_uuid or project_id, otm_content)
-                    action = "updated"
-                else:
-                    # Project doesn't exist - create it instead
-                    logger.info(f"Project '{project_id}' not found, creating new project instead")
-                    result = api_client.import_otm_content(otm_content, auto_update=True)
-                    action = result.get('action', 'created')
-            else:
-                # Create new project (or auto-update if exists)
-                result = api_client.import_otm_content(otm_content, auto_update=True)
-                action = result.get('action', 'created')
-            
+            action = result.get('action', 'processed')
             result_project_id = result.get('id', 'Unknown')
             project_name = result.get('name', 'Unknown')
+            
+            logger.info(f"OTM import {action}: {project_name} ({result_project_id})")
             
             # Build output
             output = []

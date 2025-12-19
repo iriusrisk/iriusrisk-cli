@@ -33,6 +33,14 @@ class MockIriusRiskApiClient:
         self.v1_base_url = 'https://test.iriusrisk.com/api/v1'
         self.session = Mock()
         
+        # Add client attributes - point to self since mock has all methods
+        # (version_client is a property, so don't set it here)
+        self.project_client = self
+        self.threat_client = self
+        self.countermeasure_client = self
+        self.report_client = self
+        self.health_client = self
+        
         self._load_fixtures()
     
     def _load_fixtures(self):

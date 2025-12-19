@@ -34,24 +34,22 @@ def otm():
 
 @otm.command()
 @click.argument('otm_file', type=click.Path(exists=True, readable=True))
-@click.option('--update', '-u', help='Update existing project by ID instead of auto-detecting')
-@click.option('--no-auto-update', is_flag=True, help='Disable automatic update if project exists')
 @click.option('--format', 'output_format', type=click.Choice(['json', 'table']), 
               default='table', help='Output format')
-def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, output_format: str):
+def import_cmd(otm_file: str, output_format: str):
     """Import an OTM file to create or update a project.
     
-    By default, if a project with the same ID already exists, it will be automatically
-    updated. Use --no-auto-update to disable this behavior.
+    The command automatically determines whether to create or update:
+    - Reads the project reference ID from the OTM file
+    - If a project with that ID exists in IriusRisk, it updates it (PUT)
+    - If no project exists with that ID, it creates a new one (POST)
     
     Args:
         OTM_FILE: Path to the OTM file to import
         
     Examples:
-        iriusrisk otm import example.otm                    # Create new or auto-update existing
-        iriusrisk otm import example.otm -u PROJECT_ID      # Update specific project
-        iriusrisk otm import example.otm --no-auto-update   # Only create, fail if exists
-        iriusrisk otm import example.otm --format json      # Output as JSON
+        iriusrisk otm import example.otm              # Import (create or update)
+        iriusrisk otm import example.otm --format json  # Output as JSON
     """
     otm_path = Path(otm_file)
     
@@ -69,68 +67,38 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
         project_config = config.get_project_config()
         auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
         
-        # Determine the project ID to version (if applicable)
-        project_id_to_version = None
+        # Simple approach: Let the API client handle create-or-update logic
+        click.echo(f"Importing OTM file: {otm_file}")
+        result = api_client.import_otm_file(str(otm_path), auto_update=True)
         
-        if auto_versioning_enabled:
-            if update:
-                # Explicit update - use the provided project ID
-                project_id_to_version = update
-            elif not no_auto_update:
-                # Auto-update mode - check if project exists by extracting ID from OTM file
-                try:
-                    # Extract project ID from OTM file
-                    from ..api.project_client import ProjectApiClient
-                    project_client = container.get(ProjectApiClient)
-                    potential_project_id = project_client._extract_project_id_from_otm(str(otm_path))
-                    
-                    if potential_project_id:
-                        # Check if project exists
-                        from ..utils.api_helpers import validate_project_exists
-                        exists, project_uuid = validate_project_exists(potential_project_id, project_client)
-                        if exists:
-                            project_id_to_version = project_uuid
-                            logger.info(f"Auto-versioning: Detected existing project '{potential_project_id}' that will be updated")
-                except Exception as e:
-                    logger.debug(f"Could not check if project exists for auto-versioning: {e}")
-        
-        # Create version if we determined a project needs versioning
-        if project_id_to_version:
-            logger.info("Auto-versioning is enabled, creating backup version before import")
-            click.echo("📸 Auto-versioning enabled: Creating backup version before import...")
+        # Create version AFTER successful import if auto-versioning is enabled
+        # This creates a version for the NEXT update
+        if auto_versioning_enabled and result.get('action') == 'updated':
+            logger.info("Auto-versioning is enabled, creating version after successful update")
+            click.echo("📸 Auto-versioning: Creating backup version after update...")
             
             try:
                 version_service = container.get(VersionService)
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                version_name = f"Auto-backup before import {timestamp}"
+                version_name = f"After OTM import {timestamp}"
                 
-                # Create version and wait for completion
+                # Create version using UUID (required for version operations)
+                project_uuid = result.get('uuid')
+                if not project_uuid:
+                    raise ValueError("Project UUID not available for version creation")
+                
                 version_service.create_version(
-                    project_id=project_id_to_version,
+                    project_id=project_uuid,
                     name=version_name,
-                    description="Automatic backup created by CLI before OTM import",
-                    wait=True,
+                    description="Auto-versioning backup created by CLI after OTM import",
+                    wait=False,  # Don't wait, let it happen in background
                     timeout=300
                 )
-                click.echo("✅ Backup version created successfully")
+                click.echo("✅ Auto-versioning: Backup version created successfully")
             except Exception as e:
-                # Log the error but continue with import
-                logger.warning(f"Failed to create backup version: {e}")
-                click.echo(f"⚠️  Warning: Could not create backup version: {e}")
-                click.echo("   Continuing with import...")
-        
-        if update:
-            # Explicit update of existing project
-            # NOTE: We pass 'update' directly without UUID resolution because the V1 OTM API
-            # accepts both UUIDs and reference IDs. See api/project_client.py for details.
-            click.echo(f"Updating project '{update}' with OTM file: {otm_file}")
-            result = api_client.update_project_with_otm_file(update, str(otm_path))
-            result['action'] = 'updated'
-        else:
-            # Create new project or auto-update if exists
-            click.echo(f"Importing OTM file: {otm_file}")
-            auto_update = not no_auto_update
-            result = api_client.import_otm_file(str(otm_path), auto_update=auto_update)
+                # Log the error but don't fail the import
+                logger.warning(f"Auto-versioning failed to create version after import: {e}")
+                click.echo(f"⚠️  Warning: Auto-versioning could not create backup: {e}")
         
         if output_format == 'json':
             click.echo(json.dumps(result, indent=2))
@@ -140,12 +108,13 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
             project_name = result.get('name', 'Unknown')
             action = result.get('action', 'processed')
             
-            click.echo(f"\n✓ Project successfully {action}!")
-            click.echo(f"  ID: {project_id}")
-            click.echo(f"  Name: {project_name}")
+            click.echo(f"\n✓ OTM import successful!")
+            click.echo(f"  Action: Project {action}")
+            click.echo(f"  Project ID: {project_id}")
+            click.echo(f"  Project Name: {project_name}")
             
             if 'ref' in result:
-                click.echo(f"  Reference: {result['ref']}")
+                click.echo(f"  Reference ID: {result['ref']}")
             
     except Exception as e:
         click.echo(f"Error importing OTM file: {str(e)}", err=True)

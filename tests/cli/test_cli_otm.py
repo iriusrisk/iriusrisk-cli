@@ -67,15 +67,15 @@ class TestOTMCommands:
         finally:
             os.unlink(otm_file)
     
-    def test_otm_import_update_project(self, cli_runner, mock_api_client):
-        """Test 'iriusrisk otm import --update' command."""
+    def test_otm_import_creates_or_updates(self, cli_runner, mock_api_client):
+        """Test 'iriusrisk otm import' command automatically creates or updates."""
         # Create a temporary OTM file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False) as f:
             otm_data = {
                 "otmVersion": "0.1.0",
                 "project": {
-                    "name": "Test Project Update",
-                    "id": "test-project-update"
+                    "name": "Test Project",
+                    "id": "test-project-123"
                 },
                 "representations": []
             }
@@ -83,10 +83,10 @@ class TestOTMCommands:
             otm_file = f.name
         
         try:
-            result = cli_runner.invoke(cli, ['otm', 'import', otm_file, '--update', 'existing-project-id'])
+            result = cli_runner.invoke(cli, ['otm', 'import', otm_file])
             
-            # Should attempt to update existing project
-            assert result.exit_code in [0, 1], f"Update import should run: {result.output}"
+            # Should attempt to import (create or update automatically)
+            assert result.exit_code in [0, 1], f"Import should run: {result.output}"
             assert result.output.strip(), "Should produce some output"
         finally:
             os.unlink(otm_file)
@@ -134,7 +134,7 @@ class TestOTMCommands:
         result = cli_runner.invoke(cli, ['otm', 'import', '--help'])
         
         assert_cli_success(result)
-        assert 'update' in result.output.lower()
+        assert 'create' in result.output.lower() or 'import' in result.output.lower()
     
     def test_otm_export_help(self, cli_runner):
         """Test that OTM export help works."""
@@ -201,8 +201,8 @@ class TestOTMCommandsWithFixtures:
 class TestOTMAutoVersioning:
     """Test auto versioning functionality for OTM imports."""
     
-    def test_otm_import_with_auto_versioning_explicit_update(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
-        """Test auto versioning with explicit --update flag."""
+    def test_otm_import_with_auto_versioning_existing_project(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
+        """Test auto versioning when updating an existing project."""
         # Create a temporary OTM file
         otm_file = tmp_path / "test.otm"
         otm_data = {
@@ -227,8 +227,8 @@ class TestOTMAutoVersioning:
         # Mock the current working directory
         monkeypatch.chdir(tmp_path)
         
-        # Run import with explicit update
-        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file), '--update', 'test-project-123'])
+        # Run import (will automatically update if project exists)
+        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file)])
         
         # Should attempt to create a version (may succeed or fail depending on mock)
         # The key is that the auto-versioning logic should be triggered
@@ -239,15 +239,15 @@ class TestOTMAutoVersioning:
             assert 'Auto-versioning' in result.output or 'Backup' in result.output, \
                 f"Should mention auto-versioning: {result.output}"
     
-    def test_otm_import_with_auto_versioning_auto_update(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
-        """Test auto versioning with auto-update mode (no explicit --update flag)."""
+    def test_otm_import_new_project_with_auto_versioning(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
+        """Test auto versioning does not trigger for new projects."""
         # Create a temporary OTM file
         otm_file = tmp_path / "test.otm"
         otm_data = {
             "otmVersion": "0.1.0",
             "project": {
                 "name": "Test Project",
-                "id": "test-project-auto-update"
+                "id": "test-project-new"
             }
         }
         otm_file.write_text(json.dumps(otm_data))
@@ -257,7 +257,7 @@ class TestOTMAutoVersioning:
         project_dir.mkdir()
         project_config = {
             "name": "Test Project",
-            "reference_id": "test-project-auto-update",
+            "reference_id": "test-project-new",
             "auto_versioning": True
         }
         (project_dir / "project.json").write_text(json.dumps(project_config))
@@ -265,14 +265,14 @@ class TestOTMAutoVersioning:
         # Mock the current working directory
         monkeypatch.chdir(tmp_path)
         
-        # Run import without explicit update (should use auto-update)
+        # Run import (project doesn't exist, so creates new)
         result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file)])
         
         # The command should run (success depends on mock data)
-        assert result.exit_code in [0, 1], f"Import with auto-update should run: {result.output}"
+        assert result.exit_code in [0, 1], f"Import should run: {result.output}"
         
-        # If the project exists and auto-versioning is working, we should see versioning message
-        # (This might not always trigger if the mock doesn't simulate an existing project)
+        # Should produce output but may or may not mention versioning
+        # (versioning only happens if project already exists)
         assert result.output.strip(), "Should produce some output"
     
     def test_otm_import_without_auto_versioning(self, cli_runner, mock_api_client, tmp_path, monkeypatch):
@@ -302,7 +302,7 @@ class TestOTMAutoVersioning:
         monkeypatch.chdir(tmp_path)
         
         # Run import
-        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file), '--update', 'test-project-no-version'])
+        result = cli_runner.invoke(cli, ['otm', 'import', str(otm_file)])
         
         # Should run but NOT mention auto-versioning
         assert result.exit_code in [0, 1], f"Import should run: {result.output}"

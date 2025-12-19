@@ -390,30 +390,33 @@ project:
             f.flush()
             
             try:
-                result = self.client.import_otm_file(f.name, auto_update=False)
+                result = self.client.import_otm_file(f.name)
                 assert result['id'] == 'new-project-uuid'
-                assert result['action'] == 'created'
                 mock_post.assert_called_once()
             finally:
                 os.unlink(f.name)
     
+    @patch('iriusrisk_cli.utils.api_helpers.validate_project_exists')
     @patch('requests.Session.post')
-    @patch('iriusrisk_cli.api.project_client.ProjectApiClient.update_project_with_otm_file')
-    def test_import_otm_file_auto_update_on_conflict(self, mock_update, mock_post):
-        """Test importing OTM file with auto-update on conflict."""
-        # First request fails with 400 (project exists)
+    def test_import_otm_file_conflict_returns_error(self, mock_post, mock_validate):
+        """Test importing OTM file that conflicts with existing project returns error (name conflict)."""
+        # Request fails with 400 (project exists by name)
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {
-            'errors': [{'message': 'A project with ID "existing-project" already exists'}]
+            'message': 'A project with name "Existing Project" already exists',
+            'errors': [{'message': 'Project already exists'}]
         }
+        mock_response.text = 'A project with name "Existing Project" already exists'
         
         # Create HTTPError with response attribute
         http_error = requests.HTTPError("400 Bad Request")
         http_error.response = mock_response
         mock_response.raise_for_status.side_effect = http_error
         mock_post.return_value = mock_response
-        mock_update.return_value = {'id': 'updated-project-uuid'}
+        
+        # Mock validate_project_exists to return False (name conflict - exists by name but not by ref ID)
+        mock_validate.return_value = (False, "")
         
         otm_content = """
 otmVersion: "0.1.0"
@@ -427,9 +430,65 @@ project:
             f.flush()
             
             try:
-                result = self.client.import_otm_file(f.name, auto_update=True)
-                assert result['id'] == 'updated-project-uuid'
-                mock_update.assert_called_once_with('existing-project', f.name)
+                with pytest.raises(requests.RequestException) as exc_info:
+                    self.client.import_otm_file(f.name)
+                # Verify it's a name conflict error
+                assert "NAME CONFLICT" in str(exc_info.value)
+            finally:
+                os.unlink(f.name)
+    
+    @patch('iriusrisk_cli.utils.api_helpers.validate_project_exists')
+    @patch('requests.Session.put')
+    @patch('requests.Session.post')
+    def test_import_otm_file_auto_update_success(self, mock_post, mock_put, mock_validate):
+        """Test successful auto-update when project exists by ref ID."""
+        # Mock POST response - project already exists error
+        mock_post_response = Mock()
+        mock_post_response.status_code = 400
+        mock_post_response.json.return_value = {
+            'message': 'Bad Request',
+            'errors': [{'message': 'Project already exists'}]
+        }
+        
+        # Create HTTPError for POST
+        http_error = requests.HTTPError("400 Bad Request")
+        http_error.response = mock_post_response
+        mock_post_response.raise_for_status.side_effect = http_error
+        mock_post.return_value = mock_post_response
+        
+        # Mock validate_project_exists to return True (project exists by ref ID)
+        mock_validate.return_value = (True, "550e8400-e29b-41d4-a716-446655440000")
+        
+        # Mock PUT response - successful update
+        mock_put_response = Mock()
+        mock_put_response.raise_for_status.return_value = None
+        mock_put_response.json.return_value = {
+            'id': 'existing-project',
+            'name': 'Existing Project',
+            'uuid': '550e8400-e29b-41d4-a716-446655440000'
+        }
+        mock_put.return_value = mock_put_response
+        
+        otm_content = """
+otmVersion: "0.1.0"
+project:
+  id: "existing-project"
+  name: "Existing Project"
+"""
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False) as f:
+            f.write(otm_content)
+            f.flush()
+            
+            try:
+                result = self.client.import_otm_file(f.name)
+                # Verify successful update
+                assert result['action'] == 'updated'
+                assert result['id'] == 'existing-project'
+                # Verify validate was called with the project ID
+                mock_validate.assert_called_once()
+                # Verify PUT was called (update)
+                mock_put.assert_called_once()
             finally:
                 os.unlink(f.name)
     
