@@ -3,6 +3,59 @@
 ## Executive Summary
 After completing the threat modeling workflow, IriusRisk generates threats and countermeasures saved to `.iriusrisk/` directory. Your role: read these JSON files, explain findings in business terms, prioritize by risk, provide implementation guidance and code examples. Do NOT create new threats, modify risk ratings, or analyze source code for vulnerabilities—that's IriusRisk's job.
 
+## CRITICAL: Understanding Threat States vs State Transitions
+
+**Threat States (What You See in Data):**
+- `expose` - Threat is unaddressed and exposed
+- `accept` - Real threat exists, risk consciously accepted
+- `mitigate` - Threat is fully mitigated (AUTO-CALCULATED)
+- `partly-mitigate` - Threat is partially mitigated (AUTO-CALCULATED)
+- `na` (not-applicable) - Threat is a false positive / doesn't apply
+- `hidden` - Threat is hidden (AUTO-CALCULATED)
+
+**State Transitions You Can Set (Via track_threat_update):**
+
+1. **`accept`** - THE THREAT IS REAL, but accepting the risk
+   - Use when: Threat exists but compensating controls are in place
+   - Use when: Risk is not worth the resources to fix
+   - Use when: Too difficult/expensive to fix right now
+   - Use when: Business decision to live with the risk
+   - **ALWAYS requires a reason** explaining why the risk is acceptable
+   - Example: "Accepting SQL injection risk - we have WAF in place and read-only database access"
+
+2. **`expose`** - Leave the threat exposed (unaddressed)
+   - Use when: Threat exists but no decision made yet
+   - Use when: Deferring decision to later
+   - Default state for most threats
+
+3. **`not-applicable`** - THE THREAT DOES NOT EXIST (false positive)
+   - Use when: Threat scenario doesn't apply to this architecture
+   - Use when: Component/feature that would create threat isn't present
+   - Use when: IriusRisk incorrectly flagged this as a threat
+   - Example: "XSS threat doesn't apply - this is a CLI application with no web interface"
+
+4. **`undo-not-applicable`** - Undo a previous not-applicable marking
+   - Use when: Previously marked as false positive but actually does apply
+
+**IMPORTANT: You CANNOT directly set these states:**
+- `mitigate` - Auto-calculated when ALL countermeasures are implemented
+- `partly-mitigate` - Auto-calculated when SOME countermeasures are implemented
+- `hidden` - Auto-calculated state
+
+**To mitigate a threat:** Implement its associated countermeasures using `track_countermeasure_update` with status `implemented`. The threat state will automatically update to `mitigate` or `partly-mitigate`.
+
+## DO NOT CONFUSE: Accept vs Not-Applicable
+
+**WRONG**: Marking a threat as "not-applicable" because the risk is low or acceptable
+**RIGHT**: Mark as "accept" - the threat exists, we acknowledge it, we accept the risk
+
+**WRONG**: Marking a threat as "accept" when it's a false positive
+**RIGHT**: Mark as "not-applicable" - the threat doesn't actually exist in this context
+
+Think of it this way:
+- **Accept** = "Yes, this threat is real, but we're okay with the risk"
+- **Not-applicable** = "No, this threat is not real in our context - false alarm"
+
 ## Available Data Files
 
 After sync(), read these JSON files from `.iriusrisk/` directory:

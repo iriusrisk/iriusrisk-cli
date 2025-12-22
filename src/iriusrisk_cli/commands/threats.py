@@ -265,8 +265,8 @@ def search(cli_ctx, search_string: str, project_id: Optional[str], page: int, si
 @threat.command()
 @click.argument('threat_id')
 @click.option('--status', '-s', required=True, 
-              type=click.Choice(['accept', 'mitigate', 'expose', 'partly-mitigate', 'hidden'], case_sensitive=False),
-              help='New status for the threat')
+              type=click.Choice(['accept', 'expose', 'not-applicable', 'undo-not-applicable'], case_sensitive=False),
+              help='New status for the threat (mitigate/partly-mitigate are auto-calculated)')
 @click.option('--reason', '-r', help='Reason for the status change (required for "accept" status)')
 @click.option('--comment', '-c', help='Detailed comment with implementation details and code snippets')
 @click.option('--project', '-p', help='Project ID (optional if default project configured)')
@@ -277,19 +277,42 @@ def update(cli_ctx, threat_id: str, status: str, reason: Optional[str], comment:
     This command updates the state of a specific threat by its ID.
     The threat ID should be the full UUID as returned by threat list/show commands.
     
+    IMPORTANT: Understand the difference between statuses:
+    
+    - accept: The threat IS REAL, but you're accepting the risk
+      (e.g., compensating controls in place, or risk not worth fixing)
+    
+    - not-applicable: The threat DOES NOT EXIST in your context
+      (e.g., false positive, feature doesn't apply to your architecture)
+    
+    - expose: Leave the threat unaddressed (default state)
+    
+    NOTE: The states 'mitigate', 'partly-mitigate', and 'hidden' are auto-calculated by IriusRisk
+    based on countermeasure implementation status and cannot be set directly.
+    
     Examples:
-        # Update threat status to accept (reason required for accept)
-        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 --status accept --reason "Risk accepted after review"
+        # Accept a real threat with reason
+        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 \\
+          --status accept \\
+          --reason "WAF provides protection, DB is read-only"
         
-        # Update threat to other status (reason optional)
-        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 --status mitigate
+        # Mark as not applicable (false positive)
+        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 \\
+          --status not-applicable \\
+          --reason "XSS doesn't apply - this is a CLI tool with no web interface"
+        
+        # Leave threat exposed
+        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 --status expose
         
         # Update threat in specific project
-        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 --status mitigate --project my-project-id
+        iriusrisk threat update e29deb79-ae4d-4c42-8180-56e79149d180 \\
+          --status accept \\
+          --reason "Accepting risk" \\
+          --project my-project-id
     
     Args:
         threat_id: Threat UUID
-        status: New status for the threat
+        status: New status for the threat (accept, expose, not-applicable, undo-not-applicable)
         reason: Reason for the status change (required when status is "accept", optional for other statuses)
         project: Project ID (optional if default project configured)
     """

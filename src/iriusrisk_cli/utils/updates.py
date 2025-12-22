@@ -79,18 +79,36 @@ class UpdateTracker:
     def track_threat_update(self, threat_id: str, status: str, reason: str, context: Optional[str] = None, comment: Optional[str] = None) -> bool:
         """Track a threat status update.
         
+        IMPORTANT: Understand 'accept' vs 'not-applicable':
+        - accept: Threat IS REAL, but accepting the risk (compensating controls, risk tolerance)
+        - not-applicable: Threat DOES NOT EXIST (false positive, doesn't apply to architecture)
+        
         Args:
             threat_id: Threat UUID
-            status: New status (accept, mitigate, expose, partly-mitigate, hidden)
+            status: New status (accept, expose, not-applicable, undo-not-applicable)
+                   - accept: Real threat, accepting risk (needs strong reason)
+                   - expose: Leave unaddressed
+                   - not-applicable: False positive, threat doesn't exist
+                   - undo-not-applicable: Revert previous not-applicable
+                   Note: mitigate/partly-mitigate/hidden are auto-calculated by IriusRisk
             reason: Reason for the status change
+                   For accept: Explain compensating controls or why risk is acceptable
+                   For not-applicable: Explain why threat doesn't apply to this system
             context: Optional context about the change
             comment: Optional detailed comment with implementation details
             
         Returns:
             True if update was tracked successfully
         """
-        valid_statuses = ['accept', 'mitigate', 'expose', 'partly-mitigate', 'hidden']
+        valid_statuses = ['accept', 'expose', 'not-applicable', 'undo-not-applicable']
         if status.lower() not in valid_statuses:
+            # Provide helpful error message for commonly attempted invalid states
+            if status.lower() in ['mitigate', 'partly-mitigate', 'hidden']:
+                raise ValueError(
+                    f"Invalid threat status: {status}. This is an auto-calculated state. "
+                    f"Threats become 'mitigate' or 'partly-mitigate' automatically when countermeasures are implemented. "
+                    f"Valid state transitions are: {valid_statuses}"
+                )
             raise ValueError(f"Invalid threat status: {status}. Must be one of: {valid_statuses}")
         
         update_entry = {

@@ -77,7 +77,8 @@ class TestThreatCommands:
         # Clear call log to verify API calls
         mock_api_client.clear_call_log()
         
-        result = cli_runner.invoke(cli, ['threat', 'update', 'threat-123', '--status', 'mitigate', '--project', 'test-project'])
+        # Use 'accept' which is a valid state transition (mitigate is auto-calculated)
+        result = cli_runner.invoke(cli, ['threat', 'update', 'threat-123', '--status', 'accept', '--reason', 'Risk accepted', '--project', 'test-project'])
         
         # Command should handle gracefully with mock data
         if result.exit_code == 0:
@@ -85,7 +86,7 @@ class TestThreatCommands:
             assert result.output.strip(), "Should produce output"
             output_lower = result.output.lower()
             # Should reference the operation or status
-            assert any(keyword in output_lower for keyword in ['updated', 'mitigate', 'threat', 'success']), \
+            assert any(keyword in output_lower for keyword in ['updated', 'accept', 'threat', 'success']), \
                 f"Should indicate update operation: {result.output}"
         else:
             # If failed, should provide meaningful error

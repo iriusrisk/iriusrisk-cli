@@ -880,11 +880,40 @@ def mcp(cli_ctx):
         Use this tool when implementing security measures that address specific threats.
         The updates will be applied to IriusRisk when the user runs the sync command.
         
+        IMPORTANT: Threat states 'mitigate', 'partly-mitigate', and 'hidden' are AUTO-CALCULATED by IriusRisk
+        based on countermeasure implementation status. You cannot set these directly. Instead:
+        - To mitigate a threat: Implement its associated countermeasures
+        - The threat state will automatically become 'mitigate' or 'partly-mitigate' based on countermeasure completion
+        
+        CRITICAL: Understand the difference between 'accept' and 'not-applicable':
+        
+        Use 'accept' when THE THREAT IS REAL but you're choosing to accept the risk:
+        - Compensating controls are in place
+        - Risk is not worth the resources to fix
+        - Too difficult/expensive to fix right now
+        - Business decision to live with the risk
+        Example: "Accepting SQL injection risk - WAF protects us and DB is read-only"
+        
+        Use 'not-applicable' when THE THREAT DOES NOT EXIST (false positive):
+        - Threat scenario doesn't apply to this architecture
+        - Component/feature that would create threat isn't present
+        - IriusRisk incorrectly flagged this
+        Example: "XSS threat doesn't apply - this is a CLI tool with no web interface"
+        
+        DO NOT use 'not-applicable' just because risk is low - that's what 'accept' is for!
+        
         Args:
             threat_id: The UUID of the threat to update (use the "id" field from threats.json, 
                       NOT the "referenceId" field. Must be a UUID like "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
-            status: New status (accept, mitigate, expose, partly-mitigate, hidden)
+            status: New status - MUST be one of:
+                   - 'accept': Real threat, accepting the risk (requires strong reason)
+                   - 'expose': Leave unaddressed for now
+                   - 'not-applicable': False positive, threat doesn't exist here
+                   - 'undo-not-applicable': Revert previous not-applicable marking
+                   (mitigate/partly-mitigate/hidden are auto-calculated and cannot be set)
             reason: Brief explanation of why the status is being changed
+                   For 'accept': Must explain compensating controls or why risk is acceptable
+                   For 'not-applicable': Must explain why threat doesn't apply to this architecture
             project_path: Full path to the project directory (where .iriusrisk is located)
             context: Optional context about what was implemented or changed
             comment: HTML-formatted comment with implementation details, code snippets, and technical notes.
