@@ -249,12 +249,59 @@ DO NOT PROCEED with threat modeling until the project is initialized.
             
             logger.info(f"OTM import {action}: {project_name} ({result_project_id})")
             
+            # Check for auto-versioning configuration and create version if enabled
+            version_status = None
+            if result.get('action') == 'updated':
+                try:
+                    # Read project config to check auto_versioning setting
+                    from ...config import Config
+                    
+                    config = Config()
+                    project_config = config.get_project_config()
+                    auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
+                    
+                    if auto_versioning_enabled:
+                        logger.info("Auto-versioning is enabled, creating version after successful update")
+                        
+                        from ...container import get_container
+                        from ...services.version_service import VersionService
+                        from datetime import datetime
+                        
+                        container = get_container()
+                        version_service = container.get(VersionService)
+                        
+                        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        version_name = f"After OTM import {timestamp}"
+                        
+                        # Get UUID from result (added by project_client during auto-update)
+                        project_uuid = result.get('uuid')
+                        if not project_uuid:
+                            logger.warning("Project UUID not available for version creation")
+                            version_status = "⚠️  Auto-versioning: Could not create backup (UUID not available)"
+                        else:
+                            version_service.create_version(
+                                project_id=project_uuid,
+                                name=version_name,
+                                description="Auto-versioning backup created by MCP after OTM import",
+                                wait=False,
+                                timeout=300
+                            )
+                            logger.info("Auto-versioning: Backup version created successfully")
+                            version_status = "✅ Auto-versioning: Backup version created successfully"
+                except Exception as e:
+                    # Don't fail the import if versioning fails
+                    logger.warning(f"Auto-versioning failed to create version after import: {e}")
+                    version_status = f"⚠️  Auto-versioning: Could not create backup - {str(e)}"
+            
             # Build output
             output = []
             output.append(f"✅ OTM import successful!")
             output.append(f"Action: Project {action}")
             output.append(f"Project ID: {result_project_id}")
             output.append(f"Project Name: {project_name}")
+            if version_status:
+                output.append("")
+                output.append(version_status)
             output.append("")
             output.append("💡 Next steps:")
             output.append("  1. Run sync() to download threats and countermeasures")

@@ -952,6 +952,9 @@ def register_http_tools(mcp_server, get_api_client_func):
             
             # Simple approach: Let the API client handle create-or-update logic
             # The API client will try to create, and if it exists, automatically update
+            # NOTE: Auto-versioning is not supported in HTTP mode because there's no
+            # local project.json file to read the auto_versioning setting from.
+            # Auto-versioning only works in stdio mode with local filesystem access.
             logger.info("Importing OTM content via API client")
             result = api_client.import_otm_content(otm_content, auto_update=True)
             
