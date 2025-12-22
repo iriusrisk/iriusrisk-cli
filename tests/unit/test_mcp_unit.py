@@ -243,8 +243,7 @@ class TestMCPServerTools:
         # We'll need to patch the actual MCP tool functions when they're called
         # Since they're async and use the actual API client
     
-    @pytest.mark.asyncio
-    async def test_mcp_initialize_workflow(self):
+    def test_mcp_initialize_workflow(self):
         """Test MCP initialize workflow tool."""
         # Import the actual MCP module to test the tools
         from src.iriusrisk_cli.commands import mcp
