@@ -512,19 +512,41 @@ def mcp(cli_ctx):
             results.append(f"📤 Importing OTM file: {otm_path.name}")
             results.append(f"📂 File path: {otm_path.absolute()}")
             
-            # Show project context if available
+            # Check if we need to override the OTM project ID with reference_id from project.json
+            should_override_project_id = False
+            override_project_id = None
+            
             if project_config:
                 project_name = project_config.get('name', 'Unknown')
                 project_id = project_config.get('project_id', 'Unknown')
                 reference_id = project_config.get('reference_id')
+                
                 results.append(f"🎯 Target project: {project_name} (ID: {project_id})")
                 if reference_id:
                     results.append(f"🔗 Reference ID: {reference_id}")
+                    # Use reference_id to override the OTM project ID
+                    override_project_id = reference_id
+                    should_override_project_id = True
+                    logger.info(f"Will override OTM project ID with reference_id: {reference_id}")
             
             results.append("")
             
             # Import the OTM file (auto-update if project exists) using container API client
-            result = api_client.import_otm_file(str(otm_path), auto_update=True)
+            if should_override_project_id:
+                # Read OTM content, modify project ID, then import
+                results.append(f"📝 Overriding project ID to match project.json: {override_project_id}")
+                
+                with open(otm_path, 'r', encoding='utf-8') as f:
+                    otm_content = f.read()
+                
+                # Modify the project ID to match reference_id from project.json
+                modified_content = api_client.project_client._modify_otm_project_id(otm_content, override_project_id)
+                
+                # Import using the modified content
+                result = api_client.import_otm_content(modified_content, auto_update=True)
+            else:
+                # Normal import without override
+                result = api_client.import_otm_file(str(otm_path), auto_update=True)
             
             # Extract key information
             project_id = result.get('id', 'Unknown')

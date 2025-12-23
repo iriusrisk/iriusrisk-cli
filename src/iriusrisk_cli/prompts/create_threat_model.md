@@ -107,12 +107,12 @@ type: "CD-V2-AWS-ECS"  # Missing "-CLUSTER" - FAILS
 
 **Check for existing project:**
 - Look for `.iriusrisk/project.json`
-- If exists, use `name` and `project_id` from that file
+- If exists, use `name` and `reference_id` from that file (the `reference_id` will be used as the OTM `project.id`)
 - If not exists, create descriptive names from source material
 
 ### Step 3: Create OTM File
 
-**Use project.json if exists:** Read `.iriusrisk/project.json` and use `name` and `project_id` from that file. Otherwise, create descriptive names.
+**Use project.json if exists:** Read `.iriusrisk/project.json` and use `name` and `reference_id` from that file. The `reference_id` becomes the `project.id` in your OTM file. Otherwise, create descriptive names.
 
 ## CRITICAL: Trust Zone Setup
 
@@ -192,8 +192,8 @@ trustZones:
 ```yaml
 otmVersion: 0.1.0
 project:
-  name: "[from project.json or descriptive name]"
-  id: "[from project.json or generate unique ID]"
+  name: "[from project.json 'name' field or descriptive name]"
+  id: "[from project.json 'reference_id' field or generate unique ID]"
   description: "[brief system description]"
 
 trustZones:

@@ -273,6 +273,56 @@ class ProjectApiClient(BaseApiClient):
             pass
         return None
     
+    def _modify_otm_project_id(self, otm_content: str, new_project_id: str) -> str:
+        """Modify the project ID in OTM content.
+        
+        This method ensures that the project ID in the OTM file matches the desired project ID
+        from project.json, preventing accidental creation of duplicate projects.
+        
+        Args:
+            otm_content: OTM content as string (YAML format)
+            new_project_id: The project ID to set in the OTM
+            
+        Returns:
+            Modified OTM content with updated project ID
+        """
+        try:
+            import yaml
+            otm_data = yaml.safe_load(otm_content)
+            
+            # Ensure project section exists
+            if 'project' not in otm_data:
+                otm_data['project'] = {}
+            
+            # Update the project ID
+            old_project_id = otm_data['project'].get('id', 'none')
+            otm_data['project']['id'] = new_project_id
+            
+            # Log the change if IDs differ
+            if old_project_id != new_project_id:
+                self.logger.info(f"Overriding OTM project ID: '{old_project_id}' -> '{new_project_id}'")
+                self.logger.debug("Project ID override applied based on project.json reference_id")
+            
+            # Serialize back to YAML
+            return yaml.dump(otm_data, default_flow_style=False, allow_unicode=True)
+        except ImportError:
+            # yaml not available, use regex-based approach
+            self.logger.warning("PyYAML not available, using regex-based OTM modification (less reliable)")
+            
+            # Find the project.id line and replace it
+            # Match patterns like: id: "value", id: 'value', id: value
+            pattern = r'(project:\s*\n(?:[^\n]*\n)*?\s+)id:\s*["\']?[^"\'\n]+["\']?'
+            replacement = r'\1id: "' + new_project_id + '"'
+            
+            modified = re.sub(pattern, replacement, otm_content, count=1, flags=re.MULTILINE)
+            
+            if modified == otm_content:
+                self.logger.warning("Failed to modify project ID in OTM content using regex")
+            else:
+                self.logger.info(f"Modified OTM project ID to '{new_project_id}' using regex")
+            
+            return modified
+    
     def import_otm_content(self, otm_content: str, auto_update: bool = True) -> Dict[str, Any]:
         """Import OTM content to create a new project or update existing one.
         

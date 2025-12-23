@@ -64,10 +64,22 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
         container = get_container()
         api_client = container.get(IriusRiskApiClient)
         
-        # Check for auto-versioning configuration
+        # Check for auto-versioning configuration and project identity
         config = Config()
         project_config = config.get_project_config()
         auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
+        
+        # Check if we need to override the OTM project ID with reference_id from project.json
+        should_override_project_id = False
+        override_project_id = None
+        
+        if not update and project_config:
+            # Only override if not using explicit --update flag
+            override_project_id = project_config.get('reference_id')
+            if override_project_id:
+                should_override_project_id = True
+                logger.info(f"Found reference_id in project.json: {override_project_id}")
+                logger.debug("Will override OTM project ID to match project.json reference_id")
         
         # Handle auto-versioning if enabled and we're updating a project
         if auto_versioning_enabled and update:
@@ -95,15 +107,31 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
                 click.echo("   Continuing with import...")
         
         if update:
-            # Explicit update of existing project
+            # Explicit update of existing project (--update flag takes precedence)
             click.echo(f"Updating project '{update}' with OTM file: {otm_file}")
             result = api_client.update_project_with_otm_file(update, str(otm_path))
             result['action'] = 'updated'
         else:
             # Create new project or auto-update if exists
-            click.echo(f"Importing OTM file: {otm_file}")
-            auto_update = not no_auto_update
-            result = api_client.import_otm_file(str(otm_path), auto_update=auto_update)
+            if should_override_project_id:
+                # Read OTM content, modify project ID, then import
+                click.echo(f"Importing OTM file: {otm_file}")
+                click.echo(f"📝 Overriding project ID to match project.json: {override_project_id}")
+                
+                with open(otm_path, 'r', encoding='utf-8') as f:
+                    otm_content = f.read()
+                
+                # Modify the project ID to match reference_id from project.json
+                modified_content = api_client.project_client._modify_otm_project_id(otm_content, override_project_id)
+                
+                # Import using the modified content
+                auto_update = not no_auto_update
+                result = api_client.import_otm_content(modified_content, auto_update=auto_update)
+            else:
+                # Normal import without override
+                click.echo(f"Importing OTM file: {otm_file}")
+                auto_update = not no_auto_update
+                result = api_client.import_otm_file(str(otm_path), auto_update=auto_update)
         
         if output_format == 'json':
             click.echo(json.dumps(result, indent=2))
