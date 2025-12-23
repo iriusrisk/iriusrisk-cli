@@ -82,7 +82,8 @@ class Container:
         )
         self._factories[VersionService] = lambda: VersionService(
             version_repository=self.get(VersionRepository),
-            report_repository=self.get(ReportRepository)
+            report_repository=self.get(ReportRepository),
+            project_repository=self.get(ProjectRepository)
         )
         
         # Service Factory (singleton) - for backward compatibility

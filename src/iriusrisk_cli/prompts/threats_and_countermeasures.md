@@ -44,6 +44,13 @@ After completing the threat modeling workflow, IriusRisk generates threats and c
 
 **To mitigate a threat:** Implement its associated countermeasures using `track_countermeasure_update` with status `implemented`. The threat state will automatically update to `mitigate` or `partly-mitigate`.
 
+**CRITICAL WORKFLOW: After tracking ANY countermeasure or threat updates:**
+1. Call `track_countermeasure_update()` or `track_threat_update()` to record the change
+2. **IMMEDIATELY call sync()** to apply the updates to IriusRisk (DO NOT ask permission)
+3. The updated data will be available in the next sync download
+
+DO NOT suggest CLI commands like `iriusrisk sync`. ALWAYS use the sync() MCP tool directly.
+
 ## DO NOT CONFUSE: Accept vs Not-Applicable
 
 **WRONG**: Marking a threat as "not-applicable" because the risk is low or acceptable

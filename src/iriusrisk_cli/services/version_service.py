@@ -6,6 +6,7 @@ from typing import Optional, Dict, Any
 
 from ..repositories.version_repository import VersionRepository
 from ..repositories.report_repository import ReportRepository
+from ..repositories.project_repository import ProjectRepository
 from ..utils.project_resolution import resolve_project_id_to_uuid
 from ..utils.error_handling import IriusRiskError
 from ..exceptions import ResourceNotFoundError, APIError
@@ -16,20 +17,24 @@ logger = logging.getLogger(__name__)
 class VersionService:
     """Service for managing project version operations."""
     
-    def __init__(self, version_repository=None, report_repository=None):
+    def __init__(self, version_repository=None, report_repository=None, project_repository=None):
         """Initialize the version service.
         
         Args:
             version_repository: VersionRepository instance (required for dependency injection)
             report_repository: ReportRepository instance (for async operation polling)
+            project_repository: ProjectRepository instance (for project state checks)
         """
         if version_repository is None:
             raise ValueError("VersionService requires a version_repository instance")
         if report_repository is None:
             raise ValueError("VersionService requires a report_repository instance")
+        if project_repository is None:
+            raise ValueError("VersionService requires a project_repository instance")
         
         self.version_repository = version_repository
         self.report_repository = report_repository
+        self.project_repository = project_repository
     
     def list_versions(self, project_id: str, page: int = 0, size: int = 20) -> Dict[str, Any]:
         """List all versions for a project.
@@ -82,8 +87,9 @@ class VersionService:
         """
         logger.debug(f"Creating version '{name}' for project: {project_id}")
         
-        # Resolve project ID to UUID
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        # Resolve project ID to UUID using our project repository's API client
+        # This ensures we use the same configured client and get proper error handling
+        final_project_id = resolve_project_id_to_uuid(project_id, self.project_repository.api_client)
         logger.debug(f"Resolved project ID to UUID: {final_project_id}")
         
         # Create version (async operation)
@@ -95,11 +101,17 @@ class VersionService:
         )
         
         # If wait=True, poll for completion
-        if wait and result.get('id'):
-            operation_id = result['id']
+        if wait and result.get('operationId'):
+            operation_id = result['operationId']
             logger.info(f"Waiting for version creation to complete (operation: {operation_id})")
             
             final_result = self._wait_for_operation(operation_id, timeout)
+            
+            # After async operation completes, wait for project to unlock
+            # The project may still be locked for a brief period even after the operation finishes
+            logger.info("Version creation complete, waiting for project to unlock...")
+            self._wait_for_project_unlock(final_project_id, timeout=60)
+            
             return final_result
         
         logger.info(f"Version creation initiated: {result.get('id', 'unknown')}")
@@ -194,25 +206,27 @@ class VersionService:
             
             # Check operation status
             try:
-                status = self.report_repository.get_operation_status(operation_id)
+                status_response = self.report_repository.get_operation_status(operation_id)
                 
-                state = status.get('state', '').lower()
-                logger.debug(f"Operation {operation_id} state: {state}")
+                # The API returns 'status' field, not 'state'
+                current_status = status_response.get('status', '').lower()
+                logger.debug(f"Operation {operation_id} status: {current_status}")
                 
-                if state == 'completed':
+                # IriusRisk async operations use 'finished-success' status
+                if current_status == 'finished-success':
                     logger.info(f"Operation {operation_id} completed successfully")
-                    return status
-                elif state == 'failed':
-                    error_msg = status.get('errorMessage', 'Unknown error')
+                    return status_response
+                elif current_status in ['failed', 'finished-error', 'finished-failure']:
+                    error_msg = status_response.get('errorMessage', 'Unknown error')
                     raise IriusRiskError(
                         f"Operation {operation_id} failed: {error_msg}"
                     )
-                elif state in ['pending', 'running', 'in_progress']:
+                elif current_status in ['pending', 'in-progress']:
                     # Still in progress, continue polling
                     logger.debug(f"Operation {operation_id} still in progress, waiting...")
                 else:
-                    # Unknown state
-                    logger.warning(f"Operation {operation_id} has unknown state: {state}")
+                    # Unknown status
+                    logger.warning(f"Operation {operation_id} has unknown status: {current_status}")
                 
                 # Wait before next poll
                 time.sleep(poll_interval)
@@ -227,4 +241,52 @@ class VersionService:
                 raise IriusRiskError(
                     f"Failed to poll operation status: {e}"
                 )
+    
+    def _wait_for_project_unlock(self, project_id: str, timeout: int = 60) -> None:
+        """Wait for a project to be unlocked and ready for operations.
+        
+        After version creation or other async operations, the project may be temporarily
+        locked. This method polls the project status until it's ready for use.
+        
+        Args:
+            project_id: Project UUID
+            timeout: Maximum time to wait in seconds
+            
+        Raises:
+            IriusRiskError: If project doesn't unlock within timeout
+        """
+        logger.info(f"Waiting for project {project_id} to unlock...")
+        start_time = time.time()
+        poll_interval = 0.5  # Start with 500ms polling
+        
+        while time.time() - start_time < timeout:
+            try:
+                project_data = self.project_repository.get_by_id(project_id)
+                
+                # Check if project is ready
+                operation = project_data.get('operation', 'none')
+                is_locked = project_data.get('isThreatModelLocked', False)
+                is_read_only = project_data.get('readOnly', False)
+                
+                logger.debug(f"Project status - operation: {operation}, locked: {is_locked}, readonly: {is_read_only}")
+                
+                # Project is ready if no active operation and not locked
+                if operation == 'none' and not is_locked and not is_read_only:
+                    elapsed = time.time() - start_time
+                    logger.info(f"Project {project_id} is unlocked and ready (waited {elapsed:.1f}s)")
+                    return
+                
+                # Still locked, wait before next check
+                time.sleep(poll_interval)
+                poll_interval = min(poll_interval * 1.5, 2.0)  # Max 2 second intervals
+                
+            except Exception as e:
+                logger.warning(f"Error checking project status: {e}")
+                time.sleep(poll_interval)
+        
+        # Timeout reached
+        raise IriusRiskError(
+            f"Project did not unlock within {timeout} seconds. "
+            f"It may have pending changes in the IriusRisk UI that need to be confirmed or discarded."
+        )
 

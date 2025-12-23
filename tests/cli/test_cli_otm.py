@@ -67,8 +67,8 @@ class TestOTMCommands:
         finally:
             os.unlink(otm_file)
     
-    def test_otm_import_update_project(self, cli_runner, mock_api_client):
-        """Test 'iriusrisk otm import --update' command."""
+    def test_otm_import_auto_update_existing_project(self, cli_runner, mock_api_client):
+        """Test 'iriusrisk otm import' command automatically updates existing projects."""
         # Create a temporary OTM file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False) as f:
             otm_data = {
@@ -83,10 +83,11 @@ class TestOTMCommands:
             otm_file = f.name
         
         try:
-            result = cli_runner.invoke(cli, ['otm', 'import', otm_file, '--update', 'existing-project-id'])
+            # Import should automatically update if project exists
+            result = cli_runner.invoke(cli, ['otm', 'import', otm_file])
             
-            # Should attempt to update existing project
-            assert result.exit_code in [0, 1], f"Update import should run: {result.output}"
+            # Should attempt to import/update existing project
+            assert result.exit_code in [0, 1], f"Import should run: {result.output}"
             assert result.output.strip(), "Should produce some output"
         finally:
             os.unlink(otm_file)
@@ -134,7 +135,8 @@ class TestOTMCommands:
         result = cli_runner.invoke(cli, ['otm', 'import', '--help'])
         
         assert_cli_success(result)
-        assert 'update' in result.output.lower()
+        assert 'import' in result.output.lower()
+        assert 'format' in result.output.lower()  # --format option should be present
     
     def test_otm_export_help(self, cli_runner):
         """Test that OTM export help works."""

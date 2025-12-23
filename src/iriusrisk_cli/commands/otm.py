@@ -24,34 +24,55 @@ def otm():
     the Open Threat Model (OTM) format.
     
     Examples:
-        iriusrisk otm import example.otm           # Import OTM file as new project
-        iriusrisk otm import example.otm --update PROJECT_ID  # Update existing project
+        iriusrisk otm import example.otm           # Import OTM file (create or update)
         iriusrisk otm export PROJECT_ID           # Export project as OTM
         iriusrisk otm export PROJECT_ID -o file.otm  # Export to specific file
     """
     pass
 
 
+def _check_project_exists(api_client: IriusRiskApiClient, project_id: str) -> bool:
+    """Check if a project exists by ID or reference ID.
+    
+    Args:
+        api_client: The API client instance
+        project_id: Project ID or reference ID to check
+        
+    Returns:
+        True if project exists, False otherwise
+    """
+    try:
+        # Try direct lookup first (in case it's a UUID)
+        api_client.get_project(project_id)
+        return True
+    except Exception:
+        # Try searching by reference ID
+        try:
+            filter_expr = f"'referenceId'='{project_id}'"
+            response = api_client.get_projects(page=0, size=1, filter_expression=filter_expr)
+            projects = response.get('_embedded', {}).get('items', [])
+            return len(projects) > 0
+        except Exception:
+            return False
+
+
 @otm.command()
 @click.argument('otm_file', type=click.Path(exists=True, readable=True))
-@click.option('--update', '-u', help='Update existing project by ID instead of auto-detecting')
-@click.option('--no-auto-update', is_flag=True, help='Disable automatic update if project exists')
 @click.option('--format', 'output_format', type=click.Choice(['json', 'table']), 
               default='table', help='Output format')
-def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, output_format: str):
+def import_cmd(otm_file: str, output_format: str):
     """Import an OTM file to create or update a project.
     
-    By default, if a project with the same ID already exists, it will be automatically
-    updated. Use --no-auto-update to disable this behavior.
+    If a project with the same ID already exists, it will be automatically updated.
+    If auto-versioning is enabled in project.json, a backup version will be created
+    before updating an existing project.
     
     Args:
         OTM_FILE: Path to the OTM file to import
         
     Examples:
-        iriusrisk otm import example.otm                    # Create new or auto-update existing
-        iriusrisk otm import example.otm -u PROJECT_ID      # Update specific project
-        iriusrisk otm import example.otm --no-auto-update   # Only create, fail if exists
-        iriusrisk otm import example.otm --format json      # Output as JSON
+        iriusrisk otm import example.otm              # Create new or auto-update existing
+        iriusrisk otm import example.otm --format json  # Output as JSON
     """
     otm_path = Path(otm_file)
     
@@ -69,69 +90,72 @@ def import_cmd(otm_file: str, update: Optional[str], no_auto_update: bool, outpu
         project_config = config.get_project_config()
         auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
         
-        # Check if we need to override the OTM project ID with reference_id from project.json
+        # Determine the project ID that will be used for import
+        target_project_id = None
         should_override_project_id = False
         override_project_id = None
         
-        if not update and project_config:
-            # Only override if not using explicit --update flag
+        if project_config:
             override_project_id = project_config.get('reference_id')
             if override_project_id:
                 should_override_project_id = True
+                target_project_id = override_project_id
                 logger.info(f"Found reference_id in project.json: {override_project_id}")
                 logger.debug("Will override OTM project ID to match project.json reference_id")
         
-        # Handle auto-versioning if enabled and we're updating a project
-        if auto_versioning_enabled and update:
-            logger.info("Auto-versioning is enabled, creating backup version before import")
-            click.echo("📸 Auto-versioning enabled: Creating backup version before import...")
-            
-            try:
-                version_service = container.get(VersionService)
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                version_name = f"Auto-backup before import {timestamp}"
-                
-                # Create version and wait for completion
-                version_service.create_version(
-                    project_id=update,
-                    name=version_name,
-                    description="Automatic backup created by CLI before OTM import",
-                    wait=True,
-                    timeout=300
-                )
-                click.echo("✅ Backup version created successfully")
-            except Exception as e:
-                # Log the error but continue with import
-                logger.warning(f"Failed to create backup version: {e}")
-                click.echo(f"⚠️  Warning: Could not create backup version: {e}")
-                click.echo("   Continuing with import...")
+        # If no override, extract project ID from OTM file
+        if not target_project_id:
+            target_project_id = api_client.project_client._extract_project_id_from_otm(str(otm_path))
+            logger.debug(f"Extracted project ID from OTM file: {target_project_id}")
         
-        if update:
-            # Explicit update of existing project (--update flag takes precedence)
-            click.echo(f"Updating project '{update}' with OTM file: {otm_file}")
-            result = api_client.update_project_with_otm_file(update, str(otm_path))
-            result['action'] = 'updated'
+        # Check if project exists and handle auto-versioning
+        project_exists = False
+        if target_project_id:
+            project_exists = _check_project_exists(api_client, target_project_id)
+            logger.debug(f"Project exists check for '{target_project_id}': {project_exists}")
+            
+            if project_exists and auto_versioning_enabled:
+                logger.info("Auto-versioning is enabled and project exists, creating backup version before import")
+                click.echo("📸 Auto-versioning enabled: Creating backup version before import...")
+                
+                try:
+                    version_service = container.get(VersionService)
+                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    version_name = f"Auto-backup before import {timestamp}"
+                    
+                    # Create version and wait for completion
+                    version_service.create_version(
+                        project_id=target_project_id,
+                        name=version_name,
+                        description="Automatic backup created by CLI before OTM import",
+                        wait=True,
+                        timeout=300
+                    )
+                    click.echo("✅ Backup version created successfully")
+                except Exception as e:
+                    # Log the error but continue with import
+                    logger.warning(f"Failed to create backup version: {e}")
+                    click.echo(f"⚠️  Warning: Could not create backup version: {e}")
+                    click.echo("   Continuing with import...")
+        
+        # Perform the import (always with auto-update enabled)
+        if should_override_project_id:
+            # Read OTM content, modify project ID, then import
+            click.echo(f"Importing OTM file: {otm_file}")
+            click.echo(f"📝 Overriding project ID to match project.json: {override_project_id}")
+            
+            with open(otm_path, 'r', encoding='utf-8') as f:
+                otm_content = f.read()
+            
+            # Modify the project ID to match reference_id from project.json
+            modified_content = api_client.project_client._modify_otm_project_id(otm_content, override_project_id)
+            
+            # Import using the modified content (auto-update enabled)
+            result = api_client.import_otm_content(modified_content, auto_update=True)
         else:
-            # Create new project or auto-update if exists
-            if should_override_project_id:
-                # Read OTM content, modify project ID, then import
-                click.echo(f"Importing OTM file: {otm_file}")
-                click.echo(f"📝 Overriding project ID to match project.json: {override_project_id}")
-                
-                with open(otm_path, 'r', encoding='utf-8') as f:
-                    otm_content = f.read()
-                
-                # Modify the project ID to match reference_id from project.json
-                modified_content = api_client.project_client._modify_otm_project_id(otm_content, override_project_id)
-                
-                # Import using the modified content
-                auto_update = not no_auto_update
-                result = api_client.import_otm_content(modified_content, auto_update=auto_update)
-            else:
-                # Normal import without override
-                click.echo(f"Importing OTM file: {otm_file}")
-                auto_update = not no_auto_update
-                result = api_client.import_otm_file(str(otm_path), auto_update=auto_update)
+            # Normal import without override (auto-update enabled)
+            click.echo(f"Importing OTM file: {otm_file}")
+            result = api_client.import_otm_file(str(otm_path), auto_update=True)
         
         if output_format == 'json':
             click.echo(json.dumps(result, indent=2))

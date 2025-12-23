@@ -512,9 +512,13 @@ def mcp(cli_ctx):
             results.append(f"📤 Importing OTM file: {otm_path.name}")
             results.append(f"📂 File path: {otm_path.absolute()}")
             
+            # Check for auto-versioning configuration
+            auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
+            
             # Check if we need to override the OTM project ID with reference_id from project.json
             should_override_project_id = False
             override_project_id = None
+            target_project_id = None
             
             if project_config:
                 project_name = project_config.get('name', 'Unknown')
@@ -527,7 +531,69 @@ def mcp(cli_ctx):
                     # Use reference_id to override the OTM project ID
                     override_project_id = reference_id
                     should_override_project_id = True
+                    target_project_id = reference_id
                     logger.info(f"Will override OTM project ID with reference_id: {reference_id}")
+            
+            # If no override, extract project ID from OTM file
+            if not target_project_id:
+                target_project_id = api_client.project_client._extract_project_id_from_otm(str(otm_path))
+                logger.debug(f"Extracted project ID from OTM file: {target_project_id}")
+            
+            # Check if project exists and handle auto-versioning
+            project_exists = False
+            if target_project_id:
+                try:
+                    # Try direct lookup first (in case it's a UUID)
+                    api_client.get_project(target_project_id)
+                    project_exists = True
+                except Exception:
+                    # Try searching by reference ID
+                    try:
+                        filter_expr = f"'referenceId'='{target_project_id}'"
+                        response = api_client.get_projects(page=0, size=1, filter_expression=filter_expr)
+                        projects = response.get('_embedded', {}).get('items', [])
+                        project_exists = len(projects) > 0
+                    except Exception:
+                        pass
+                
+                logger.debug(f"Project exists check for '{target_project_id}': {project_exists}")
+                
+                if project_exists and auto_versioning_enabled:
+                    logger.info("Auto-versioning is enabled and project exists, creating backup version before import")
+                    results.append("📸 Auto-versioning enabled: Creating backup version...")
+                    
+                    try:
+                        from ..services.version_service import VersionService
+                        from datetime import datetime
+                        
+                        version_service = container.get(VersionService)
+                        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        version_name = f"Auto-backup before import {timestamp}"
+                        
+                        # Create version and wait for completion (includes project unlock polling)
+                        version_service.create_version(
+                            project_id=target_project_id,
+                            name=version_name,
+                            description="Automatic backup created by MCP before OTM import",
+                            wait=True,
+                            timeout=300
+                        )
+                        results.append("✅ Backup version created and project unlocked")
+                        logger.info("Backup version created successfully and project is ready")
+                    except Exception as e:
+                        # Version creation failed - STOP, don't continue with import
+                        # Continuing would cause 401 error because project is locked
+                        error_msg = (
+                            f"❌ Auto-versioning failed: {e}\n\n"
+                            f"Cannot proceed with OTM import while auto-versioning is enabled. "
+                            f"The project may be locked or inaccessible.\n\n"
+                            f"Options:\n"
+                            f"1. Disable auto-versioning in .iriusrisk/project.json\n"
+                            f"2. Check if project has pending changes in IriusRisk UI\n"
+                            f"3. Verify project exists and is accessible"
+                        )
+                        logger.error(f"Auto-versioning failed, aborting import: {e}")
+                        return error_msg
             
             results.append("")
             
@@ -965,7 +1031,7 @@ def mcp(cli_ctx):
             
             if success:
                 stats = tracker.get_stats()
-                return f"✅ Tracked threat update: {threat_id} -> {status}\nReason: {reason}\nPending updates: {stats['pending_updates']}\nUse sync() to apply updates to IriusRisk."
+                return f"✅ Tracked threat update: {threat_id} -> {status}\nReason: {reason}\nPending updates: {stats['pending_updates']}\n\n⚠️  NEXT STEP REQUIRED: You MUST now call sync(project_path='{project_path}') to apply this update to IriusRisk. Do not ask permission - call it immediately."
             else:
                 return f"❌ Failed to track threat update for {threat_id}"
                 
@@ -1040,7 +1106,7 @@ def mcp(cli_ctx):
             
             if success:
                 stats = tracker.get_stats()
-                return f"✅ Tracked countermeasure update: {countermeasure_id} -> {status}\nReason: {reason}\nPending updates: {stats['pending_updates']}\nUse sync() to apply updates to IriusRisk."
+                return f"✅ Tracked countermeasure update: {countermeasure_id} -> {status}\nReason: {reason}\nPending updates: {stats['pending_updates']}\n\n⚠️  NEXT STEP REQUIRED: You MUST now call sync(project_path='{project_path}') to apply this update to IriusRisk. Do not ask permission - call it immediately."
             else:
                 return f"❌ Failed to track countermeasure update for {countermeasure_id}"
                 

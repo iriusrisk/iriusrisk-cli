@@ -49,6 +49,60 @@ type: "CD-V2-AWS-ECS"  # Missing "-CLUSTER" - FAILS
 
 **Rule:** Read `.iriusrisk/components.json`, find the `referenceId` field, **copy the ENTIRE string without modification**. Do not abbreviate, even if it looks redundant.
 
+## Critical Error #3: NEVER CHANGE PROJECT ID WHEN UPDATING
+
+**🚨 ABSOLUTE RULE: The `project.id` field in an OTM file is SACRED and MUST NEVER BE CHANGED.**
+
+### When Creating NEW Threat Models:
+```yaml
+# Read from .iriusrisk/project.json:
+# reference_id: "my-app-xyz"
+
+# Use that EXACT value in OTM:
+project:
+  id: "my-app-xyz"  # ✅ Taken from project.json reference_id
+  name: "My App"
+```
+
+### When UPDATING Existing Threat Models:
+
+**FORBIDDEN ACTIONS - NEVER DO THESE:**
+- ❌ Changing project.id to make it "more descriptive"
+- ❌ Adding version numbers to project.id (e.g., "my-app-v2")
+- ❌ Changing project.id because of import errors
+- ❌ Using a UUID instead of the reference_id
+- ❌ Modifying project.id in ANY way for ANY reason
+
+**REQUIRED ACTIONS:**
+- ✅ Read existing OTM file if it exists
+- ✅ **PRESERVE the exact project.id from existing OTM** 
+- ✅ **OR use reference_id from project.json if OTM doesn't exist**
+- ✅ **NEVER EVER EVER change the project.id once set**
+
+```yaml
+# Existing OTM has:
+project:
+  id: "badger-app-7ozf"  # This is GOSPEL - DO NOT CHANGE
+
+# When updating to add features:
+project:
+  id: "badger-app-7ozf"  # ✅ SAME - NEVER CHANGED
+  name: "Badger App with Payments"  # ← Name can change, ID CANNOT
+```
+
+**Why this matters:**
+- The project.id links the OTM to the IriusRisk project
+- Changing it breaks this connection and creates duplicate projects
+- IriusRisk will reject updates with mismatched IDs
+- The project.id from project.json is the source of truth
+
+**If import_otm() fails:**
+- ❌ **DO NOT** try changing the project.id to "fix" it
+- ✅ **DO** stop and report the actual error
+- ✅ **DO** tell the user to check project state in IriusRisk UI
+
+The project.id is the ONLY field that must never be modified when updating. Treat it as immutable, permanent, and untouchable.
+
 ## Your Role: Architecture Modeling Only
 
 **Do:**
@@ -499,13 +553,37 @@ dataflows:
 
 **⚠️ CRITICAL for Updates:** If updating an existing project, you must verify all referenced IDs exist.
 
+**🚨 MOST IMPORTANT: PRESERVE PROJECT ID**
+
+When updating an existing OTM file:
+1. **Read the existing OTM file FIRST**
+2. **Copy the EXACT project.id value** - this is sacred and immutable
+3. **NEVER change project.id** even if you think it should be more descriptive
+4. Make your changes ONLY to components, dataflows, trust zones, descriptions
+5. Keep project.id exactly as it was
+
+```yaml
+# Existing OTM file:
+project:
+  id: "badger-app-7ozf"  # ← THIS NEVER CHANGES
+  name: "Badger App"
+
+# Updated OTM file (adding payment features):
+project:
+  id: "badger-app-7ozf"  # ← SAME ID - NEVER CHANGED
+  name: "Badger App with Payments"  # ← Only name can change
+  description: "Now includes payment processing"  # ← New features described here
+```
+
 **For existing projects:**
 1. Read `.iriusrisk/project.json` to see current project structure
-2. If it exists, also check for an existing OTM export or component list
-3. When referencing components in `parent: { component: "x" }` or dataflows, verify that component ID exists
-4. When referencing trust zones in `parent: { trustZone: "x" }`, verify that trust zone ID exists in trust-zones.json
+2. **Read existing OTM file if available to get current project.id**
+3. If it exists, also check for an existing OTM export or component list
+4. When referencing components in `parent: { component: "x" }` or dataflows, verify that component ID exists
+5. When referencing trust zones in `parent: { trustZone: "x" }`, verify that trust zone ID exists in trust-zones.json
 
 **Validation rules:**
+- **PROJECT ID:** Must be EXACTLY the same as existing OTM or project.json reference_id
 - **Component parent references:** The parent component ID must exist either in the current OTM or be defined earlier in the same OTM file
 - **Dataflow references:** Both source and destination component IDs must exist in the OTM's components section
 - **Trust zone references:** The trust zone ID must exist in trust-zones.json AND in the OTM's trustZones section
@@ -520,6 +598,31 @@ What happens:
 - Creates new project or updates existing
 - Triggers automatic threat generation
 - Returns project ID, name, and status
+
+**🚨 CRITICAL: If import_otm() Fails**
+
+When import fails with an error (401, 403, 400, etc.), you MUST:
+
+✅ **DO:**
+- STOP immediately - do not try again
+- Report the exact error message to the user
+- For 401/403 errors: Tell user the project may have pending changes in IriusRisk UI that need to be confirmed/discarded
+- For 400 errors: Check OTM syntax (dataflows, component types, trust zones)
+- Ask user to fix the underlying issue
+
+❌ **NEVER DO:**
+- Change the project.id and try again
+- Modify the OTM file randomly hoping it will work
+- Try different variations of project IDs
+- Assume you can "fix" it by changing fields
+- Make multiple import attempts with different IDs
+
+**Common import failures:**
+- **401 Unauthorized**: Project has uncommitted changes in IriusRisk UI, or locked/read-only
+- **400 Bad Request**: OTM syntax error (dataflows using trust zone IDs, invalid component types)
+- **Conflict**: Project ID mismatch between OTM and existing project
+
+Report the error, explain what it likely means, and let the user resolve it. Do NOT attempt workarounds.
 
 ### Step 6: project_status() - Verify Success
 

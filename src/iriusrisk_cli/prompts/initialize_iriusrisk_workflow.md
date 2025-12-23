@@ -162,9 +162,13 @@ model anytime.
 ## Critical Rules
 
 ### 1. Use MCP Tools, Not CLI Commands
-**NEVER** run CLI commands like `iriusrisk countermeasures list` or `iriusrisk threats list`.  
-**ALWAYS** use MCP tools and read JSON files from `.iriusrisk/` directory instead.  
-Example: Instead of CLI commands, read `.iriusrisk/countermeasures.json` directly.
+**NEVER** run CLI commands like `iriusrisk countermeasures list`, `iriusrisk threats list`, or `iriusrisk sync`.  
+**ALWAYS** use MCP tools instead:
+- Use `sync()` MCP tool (not `iriusrisk sync` CLI command)
+- Read JSON files from `.iriusrisk/` directory (not CLI list commands)
+- Call MCP tools directly without asking user permission
+
+Example: Instead of suggesting "Run `iriusrisk sync`", immediately call `sync(project_path="/absolute/path")`
 
 ### 2. Countermeasure Updates Require Two Calls
 The IriusRisk API requires status updates and comments to be sent separately. For ANY countermeasure status change:
@@ -220,6 +224,34 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 
 **CRITICAL:** Always pass `project_path` parameter with the ABSOLUTE path to the project directory (where `.iriusrisk` is located) to all update tracking functions.
 
+### 3. Automatic Sync After Updates
+**MANDATORY BEHAVIOR:** After calling `track_threat_update()` or `track_countermeasure_update()`, you MUST immediately call `sync()` to push changes to IriusRisk.
+
+**Why this is required:**
+- Updates are queued locally until sync() is called
+- The user expects changes to be applied immediately after tracking
+- Delaying sync creates confusion about whether changes were applied
+- The workflow is incomplete without syncing
+
+**DO NOT:**
+- Ask "Would you like me to sync now?"
+- Suggest the user runs a CLI command
+- Wait to see if there are more updates coming
+- Ask for permission to sync
+
+**ALWAYS:**
+- Call `sync(project_path="/absolute/path")` immediately after tracking updates
+- Use the MCP tool, not CLI commands
+- Complete the full workflow automatically
+
+**Example correct behavior:**
+```
+1. User: "Mark countermeasure X as implemented"
+2. AI calls: track_countermeasure_update(...)
+3. AI immediately calls: sync(project_path="...")
+4. AI reports: "✅ Countermeasure marked as implemented and synced to IriusRisk"
+```
+
 ## Common Workflows
 
 ### Architecture/Design Review Workflow (MOST COMMON)
@@ -246,9 +278,16 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 2. threats_and_countermeasures() - Get analysis guidance
 3. [Implement security measures in code]
 4. track_threat_update(..., project_path) / track_countermeasure_update(..., project_path) - Track changes (remember: two calls for countermeasures, always pass project_path)
-5. get_pending_updates(project_path) - Review pending changes
-6. sync(project_path) - Apply updates to IriusRisk
-7. [Verify updated statuses in downloaded JSON]
+5. **IMMEDIATELY call sync(project_path)** - Automatically apply updates to IriusRisk (DO NOT ask permission, just run it)
+6. [Verify updated statuses in downloaded JSON]
+
+**CRITICAL: After tracking ANY updates (threats or countermeasures), you MUST automatically call sync(project_path) to apply them to IriusRisk. DO NOT:**
+- Ask the user if they want to sync
+- Suggest running CLI commands like `iriusrisk sync`
+- Wait or batch multiple updates (sync after each tracking operation)
+- Require user permission to sync
+
+**ALWAYS:** Immediately call the sync() MCP tool after tracking updates.
 
 ### Report Generation Workflow
 1. list_standards() - See available compliance standards
@@ -263,7 +302,7 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 - Use MCP tools and JSON files, not CLI commands
 - Never run CLI commands like `iriusrisk threats list`
 - Use two separate calls for countermeasure status changes
-- Batch updates together, then sync once
+- **After tracking updates, immediately call sync()** - Don't batch, don't wait, don't ask permission
 - Use HTML formatting in comments (not Markdown)
 - Keep comments under 1000 characters
 - **DO NOT invent threats** - read them from `threats.json` or create OTM to generate them
@@ -297,9 +336,10 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 **AI:** Call threats_and_countermeasures() for analysis instructions, then read and analyze `.iriusrisk/threats.json`
 
 **User:** "I've implemented input validation. How do I track this?"  
-**AI:** Make two calls to track_countermeasure_update():
+**AI:** Make two calls to track_countermeasure_update(), then immediately call sync():
 1. Update status: `countermeasure_id="...", status="implemented", reason="Added input validation", project_path="/absolute/path/to/project"`
 2. Add comment: `countermeasure_id="...", status="implemented", reason="Adding details", project_path="/absolute/path/to/project", comment="<p><strong>Implementation:</strong></p><ul><li>Added validation middleware in api.py</li></ul>"`
+3. **Immediately call sync(project_path="/absolute/path/to/project")** to apply changes to IriusRisk (don't ask, just do it)
 
 **User:** "Find the SQL injection countermeasure"  
 **AI:** ✅ Read `.iriusrisk/countermeasures.json` and search programmatically  

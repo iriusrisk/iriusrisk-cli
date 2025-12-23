@@ -75,7 +75,8 @@ def patch_api_client(monkeypatch):
     report_service = ReportService(report_repository=report_repository)
     version_service = VersionService(
         version_repository=version_repository,
-        report_repository=report_repository
+        report_repository=report_repository,
+        project_repository=project_repository
     )
     
     # Create a mock service factory

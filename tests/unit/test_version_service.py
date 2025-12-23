@@ -18,14 +18,29 @@ class TestVersionService(ServiceTestBase):
         # Create mock repositories
         from iriusrisk_cli.repositories.version_repository import VersionRepository
         from iriusrisk_cli.repositories.report_repository import ReportRepository
+        from iriusrisk_cli.repositories.project_repository import ProjectRepository
         
         self.mock_version_repository = Mock(spec=VersionRepository)
         self.mock_report_repository = Mock(spec=ReportRepository)
+        self.mock_project_repository = Mock(spec=ProjectRepository)
+        
+        # Mock the api_client attribute for UUID resolution
+        self.mock_api_client = Mock()
+        # Mock get_projects to return a valid project with UUID for reference ID lookup
+        self.mock_api_client.get_projects.return_value = {
+            '_embedded': {
+                'items': [
+                    {'id': '00000000-0000-0000-0000-000000000000', 'referenceId': 'test-project'}
+                ]
+            }
+        }
+        self.mock_project_repository.api_client = self.mock_api_client
         
         # Create service with repository dependencies
         self.service = VersionService(
             version_repository=self.mock_version_repository,
-            report_repository=self.mock_report_repository
+            report_repository=self.mock_report_repository,
+            project_repository=self.mock_project_repository
         )
     
     def test_list_versions_success(self):
@@ -103,17 +118,31 @@ class TestVersionService(ServiceTestBase):
         version_name = "v1.0"
         operation_id = "async-op-123"
         
-        # Mock version creation response
+        # Mock version creation response - API returns 'operationId' not 'id'
         self.mock_version_repository.create.return_value = {
-            'id': operation_id,
-            'state': 'pending'
+            'operationId': operation_id,
+            'status': 'pending'
         }
         
-        # Mock async operation completion
+        # Mock async operation completion - matches actual API response format
         self.mock_report_repository.get_operation_status.return_value = {
             'id': operation_id,
-            'state': 'completed',
-            'result': {'versionId': 'version-uuid-123'}
+            'status': 'finished-success',
+            'summary': {
+                'fail': 0,
+                'success': 1,
+                'pending': 0,
+                'interrupted': 0,
+                'in-progress': 0
+            }
+        }
+        
+        # Mock project unlock - project is ready
+        self.mock_project_repository.get_by_id.return_value = {
+            'id': project_id,
+            'operation': 'none',
+            'isThreatModelLocked': False,
+            'readOnly': False
         }
         
         # Act
@@ -125,8 +154,9 @@ class TestVersionService(ServiceTestBase):
         )
         
         # Assert
-        assert result['state'] == 'completed'
+        assert result['status'] == 'finished-success'
         self.mock_report_repository.get_operation_status.assert_called()
+        self.mock_project_repository.get_by_id.assert_called()
     
     def test_create_version_with_wait_timeout(self):
         """Test version creation timeout while waiting."""
@@ -135,16 +165,16 @@ class TestVersionService(ServiceTestBase):
         version_name = "v1.0"
         operation_id = "async-op-123"
         
-        # Mock version creation response
+        # Mock version creation response - API returns 'operationId' not 'id'
         self.mock_version_repository.create.return_value = {
-            'id': operation_id,
-            'state': 'pending'
+            'operationId': operation_id,
+            'status': 'pending'
         }
         
         # Mock async operation that never completes
         self.mock_report_repository.get_operation_status.return_value = {
             'id': operation_id,
-            'state': 'running'
+            'status': 'in-progress'
         }
         
         # Act & Assert
