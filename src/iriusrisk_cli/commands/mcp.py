@@ -9,7 +9,7 @@ from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 from .. import __version__
 from ..cli_context import pass_cli_context
-from .sync import _download_components_data, _download_trust_zones_data, _download_threats_data, _download_countermeasures_data, _ensure_iriusrisk_directory, _save_json_file
+from .sync import sync_data_to_directory
 from ..utils.project import resolve_project_id, get_project_context_info
 from ..utils.updates import get_update_tracker
 from ..utils.project_resolution import resolve_project_id_to_uuid_strict, is_uuid_format
@@ -314,7 +314,6 @@ def mcp(cli_ctx):
         
         try:
             from pathlib import Path
-            from ..commands.sync import sync_data_to_directory
             
             # Determine output directory from project path
             if project_path:
@@ -353,9 +352,13 @@ def mcp(cli_ctx):
                 project_id = project_config.get('project_id') or project_config.get('reference_id')
             
             # Use the shared sync logic
+            # MCP doesn't use Config for defaults (uses project.json instead)
+            # MCP doesn't need verbose output (formats its own return string)
             results = sync_data_to_directory(
                 project_id=project_id,
-                output_dir=output_dir
+                output_dir=output_dir,
+                check_config_for_default=False,
+                verbose=False
             )
             
             # Format results for MCP display

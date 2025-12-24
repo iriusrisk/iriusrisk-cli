@@ -222,13 +222,21 @@ def _download_trust_zones_data(api_client: IriusRiskApiClient) -> Dict[str, Any]
     return trust_zones_sync_data
 
 
-def sync_data_to_directory(project_id: Optional[str] = None, 
-                          output_dir: Optional[str] = None,
-                          threats_only: bool = False,
-                          countermeasures_only: bool = False, 
-                          components_only: bool = False,
-                          trust_zones_only: bool = False) -> Dict[str, Any]:
+def sync_data_to_directory(
+    project_id: Optional[str] = None,
+    output_dir: Optional[str] = None,
+    threats_only: bool = False,
+    countermeasures_only: bool = False,
+    components_only: bool = False,
+    trust_zones_only: bool = False,
+    check_config_for_default: bool = True,
+    verbose: bool = True
+) -> Dict[str, Any]:
     """Core sync logic that can be used by both CLI and MCP.
+    
+    This is the unified synchronization function that downloads data from IriusRisk
+    and saves it locally. It supports selective syncing via flags and can be configured
+    for different calling contexts (CLI vs MCP).
     
     Args:
         project_id: Project UUID or reference ID (optional if default project configured)
@@ -236,16 +244,36 @@ def sync_data_to_directory(project_id: Optional[str] = None,
         threats_only: Only sync threats data
         countermeasures_only: Only sync countermeasures data
         components_only: Only sync system components data
+        trust_zones_only: Only sync system trust zones data
+        check_config_for_default: If True, check Config for default project when project_id is None
+        verbose: If True, output progress messages via click.echo()
         
     Returns:
-        Dictionary with sync results and metadata
+        Dictionary with sync results and metadata:
+        {
+            'timestamp': str,
+            'output_directory': str,
+            'project_id': Optional[str],
+            'project_name': Optional[str],
+            'components': Optional[Dict],
+            'trust_zones': Optional[Dict],
+            'threats': Optional[Dict],
+            'countermeasures': Optional[Dict],
+            'updates_applied': int,
+            'updates_failed': int,
+            'errors': List[str],
+            'comment_results': List[str]
+        }
     """
     from datetime import datetime
     
-    # Set sync timestamp
+    # Initialize results with consistent structure
     sync_timestamp = datetime.now().isoformat()
     results = {
         'timestamp': sync_timestamp,
+        'output_directory': None,
+        'project_id': None,
+        'project_name': None,
         'components': None,
         'trust_zones': None,
         'threats': None,
@@ -253,9 +281,7 @@ def sync_data_to_directory(project_id: Optional[str] = None,
         'updates_applied': 0,
         'updates_failed': 0,
         'errors': [],
-        'project_id': None,
-        'project_name': None,
-        'output_directory': None
+        'comment_results': []
     }
     
     try:
@@ -263,34 +289,49 @@ def sync_data_to_directory(project_id: Optional[str] = None,
         container = get_container()
         api_client = container.get(IriusRiskApiClient)
         
-        # Resolve project ID from argument or default configuration  
+        # Resolve project ID from argument or default configuration
         resolved_project_id = None
         if project_id:
             resolved_project_id = project_id
-        else:
-            # Try to get default project ID from configuration
-            config = Config()
-            default_project_id = config.get_default_project_id()
-            if default_project_id:
-                resolved_project_id = default_project_id
+        elif check_config_for_default:
+            # Try to get default project ID from configuration (CLI mode)
+            try:
+                config = Config()
+                default_project_id = config.get_default_project_id()
+                if default_project_id:
+                    resolved_project_id = default_project_id
+            except Exception as e:
+                if verbose:
+                    click.echo(f"Warning: Could not read config: {e}")
         
         # Get project name for display
-        project_name = get_project_context_info()
-        results['project_name'] = project_name
+        if resolved_project_id:
+            try:
+                project_name = get_project_context_info()
+                results['project_name'] = project_name
+            except Exception:
+                pass  # Not critical if we can't get project name
         
-        # Resolve project ID with fallback for API calls if we have one
+        # Resolve project ID to UUID for API calls
         final_project_id = None
         if resolved_project_id:
             try:
                 final_project_id = _resolve_project_id_to_uuid(resolved_project_id)
                 results['project_id'] = final_project_id
-                # Debug: verify we got a UUID
-                if final_project_id == resolved_project_id and len(resolved_project_id) != 36:
-                    # UUID resolution failed, this means the project might not exist or API lookup failed
-                    click.echo(f"Warning: Could not resolve project reference '{resolved_project_id}' to UUID. Project may not exist or be inaccessible.")
+                
+                # Validate that we got a proper UUID
+                if not is_uuid_format(final_project_id):
+                    warning_msg = f"Could not resolve project reference '{resolved_project_id}' to UUID"
+                    if verbose:
+                        click.echo(f"Warning: {warning_msg}")
+                    results['errors'].append(warning_msg)
                     final_project_id = None
+                    
             except Exception as e:
-                click.echo(f"Warning: Failed to resolve project ID '{resolved_project_id}': {e}")
+                warning_msg = f"Failed to resolve project ID '{resolved_project_id}': {e}"
+                if verbose:
+                    click.echo(f"Warning: {warning_msg}")
+                results['errors'].append(warning_msg)
                 final_project_id = None
         
         # Determine output directory
@@ -299,7 +340,7 @@ def sync_data_to_directory(project_id: Optional[str] = None,
         else:
             output_path = _ensure_iriusrisk_directory()
         
-        output_path.mkdir(exist_ok=True)
+        output_path.mkdir(parents=True, exist_ok=True)
         results['output_directory'] = str(output_path.absolute())
         
         # Apply any pending updates before downloading fresh data
@@ -310,73 +351,96 @@ def sync_data_to_directory(project_id: Optional[str] = None,
                 results['updates_failed'] = update_results.get('updates_failed', 0)
                 if update_results.get('errors'):
                     results['errors'].extend(update_results['errors'])
+                if update_results.get('comment_results'):
+                    results['comment_results'] = update_results['comment_results']
             except Exception as e:
-                results['errors'].append(f"Update application failed: {e}")
+                error_msg = f"Update application failed: {e}"
+                results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(error_msg, err=True)
         
-        # Download and save components data (always, unless other specific flags)
+        # Download and save components data (unless specific other-only flags)
         if not threats_only and not countermeasures_only and not trust_zones_only:
             try:
+                if verbose:
+                    click.echo("Downloading system components data...")
                 components_data = _download_components_data(api_client)
                 components_file = output_path / 'components.json'
-                _save_json_file(components_data, components_file, 'components')
+                _save_json_file(components_data, components_file, 'components' if verbose else None)
                 results['components'] = {
                     'count': len(components_data.get('components', [])),
                     'file': str(components_file)
                 }
             except Exception as e:
-                results['errors'].append(f"Components sync failed: {e}")
+                error_msg = f"Components sync failed: {e}"
+                results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(error_msg, err=True)
         
-        # Download and save trust zones data (always, unless other specific flags)
+        # Download and save trust zones data (unless specific other-only flags)
         if not threats_only and not countermeasures_only and not components_only:
             try:
+                if verbose:
+                    click.echo("Downloading system trust zones data...")
                 trust_zones_data = _download_trust_zones_data(api_client)
                 trust_zones_file = output_path / 'trust-zones.json'
-                _save_json_file(trust_zones_data, trust_zones_file, 'trust zones')
+                _save_json_file(trust_zones_data, trust_zones_file, 'trust zones' if verbose else None)
                 results['trust_zones'] = {
                     'count': len(trust_zones_data.get('trust_zones', [])),
                     'file': str(trust_zones_file)
                 }
             except Exception as e:
-                results['errors'].append(f"Trust zones sync failed: {e}")
+                error_msg = f"Trust zones sync failed: {e}"
+                results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(error_msg, err=True)
         
-        # Download and save threats data (if project exists)
+        # Download and save threats data (if project exists and not excluded)
         if final_project_id and not countermeasures_only and not components_only and not trust_zones_only:
             try:
+                if verbose:
+                    click.echo("Downloading threats data...")
                 threats_data = _download_threats_data(final_project_id, api_client)
                 threats_file = output_path / 'threats.json'
-                _save_json_file(threats_data, threats_file, 'threats')
+                _save_json_file(threats_data, threats_file, 'threats' if verbose else None)
                 results['threats'] = {
                     'count': len(threats_data.get('threats', [])),
                     'file': str(threats_file)
                 }
             except Exception as e:
                 error_msg = f"Error downloading threats data: {e}"
-                click.echo(error_msg, err=True)
                 results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(error_msg, err=True)
         
-        # Download and save countermeasures data (if project exists)
+        # Download and save countermeasures data (if project exists and not excluded)
         if final_project_id and not threats_only and not components_only and not trust_zones_only:
             try:
+                if verbose:
+                    click.echo("Downloading countermeasures data...")
                 countermeasures_data = _download_countermeasures_data(final_project_id, api_client)
                 countermeasures_file = output_path / 'countermeasures.json'
-                _save_json_file(countermeasures_data, countermeasures_file, 'countermeasures')
+                _save_json_file(countermeasures_data, countermeasures_file, 'countermeasures' if verbose else None)
                 results['countermeasures'] = {
                     'count': len(countermeasures_data.get('countermeasures', [])),
                     'file': str(countermeasures_file)
                 }
             except Exception as e:
                 error_msg = f"Error downloading countermeasures data: {e}"
-                click.echo(error_msg, err=True)
                 results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(error_msg, err=True)
         
         # Inform user if no project was available for threats/countermeasures
-        if not final_project_id and not components_only and not trust_zones_only:
+        if not final_project_id and not components_only and not trust_zones_only and verbose:
             click.echo("No project configured - only downloaded system components and trust zones. Use 'iriusrisk init' to configure a project for threat and countermeasure data.")
                 
     except Exception as e:
         # Ensure we don't get type errors when handling the exception
         error_message = f"Sync failed: {str(e)}" if e is not None else "Sync failed: Unknown error"
         results['errors'].append(error_message)
+        if verbose:
+            click.echo(error_message, err=True)
     
     return results
 
@@ -588,22 +652,24 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
     return results
 
 
-def _save_json_file(data: Dict[str, Any], file_path: Path, data_type: str) -> None:
+def _save_json_file(data: Dict[str, Any], file_path: Path, data_type: Optional[str] = None) -> None:
     """Save data to a JSON file with proper formatting.
     
     Args:
         data: Data to save
         file_path: Path to save the file
-        data_type: Type of data being saved (for logging)
+        data_type: Type of data being saved (for logging). If None, no output is produced.
     """
     try:
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
         
-        file_size = file_path.stat().st_size
-        click.echo(f"Saved {data_type} data to {file_path} ({file_size:,} bytes)")
+        if data_type:  # Only output if data_type provided (verbose mode)
+            file_size = file_path.stat().st_size
+            click.echo(f"Saved {data_type} data to {file_path} ({file_size:,} bytes)")
     except Exception as e:
-        click.echo(f"Error saving {data_type} data to {file_path}: {e}", err=True)
+        if data_type:  # Only output error if verbose
+            click.echo(f"Error saving {data_type} data to {file_path}: {e}", err=True)
         raise
 
 
@@ -616,7 +682,7 @@ def _save_json_file(data: Dict[str, Any], file_path: Path, data_type: str) -> No
 @click.option('--output-dir', '-o', help='Output directory (default: .iriusrisk)')
 @click.option('--format', '-f', 'output_format',
               type=click.Choice(['json', 'pretty'], case_sensitive=False),
-              default='pretty', help='Output format for JSON files')
+              default='pretty', help='Output format for JSON files (currently unused)')
 def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bool, 
          components_only: bool, trust_zones_only: bool, output_dir: Optional[str], output_format: str):
     """Synchronize threats, countermeasures, system components, and trust zones data to local JSON files.
@@ -635,325 +701,104 @@ def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bo
                 f"countermeasures_only={countermeasures_only}, components_only={components_only}, "
                 f"trust_zones_only={trust_zones_only}, output_dir={output_dir}, format={output_format}")
     
-    # Set sync timestamp
     sync_timestamp = datetime.now().isoformat()
-    click.get_current_context().meta['sync_timestamp'] = sync_timestamp
     logger.debug(f"Sync timestamp: {sync_timestamp}")
     
     try:
-        # Get API client from container
-        container = get_container()
-        api_client = container.get(IriusRiskApiClient)
-        
-        # Resolve project ID from argument or default configuration
-        resolved_project_id = resolve_project_id(project_id)
-        logger.debug(f"Resolved project ID: {resolved_project_id}")
-        
         # Show context information if using default project
         if not project_id:
-            project_name = get_project_context_info()
-            if project_name:
-                logger.info(f"Using default project: {project_name}")
-                click.echo(f"Using default project: {project_name}")
+            try:
+                project_name = get_project_context_info()
+                if project_name:
+                    logger.info(f"Using default project: {project_name}")
+                    click.echo(f"Using default project: {project_name}")
+            except Exception:
+                pass  # Not critical if we can't get project context
             click.echo()
         
-        # Resolve project ID with fallback for API calls
-        final_project_id = None
-        project_resolution_failed = False
-        
-        if resolved_project_id:
-            try:
-                logger.debug(f"Attempting to resolve project ID '{resolved_project_id}' to UUID")
-                final_project_id = _resolve_project_id_to_uuid(resolved_project_id)
-                # Check if resolution actually worked
-                if final_project_id == resolved_project_id and len(resolved_project_id) != 36:
-                    # UUID resolution failed, project might not exist
-                    logger.warning(f"Could not resolve project reference '{resolved_project_id}' to UUID")
-                    click.echo(f"Warning: Could not resolve project reference '{resolved_project_id}' to UUID. Project may not exist or be inaccessible.")
-                    click.echo("Will download system components only.")
-                    final_project_id = None
-                    project_resolution_failed = True
-                else:
-                    logger.info(f"Successfully resolved project ID to UUID: {final_project_id}")
-            except Exception as e:
-                logger.warning(f"Failed to resolve project ID '{resolved_project_id}': {e}")
-                click.echo(f"Warning: Failed to resolve project ID '{resolved_project_id}': {e}")
-                click.echo("Will download system components only.")
-                final_project_id = None
-                project_resolution_failed = True
-        
-        # Determine output directory
-        if output_dir:
-            output_path = Path(output_dir)
-            output_path.mkdir(parents=True, exist_ok=True)
-            logger.debug(f"Using custom output directory: {output_path}")
-        else:
-            output_path = _ensure_iriusrisk_directory()
-            logger.debug(f"Using default .iriusrisk directory: {output_path}")
-        
+        # Display sync header
+        output_path = Path(output_dir) if output_dir else Path.cwd() / '.iriusrisk'
         logger.info(f"Synchronizing data to: {output_path.absolute()}")
         click.echo(f"Synchronizing data to: {output_path.absolute()}")
         click.echo(f"Sync timestamp: {sync_timestamp}")
         click.echo()
         
-        # Apply any pending updates before downloading fresh data
-        if final_project_id:
-            logger.info("Applying pending updates before downloading fresh data")
-            _apply_pending_updates(output_path, final_project_id, api_client)
+        # Call the shared sync function
+        results = sync_data_to_directory(
+            project_id=project_id,
+            output_dir=output_dir,
+            threats_only=threats_only,
+            countermeasures_only=countermeasures_only,
+            components_only=components_only,
+            trust_zones_only=trust_zones_only,
+            check_config_for_default=True,
+            verbose=True
+        )
         
-        # Download and save threats data (only if we have a valid project)
-        if not countermeasures_only and not components_only and not trust_zones_only:
-            if final_project_id:
-                try:
-                    logger.info("Downloading threats data")
-                    threats_data = _download_threats_data(final_project_id, api_client)
-                    threats_file = output_path / 'threats.json'
-                    _save_json_file(threats_data, threats_file, 'threats')
-                    logger.info(f"Successfully downloaded {len(threats_data.get('threats', []))} threats")
-                except Exception as e:
-                    logger.error(f"Error downloading threats data: {e}")
-                    click.echo(f"Error downloading threats data: {e}", err=True)
-                    if threats_only:  # Only fail if we're doing threats-only and it fails
-                        raise click.Abort()
-            elif threats_only:
-                # User specifically requested threats-only but no project available
-                logger.error("Cannot download threats data without a valid project")
-                click.echo("Error: Cannot download threats data without a valid project. Use 'iriusrisk init' to configure a project.", err=True)
-                raise click.Abort()
+        # Check for critical errors that should abort
+        has_critical_error = False
         
-        # Download and save countermeasures data (only if we have a valid project)
-        if not threats_only and not components_only and not trust_zones_only:
-            if final_project_id:
-                try:
-                    logger.info("Downloading countermeasures data")
-                    countermeasures_data = _download_countermeasures_data(final_project_id, api_client)
-                    countermeasures_file = output_path / 'countermeasures.json'
-                    _save_json_file(countermeasures_data, countermeasures_file, 'countermeasures')
-                    logger.info(f"Successfully downloaded {len(countermeasures_data.get('countermeasures', []))} countermeasures")
-                except Exception as e:
-                    logger.error(f"Error downloading countermeasures data: {e}")
-                    click.echo(f"Error downloading countermeasures data: {e}", err=True)
-                    if countermeasures_only:  # Only fail if we're doing countermeasures-only and it fails
-                        raise click.Abort()
-            elif countermeasures_only:
-                # User specifically requested countermeasures-only but no project available
-                logger.error("Cannot download countermeasures data without a valid project")
-                click.echo("Error: Cannot download countermeasures data without a valid project. Use 'iriusrisk init' to configure a project.", err=True)
-                raise click.Abort()
+        # Check if specific-only sync failed
+        if threats_only and (not results.get('threats') or results.get('threats', {}).get('error')):
+            logger.error("Cannot download threats data - see errors")
+            click.echo("Error: Cannot download threats data. Use 'iriusrisk init' to configure a project.", err=True)
+            has_critical_error = True
+            
+        if countermeasures_only and (not results.get('countermeasures') or results.get('countermeasures', {}).get('error')):
+            logger.error("Cannot download countermeasures data - see errors")
+            click.echo("Error: Cannot download countermeasures data. Use 'iriusrisk init' to configure a project.", err=True)
+            has_critical_error = True
         
-        # Download and save components data
-        if not threats_only and not countermeasures_only and not trust_zones_only:
-            try:
-                logger.info("Downloading system components data")
-                components_data = _download_components_data(api_client)
-                components_file = output_path / 'components.json'
-                _save_json_file(components_data, components_file, 'components')
-                logger.info(f"Successfully downloaded {len(components_data.get('components', []))} components")
-            except Exception as e:
-                logger.error(f"Error downloading components data: {e}")
-                click.echo(f"Error downloading components data: {e}", err=True)
-                if not components_only:  # Only fail if we're not doing components-only
-                    raise click.Abort()
+        if components_only and (not results.get('components') or results.get('components', {}).get('error')):
+            logger.error("Cannot download components data - see errors")
+            has_critical_error = True
+            
+        if trust_zones_only and (not results.get('trust_zones') or results.get('trust_zones', {}).get('error')):
+            logger.error("Cannot download trust zones data - see errors")
+            has_critical_error = True
         
-        # Download and save trust zones data
-        if not threats_only and not countermeasures_only and not components_only:
-            try:
-                logger.info("Downloading system trust zones data")
-                trust_zones_data = _download_trust_zones_data(api_client)
-                trust_zones_file = output_path / 'trust-zones.json'
-                _save_json_file(trust_zones_data, trust_zones_file, 'trust zones')
-                logger.info(f"Successfully downloaded {len(trust_zones_data.get('trust_zones', []))} trust zones")
-            except Exception as e:
-                logger.error(f"Error downloading trust zones data: {e}")
-                click.echo(f"Error downloading trust zones data: {e}", err=True)
-                if trust_zones_only:  # Only fail if we're doing trust-zones-only and it fails
-                    raise click.Abort()
+        if has_critical_error:
+            raise click.Abort()
         
-        # Download trust zones only if specifically requested
-        if trust_zones_only:
-            try:
-                logger.info("Downloading system trust zones data (trust-zones-only mode)")
-                trust_zones_data = _download_trust_zones_data(api_client)
-                trust_zones_file = output_path / 'trust-zones.json'
-                _save_json_file(trust_zones_data, trust_zones_file, 'trust zones')
-                logger.info(f"Successfully downloaded {len(trust_zones_data.get('trust_zones', []))} trust zones")
-            except Exception as e:
-                logger.error(f"Error downloading trust zones data: {e}")
-                click.echo(f"Error downloading trust zones data: {e}", err=True)
-                raise click.Abort()
-        
+        # Display success message
         click.echo()
         logger.info("Synchronization completed successfully")
         click.echo("✅ Synchronization completed successfully!")
         
-        # Show summary
-        files_created = []
-        if not countermeasures_only and not components_only and not trust_zones_only:
-            threats_file = output_path / 'threats.json'
+        # Show summary of files created
+        output_path_resolved = Path(results['output_directory'])
+        if results.get('threats') and not results['threats'].get('error'):
+            threats_file = output_path_resolved / 'threats.json'
             if threats_file.exists():
-                files_created.append(f"threats ({threats_file})")
                 click.echo(f"📄 Threats data: {threats_file}")
+                logger.info(f"Created threats file: {threats_file}")
         
-        if not threats_only and not components_only and not trust_zones_only:
-            countermeasures_file = output_path / 'countermeasures.json'
+        if results.get('countermeasures') and not results['countermeasures'].get('error'):
+            countermeasures_file = output_path_resolved / 'countermeasures.json'
             if countermeasures_file.exists():
-                files_created.append(f"countermeasures ({countermeasures_file})")
                 click.echo(f"📄 Countermeasures data: {countermeasures_file}")
+                logger.info(f"Created countermeasures file: {countermeasures_file}")
         
-        if not threats_only and not countermeasures_only and not trust_zones_only:
-            components_file = output_path / 'components.json'
+        if results.get('components') and not results['components'].get('error'):
+            components_file = output_path_resolved / 'components.json'
             if components_file.exists():
-                files_created.append(f"components ({components_file})")
                 click.echo(f"📄 Components data: {components_file}")
+                logger.info(f"Created components file: {components_file}")
         
-        if not threats_only and not countermeasures_only and not components_only:
-            trust_zones_file = output_path / 'trust-zones.json'
+        if results.get('trust_zones') and not results['trust_zones'].get('error'):
+            trust_zones_file = output_path_resolved / 'trust-zones.json'
             if trust_zones_file.exists():
-                files_created.append(f"trust zones ({trust_zones_file})")
                 click.echo(f"📄 Trust zones data: {trust_zones_file}")
+                logger.info(f"Created trust zones file: {trust_zones_file}")
         
-        if trust_zones_only:
-            trust_zones_file = output_path / 'trust-zones.json'
-            if trust_zones_file.exists():
-                files_created.append(f"trust zones ({trust_zones_file})")
-                click.echo(f"📄 Trust zones data: {trust_zones_file}")
-        
-        logger.info(f"Created {len(files_created)} data files: {', '.join([f.split(' (')[0] for f in files_created])}")
-        
-        # Show helpful message if project resolution failed
-        if project_resolution_failed and not components_only:
+        # Show helpful message if project couldn't be resolved
+        if not results.get('project_id') and not components_only and not trust_zones_only:
             click.echo()
-            click.echo("💡 To sync threats and countermeasures, configure a project with 'iriusrisk init' or check that your project exists and is accessible.")                                                        
+            click.echo("💡 To sync threats and countermeasures, configure a project with 'iriusrisk init' or check that your project exists and is accessible.")
         
+    except click.Abort:
+        raise
     except Exception as e:
         logger.error(f"Error during synchronization: {e}")
         click.echo(f"Error during synchronization: {e}", err=True)
         raise click.Abort()
-
-
-def sync_data_to_directory(project_id: Optional[str] = None, output_dir: Optional[str] = None) -> Dict[str, Any]:
-    """Synchronize IriusRisk data to a specified directory.
-    
-    This is the shared sync logic used by both CLI and MCP interfaces.
-    It applies pending updates first, then downloads fresh data.
-    
-    Args:
-        project_id: Project ID to sync (optional)
-        output_dir: Output directory path (defaults to .iriusrisk in current directory)
-        
-    Returns:
-        Dictionary containing sync results and metadata
-    """
-    from datetime import datetime
-    
-    # Set up output directory
-    if output_dir:
-        output_path = Path(output_dir)
-    else:
-        output_path = _ensure_iriusrisk_directory()
-    
-    output_path.mkdir(exist_ok=True)
-    
-    # Initialize results
-    results = {
-        'timestamp': datetime.now().isoformat(),
-        'output_directory': str(output_path),
-        'project_id': project_id,
-        'components': None,
-        'trust_zones': None,
-        'threats': None,
-        'countermeasures': None,
-        'updates_applied': 0,
-        'updates_failed': 0,
-        'failed_updates': [],
-        'debug_messages': [f"sync_data_to_directory called with project_id='{project_id}', output_dir='{output_dir}'"]
-    }
-    
-    try:
-        # Get API client from container
-        container = get_container()
-        api_client = container.get(IriusRiskApiClient)
-        
-        # Download components data (always available, no project needed)
-        try:
-            components_data = _download_components_data(api_client)
-            components_file = output_path / 'components.json'
-            _save_json_file(components_data, components_file, 'components')
-            results['components'] = {
-                'count': len(components_data.get('components', [])),
-                'file': str(components_file)
-            }
-            results['debug_messages'].append(f"Downloaded {len(components_data.get('components', []))} components")
-        except Exception as e:
-            results['errors'] = results.get('errors', [])
-            results['errors'].append(f"Failed to download components: {e}")
-        
-        # Download trust zones data (always available, no project needed)
-        try:
-            trust_zones_data = _download_trust_zones_data(api_client)
-            trust_zones_file = output_path / 'trust-zones.json'
-            _save_json_file(trust_zones_data, trust_zones_file, 'trust zones')
-            results['trust_zones'] = {
-                'count': len(trust_zones_data.get('trust_zones', [])),
-                'file': str(trust_zones_file)
-            }
-            results['debug_messages'].append(f"Downloaded {len(trust_zones_data.get('trust_zones', []))} trust zones")
-        except Exception as e:
-            results['errors'] = results.get('errors', [])
-            results['errors'].append(f"Failed to download trust zones: {e}")
-        
-        # Resolve project ID if provided (for project-specific operations)
-        final_project_id = None
-        if project_id:
-            try:
-                final_project_id = _resolve_project_id_to_uuid(project_id)
-                results['project_id'] = final_project_id
-                # Validate that we got a proper UUID
-                if not is_uuid_format(final_project_id):
-                    raise Exception(f"Could not resolve reference ID '{project_id}' to a valid UUID. Got: '{final_project_id}'")
-                
-                # Apply any pending updates (now that we have a valid project ID)
-                results['debug_messages'].append("About to call _apply_pending_updates()")
-                update_results = _apply_pending_updates(output_path, final_project_id, api_client)
-                results['debug_messages'].append(f"_apply_pending_updates returned: {update_results}")
-                results.update(update_results)
-                
-            except Exception as e:
-                # Project resolution failed, but that's OK - we still have components/trust zones
-                results['project_resolution_error'] = str(e)
-                results['debug_messages'].append(f"Project resolution failed: {e}")
-                final_project_id = None
-        
-        # Download project-specific data if project ID is available
-        if final_project_id:
-            try:
-                # Download threats
-                threats_data = _download_threats_data(final_project_id, api_client)
-                threats_file = output_path / 'threats.json'
-                _save_json_file(threats_data, threats_file, 'threats')
-                
-                results['threats'] = {
-                    'count': threats_data.get('metadata', {}).get('total_count', 0),
-                    'file': str(threats_file)
-                }
-            except Exception as e:
-                results['threats'] = {'error': str(e)}
-            
-            try:
-                # Download countermeasures
-                countermeasures_data = _download_countermeasures_data(final_project_id, api_client)
-                countermeasures_file = output_path / 'countermeasures.json'
-                _save_json_file(countermeasures_data, countermeasures_file, 'countermeasures')
-                
-                results['countermeasures'] = {
-                    'count': countermeasures_data.get('metadata', {}).get('total_count', 0),
-                    'file': str(countermeasures_file)
-                }
-            except Exception as e:
-                results['countermeasures'] = {'error': str(e)}
-        
-        return results
-        
-    except Exception as e:
-        results['error'] = str(e)
-        return results

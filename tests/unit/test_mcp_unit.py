@@ -303,23 +303,19 @@ class TestMCPDataOperations:
     """Test MCP data operation helpers."""
     
     def test_mcp_imports_sync_functions(self):
-        """Test that MCP module imports required sync functions."""
-        from src.iriusrisk_cli.commands.mcp import (
-            _download_components_data,
-            _download_trust_zones_data,
-            _download_threats_data,
-            _download_countermeasures_data,
-            _ensure_iriusrisk_directory,
-            _save_json_file
-        )
+        """Test that MCP module imports the shared sync function."""
+        from src.iriusrisk_cli.commands.mcp import sync_data_to_directory
         
-        # Verify all required functions are imported
-        assert callable(_download_components_data)
-        assert callable(_download_trust_zones_data)
-        assert callable(_download_threats_data)
-        assert callable(_download_countermeasures_data)
-        assert callable(_ensure_iriusrisk_directory)
-        assert callable(_save_json_file)
+        # Verify the shared sync function is imported and callable
+        assert callable(sync_data_to_directory)
+        
+        # Verify it has the expected signature
+        import inspect
+        sig = inspect.signature(sync_data_to_directory)
+        assert 'project_id' in sig.parameters
+        assert 'output_dir' in sig.parameters
+        assert 'check_config_for_default' in sig.parameters
+        assert 'verbose' in sig.parameters
     
     def test_mcp_imports_utility_functions(self):
         """Test that MCP module imports required utility functions."""
