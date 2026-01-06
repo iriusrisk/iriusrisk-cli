@@ -407,9 +407,34 @@ def print_project_details(project: Dict):
         'Reference ID': TableFormatter.format_optional(project.get('referenceId')),
         'Description': TableFormatter.format_optional(project.get('description'), 'No description'),
         'Tags': TableFormatter.format_optional(project.get('tags'), 'No tags'),
-        'State': TableFormatter.format_optional(project.get('state')),
-        'Model Updated': TableFormatter.format_optional(project.get('modelUpdated')),
     }
+    
+    # Get threat model state and operation for special handling
+    state = project.get('state', 'unknown')
+    operation = project.get('operation', 'none')
+    
+    # Add threat model synchronization status with helpful annotations
+    state_display = state
+    if state == 'draft':
+        state_display = f"{state} (⚠️  NEEDS UPDATE - pending changes)"
+    elif state == 'syncing' or state == 'syncing-draft':
+        state_display = f"{state} (⏳ processing...)"
+    elif state == 'synced':
+        state_display = f"{state} (✅ up to date)"
+    
+    basic_info['Threat Model State'] = state_display
+    basic_info['Model Updated'] = TableFormatter.format_optional(project.get('modelUpdated'))
+    
+    # Add operation if not "none"
+    if operation and operation != 'none':
+        operation_display = operation
+        if operation == 'versioning':
+            operation_display = f"{operation} (creating version snapshot)"
+        elif operation == 'restoring':
+            operation_display = f"{operation} (restoring from version)"
+        elif operation == 'importing-templates':
+            operation_display = f"{operation} (importing templates)"
+        basic_info['Current Operation'] = operation_display
     
     # Workflow state information
     workflow_state = project.get('workflowState', {})
@@ -437,12 +462,19 @@ def print_project_details(project: Dict):
             'Version ID': TableFormatter.format_optional(version.get('id')),
         })
     
-    # Operation information
-    operation = project.get('operation')
-    if operation:
-        basic_info['Operation'] = str(operation)
-    
     TableFormatter.print_key_value_table(basic_info, "Project Information")
+    
+    # Print helpful guidance based on state
+    if state == 'draft':
+        click.echo()
+        click.echo("⚠️  THREAT MODEL STATUS:")
+        click.echo("   The project has pending changes that need to be applied to the threat model.")
+        click.echo("   This corresponds to the orange 'Update Threat Model' button in the web UI.")
+        click.echo("   Changes may be from: questionnaire updates, component changes, or rule modifications.")
+        click.echo()
+        click.echo("   To apply changes:")
+        click.echo("   • Use the web UI to trigger threat model regeneration")
+        click.echo("   • Or wait for automatic regeneration if enabled")
     
     # Custom fields
     custom_fields = project.get('customFields')

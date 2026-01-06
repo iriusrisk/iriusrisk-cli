@@ -32,6 +32,84 @@ def _ensure_iriusrisk_directory() -> Path:
     return iriusrisk_dir
 
 
+def _wait_for_threat_model_sync(project_id: str, api_client: IriusRiskApiClient, verbose: bool = True, timeout: int = 300) -> None:
+    """Wait for threat model synchronization to complete.
+    
+    Polls the project state until it reaches 'synced' or times out.
+    
+    Args:
+        project_id: Project UUID
+        api_client: IriusRisk API client instance
+        verbose: If True, output progress messages
+        timeout: Maximum time to wait in seconds (default: 5 minutes)
+        
+    Raises:
+        Exception: If timeout is reached or state check fails repeatedly
+    """
+    import time
+    
+    if verbose:
+        click.echo("⏳ Waiting for threat model synchronization to complete...")
+    
+    start_time = time.time()
+    poll_interval = 2  # Start with 2 second intervals
+    max_poll_interval = 10  # Max 10 seconds between polls
+    consecutive_errors = 0
+    max_consecutive_errors = 3
+    
+    while True:
+        elapsed = time.time() - start_time
+        
+        # Check timeout
+        if elapsed > timeout:
+            error_msg = f"Timeout waiting for threat model sync after {timeout} seconds"
+            if verbose:
+                click.echo(f"❌ {error_msg}")
+            raise Exception(error_msg)
+        
+        try:
+            # Get current project state
+            project_data = api_client.project_client.get_project(project_id)
+            state = project_data.get('state', 'unknown')
+            operation = project_data.get('operation', 'none')
+            
+            # Reset error counter on successful check
+            consecutive_errors = 0
+            
+            if state == 'synced':
+                if verbose:
+                    click.echo(f"✅ Threat model synchronized (took {elapsed:.1f} seconds)")
+                return
+            elif state in ['syncing', 'syncing-draft']:
+                if verbose:
+                    click.echo(f"   Still synchronizing... (elapsed: {elapsed:.0f}s, state: {state})")
+            elif state == 'draft':
+                # Still in draft after triggering - might need more time for rules to start
+                if verbose:
+                    click.echo(f"   Waiting for rules engine to start... (elapsed: {elapsed:.0f}s)")
+            else:
+                if verbose:
+                    click.echo(f"   Unexpected state: {state} (operation: {operation}, elapsed: {elapsed:.0f}s)")
+            
+            # Wait before next poll (exponential backoff)
+            time.sleep(min(poll_interval, max_poll_interval))
+            poll_interval = min(poll_interval * 1.5, max_poll_interval)
+            
+        except Exception as e:
+            consecutive_errors += 1
+            if verbose:
+                click.echo(f"   Warning: Failed to check state ({consecutive_errors}/{max_consecutive_errors}): {e}")
+            
+            if consecutive_errors >= max_consecutive_errors:
+                error_msg = f"Failed to check project state {max_consecutive_errors} times in a row"
+                if verbose:
+                    click.echo(f"❌ {error_msg}")
+                raise Exception(error_msg)
+            
+            # Wait a bit before retrying
+            time.sleep(poll_interval)
+
+
 def _download_threats_data(project_id: str, api_client: IriusRiskApiClient) -> Dict[str, Any]:
     """Download all threats data for a project.
     
@@ -428,6 +506,52 @@ def sync_data_to_directory(
                 results['errors'].append(warning_msg)
                 final_project_id = None
         
+        # Check project state at start and trigger rules if needed
+        if final_project_id:
+            try:
+                if verbose:
+                    click.echo("Checking project threat model state...")
+                project_data = api_client.project_client.get_project(final_project_id)
+                state = project_data.get('state', 'unknown')
+                
+                if state == 'draft':
+                    if verbose:
+                        click.echo("⚠️  Project has pending changes (state: draft)")
+                        click.echo("🔄 Triggering threat model update...")
+                    
+                    try:
+                        api_client.project_client.execute_rules(final_project_id)
+                        if verbose:
+                            click.echo("✅ Threat model update triggered successfully")
+                        
+                        # Wait for rules execution to complete
+                        _wait_for_threat_model_sync(final_project_id, api_client, verbose)
+                        
+                    except Exception as rules_error:
+                        error_msg = f"Failed to trigger threat model update: {rules_error}"
+                        if verbose:
+                            click.echo(f"⚠️  {error_msg}")
+                        results['errors'].append(error_msg)
+                elif state == 'synced':
+                    if verbose:
+                        click.echo("✅ Project threat model is up to date (state: synced)")
+                elif state in ['syncing', 'syncing-draft']:
+                    if verbose:
+                        click.echo(f"⏳ Project threat model is currently updating (state: {state})")
+                    # Wait for ongoing sync to complete
+                    _wait_for_threat_model_sync(final_project_id, api_client, verbose)
+                else:
+                    if verbose:
+                        click.echo(f"ℹ️  Project state: {state}")
+                        
+                if verbose:
+                    click.echo()
+            except Exception as state_check_error:
+                # Don't fail the entire sync if state check fails
+                if verbose:
+                    click.echo(f"Warning: Could not check project state: {state_check_error}")
+                click.echo()
+        
         # Determine output directory
         if output_dir:
             output_path = Path(output_dir)
@@ -550,6 +674,49 @@ def sync_data_to_directory(
         # Inform user if no project was available for threats/countermeasures/questionnaires
         if not final_project_id and not components_only and not trust_zones_only and verbose:
             click.echo("No project configured - only downloaded system components and trust zones. Use 'iriusrisk init' to configure a project for threat, countermeasure, and questionnaire data.")
+        
+        # Check project state at end and trigger rules if needed
+        if final_project_id:
+            try:
+                if verbose:
+                    click.echo()
+                    click.echo("Checking project threat model state after sync...")
+                project_data = api_client.project_client.get_project(final_project_id)
+                state = project_data.get('state', 'unknown')
+                
+                if state == 'draft':
+                    if verbose:
+                        click.echo("⚠️  Project has pending changes (state: draft)")
+                        click.echo("🔄 Triggering threat model update...")
+                    
+                    try:
+                        api_client.project_client.execute_rules(final_project_id)
+                        if verbose:
+                            click.echo("✅ Threat model update triggered successfully")
+                        
+                        # Wait for rules execution to complete
+                        _wait_for_threat_model_sync(final_project_id, api_client, verbose)
+                        
+                    except Exception as rules_error:
+                        error_msg = f"Failed to trigger threat model update: {rules_error}"
+                        if verbose:
+                            click.echo(f"⚠️  {error_msg}")
+                        results['errors'].append(error_msg)
+                elif state == 'synced':
+                    if verbose:
+                        click.echo("✅ Project threat model is up to date (state: synced)")
+                elif state in ['syncing', 'syncing-draft']:
+                    if verbose:
+                        click.echo(f"⏳ Project threat model is currently updating (state: {state})")
+                    # Wait for ongoing sync to complete
+                    _wait_for_threat_model_sync(final_project_id, api_client, verbose)
+                else:
+                    if verbose:
+                        click.echo(f"ℹ️  Project state: {state}")
+            except Exception as state_check_error:
+                # Don't fail the entire sync if state check fails
+                if verbose:
+                    click.echo(f"Warning: Could not check project state after sync: {state_check_error}")
                 
     except Exception as e:
         # Ensure we don't get type errors when handling the exception

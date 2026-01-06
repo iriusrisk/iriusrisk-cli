@@ -538,6 +538,7 @@ def _format_projects_output(projects_data: list, output_format: str, include_ver
         {'key': 'id'},  # No truncation - IDs needed for operations
         {'key': 'name'},
         {'key': 'referenceId'},
+        {'key': 'state'},  # Threat model state
         {'key': 'workflowState.name', 'csv_key': 'workflowState'},
         {'key': 'isArchived', 'formatter': TableFormatter.format_boolean},
         {'key': 'modelUpdated', 'formatter': lambda x: TableFormatter.format_timestamp(x, 'date'), 'truncate': 10}
@@ -547,12 +548,12 @@ def _format_projects_output(projects_data: list, output_format: str, include_ver
         base_field_mappings.append({'key': 'version.name', 'csv_key': 'version'})
     
     # Create table headers
-    table_headers = ['ID', 'Name', 'Reference ID', 'Workflow State', 'Archived', 'Updated']
+    table_headers = ['ID', 'Name', 'Reference ID', 'TM State', 'Workflow State', 'Archived', 'Updated']
     if include_versions:
         table_headers.append('Version')
     
     # Create CSV headers
-    csv_headers = ['id', 'name', 'referenceId', 'workflowState', 'isArchived', 'modelUpdated']
+    csv_headers = ['id', 'name', 'referenceId', 'state', 'workflowState', 'isArchived', 'modelUpdated']
     if include_versions:
         csv_headers.append('version')
     

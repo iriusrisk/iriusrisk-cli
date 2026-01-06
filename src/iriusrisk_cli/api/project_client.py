@@ -686,3 +686,69 @@ class ProjectApiClient(BaseApiClient):
             else:
                 error_msg = str(e)
             raise Exception(f"API request failed: {error_msg}")
+    
+    def execute_rules(self, project_id: str) -> Dict[str, Any]:
+        """Execute rules engine to update threat model (moves project out of draft state).
+        
+        This endpoint triggers the rules engine to regenerate threats and countermeasures
+        based on the current project configuration. It's equivalent to clicking the
+        "Update Threat Model" button in the web UI.
+        
+        Args:
+            project_id: Project UUID or reference ID
+            
+        Returns:
+            AsyncOperationIdResponse with operation details
+            
+        Raises:
+            Exception: If rules execution fails
+        """
+        import requests
+        
+        self.logger.info(f"Executing rules engine for project: {project_id}")
+        
+        # Use v2 API endpoint for project sync (triggers rules execution)
+        # POST /api/v2/projects/{project-id}/sync
+        session = requests.Session()
+        session.headers.update({
+            'api-token': self._config.api_token,
+            'Content-Type': 'application/json',
+            'X-Irius-Async': 'true'  # Required - async mode only
+        })
+        
+        url = f"{self.base_url}/projects/{project_id}/sync"
+        
+        try:
+            response = session.post(url)
+            response.raise_for_status()
+            
+            # Log the response if enabled
+            self._log_response('POST', url, {}, response)
+            
+            result = response.json()
+            self.logger.info(f"Rules execution triggered successfully for project: {project_id}")
+            
+            return result
+            
+        except requests.RequestException as e:
+            if hasattr(e, 'response') and e.response is not None:
+                try:
+                    error_data = e.response.json()
+                    error_msg = error_data.get('message', str(e))
+                    if e.response.status_code == 401:
+                        error_msg += " (Check your API token configuration)"
+                    elif e.response.status_code == 403:
+                        error_msg += " (Insufficient permissions - requires MODEL_UPDATE scope)"
+                    elif e.response.status_code == 404:
+                        error_msg += f" (Project '{project_id}' not found)"
+                except:
+                    error_msg = f"HTTP {e.response.status_code}: {e.response.text[:500]}"
+                    if e.response.status_code == 401:
+                        error_msg += " (Check your API token configuration)"
+                    elif e.response.status_code == 403:
+                        error_msg += " (Insufficient permissions)"
+                    elif e.response.status_code == 404:
+                        error_msg += f" (Project '{project_id}' not found)"
+            else:
+                error_msg = str(e)
+            raise requests.RequestException(f"Rules execution failed: {error_msg}")

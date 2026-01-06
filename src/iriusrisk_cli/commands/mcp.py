@@ -731,6 +731,10 @@ def mcp(cli_ctx):
             is_archived = project_data.get('isArchived', False)
             model_updated = project_data.get('modelUpdated', 'Unknown')
             
+            # Get threat model synchronization status
+            state = project_data.get('state', 'unknown')
+            operation = project_data.get('operation', 'unknown')
+            
             results.append("📊 Project Status:")
             results.append(f"   📛 Name: {project_name}")
             results.append(f"   🆔 UUID: {project_uuid}")
@@ -738,11 +742,37 @@ def mcp(cli_ctx):
             results.append(f"   🔄 Workflow State: {workflow_name}")
             results.append(f"   📅 Last Updated: {model_updated}")
             results.append(f"   📦 Archived: {'Yes' if is_archived else 'No'}")
+            results.append(f"   🔄 Threat Model State: {state}")
+            results.append(f"   ⚙️  Operation: {operation}")
             
-            # Determine status
+            # Determine status and provide actionable guidance
             if is_archived:
                 results.append("")
                 results.append("⚠️  Project is archived - it may not be actively processing")
+            elif state == "draft":
+                results.append("")
+                results.append("⚠️  THREAT MODEL NEEDS UPDATE")
+                results.append("   • The project has pending changes that need to be applied")
+                results.append("   • In the web UI, this is when the orange 'Update Threat Model' button appears")
+                results.append("   • The threat model must be regenerated to apply changes")
+                results.append("   • Changes may be from: questionnaire updates, component changes, or rule modifications")
+                results.append("")
+                results.append("💡 Recommendation:")
+                results.append("   • If you made changes via API/CLI, trigger threat model regeneration in the web UI")
+                results.append("   • Or wait for automatic regeneration if enabled in your IriusRisk configuration")
+            elif state == "syncing" or state == "syncing-draft":
+                results.append("")
+                results.append("⏳ Threat model is currently being updated")
+                results.append("   • Rules engine is processing changes")
+                results.append("   • Wait for the state to change to 'synced' before using the threat model")
+                results.append("   • This typically takes a few seconds to a few minutes depending on project complexity")
+            elif state == "synced":
+                results.append("")
+                results.append("✅ Threat model is synchronized and up to date")
+                results.append("   • OTM import has been processed")
+                results.append("   • All pending changes have been applied")
+                results.append("   • Threats and countermeasures are current")
+                results.append("   • Ready for sync() to download generated data")
             else:
                 results.append("")
                 results.append("✅ Project is active and ready for use")
