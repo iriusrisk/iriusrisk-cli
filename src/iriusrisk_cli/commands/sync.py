@@ -118,6 +118,99 @@ def _download_countermeasures_data(project_id: str, api_client: IriusRiskApiClie
     return countermeasures_sync_data
 
 
+def _download_questionnaires_data(project_id: str, api_client: IriusRiskApiClient) -> Dict[str, Any]:
+    """Download all questionnaires data for a project.
+    
+    Args:
+        project_id: Project ID to download questionnaires for
+        api_client: IriusRisk API client instance
+        
+    Returns:
+        Dictionary containing questionnaires data and metadata
+    """
+    click.echo("Downloading questionnaires data...")
+    
+    # Get project questionnaire
+    try:
+        project_questionnaire = api_client.questionnaire_client.get_project_questionnaire(project_id=project_id)
+        click.echo("  Downloaded project questionnaire")
+    except Exception as e:
+        error_msg = f"Could not download project questionnaire: {e}"
+        logger.error(error_msg)
+        click.echo(f"  Warning: {error_msg}")
+        project_questionnaire = None
+    
+    # Get all component questionnaires summary
+    try:
+        component_summaries_response = api_client.questionnaire_client.get_all_component_questionnaires(
+            project_id=project_id,
+            page=0,
+            size=1000
+        )
+        component_summaries = component_summaries_response.get('_embedded', {}).get('items', [])
+        if component_summaries:
+            click.echo(f"  Found {len(component_summaries)} components with questionnaires")
+    except Exception as e:
+        error_msg = f"Could not download component questionnaires list: {e}"
+        logger.error(error_msg)
+        click.echo(f"  Warning: {error_msg}")
+        component_summaries = []
+    
+    # Get detailed questionnaires for each component
+    detailed_components = []
+    for i, summary_item in enumerate(component_summaries):
+        component_data = summary_item.get('component', {})
+        component_id = component_data.get('id')
+        component_name = component_data.get('name', 'Unknown')
+        component_ref_id = component_data.get('ref', '')
+        questionnaire_status = summary_item.get('status', 'UNKNOWN')
+        
+        if not component_id:
+            continue
+        
+        click.echo(f"  ({i+1}/{len(component_summaries)}) Downloading questionnaire for {component_name}...")
+        
+        try:
+            questionnaire_data = api_client.questionnaire_client.get_component_questionnaire(component_id=component_id)
+            
+            detailed_entry = {
+                'componentId': component_id,
+                'componentName': component_name,
+                'componentReferenceId': component_ref_id,
+                'status': questionnaire_status,
+                'questionnaire': questionnaire_data.get('questionnaire', {}),
+                'conclusions': questionnaire_data.get('conclusions', []),
+                'outcomes': questionnaire_data.get('outcomes', {})
+            }
+            
+            detailed_components.append(detailed_entry)
+        except Exception as e:
+            error_msg = f"Failed to download questionnaire for {component_name}: {e}"
+            logger.warning(error_msg)
+            click.echo(f"    Warning: {error_msg}")
+            continue
+    
+    # Create comprehensive data structure
+    questionnaires_sync_data = {
+        'metadata': {
+            'project_id': project_id,
+            'data_type': 'questionnaires',
+            'sync_timestamp': click.get_current_context().meta.get('sync_timestamp', 'unknown'),
+            'component_count': len(detailed_components)
+        },
+        'project': {
+            'projectId': project_id,
+            'questionnaire': project_questionnaire.get('questionnaire', {}) if project_questionnaire else {},
+            'conclusions': project_questionnaire.get('conclusions', []) if project_questionnaire else [],
+            'outcomes': project_questionnaire.get('outcomes', {}) if project_questionnaire else {}
+        } if project_questionnaire else None,
+        'components': detailed_components
+    }
+    
+    click.echo(f"Downloaded project questionnaire and {len(detailed_components)} component questionnaires")
+    return questionnaires_sync_data
+
+
 def _download_components_data(api_client: IriusRiskApiClient) -> Dict[str, Any]:
     """Download all system components data.
     
@@ -278,6 +371,7 @@ def sync_data_to_directory(
         'trust_zones': None,
         'threats': None,
         'countermeasures': None,
+        'questionnaires': None,
         'updates_applied': 0,
         'updates_failed': 0,
         'errors': [],
@@ -431,9 +525,31 @@ def sync_data_to_directory(
                 if verbose:
                     click.echo(error_msg, err=True)
         
-        # Inform user if no project was available for threats/countermeasures
+        # Download and save questionnaires data (if project exists and not excluded)
+        if final_project_id and not threats_only and not components_only and not trust_zones_only and not countermeasures_only:
+            try:
+                if verbose:
+                    click.echo("Downloading questionnaires data...")
+                questionnaires_data = _download_questionnaires_data(final_project_id, api_client)
+                questionnaires_file = output_path / 'questionnaires.json'
+                _save_json_file(questionnaires_data, questionnaires_file, 'questionnaires' if verbose else None)
+                
+                project_count = 1 if questionnaires_data.get('project') else 0
+                component_count = len(questionnaires_data.get('components', []))
+                results['questionnaires'] = {
+                    'project_count': project_count,
+                    'component_count': component_count,
+                    'file': str(questionnaires_file)
+                }
+            except Exception as e:
+                error_msg = f"Error downloading questionnaires data: {e}"
+                results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(error_msg, err=True)
+        
+        # Inform user if no project was available for threats/countermeasures/questionnaires
         if not final_project_id and not components_only and not trust_zones_only and verbose:
-            click.echo("No project configured - only downloaded system components and trust zones. Use 'iriusrisk init' to configure a project for threat and countermeasure data.")
+            click.echo("No project configured - only downloaded system components and trust zones. Use 'iriusrisk init' to configure a project for threat, countermeasure, and questionnaire data.")
                 
     except Exception as e:
         # Ensure we don't get type errors when handling the exception
@@ -685,9 +801,9 @@ def _save_json_file(data: Dict[str, Any], file_path: Path, data_type: Optional[s
               default='pretty', help='Output format for JSON files (currently unused)')
 def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bool, 
          components_only: bool, trust_zones_only: bool, output_dir: Optional[str], output_format: str):
-    """Synchronize threats, countermeasures, system components, and trust zones data to local JSON files.
+    """Synchronize threats, countermeasures, questionnaires, system components, and trust zones data to local JSON files.
     
-    This command downloads all threats and countermeasures data for a project,
+    This command downloads all threats, countermeasures, and questionnaires data for a project,
     plus all system components and trust zones data, and saves them as JSON files in the 
     .iriusrisk directory for offline analysis.
     
@@ -791,10 +907,16 @@ def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bo
                 click.echo(f"📄 Trust zones data: {trust_zones_file}")
                 logger.info(f"Created trust zones file: {trust_zones_file}")
         
+        if results.get('questionnaires') and not results['questionnaires'].get('error'):
+            questionnaires_file = output_path_resolved / 'questionnaires.json'
+            if questionnaires_file.exists():
+                click.echo(f"📄 Questionnaires data: {questionnaires_file}")
+                logger.info(f"Created questionnaires file: {questionnaires_file}")
+        
         # Show helpful message if project couldn't be resolved
         if not results.get('project_id') and not components_only and not trust_zones_only:
             click.echo()
-            click.echo("💡 To sync threats and countermeasures, configure a project with 'iriusrisk init' or check that your project exists and is accessible.")
+            click.echo("💡 To sync threats, countermeasures, and questionnaires, configure a project with 'iriusrisk init' or check that your project exists and is accessible.")
         
     except click.Abort:
         raise

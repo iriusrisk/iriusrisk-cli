@@ -415,6 +415,15 @@ def mcp(cli_ctx):
                     output_lines.append(f"✅ Downloaded {results['countermeasures']['count']} countermeasures")
                     output_lines.append(f"📄 Countermeasures saved to: {results['countermeasures']['file']}")
             
+            if results.get('questionnaires'):
+                if 'error' in results['questionnaires']:
+                    output_lines.append(f"❌ Failed to download questionnaires: {results['questionnaires']['error']}")
+                else:
+                    project_count = results['questionnaires'].get('project_count', 0)
+                    component_count = results['questionnaires'].get('component_count', 0)
+                    output_lines.append(f"✅ Downloaded questionnaires: {project_count} project, {component_count} components")
+                    output_lines.append(f"📄 Questionnaires saved to: {results['questionnaires']['file']}")
+            
             # Show update results if any
             if results.get('updates_applied', 0) > 0 or results.get('updates_failed', 0) > 0:
                 output_lines.append("")
@@ -451,7 +460,7 @@ def mcp(cli_ctx):
             output_lines.append("🎉 Sync completed! You can now create threat models with access to:")
             output_lines.append("   • Latest IriusRisk component library")
             if results.get('project_id'):
-                output_lines.append("   • Current project threats and countermeasures")
+                output_lines.append("   • Current project threats, countermeasures, and questionnaires")
             else:
                 output_lines.append("💡 Use 'iriusrisk init' to set up a project for full sync")
             

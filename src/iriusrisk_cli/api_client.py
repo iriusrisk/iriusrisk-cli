@@ -8,6 +8,7 @@ from .api.countermeasure_client import CountermeasureApiClient
 from .api.report_client import ReportApiClient
 from .api.health_client import HealthApiClient
 from .api.version_client import VersionApiClient
+from .api.questionnaire_client import QuestionnaireApiClient
 from .config import Config
 
 
@@ -30,6 +31,7 @@ class IriusRiskApiClient:
         self.report_client = ReportApiClient(config=config)
         self.health_client = HealthApiClient(config=config)
         self.version_client = VersionApiClient(config=config)
+        self.questionnaire_client = QuestionnaireApiClient(config=config)
         
         # For backward compatibility, expose base properties
         self.base_url = self.project_client.base_url

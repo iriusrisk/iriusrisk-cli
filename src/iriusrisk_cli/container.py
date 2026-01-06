@@ -9,12 +9,14 @@ from .repositories.threat_repository import ThreatRepository
 from .repositories.countermeasure_repository import CountermeasureRepository
 from .repositories.report_repository import ReportRepository
 from .repositories.version_repository import VersionRepository
+from .repositories.questionnaire_repository import QuestionnaireRepository
 from .services.project_service import ProjectService
 from .services.threat_service import ThreatService
 from .services.countermeasure_service import CountermeasureService
 from .services.report_service import ReportService
 from .services.health_service import HealthService
 from .services.version_service import VersionService
+from .services.questionnaire_service import QuestionnaireService
 
 T = TypeVar('T')
 
@@ -61,6 +63,9 @@ class Container:
         self._factories[VersionRepository] = lambda: VersionRepository(
             api_client=self.get(IriusRiskApiClient).version_client
         )
+        self._factories[QuestionnaireRepository] = lambda: QuestionnaireRepository(
+            api_client=self.get(IriusRiskApiClient).questionnaire_client
+        )
         
         # Services (singletons)
         self._factories[ProjectService] = lambda: ProjectService(
@@ -84,6 +89,9 @@ class Container:
             version_repository=self.get(VersionRepository),
             report_repository=self.get(ReportRepository),
             project_repository=self.get(ProjectRepository)
+        )
+        self._factories[QuestionnaireService] = lambda: QuestionnaireService(
+            questionnaire_repository=self.get(QuestionnaireRepository)
         )
         
         # Service Factory (singleton) - for backward compatibility
