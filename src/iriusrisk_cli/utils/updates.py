@@ -209,6 +209,104 @@ class UpdateTracker:
             logger.error(f"Failed to track issue creation request: {e}")
             return False
     
+    def track_project_questionnaire_update(self, project_id: str, answers_data: Dict[str, Any], context: Optional[str] = None) -> bool:
+        """Track a project questionnaire update.
+        
+        Args:
+            project_id: Project UUID
+            answers_data: Questionnaire update request with steps and answers in the format:
+                         {
+                           "steps": [
+                             {
+                               "questions": [
+                                 {
+                                   "referenceId": "question-ref-id",
+                                   "answers": [
+                                     {
+                                       "referenceId": "answer-ref-id",
+                                       "value": "true"  # or "false"
+                                     }
+                                   ]
+                                 }
+                               ]
+                             }
+                           ]
+                         }
+            context: Optional context explaining what was analyzed to determine the answers
+            
+        Returns:
+            True if update was tracked successfully
+        """
+        update_entry = {
+            "id": project_id,
+            "type": "project_questionnaire",
+            "answers_data": answers_data,
+            "context": context,
+            "timestamp": datetime.now().isoformat(),
+            "applied": False
+        }
+        
+        data = self._load_updates()
+        
+        # Remove any existing project questionnaire update for this project
+        data["updates"] = [u for u in data["updates"] if not (u["id"] == project_id and u["type"] == "project_questionnaire")]
+        
+        # Add new update
+        data["updates"].append(update_entry)
+        
+        self._save_updates(data)
+        logger.info(f"Tracked project questionnaire update: {project_id}")
+        return True
+    
+    def track_component_questionnaire_update(self, component_id: str, answers_data: Dict[str, Any], context: Optional[str] = None) -> bool:
+        """Track a component questionnaire update.
+        
+        Args:
+            component_id: Component UUID
+            answers_data: Questionnaire update request with steps and answers in the format:
+                         {
+                           "steps": [
+                             {
+                               "questions": [
+                                 {
+                                   "referenceId": "question-ref-id",
+                                   "answers": [
+                                     {
+                                       "referenceId": "answer-ref-id",
+                                       "value": "true"  # or "false"
+                                     }
+                                   ]
+                                 }
+                               ]
+                             }
+                           ]
+                         }
+            context: Optional context explaining what was analyzed to determine the answers
+            
+        Returns:
+            True if update was tracked successfully
+        """
+        update_entry = {
+            "id": component_id,
+            "type": "component_questionnaire",
+            "answers_data": answers_data,
+            "context": context,
+            "timestamp": datetime.now().isoformat(),
+            "applied": False
+        }
+        
+        data = self._load_updates()
+        
+        # Remove any existing component questionnaire update for this component
+        data["updates"] = [u for u in data["updates"] if not (u["id"] == component_id and u["type"] == "component_questionnaire")]
+        
+        # Add new update
+        data["updates"].append(update_entry)
+        
+        self._save_updates(data)
+        logger.info(f"Tracked component questionnaire update: {component_id}")
+        return True
+    
     def get_pending_updates(self) -> List[Dict[str, Any]]:
         """Get all pending updates that haven't been applied.
         
@@ -306,6 +404,8 @@ class UpdateTracker:
             "applied_updates": len([u for u in updates if u.get("applied", False)]),
             "threat_updates": len([u for u in updates if u["type"] == "threat"]),
             "countermeasure_updates": len([u for u in updates if u["type"] == "countermeasure"]),
+            "project_questionnaire_updates": len([u for u in updates if u["type"] == "project_questionnaire"]),
+            "component_questionnaire_updates": len([u for u in updates if u["type"] == "component_questionnaire"]),
             "last_sync": data.get("last_sync"),
             "updates_file": str(self.updates_file)
         }

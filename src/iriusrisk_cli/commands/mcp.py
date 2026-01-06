@@ -778,6 +778,24 @@ def mcp(cli_ctx):
         return _apply_prompt_customizations('threats_and_countermeasures', instructions)
     
     @mcp_server.tool()
+    async def questionnaire_guidance() -> str:
+        """Get comprehensive instructions for completing questionnaires.
+        
+        This tool provides detailed guidance for AI assistants on how to analyze source code
+        and complete project and component questionnaires. Questionnaires help IriusRisk
+        refine the threat model based on actual implementation details.
+        
+        Returns:
+            Detailed instructions for questionnaire completion workflow.
+        """
+        logger.info("Providing questionnaire guidance instructions via MCP")
+        
+        instructions = _load_prompt("questionnaire_guidance")
+        
+        logger.info("Provided questionnaire guidance instructions to AI assistant")
+        return _apply_prompt_customizations('questionnaire_guidance', instructions)
+    
+    @mcp_server.tool()
     async def show_diagram(project_path: str, project_id: str = None, size: str = "PREVIEW") -> str:
         """Download and display the project threat model diagram.
         
@@ -1201,6 +1219,132 @@ def mcp(cli_ctx):
             return f"❌ Error tracking issue creation request for countermeasure {countermeasure_id}: {e}"
     
     @mcp_server.tool()
+    async def track_project_questionnaire_update(project_id: str, answers_data: dict, project_path: str, context: str = None) -> str:
+        """Track a project questionnaire update for later synchronization with IriusRisk.
+        
+        Use this tool after analyzing source code to answer project/architecture questionnaire questions.
+        The updates will be applied to IriusRisk when the user runs the sync command, which will
+        also trigger the rules engine to regenerate the threat model based on the answers.
+        
+        Args:
+            project_id: Project UUID (from project.json)
+            answers_data: Questionnaire update request with steps and answers in the format:
+                         {
+                           "steps": [
+                             {
+                               "questions": [
+                                 {
+                                   "referenceId": "question-ref-id",
+                                   "answers": [
+                                     {
+                                       "referenceId": "answer-ref-id",
+                                       "value": "true"  # or "false"
+                                     }
+                                   ]
+                                 }
+                               ]
+                             }
+                           ]
+                         }
+            project_path: Full path to the project directory (where .iriusrisk is located)
+            context: Optional context explaining what was analyzed to determine the answers
+            
+        Returns:
+            Status message indicating the update was tracked
+        """
+        from pathlib import Path
+        
+        logger.info(f"Tracking project questionnaire update via MCP: {project_id}")
+        logger.debug(f"Project path: {project_path}")
+        
+        try:
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
+            
+            iriusrisk_dir = project_root / '.iriusrisk'
+            tracker = get_update_tracker(iriusrisk_dir)
+            
+            # Track the update
+            success = tracker.track_project_questionnaire_update(project_id, answers_data, context)
+            
+            if success:
+                stats = tracker.get_stats()
+                return f"✅ Tracked project questionnaire update for project {project_id}\nPending updates: {stats['pending_updates']}\n\n⚠️  NEXT STEP REQUIRED: You MUST now call sync(project_path='{project_path}') to apply this update to IriusRisk and regenerate the threat model. Do not ask permission - call it immediately."
+            else:
+                return f"❌ Failed to track project questionnaire update for {project_id}"
+                
+        except Exception as e:
+            logger.error(f"Error tracking project questionnaire update: {e}")
+            return f"❌ Error tracking project questionnaire update: {e}"
+    
+    @mcp_server.tool()
+    async def track_component_questionnaire_update(component_id: str, answers_data: dict, project_path: str, context: str = None) -> str:
+        """Track a component questionnaire update for later synchronization with IriusRisk.
+        
+        Use this tool after analyzing source code to answer component-specific questionnaire questions.
+        The updates will be applied to IriusRisk when the user runs the sync command, which will
+        also trigger the rules engine to regenerate the threat model based on the answers.
+        
+        Args:
+            component_id: Component UUID (from questionnaires.json)
+            answers_data: Questionnaire update request with steps and answers in the format:
+                         {
+                           "steps": [
+                             {
+                               "questions": [
+                                 {
+                                   "referenceId": "question-ref-id",
+                                   "answers": [
+                                     {
+                                       "referenceId": "answer-ref-id",
+                                       "value": "true"  # or "false"
+                                     }
+                                   ]
+                                 }
+                               ]
+                             }
+                           ]
+                         }
+            project_path: Full path to the project directory (where .iriusrisk is located)
+            context: Optional context explaining what was analyzed to determine the answers
+            
+        Returns:
+            Status message indicating the update was tracked
+        """
+        from pathlib import Path
+        
+        logger.info(f"Tracking component questionnaire update via MCP: {component_id}")
+        logger.debug(f"Project path: {project_path}")
+        
+        try:
+            # Validate project path
+            project_root = Path(project_path).resolve()
+            if not project_root.exists():
+                return f"❌ Project path does not exist: {project_path}"
+            if not project_root.is_dir():
+                return f"❌ Project path is not a directory: {project_path}"
+            
+            iriusrisk_dir = project_root / '.iriusrisk'
+            tracker = get_update_tracker(iriusrisk_dir)
+            
+            # Track the update
+            success = tracker.track_component_questionnaire_update(component_id, answers_data, context)
+            
+            if success:
+                stats = tracker.get_stats()
+                return f"✅ Tracked component questionnaire update for component {component_id}\nPending updates: {stats['pending_updates']}\n\n⚠️  NEXT STEP REQUIRED: You MUST now call sync(project_path='{project_path}') to apply this update to IriusRisk and regenerate the threat model. Do not ask permission - call it immediately."
+            else:
+                return f"❌ Failed to track component questionnaire update for {component_id}"
+                
+        except Exception as e:
+            logger.error(f"Error tracking component questionnaire update: {e}")
+            return f"❌ Error tracking component questionnaire update: {e}"
+    
+    @mcp_server.tool()
     async def get_pending_updates(project_path: str) -> str:
         """Get all pending threat and countermeasure updates that haven't been synced yet.
         
@@ -1235,15 +1379,24 @@ def mcp(cli_ctx):
             result = f"📋 Pending Updates Summary:\n"
             result += f"Total pending: {stats['pending_updates']}\n"
             result += f"Threats: {len([u for u in pending_updates if u['type'] == 'threat'])}\n"
-            result += f"Countermeasures: {len([u for u in pending_updates if u['type'] == 'countermeasure'])}\n\n"
+            result += f"Countermeasures: {len([u for u in pending_updates if u['type'] == 'countermeasure'])}\n"
+            result += f"Project Questionnaires: {len([u for u in pending_updates if u['type'] == 'project_questionnaire'])}\n"
+            result += f"Component Questionnaires: {len([u for u in pending_updates if u['type'] == 'component_questionnaire'])}\n\n"
             
             result += "Recent Updates:\n"
             # Show last 10 pending updates
             for update in pending_updates[-10:]:
-                result += f"- {update['type'].title()}: {update['id'][:8]}... -> {update['new_status']}\n"
-                result += f"  Reason: {update['reason'][:60]}{'...' if len(update['reason']) > 60 else ''}\n"
-                if update.get('context'):
-                    result += f"  Context: {update['context'][:60]}{'...' if len(update['context']) > 60 else ''}\n"
+                update_type = update['type']
+                if update_type in ['project_questionnaire', 'component_questionnaire']:
+                    result += f"- {update_type.replace('_', ' ').title()}: {update['id'][:8]}...\n"
+                    if update.get('context'):
+                        result += f"  Context: {update['context'][:60]}{'...' if len(update['context']) > 60 else ''}\n"
+                else:
+                    result += f"- {update_type.title()}: {update['id'][:8]}... -> {update.get('new_status', 'N/A')}\n"
+                    if update.get('reason'):
+                        result += f"  Reason: {update['reason'][:60]}{'...' if len(update['reason']) > 60 else ''}\n"
+                    if update.get('context'):
+                        result += f"  Context: {update['context'][:60]}{'...' if len(update['context']) > 60 else ''}\n"
                 result += "\n"
             
             if len(pending_updates) > 10:

@@ -608,6 +608,7 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
         
         threat_client = api_client.threat_client
         countermeasure_client = api_client.countermeasure_client
+        questionnaire_client = api_client.questionnaire_client
         
         # Apply updates with individual error handling
         for i, update in enumerate(pending_updates):
@@ -687,6 +688,29 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
                         issue_tracker_id=issue_tracker_id
                     )
                 
+                elif update_type == "project_questionnaire":
+                    # Apply project questionnaire update
+                    answers_data = update.get("answers_data", {})
+                    click.echo(f"  {progress} Updating project questionnaire for project {update_id[:8]}...")
+                    
+                    # Use the project_id passed to this function (should match update_id)
+                    questionnaire_client.update_project_questionnaire(
+                        project_id=update_id,
+                        questionnaire_data=answers_data
+                    )
+                    click.echo(f"    ✅ Project questionnaire updated, rules engine will regenerate threats")
+                
+                elif update_type == "component_questionnaire":
+                    # Apply component questionnaire update
+                    answers_data = update.get("answers_data", {})
+                    click.echo(f"  {progress} Updating component questionnaire for component {update_id[:8]}...")
+                    
+                    questionnaire_client.update_component_questionnaire(
+                        component_id=update_id,
+                        questionnaire_data=answers_data
+                    )
+                    click.echo(f"    ✅ Component questionnaire updated, rules engine will regenerate threats")
+                
                 # Mark as applied immediately after successful API call
                 if tracker.mark_update_applied(update_id, update_type):
                     results["updates_applied"] += 1
@@ -705,6 +729,8 @@ def _apply_pending_updates(output_path: Path, project_id: Optional[str] = None, 
                         success_detail["comment"] = comment
                     if update_type == "issue_creation":
                         success_detail["issue_tracker_id"] = update.get("issue_tracker_id")
+                    if update_type in ["project_questionnaire", "component_questionnaire"]:
+                        success_detail["answers_data"] = update.get("answers_data")
                     
                     results["success_details"].append(success_detail)
                     click.echo(f"    ✅ Success")

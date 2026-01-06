@@ -62,11 +62,19 @@ def list(output_format: str):
         click.echo()
         
         for i, update in enumerate(pending_updates, 1):
-            click.echo(f"{i}. {update['type'].title()}: {update['id']}")
-            click.echo(f"   Status: {update['new_status']}")
-            click.echo(f"   Reason: {update['reason']}")
-            if update.get('context'):
-                click.echo(f"   Context: {update['context']}")
+            update_type = update['type']
+            click.echo(f"{i}. {update_type.replace('_', ' ').title()}: {update['id']}")
+            
+            if update_type in ['project_questionnaire', 'component_questionnaire']:
+                if update.get('context'):
+                    click.echo(f"   Context: {update['context']}")
+            else:
+                click.echo(f"   Status: {update.get('new_status', 'N/A')}")
+                if update.get('reason'):
+                    click.echo(f"   Reason: {update['reason']}")
+                if update.get('context'):
+                    click.echo(f"   Context: {update['context']}")
+            
             click.echo(f"   Tracked: {update['timestamp']}")
             click.echo()
         
@@ -74,6 +82,8 @@ def list(output_format: str):
         click.echo(f"   Total pending: {stats['pending_updates']}")
         click.echo(f"   Threats: {len([u for u in pending_updates if u['type'] == 'threat'])}")
         click.echo(f"   Countermeasures: {len([u for u in pending_updates if u['type'] == 'countermeasure'])}")
+        click.echo(f"   Project Questionnaires: {len([u for u in pending_updates if u['type'] == 'project_questionnaire'])}")
+        click.echo(f"   Component Questionnaires: {len([u for u in pending_updates if u['type'] == 'component_questionnaire'])}")
         click.echo()
         click.echo("💡 Use 'iriusrisk sync' to apply these updates to IriusRisk")
         
@@ -116,6 +126,8 @@ def stats(applied: bool, output_format: str):
         click.echo(f"By type:")
         click.echo(f"  Threats: {stats['threat_updates']}")
         click.echo(f"  Countermeasures: {stats['countermeasure_updates']}")
+        click.echo(f"  Project Questionnaires: {stats.get('project_questionnaire_updates', 0)}")
+        click.echo(f"  Component Questionnaires: {stats.get('component_questionnaire_updates', 0)}")
         click.echo()
         click.echo(f"Last sync: {stats['last_sync'] or 'Never'}")
         click.echo(f"Updates file: {stats['updates_file']}")
@@ -128,7 +140,11 @@ def stats(applied: bool, output_format: str):
             
             for update in applied_updates[-5:]:  # Show last 5 applied
                 applied_time = update.get('applied_timestamp', 'Unknown')
-                click.echo(f"  • {update['type']}: {update['id'][:8]}... -> {update['new_status']} (applied {applied_time})")
+                update_type = update['type']
+                if update_type in ['project_questionnaire', 'component_questionnaire']:
+                    click.echo(f"  • {update_type.replace('_', ' ').title()}: {update['id'][:8]}... (applied {applied_time})")
+                else:
+                    click.echo(f"  • {update_type}: {update['id'][:8]}... -> {update.get('new_status', 'N/A')} (applied {applied_time})")
         
     except Exception as e:
         click.echo(f"Error getting update statistics: {e}", err=True)

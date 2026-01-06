@@ -3,6 +3,12 @@
 ## Executive Summary
 After completing the threat modeling workflow, IriusRisk generates threats and countermeasures saved to `.iriusrisk/` directory. Your role: read these JSON files, explain findings in business terms, prioritize by risk, provide implementation guidance and code examples. Do NOT create new threats, modify risk ratings, or analyze source code for vulnerabilities—that's IriusRisk's job.
 
+**⚠️ IMPORTANT: If questionnaires have NOT been completed yet, recommend completing them BEFORE analyzing threats:**
+- Questionnaires refine the threat model based on actual implementation
+- Results in fewer false positives and more accurate threats
+- Call **questionnaire_guidance()** for instructions on completing questionnaires
+- Takes only a few minutes but significantly improves threat quality
+
 ## CRITICAL: Understanding Threat States vs State Transitions
 
 **Threat States (What You See in Data):**

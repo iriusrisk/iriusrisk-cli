@@ -642,6 +642,7 @@ Verifies:
 - IriusRisk needs time to process the threat model and generate threats
 - Running sync() immediately often results in empty threats (countermeasures may download, but threats will be empty)
 - User may want to refine the architecture first
+- User may want to complete questionnaires first for more accurate threat analysis
 - User controls the pace and timing
 
 **What to do:**
@@ -652,11 +653,22 @@ Verifies:
    - Successful import confirmation
    
 2. **Present options and WAIT for user decision:**
-   - **Option A:** "I can download the generated threats and countermeasures now (IriusRisk may still be processing)"
-   - **Option B:** "Would you like to refine the architecture before downloading security findings?"
-   - **Option C:** "What would you like to do next?"
+   - **Option A:** "I can complete questionnaires to refine the threat model based on your actual implementation (RECOMMENDED - more accurate results)"
+   - **Option B:** "I can download the generated threats and countermeasures now (IriusRisk may still be processing)"
+   - **Option C:** "Would you like to refine the architecture before proceeding?"
+   - **Option D:** "What would you like to do next?"
 
-3. **WAIT for user response** - do not proceed to Step 8 automatically
+3. **WAIT for user response** - do not proceed automatically
+
+**⚠️ IMPORTANT: Completing questionnaires (Option A) is RECOMMENDED before downloading threats because:**
+- It makes the threat model more accurate by incorporating actual implementation details
+- Reduces false positives (e.g., removes authentication threats if auth is implemented)
+- Focuses threats on real gaps in security posture
+- Only adds a few minutes but significantly improves quality of results
+
+**If user chooses Option A (questionnaires):**
+- Call **questionnaire_guidance()** to get detailed instructions on completing questionnaires
+- This will guide you through analyzing code and answering questions to refine the threat model
 
 ### Step 8: sync() Again - Download Security Findings (ONLY When User Explicitly Requests)
 
@@ -669,13 +681,26 @@ When user requests, call **sync(project_path)** again to download:
 
 **Timing note:** If threats.json is empty after sync, IriusRisk may still be processing. Inform user to wait a minute and try again.
 
-### Step 9: threats_and_countermeasures() - Analysis Guidance
+### Step 9: Analysis and Refinement
 
-After downloading security data, call **threats_and_countermeasures()** to get instructions for:
-- Reading threats.json and countermeasures.json
-- Explaining security findings to users
-- Generating code examples and implementation guidance
-- Security analysis best practices
+**After completing questionnaires (if user chose that option):**
+- Threat model has been refined based on actual implementation
+- False positives reduced
+- Threats now focus on actual security gaps
+
+**After downloading security data, you have two analysis tools:**
+
+1. **questionnaire_guidance()** - For completing questionnaires (call this BEFORE downloading threats if possible):
+   - Analyzes source code to answer architecture and component questions
+   - Tracks questionnaire answers for sync back to IriusRisk
+   - Significantly improves threat model accuracy
+   - Reduces false positives
+
+2. **threats_and_countermeasures()** - For analyzing downloaded threats:
+   - Reading threats.json and countermeasures.json
+   - Explaining security findings to users
+   - Generating code examples and implementation guidance
+   - Security analysis best practices
 
 ## Trust Zone Guidelines
 
