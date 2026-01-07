@@ -5,10 +5,11 @@ to UUIDs, eliminating code duplication across command modules.
 """
 
 from typing import Optional
+from uuid import UUID
 from ..api.project_client import ProjectApiClient
 
 
-def resolve_project_id_to_uuid(project_id: str, api_client: Optional[ProjectApiClient] = None) -> str:
+def resolve_project_id_to_uuid(project_id: str, api_client: ProjectApiClient) -> str:
     """Resolve project ID to UUID for V2 API calls.
     
     V2 API requires UUIDs in URL paths. This function:
@@ -17,7 +18,7 @@ def resolve_project_id_to_uuid(project_id: str, api_client: Optional[ProjectApiC
     
     Args:
         project_id: Project ID to resolve (UUID or reference ID)
-        api_client: Optional API client instance. If not provided, creates a new one.
+        api_client: API client instance (required)
         
     Returns:
         UUID that works with the V2 API
@@ -30,8 +31,6 @@ def resolve_project_id_to_uuid(project_id: str, api_client: Optional[ProjectApiC
         return project_id
     
     # It's likely a reference ID, look up the corresponding UUID
-    if api_client is None:
-        api_client = ProjectApiClient()
     
     try:
         filter_expr = f"'referenceId'='{project_id}'"
@@ -48,7 +47,7 @@ def resolve_project_id_to_uuid(project_id: str, api_client: Optional[ProjectApiC
         return project_id
 
 
-def resolve_project_id_to_uuid_strict(project_id: str, api_client: Optional[ProjectApiClient] = None) -> str:
+def resolve_project_id_to_uuid_strict(project_id: str, api_client: ProjectApiClient) -> str:
     """Resolve project ID to UUID with strict error handling.
     
     This is a stricter version that raises exceptions on lookup failures,
@@ -56,7 +55,7 @@ def resolve_project_id_to_uuid_strict(project_id: str, api_client: Optional[Proj
     
     Args:
         project_id: Project ID to resolve (UUID or reference ID)
-        api_client: Optional API client instance. If not provided, creates a new one.
+        api_client: API client instance (required)
         
     Returns:
         UUID that works with the V2 API
@@ -69,8 +68,6 @@ def resolve_project_id_to_uuid_strict(project_id: str, api_client: Optional[Proj
         return project_id
     
     # It's likely a reference ID, look up the corresponding UUID
-    if api_client is None:
-        api_client = ProjectApiClient()
     
     try:
         filter_expr = f"'referenceId'='{project_id}'"
@@ -86,12 +83,18 @@ def resolve_project_id_to_uuid_strict(project_id: str, api_client: Optional[Proj
 
 
 def is_uuid_format(value: str) -> bool:
-    """Check if a string looks like a UUID.
+    """Check if a string is a valid UUID format.
+    
+    Uses Python's built-in uuid module to validate UUID format properly.
     
     Args:
         value: String to check
         
     Returns:
-        True if the string appears to be a UUID format
+        True if the string is a valid UUID format
     """
-    return len(value) == 36 and value.count('-') == 4
+    try:
+        UUID(value)
+        return True
+    except (ValueError, AttributeError, TypeError):
+        return False

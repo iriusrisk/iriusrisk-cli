@@ -41,7 +41,7 @@ class TestCountermeasureService(ServiceTestBase):
             
             # Assert
             assert result == expected_result
-            mock_resolve.assert_called_once_with('project-id')
+            mock_resolve.assert_called_once_with('project-id', self.mock_countermeasure_repository.api_client)
             self.mock_countermeasure_repository.list_all.assert_called_once_with(
                 project_id='project-uuid', page=0, size=20, risk_level=None, status=None, custom_filter=None
             )
@@ -84,7 +84,7 @@ class TestCountermeasureService(ServiceTestBase):
             
             # Assert
             assert result == countermeasure_data
-            mock_resolve.assert_called_once_with('project-id')
+            mock_resolve.assert_called_once_with('project-id', self.mock_countermeasure_repository.api_client)
             self.mock_countermeasure_repository.get_by_id.assert_called_once_with('cm1', 'project-uuid')
     
     def test_get_countermeasure_not_found(self):
@@ -118,7 +118,7 @@ class TestCountermeasureService(ServiceTestBase):
             
             # Assert
             assert result == expected_result
-            mock_resolve.assert_called_once_with('project-id')
+            mock_resolve.assert_called_once_with('project-id', self.mock_countermeasure_repository.api_client)
             self.mock_countermeasure_repository.search.assert_called_once_with(
                 project_id='project-uuid', search_string='validation'
             )

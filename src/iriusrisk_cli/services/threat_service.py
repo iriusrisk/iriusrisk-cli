@@ -50,7 +50,7 @@ class ThreatService:
         
         # Resolve project ID to UUID for V2 API
         logger.debug(f"Resolving project ID to UUID: {project_id}")
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.threat_repository.api_client)
         logger.debug(f"Resolved to UUID: {final_project_id}")
         
         result = self.threat_repository.list_all(
@@ -84,7 +84,7 @@ class ThreatService:
         logger.debug(f"Retrieving threat '{threat_id}' from project '{project_id}'")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.threat_repository.api_client)
         logger.debug(f"Resolved project to UUID: {final_project_id}")
         
         result = self.threat_repository.get_by_id(threat_id, final_project_id)
@@ -116,7 +116,7 @@ class ThreatService:
                     f"(page={page}, size={size})")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.threat_repository.api_client)
         logger.debug(f"Resolved project to UUID: {final_project_id}")
         
         result = self.threat_repository.search(

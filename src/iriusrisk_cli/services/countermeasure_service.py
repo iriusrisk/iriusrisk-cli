@@ -50,7 +50,7 @@ class CountermeasureService:
         
         # Resolve project ID to UUID for V2 API
         logger.debug(f"Resolving project ID to UUID: {project_id}")
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.countermeasure_repository.api_client)
         logger.debug(f"Resolved to UUID: {final_project_id}")
         
         result = self.countermeasure_repository.list_all(
@@ -84,7 +84,7 @@ class CountermeasureService:
         logger.debug(f"Retrieving countermeasure '{countermeasure_id}' from project '{project_id}'")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.countermeasure_repository.api_client)
         logger.debug(f"Resolved project to UUID: {final_project_id}")
         
         result = self.countermeasure_repository.get_by_id(countermeasure_id, final_project_id)
@@ -112,7 +112,7 @@ class CountermeasureService:
         logger.debug(f"Searching countermeasures in project '{project_id}' with query: '{search_string}'")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.countermeasure_repository.api_client)
         logger.debug(f"Resolved project to UUID: {final_project_id}")
         
         result = self.countermeasure_repository.search(
@@ -185,7 +185,7 @@ class CountermeasureService:
         try:
             # Resolve project ID to UUID for V2 API
             logger.debug(f"Resolving project ID to UUID: {project_id}")
-            final_project_id = resolve_project_id_to_uuid(project_id)
+            final_project_id = resolve_project_id_to_uuid(project_id, self.countermeasure_repository.api_client)
             logger.debug(f"Resolved to UUID: {final_project_id}")
             
             # Find the countermeasure by reference ID or UUID

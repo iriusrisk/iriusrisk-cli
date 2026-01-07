@@ -153,7 +153,7 @@ class TestReportService(ServiceTestBase):
             
             # Assert
             assert result == expected_types
-            mock_resolve.assert_called_once_with('project-id')
+            mock_resolve.assert_called_once_with('project-id', self.mock_report_repository.api_client)
             self.mock_report_repository.get_report_types.assert_called_once_with('project-uuid')
     
     def test_list_standards_success(self):
@@ -173,7 +173,7 @@ class TestReportService(ServiceTestBase):
             
             # Assert
             assert result == expected_standards
-            mock_resolve.assert_called_once_with('project-id')
+            mock_resolve.assert_called_once_with('project-id', self.mock_report_repository.api_client)
             self.mock_report_repository.get_standards.assert_called_once_with('project-uuid')
     
     def test_list_reports_success(self):
@@ -193,7 +193,7 @@ class TestReportService(ServiceTestBase):
             
             # Assert
             assert result == expected_reports
-            mock_resolve.assert_called_once_with('project-id')
+            mock_resolve.assert_called_once_with('project-id', self.mock_report_repository.api_client)
             self.mock_report_repository.list_all.assert_called_once_with('project-uuid')
     
     def test_resolve_standard_id_uuid(self):

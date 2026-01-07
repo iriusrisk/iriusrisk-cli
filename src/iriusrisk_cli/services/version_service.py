@@ -53,7 +53,7 @@ class VersionService:
         logger.debug(f"Listing versions for project: {project_id}")
         
         # Resolve project ID to UUID
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.version_repository.api_client)
         logger.debug(f"Resolved project ID to UUID: {final_project_id}")
         
         result = self.version_repository.list_all(

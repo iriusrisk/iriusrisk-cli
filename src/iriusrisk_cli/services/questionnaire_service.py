@@ -38,7 +38,7 @@ class QuestionnaireService:
         logger.debug(f"Retrieving project questionnaire for project '{project_id}'")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.questionnaire_repository.api_client)
         logger.debug(f"Resolved to UUID: {final_project_id}")
         
         result = self.questionnaire_repository.get_project_questionnaire(
@@ -95,7 +95,7 @@ class QuestionnaireService:
             logger.debug(f"Filtering by status: {status}")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.questionnaire_repository.api_client)
         logger.debug(f"Resolved to UUID: {final_project_id}")
         
         result = self.questionnaire_repository.get_all_component_questionnaires(
@@ -131,7 +131,7 @@ class QuestionnaireService:
         logger.debug(f"Retrieving detailed questionnaires for all components in project '{project_id}'")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.questionnaire_repository.api_client)
         logger.debug(f"Resolved to UUID: {final_project_id}")
         
         # Get summary list of components with questionnaires
@@ -204,7 +204,7 @@ class QuestionnaireService:
         logger.info(f"Updating project questionnaire for project '{project_id}'")
         
         # Resolve project ID to UUID for V2 API
-        final_project_id = resolve_project_id_to_uuid(project_id)
+        final_project_id = resolve_project_id_to_uuid(project_id, self.questionnaire_repository.api_client)
         logger.debug(f"Resolved to UUID: {final_project_id}")
         
         result = self.questionnaire_repository.update_project_questionnaire(

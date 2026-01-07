@@ -2,6 +2,7 @@
 
 import pytest
 from datetime import datetime
+from unittest.mock import patch
 
 from iriusrisk_cli.services.project_service import ProjectService
 from iriusrisk_cli.utils.error_handling import IriusRiskError
@@ -161,15 +162,19 @@ class TestProjectService(ServiceTestBase):
         self.mock_project_repository.get_artifacts.return_value = artifacts_result
         self.mock_project_repository.get_artifact_content.return_value = content_result
         
-        # Act
-        result = self.service.get_project_diagram(project_id, 'ORIGINAL')
-        
-        # Assert
-        assert result['base64_content'] == 'base64content'
-        assert result['artifact_name'] == 'diagram.png'
-        assert result['artifact_id'] == 'artifact1'
-        assert result['project_id'] == project_id
-        assert result['size'] == 'ORIGINAL'
+        with patch('iriusrisk_cli.services.project_service.resolve_project_id_to_uuid') as mock_resolve:
+            mock_resolve.return_value = project_id
+            
+            # Act
+            result = self.service.get_project_diagram(project_id, 'ORIGINAL')
+            
+            # Assert
+            assert result['base64_content'] == 'base64content'
+            assert result['artifact_name'] == 'diagram.png'
+            assert result['artifact_id'] == 'artifact1'
+            assert result['project_id'] == project_id
+            assert result['size'] == 'ORIGINAL'
+            mock_resolve.assert_called_once_with(project_id, self.mock_project_repository.api_client)
     
     def test_get_project_diagram_no_artifacts(self):
         """Test project diagram when no artifacts exist."""
@@ -177,9 +182,12 @@ class TestProjectService(ServiceTestBase):
         project_id = "test-project"
         self.mock_project_repository.get_artifacts.return_value = {'artifacts': []}
         
-        # Act & Assert
-        with pytest.raises(IriusRiskError, match="No artifacts found"):
-            self.service.get_project_diagram(project_id)
+        with patch('iriusrisk_cli.services.project_service.resolve_project_id_to_uuid') as mock_resolve:
+            mock_resolve.return_value = project_id
+            
+            # Act & Assert
+            with pytest.raises(IriusRiskError, match="No artifacts found"):
+                self.service.get_project_diagram(project_id)
     
     def test_generate_project_stats_success(self):
         """Test successful project statistics generation."""
@@ -193,14 +201,18 @@ class TestProjectService(ServiceTestBase):
         self.mock_threat_repository.list_all.return_value = threats_data
         self.mock_countermeasure_repository.list_all.return_value = countermeasures_data
         
-        # Act
-        result = self.service.generate_project_stats(project_id)
-        
-        # Assert
-        assert result['metadata']['project_id'] == project_id
-        assert result['metadata']['project_name'] == 'Test Project'
-        assert result['threats']['total'] == 1
-        assert result['countermeasures']['total'] == 1
+        with patch('iriusrisk_cli.services.project_service.resolve_project_id_to_uuid') as mock_resolve:
+            mock_resolve.return_value = project_id
+            
+            # Act
+            result = self.service.generate_project_stats(project_id)
+            
+            # Assert
+            assert result['metadata']['project_id'] == project_id
+            assert result['metadata']['project_name'] == 'Test Project'
+            assert result['threats']['total'] == 1
+            assert result['countermeasures']['total'] == 1
+            mock_resolve.assert_called_once_with(project_id, self.mock_project_repository.api_client)
     
     def test_categorize_risk_level(self):
         """Test risk level categorization."""

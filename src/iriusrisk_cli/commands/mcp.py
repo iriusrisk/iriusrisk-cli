@@ -1798,6 +1798,7 @@ def mcp(cli_ctx):
             
             container = get_container()
             version_service = container.get(VersionService)
+            api_client = container.get(IriusRiskApiClient)
             
             # Resolve project ID
             if not project_id:
@@ -1809,7 +1810,7 @@ def mcp(cli_ctx):
                     return "❌ No project ID provided and no project.json found in current directory"
             
             # Resolve to UUID
-            resolved_project_id = resolve_project_id_to_uuid_strict(project_id)
+            resolved_project_id = resolve_project_id_to_uuid_strict(project_id, api_client.project_client)
             logger.info(f"Resolved project ID to UUID: {resolved_project_id}")
             
             # List versions
@@ -1873,6 +1874,7 @@ def mcp(cli_ctx):
             
             container = get_container()
             version_service = container.get(VersionService)
+            api_client = container.get(IriusRiskApiClient)
             
             # Resolve project ID
             if not project_id:
@@ -1884,7 +1886,7 @@ def mcp(cli_ctx):
                     return "❌ No project ID provided and no project.json found in current directory"
             
             # Resolve to UUID
-            resolved_project_id = resolve_project_id_to_uuid_strict(project_id)
+            resolved_project_id = resolve_project_id_to_uuid_strict(project_id, api_client.project_client)
             logger.info(f"Resolved project ID to UUID: {resolved_project_id}")
             
             # Create version (with wait=True to ensure it completes)

@@ -206,19 +206,35 @@ class ServiceTestBase:
     
     def create_mock_repositories(self):
         """Create mock repositories for service testing."""
-        from unittest.mock import Mock
+        from unittest.mock import Mock, MagicMock
         from iriusrisk_cli.repositories.project_repository import ProjectRepository
         from iriusrisk_cli.repositories.threat_repository import ThreatRepository
         from iriusrisk_cli.repositories.countermeasure_repository import CountermeasureRepository
         from iriusrisk_cli.repositories.report_repository import ReportRepository
         from iriusrisk_cli.repositories.version_repository import VersionRepository
         
+        # Create mocks with api_client attribute for project resolution
+        project_mock = Mock(spec=ProjectRepository)
+        project_mock.api_client = MagicMock()
+        
+        threat_mock = Mock(spec=ThreatRepository)
+        threat_mock.api_client = MagicMock()
+        
+        countermeasure_mock = Mock(spec=CountermeasureRepository)
+        countermeasure_mock.api_client = MagicMock()
+        
+        report_mock = Mock(spec=ReportRepository)
+        report_mock.api_client = MagicMock()
+        
+        version_mock = Mock(spec=VersionRepository)
+        version_mock.api_client = MagicMock()
+        
         return {
-            'project': Mock(spec=ProjectRepository),
-            'threat': Mock(spec=ThreatRepository),
-            'countermeasure': Mock(spec=CountermeasureRepository),
-            'report': Mock(spec=ReportRepository),
-            'version': Mock(spec=VersionRepository)
+            'project': project_mock,
+            'threat': threat_mock,
+            'countermeasure': countermeasure_mock,
+            'report': report_mock,
+            'version': version_mock
         }
 
 

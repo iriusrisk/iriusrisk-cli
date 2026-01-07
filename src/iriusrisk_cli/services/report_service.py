@@ -69,7 +69,7 @@ class ReportService:
             
             # Convert reference ID to UUID if needed
             logger.debug(f"Resolving project ID to UUID: {project_id}")
-            project_uuid = resolve_project_id_to_uuid(project_id)
+            project_uuid = resolve_project_id_to_uuid(project_id, self.report_repository.api_client)
             logger.debug(f"Resolved to UUID: {project_uuid}")
             
             # Generate output filename if not specified
@@ -169,7 +169,7 @@ class ReportService:
         
         try:
             # Convert reference ID to UUID if needed
-            project_uuid = resolve_project_id_to_uuid(project_id)
+            project_uuid = resolve_project_id_to_uuid(project_id, self.report_repository.api_client)
             logger.debug(f"Resolved project to UUID: {project_uuid}")
             
             response = self.report_repository.get_report_types(project_uuid)
@@ -198,7 +198,7 @@ class ReportService:
         
         try:
             # Convert reference ID to UUID if needed
-            project_uuid = resolve_project_id_to_uuid(project_id)
+            project_uuid = resolve_project_id_to_uuid(project_id, self.report_repository.api_client)
             logger.debug(f"Resolved project to UUID: {project_uuid}")
             
             response = self.report_repository.get_standards(project_uuid)
@@ -227,7 +227,7 @@ class ReportService:
         
         try:
             # Convert reference ID to UUID if needed
-            project_uuid = resolve_project_id_to_uuid(project_id)
+            project_uuid = resolve_project_id_to_uuid(project_id, self.report_repository.api_client)
             logger.debug(f"Resolved project to UUID: {project_uuid}")
             
             response = self.report_repository.list_all(project_uuid)

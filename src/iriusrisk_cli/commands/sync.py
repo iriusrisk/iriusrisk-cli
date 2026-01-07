@@ -488,7 +488,7 @@ def sync_data_to_directory(
         final_project_id = None
         if resolved_project_id:
             try:
-                final_project_id = _resolve_project_id_to_uuid(resolved_project_id)
+                final_project_id = _resolve_project_id_to_uuid(resolved_project_id, api_client.project_client)
                 results['project_id'] = final_project_id
                 
                 # Validate that we got a proper UUID

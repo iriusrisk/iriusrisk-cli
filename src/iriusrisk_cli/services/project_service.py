@@ -173,7 +173,7 @@ class ProjectService:
         try:
             # Resolve project ID to UUID for V2 API (upfront, no fallback mechanism)
             logger.debug(f"Resolving project ID to UUID: {project_id}")
-            final_project_id = resolve_project_id_to_uuid(project_id)
+            final_project_id = resolve_project_id_to_uuid(project_id, self.project_repository.api_client)
             logger.debug(f"Resolved to UUID: {final_project_id}")
             
             # Get artifacts with the resolved UUID
@@ -249,7 +249,7 @@ class ProjectService:
         try:
             # Resolve project ID to UUID for V2 API
             logger.debug(f"Resolving project ID to UUID: {project_id}")
-            final_project_id = resolve_project_id_to_uuid(project_id)
+            final_project_id = resolve_project_id_to_uuid(project_id, self.project_repository.api_client)
             logger.debug(f"Resolved to UUID: {final_project_id}")
             
             # Get project details for metadata
@@ -260,16 +260,9 @@ class ProjectService:
                 project_name = project_data.get('name', 'Unknown')
                 logger.debug(f"Found project: '{project_name}'")
             except (ResourceNotFoundError, APIError) as e:
-                # If direct lookup fails, try by reference ID
-                try:
-                    logger.debug(f"Direct lookup failed ({e}), trying by reference ID")
-                    project_data = self.project_repository.get_by_id(project_id)
-                    project_name = project_data.get('name', 'Unknown')
-                    final_project_id = project_data.get('id')
-                    logger.debug(f"Resolved project: '{project_name}' (UUID: {final_project_id})")
-                except (ResourceNotFoundError, APIError) as fallback_error:
-                    logger.warning(f"Could not retrieve project metadata ({fallback_error}), using defaults")
-                    project_name = 'Unknown'
+                # If project metadata retrieval fails, continue with 'Unknown' name
+                logger.warning(f"Could not retrieve project metadata: {e}. Using 'Unknown' for project name.")
+                project_name = 'Unknown'
             
             # Collect threats data
             logger.debug("Retrieving threats data for statistics")

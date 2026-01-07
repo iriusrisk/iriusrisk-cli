@@ -35,6 +35,8 @@ class TestVersionService(ServiceTestBase):
             }
         }
         self.mock_project_repository.api_client = self.mock_api_client
+        self.mock_version_repository.api_client = self.mock_api_client
+        self.mock_report_repository.api_client = self.mock_api_client
         
         # Create service with repository dependencies
         self.service = VersionService(
