@@ -4,6 +4,8 @@ An AI-powered threat modeling integration that brings IriusRisk security analysi
 
 > :warning: This software has been released IriusRisk Labs as public beta. It is provided as-is, without warranty or guarantee of any kind. Features may change, data structures may evolve, and occasional issues should be expected. Use at your own discretion.
 
+> 🎉 **What's New in v0.3.0**: Questionnaire support for AI-guided threat model refinement, automatic threat model regeneration, simplified OTM import workflow, and enhanced auto-versioning. See [CHANGELOG.md](CHANGELOG.md) for full details.
+
 ## Primary Use Case: AI-Enabled IDE Integration
 
 This tool is designed to work alongside AI assistants in your IDE, enabling:
@@ -16,11 +18,54 @@ This tool is designed to work alongside AI assistants in your IDE, enabling:
 ## What You Can Do
 
 - **Manage Projects**: List, view, and analyze your IriusRisk projects
-- **Analyze Threats**: View threats with filtering and update their status
-- **Track Countermeasures**: Monitor implementation progress and create tracking issues
-- **Generate Reports**: Create compliance and security reports in multiple formats
+- **Import/Export Threat Models**: Use OTM (Open Threat Model) format to create and update projects
+- **Sync Project Data**: Download threats, countermeasures, questionnaires, and components locally
+- **Answer Questionnaires**: Refine threat models by answering project and component questionnaires
+- **Analyze Threats**: View, filter, search, and update threat status
+- **Track Countermeasures**: Monitor implementation, update status, and create tracking issues
+- **Manage Components**: View and search system components in your architecture
+- **Generate Reports**: Create compliance and security reports in multiple formats (PDF, HTML, XLSX, CSV)
+- **Version Control**: Create snapshots of your threat models to track changes over time
+- **Issue Tracker Integration**: Connect countermeasures to your issue tracking system
 - **Automate Workflows**: Script security processes with consistent CLI commands
 - **MCP Integration**: Enable AI assistants to perform all operations through Model Context Protocol
+
+## Key Features
+
+### 🆕 Questionnaire-Driven Threat Model Refinement (v0.3.0)
+
+IriusRisk questionnaires help refine your threat model based on your actual implementation details. The CLI downloads questionnaires during sync operations, and when using the MCP integration, AI assistants can analyze your source code to automatically answer these questions. Your answers trigger IriusRisk's rules engine to regenerate your threat model with more accurate, context-specific threats and countermeasures.
+
+**How it works**:
+1. Import or create your initial threat model
+2. Run `iriusrisk sync` to download questionnaires
+3. AI assistant analyzes your code and answers the questions
+4. Sync automatically pushes answers back to IriusRisk
+5. IriusRisk regenerates your threat model based on actual implementation
+
+### 🔄 Automatic Threat Model Regeneration (v0.3.0)
+
+The CLI now automatically triggers IriusRisk's rules engine to regenerate your threat model when needed—after answering questionnaires, making manual edits, or updating your architecture. The CLI monitors the regeneration process to ensure your threat model is ready before proceeding. This happens seamlessly during sync operations without manual intervention.
+
+### 📦 Simplified OTM Import Workflow (v0.3.0)
+
+The `iriusrisk otm import` command now automatically detects whether you're creating a new project or updating an existing one—no flags required. Just import your OTM file and the CLI handles the rest intelligently.
+
+### 💾 Enhanced Auto-Versioning (v0.3.0)
+
+When auto-versioning is enabled in your project configuration, the CLI automatically creates backup snapshots **before** any update operation. This ensures you can always roll back changes and track your threat model's evolution over time. Auto-versioning works consistently across all import scenarios (CLI commands, MCP tools, project updates).
+
+**Enable auto-versioning** in `.iriusrisk/project.json`:
+```json
+{
+  "auto_version": true,
+  "auto_version_prefix": "auto-backup-"
+}
+```
+
+### 🤖 AI-Powered Security Analysis
+
+Through MCP integration, AI assistants can analyze your codebase, create threat models, answer questionnaires, implement countermeasures, and track progress—all within your IDE. The AI understands your code context and provides intelligent, specific security guidance.
 
 # MCP Integration for AI-Enabled IDEs
 
@@ -46,8 +91,10 @@ When integrated through MCP, AI assistants can:
 - **Analyze Source Code**: Examine your application code, infrastructure, and documentation to identify security-relevant components
 - **Create Threat Models**: Generate comprehensive OTM (Open Threat Model) files from your codebase
 - **Import to IriusRisk**: Automatically upload threat models to IriusRisk for professional analysis
+- **Answer Questionnaires**: Analyze your code to answer project and component questionnaires, refining the threat model based on actual implementation details
 - **Review Threats**: Help you understand and prioritize security threats identified by IriusRisk
 - **Implement Countermeasures**: Guide you through implementing security controls and track their status
+- **Sync Changes**: Automatically synchronize threat model updates between your local environment and IriusRisk
 - **Generate Reports**: Create compliance reports and security documentation
 
 ## Example AI Workflow
@@ -55,10 +102,11 @@ When integrated through MCP, AI assistants can:
 1. **Code Analysis**: "Analyze my web application for security threats"
 2. **Threat Model Creation**: AI examines your code and creates a comprehensive threat model
 3. **IriusRisk Integration**: Threat model is uploaded to IriusRisk for professional analysis
-4. **Threat Review**: AI helps you understand the identified threats and their priorities
-5. **Implementation Guidance**: AI guides you through implementing security countermeasures
-6. **Status Tracking**: Progress is tracked and synchronized with IriusRisk
-7. **Report Generation**: Compliance and security reports are generated automatically
+4. **Questionnaire Completion**: AI analyzes your code to answer questionnaires, refining the threat model based on actual implementation
+5. **Threat Review**: AI helps you understand the identified threats and their priorities
+6. **Implementation Guidance**: AI guides you through implementing security countermeasures
+7. **Status Tracking**: Progress is tracked and synchronized with IriusRisk
+8. **Report Generation**: Compliance and security reports are generated automatically
 
 # Using the CLI
 
@@ -263,7 +311,29 @@ $ iriusrisk project list --name "web" --format json
 
 ## Available Commands
 
+### Project Initialization
+
+Initialize a new project or connect to an existing one:
+
+```bash
+# Initialize new project interactively
+$ iriusrisk init
+
+# Initialize with specific name
+$ iriusrisk init -n "My Web Application"
+
+# Initialize with name and project ID
+$ iriusrisk init -n "My App" -p abc123
+
+# Connect to existing project by reference ID
+$ iriusrisk init -r "my-project-ref"
+
+# Overwrite existing configuration
+$ iriusrisk init --force
+```
+
 ### Projects
+
 ```bash
 # List all projects
 $ iriusrisk project list
@@ -300,6 +370,284 @@ $ iriusrisk project show <project_id>
 
 # Show project info as JSON
 $ iriusrisk project show <project_id> --format json
+```
+
+### OTM (Open Threat Model) Import/Export
+
+Work with threat models using the standard OTM format:
+
+```bash
+# Generate example OTM file for reference
+$ iriusrisk otm example
+
+# Import OTM file (automatically creates new or updates existing project)
+$ iriusrisk otm import example.otm
+
+# Import with JSON output
+$ iriusrisk otm import example.otm --format json
+
+# Export project as OTM format
+$ iriusrisk otm export PROJECT_ID
+
+# Export to specific file
+$ iriusrisk otm export PROJECT_ID -o threat-model.otm
+
+# Export as JSON
+$ iriusrisk otm export PROJECT_ID --format json
+```
+
+**Note**: The CLI automatically detects whether you're creating a new project or updating an existing one during import. If auto-versioning is enabled in your project configuration, a backup snapshot is automatically created before updates.
+
+### Data Synchronization
+
+Sync threat model data between IriusRisk and your local environment:
+
+```bash
+# Sync all data from default project
+$ iriusrisk sync
+
+# Sync specific project
+$ iriusrisk sync <project_id>
+
+# Sync only threats
+$ iriusrisk sync --threats-only
+
+# Sync only countermeasures
+$ iriusrisk sync --countermeasures-only
+
+# Sync only questionnaires
+$ iriusrisk sync --questionnaires-only
+
+# Sync only components
+$ iriusrisk sync --components-only
+
+# Sync to custom output directory
+$ iriusrisk sync -o /path/to/output
+```
+
+The sync command downloads:
+- **Threats**: All identified security threats for your project
+- **Countermeasures**: Security controls and their implementation status
+- **Questionnaires**: Questions to refine your threat model based on implementation details
+- **Components**: System components from the IriusRisk library and your architecture
+
+Data is saved to `.iriusrisk/` directory by default and can be used for offline analysis or AI-assisted review.
+
+### Questionnaires
+
+**New in 0.3.0**: Questionnaires help refine your threat model based on actual implementation details.
+
+```bash
+# Download questionnaires during sync
+$ iriusrisk sync
+
+# View questionnaires in .iriusrisk/questionnaires.json
+```
+
+Questionnaires are automatically downloaded during sync operations. When using the MCP integration, AI assistants can analyze your source code and automatically answer these questions, triggering IriusRisk's rules engine to regenerate your threat model with more accurate threats and countermeasures.
+
+**How it works**:
+1. Import or create a threat model
+2. Run `iriusrisk sync` to download questionnaires
+3. AI assistant analyzes your code to answer questions
+4. Sync pushes answers back to IriusRisk
+5. IriusRisk automatically regenerates threat model based on answers
+
+### Threats
+
+```bash
+# List all threats from default project
+$ iriusrisk threat list
+
+# List threats from specific project
+$ iriusrisk threat list <project_id>
+
+# Show detailed threat information
+$ iriusrisk threat show <threat_id>
+
+# Search threats by keyword
+$ iriusrisk threat search "SQL injection"
+
+# Search with project specification
+$ iriusrisk threat search "XSS" --project-id <project_id>
+
+# Update threat status
+$ iriusrisk threat update <threat_id> --status accept --reason "Mitigated by WAF"
+
+# List threats with specific status
+$ iriusrisk threat list --status required
+
+# Output as JSON or CSV
+$ iriusrisk threat list --format json
+```
+
+**Available threat statuses**: `required`, `recommended`, `accept`, `expose`, `not-applicable`
+
+### Countermeasures
+
+```bash
+# List all countermeasures from default project
+$ iriusrisk countermeasure list
+
+# List countermeasures from specific project
+$ iriusrisk countermeasure list <project_id>
+
+# Show detailed countermeasure information
+$ iriusrisk countermeasure show <countermeasure_id>
+
+# Search countermeasures by keyword
+$ iriusrisk countermeasure search "authentication"
+
+# Update countermeasure status
+$ iriusrisk countermeasure update <cm_id> --status implemented
+
+# Create issue tracker ticket for countermeasure
+$ iriusrisk countermeasure create-issue <cm_id>
+
+# Create issue with specific tracker
+$ iriusrisk countermeasure create-issue <cm_id> --tracker "Jira"
+
+# List countermeasures by status
+$ iriusrisk countermeasure list --status required
+
+# Output as JSON or CSV
+$ iriusrisk countermeasure list --format json
+```
+
+**Available countermeasure statuses**: `required`, `recommended`, `implemented`, `rejected`, `not-applicable`
+
+### Components
+
+View and search system components in your architecture:
+
+```bash
+# List all components
+$ iriusrisk component list
+
+# List components from specific project
+$ iriusrisk component list <project_id>
+
+# Show detailed component information
+$ iriusrisk component show <component_id>
+
+# Search components by keyword
+$ iriusrisk component search "database"
+
+# Filter by category
+$ iriusrisk component list --category "Database"
+
+# Filter by type
+$ iriusrisk component list --type "project-component"
+
+# Output as JSON
+$ iriusrisk component list --format json
+```
+
+### Reports
+
+Generate security and compliance reports:
+
+```bash
+# Generate default countermeasure report (PDF)
+$ iriusrisk reports generate
+
+# Generate threat report
+$ iriusrisk reports generate --type threat
+
+# Generate compliance report
+$ iriusrisk reports generate --type compliance --standard owasp-top-10-2021
+
+# Generate report in different format
+$ iriusrisk reports generate --format html
+
+# Save to specific location
+$ iriusrisk reports generate -o /path/to/report.pdf
+
+# List available report types
+$ iriusrisk reports types
+
+# List available compliance standards
+$ iriusrisk reports standards
+
+# List generated reports
+$ iriusrisk reports list
+```
+
+**Available report types**: `countermeasure`, `threat`, `compliance`, `risk-summary`
+
+**Available formats**: `pdf`, `html`, `xlsx`, `csv`, `xls`
+
+### Project Versions
+
+**New in 0.3.0**: Enhanced auto-versioning creates backup snapshots before updates.
+
+```bash
+# Create a version snapshot
+$ iriusrisk project versions create "v1.0" --description "Initial release"
+
+# List all versions for a project
+$ iriusrisk project versions list
+
+# List versions for specific project
+$ iriusrisk project versions list <project_id>
+
+# Show version details
+$ iriusrisk project versions show <version_id>
+
+# Compare two versions
+$ iriusrisk project versions compare <version_id_1> <version_id_2>
+```
+
+**Auto-versioning**: Enable in `.iriusrisk/project.json`:
+
+```json
+{
+  "auto_version": true,
+  "auto_version_prefix": "auto-backup-"
+}
+```
+
+When enabled, the CLI automatically creates version snapshots before OTM imports and updates, protecting your work.
+
+### Updates Tracking
+
+Track threat and countermeasure status changes before syncing to IriusRisk:
+
+```bash
+# View pending updates
+$ iriusrisk updates show
+
+# View updates for specific project
+$ iriusrisk updates show <project_id>
+
+# Clear all pending updates
+$ iriusrisk updates clear
+
+# Clear updates for specific project
+$ iriusrisk updates clear <project_id>
+```
+
+Updates are tracked locally in `.iriusrisk/updates.json` and applied when you run sync commands or use MCP tools.
+
+### Issue Tracker Integration
+
+Connect countermeasures to your issue tracking system:
+
+```bash
+# List available issue tracker profiles
+$ iriusrisk issue-tracker list
+
+# Show issue tracker details
+$ iriusrisk issue-tracker show <tracker-id>
+
+# Set default issue tracker for project
+$ iriusrisk issue-tracker set-default <tracker-name>
+
+# Create issue for countermeasure (uses default tracker)
+$ iriusrisk countermeasure create-issue <countermeasure_id>
+
+# Create issue with specific tracker
+$ iriusrisk countermeasure create-issue <cm_id> --tracker "Jira Production"
 ```
 
 ### MCP (Model Context Protocol)
@@ -418,14 +766,14 @@ Each action accepts either:
 
 ## Planned Commands
 
-These commands will be added in future versions:
+These commands may be added in future versions:
 
 ```bash
-$ iriusrisk project fetch <project_id>                # downloads the project data
-$ iriusrisk threats get <project_id>                  # gets the threats for a given project
-$ iriusrisk threats get <project_id> --top-10         # gets the top 10 highest risk threats
-$ iriusrisk countermeasures get <project> --top-10    # gets the top 10 highest priority countermeasures
+$ iriusrisk threat list --top-10         # Filter to top 10 highest risk threats
+$ iriusrisk countermeasure list --top-10 # Filter to top 10 highest priority countermeasures
 ```
+
+Most planned features have been implemented. See the [CHANGELOG.md](CHANGELOG.md) for details on recent additions.
 
 # API
 
