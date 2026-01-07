@@ -291,15 +291,34 @@ class TableFormatter:
                 default = mapping.get('default', 'N/A')
                 truncate = mapping.get('truncate')
                 
-                # Extract value
-                if '.' in key_path:
-                    value = TableFormatter.format_nested_value(data, key_path, default)
-                else:
-                    value = TableFormatter.format_optional(data.get(key_path), default)
-                
-                # Apply custom formatter
+                # Extract value - if formatter exists, extract raw value so formatter can handle it
                 if formatter:
+                    # For custom formatters, extract raw value without formatting
+                    if '.' in key_path:
+                        # For nested paths, navigate to get the raw value
+                        keys = key_path.split('.')
+                        current = data
+                        try:
+                            for key in keys:
+                                if isinstance(current, dict) and key in current:
+                                    current = current[key]
+                                else:
+                                    current = None
+                                    break
+                            value = current
+                        except (KeyError, TypeError, AttributeError):
+                            value = None
+                    else:
+                        value = data.get(key_path)
+                    
+                    # Apply custom formatter (formatter handles defaults)
                     value = formatter(value)
+                else:
+                    # No formatter, use standard extraction with formatting
+                    if '.' in key_path:
+                        value = TableFormatter.format_nested_value(data, key_path, default)
+                    else:
+                        value = TableFormatter.format_optional(data.get(key_path), default)
                 
                 # Apply truncation
                 if truncate and isinstance(value, str):
@@ -333,15 +352,34 @@ class TableFormatter:
                 formatter = mapping.get('formatter')
                 default = mapping.get('default', '')
                 
-                # Extract value
-                if '.' in key_path:
-                    value = TableFormatter.format_nested_value(data, key_path, default)
-                else:
-                    value = data.get(key_path, default)
-                
-                # Apply custom formatter
+                # Extract value - if formatter exists, extract raw value so formatter can handle it
                 if formatter:
+                    # For custom formatters, extract raw value without formatting
+                    if '.' in key_path:
+                        # For nested paths, navigate to get the raw value
+                        keys = key_path.split('.')
+                        current = data
+                        try:
+                            for key in keys:
+                                if isinstance(current, dict) and key in current:
+                                    current = current[key]
+                                else:
+                                    current = None
+                                    break
+                            value = current
+                        except (KeyError, TypeError, AttributeError):
+                            value = None
+                    else:
+                        value = data.get(key_path)
+                    
+                    # Apply custom formatter (formatter handles defaults)
                     value = formatter(value)
+                else:
+                    # No formatter, use standard extraction
+                    if '.' in key_path:
+                        value = TableFormatter.format_nested_value(data, key_path, default)
+                    else:
+                        value = data.get(key_path, default)
                 
                 result[csv_key] = value
             

@@ -371,21 +371,19 @@ def _format_threats_output(threats_data: list, output_format: str,
     # Define field mappings for threats
     field_mappings = [
         {'key': 'id'},  # No truncation - IDs needed for operations
-        {'key': 'name'},
+        {'key': 'name', 'truncate': 50},
         {'key': 'referenceId'},
-        {'key': 'description', 'truncate': 40},
+        {'key': 'component.name', 'default': 'N/A'},
         {'key': 'risk'},
-        {'key': 'status'},
-        {'key': 'category'},
-        {'key': 'created', 'formatter': lambda x: TableFormatter.format_timestamp(x, 'date')},
-        {'key': 'updated', 'formatter': lambda x: TableFormatter.format_timestamp(x, 'date')}
+        {'key': 'state'},  # Changed from 'status' to 'state' to match API
+        {'key': 'source', 'default': 'N/A'}
     ]
     
     # Create table headers
-    table_headers = ['ID', 'Name', 'Reference ID', 'Description', 'Risk', 'Status', 'Category', 'Created', 'Updated']
+    table_headers = ['ID', 'Name', 'Reference ID', 'Component', 'Risk', 'State', 'Source']
     
     # Create CSV headers
-    csv_headers = ['id', 'name', 'referenceId', 'description', 'risk', 'status', 'category', 'created', 'updated']
+    csv_headers = ['id', 'name', 'referenceId', 'component', 'risk', 'state', 'source']
     
     # Create transformers
     row_transformer = TableFormatter.create_row_transformer(field_mappings)

@@ -427,22 +427,35 @@ def _format_countermeasures_output(countermeasures_data: list, output_format: st
                                   page_info: dict, full_response: dict):
     """Format and print countermeasures output using centralized formatters."""
     
+    # Helper function to format priority object
+    def format_priority(priority_value):
+        """Extract priority from the priority object."""
+        if priority_value is None:
+            return 'N/A'
+        if isinstance(priority_value, dict):
+            # Prefer calculated over manual
+            calculated = priority_value.get('calculated')
+            manual = priority_value.get('manual')
+            return calculated if calculated is not None else (manual if manual is not None else 'N/A')
+        return str(priority_value)
+    
     # Define field mappings for countermeasures
     field_mappings = [
-        {'key': 'ref', 'csv_key': 'id'},  # No truncation - IDs needed for operations
-        {'key': 'name'},
-        {'key': 'ref', 'csv_key': 'referenceId'},
+        {'key': 'id'},  # No truncation - IDs needed for operations
+        {'key': 'name', 'truncate': 50},
+        {'key': 'referenceId'},
+        {'key': 'component.name', 'default': 'N/A'},
         {'key': 'risk'},
         {'key': 'state', 'csv_key': 'status'},
-        {'key': 'platform'},
-        {'key': 'priority'}
+        {'key': 'priority', 'formatter': format_priority},
+        {'key': 'cost', 'default': 'N/A'}
     ]
     
     # Create table headers
-    table_headers = ['ID', 'Name', 'Reference ID', 'Risk', 'Status', 'Platform', 'Priority']
+    table_headers = ['ID', 'Name', 'Reference ID', 'Component', 'Risk', 'State', 'Priority', 'Cost']
     
     # Create CSV headers
-    csv_headers = ['id', 'name', 'referenceId', 'risk', 'status', 'platform', 'priority']
+    csv_headers = ['id', 'name', 'referenceId', 'component', 'risk', 'status', 'priority', 'cost']
     
     # Create transformers
     row_transformer = TableFormatter.create_row_transformer(field_mappings)
