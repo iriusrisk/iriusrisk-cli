@@ -4,7 +4,7 @@
 **Target:** v0.4.0  
 **Purpose:** Design document for AI-powered security drift detection in CI/CD pipelines
 
-**Implementation Approach:** Version-based comparison using IriusRisk project versions with local baseline caching
+**Implementation Approach:** Version-based comparison using IriusRisk project versions
 
 ## Problem Statement
 
@@ -28,7 +28,7 @@ Provide AI agents with the ability to:
 
 **Key Technical Approach:**
 - Leverage IriusRisk project versions for baseline management
-- Cache baseline locally for fast comparison
+- Download baseline from IriusRisk version for comparison
 - Compare architecture (diagram XML) AND security (threats/countermeasures JSON)
 - Isolated verification workspace (`.iriusrisk/verification/`) for safe operations
 
@@ -43,16 +43,15 @@ Provide AI agents with the ability to:
 ### One-Time Setup
 1. Security team reviews and approves initial threat model in IriusRisk
 2. Create version snapshot in IriusRisk (e.g., "v2.1-approved" or "baseline-2024-01-12")
-3. Cache baseline locally:
-   - Download diagram XML → `.iriusrisk/verification/baseline-diagram.xml`
-   - Download threats → `.iriusrisk/verification/baseline-threats.json`
-   - Download countermeasures → `.iriusrisk/verification/baseline-countermeasures.json`
-   - Store version metadata → `.iriusrisk/verification/baseline-version.json`
+3. Configure CI/CD to reference the approved baseline version
 4. Configure CI/CD to run AI verification on PRs/deployments
 
 ### Per-Deployment Workflow
 1. **CI/CD triggers** → AI agent activates
-2. **Load cached baseline** → Read from `.iriusrisk/verification/baseline-*` files (fast, no API call)
+2. **Download baseline** → Fetch approved version from IriusRisk to `.iriusrisk/verification/baseline-*` files
+   - baseline-diagram.xml (architecture)
+   - baseline-threats.json (threats)
+   - baseline-countermeasures.json (countermeasures)
 3. **AI generates OTM** → Analyzes current codebase state
 4. **Import to IriusRisk** → Update project with new OTM, wait for threat computation
 5. **Download current state** → Save to `.iriusrisk/verification/verification-*` files
@@ -64,11 +63,11 @@ Provide AI agents with the ability to:
 8. **AI interprets** → Assesses security implications of changes
 9. **Generate report** → Human-readable findings with full context
 10. **Restore baseline** → Revert IriusRisk project to baseline version
-11. **Cleanup** → Remove verification-* files
+11. **Cleanup** → Remove all `.iriusrisk/verification/` files (baseline-* and verification-*)
 12. **Post results** → PR comment, Slack, ticket, etc.
 13. **Human review** → Security team decides if acceptable
 
-**Note:** Baseline is cached locally for speed; comparison includes both architectural changes and their security implications.
+**Note:** Both baseline and verification files are temporary working storage, created and deleted during each verification run.
 
 ### What AI Reports
 
@@ -95,9 +94,9 @@ Provide AI agents with the ability to:
 
 ## Technical Components
 
-### Version-Based Comparison with Local Caching
+### Version-Based Comparison
 
-The comparison leverages IriusRisk's version system combined with local caching:
+The comparison leverages IriusRisk's version system:
 
 **Architecture Comparison:**
 - Parse and compare diagram XML files to identify component, dataflow, and trust zone changes
@@ -108,7 +107,7 @@ The comparison leverages IriusRisk's version system combined with local caching:
 - Uses IriusRisk's computed threat model (not just architecture)
 
 **Key Benefits:**
-- **Fast:** Baseline cached locally, only download current state
+- **Ephemeral:** Fresh baseline download each run, no stale data
 - **Comprehensive:** Compares both architecture AND security implications
 - **Safe:** Isolated workspace, never touches main files
 - **Accurate:** Uses IriusRisk's threat computation engine
@@ -119,15 +118,15 @@ The comparison leverages IriusRisk's version system combined with local caching:
 **Purpose:** Guide AI agents through the drift detection workflow
 
 **Workflow:**
-1. Ensure baseline cached locally (download from IriusRisk version if needed)
+1. Download baseline from IriusRisk version to baseline-* files
 2. Generate OTM from current codebase
 3. Import OTM to IriusRisk project (triggers threat computation)
-4. Download current state (diagram XML, threats, countermeasures)
+4. Download current state to verification-* files (diagram XML, threats, countermeasures)
 5. Compare baseline vs current:
    - Architecture: components, dataflows, trust zones
    - Security: threats, countermeasures
 6. Restore IriusRisk project to baseline version
-7. Cleanup temporary verification files
+7. Cleanup all temporary files (baseline-* and verification-*)
 8. Return comprehensive diff for AI interpretation
 
 **AI Usage:**
@@ -164,8 +163,8 @@ The comparison leverages IriusRisk's version system combined with local caching:
 ### Must Have
 - [ ] Verification workspace manager (`utils/verification_manager.py`)
   - Context manager for safe file operations
-  - Baseline caching and staleness detection
-  - Automatic cleanup of temporary files
+  - Download baseline from IriusRisk version
+  - Automatic cleanup of all temporary files (baseline-* and verification-*)
 - [ ] Diagram comparison logic (`utils/diagram_comparison.py`)
   - Parse XML diagram files
   - Compare components, dataflows, trust zones
@@ -370,13 +369,12 @@ This PR introduces two external dependencies (Redis, Stripe) that cross trust bo
 ## Baseline Management Strategy
 
 ### Baseline Storage Location
-All baseline files are stored in `.iriusrisk/verification/` directory:
+Baseline files are temporary working storage in `.iriusrisk/verification/` directory:
 ```
 .iriusrisk/verification/
-├── baseline-version.json          # Version ID, timestamp, approver
-├── baseline-diagram.xml           # Architecture snapshot
-├── baseline-threats.json          # Threats snapshot
-└── baseline-countermeasures.json  # Countermeasures snapshot
+├── baseline-diagram.xml           # Downloaded from IriusRisk version (temp)
+├── baseline-threats.json          # Downloaded from IriusRisk version (temp)
+└── baseline-countermeasures.json  # Downloaded from IriusRisk version (temp)
 ```
 
 ### Initial Baseline Setup
@@ -386,11 +384,7 @@ All baseline files are stored in `.iriusrisk/verification/` directory:
    iriusrisk versions create --name "v2.1-approved" \
      --description "Approved baseline for production - 2024-01-12"
    ```
-3. Cache baseline locally (automatic on first verification run):
-   - Downloads diagram, threats, countermeasures from approved version
-   - Stores in `.iriusrisk/verification/baseline-*` files
-4. **Optional:** Commit baseline files to Git for team sharing
-   - Or: Add to `.gitignore` and regenerate from IriusRisk version as needed
+3. Configure CI/CD to reference this version ID as the approved baseline
 
 ### Baseline Update Process
 When architectural changes are approved:
@@ -400,28 +394,13 @@ When architectural changes are approved:
    iriusrisk versions create --name "v2.2-approved" \
      --description "Approved Redis integration - 2024-02-15"
    ```
-3. Update project config to reference new baseline version
-4. Next verification run will detect stale cache and download new baseline
+3. Update CI/CD configuration to reference new baseline version
 
 ### Version Naming Convention
 - **Approved baselines:** `v2.1-approved`, `v2.2-approved`
 - **Date-based:** `baseline-2024-01-12`, `baseline-2024-02-15`
 - **Release-based:** `baseline-v1.0.0`, `baseline-v2.0.0`
 - **Environment-specific:** `baseline-production`, `baseline-staging`
-
-### Git Strategy Options
-
-**Option A: Commit baseline files (recommended for teams)**
-- Commit `.iriusrisk/verification/baseline-*` files
-- All team members share same baseline
-- Fast CI/CD (no download needed)
-- Clear audit trail in Git history
-
-**Option B: Regenerate from IriusRisk version**
-- Add `.iriusrisk/verification/` to `.gitignore`
-- Each environment downloads baseline from IriusRisk on first run
-- Single source of truth (IriusRisk version)
-- Requires IriusRisk API access from CI/CD
 
 ## Open Questions
 
@@ -444,8 +423,8 @@ When architectural changes are approved:
 
 4. **Performance:**
    - Full threat model generation can be slow (30-90 seconds)
+   - Baseline download adds 2-5 seconds per run
    - Can we do incremental analysis? (Future enhancement)
-   - Baseline caching helps (no re-download each time)
 
 5. **False Positives:**
    - What if AI incorrectly flags benign changes?
@@ -454,8 +433,8 @@ When architectural changes are approved:
 
 6. **Workspace Isolation:**
    - `.iriusrisk/verification/` keeps things clean
-   - Should verification files be committed to Git?
-   - Or regenerated from IriusRisk versions?
+   - All files are temporary (downloaded and deleted each run)
+   - No Git strategy needed
 
 ## Success Metrics
 
@@ -482,7 +461,7 @@ When architectural changes are approved:
    │
    ├─> CI/CD Triggered
    │
-   ├─> Load Cached Baseline (Fast!)
+   ├─> Download Baseline from IriusRisk Version
    │   └─> .iriusrisk/verification/baseline-*
    │
    ├─> Generate OTM from PR Code
@@ -526,11 +505,10 @@ All CI/CD verification files are isolated in a dedicated directory:
 ├── countermeasures.json            # existing - working copy for normal ops
 ├── updates.json                    # existing - tracked changes
 │
-└── verification/                   # CI/CD verification workspace
-    ├── baseline-version.json       # metadata: version ID, timestamp, approver
-    ├── baseline-diagram.xml        # baseline architecture (cached)
-    ├── baseline-threats.json       # baseline threats (cached)
-    ├── baseline-countermeasures.json
+└── verification/                   # CI/CD verification workspace (temporary)
+    ├── baseline-diagram.xml        # baseline architecture (temp, from IriusRisk version)
+    ├── baseline-threats.json       # baseline threats (temp, from IriusRisk version)
+    ├── baseline-countermeasures.json  # (temp, from IriusRisk version)
     │
     ├── verification-diagram.xml    # current architecture from PR (temp)
     ├── verification-threats.json   # current threats from PR (temp)
@@ -540,8 +518,8 @@ All CI/CD verification files are isolated in a dedicated directory:
 
 **Key Principles:**
 - **Isolation:** Verification never touches main threats.json/countermeasures.json
-- **Persistence:** baseline-* files are persistent cache
-- **Temporary:** verification-* files are created and deleted during check
+- **Ephemeral:** ALL files in verification/ are temporary (created and deleted each run)
+- **Fresh data:** Baseline downloaded from IriusRisk version every run
 - **Safety:** Context manager ensures cleanup even on failure
 
 ## Technical Notes
@@ -586,20 +564,20 @@ All CI/CD verification files are isolated in a dedicated directory:
 IriusRisk provides a version comparison API endpoint, but testing revealed reliability issues that make it unsuitable for CI/CD workflows. Our approach uses IriusRisk for threat computation (its core value) but performs comparison locally for reliability.
 
 ### Performance Considerations
-- Baseline cache load: < 0.1 seconds (local files)
+- Download baseline from IriusRisk version (3 files): 2-5 seconds
 - IriusRisk OTM import + threat computation: 10-30 seconds
 - Download current state (3 files): 2-5 seconds
 - Comparison logic: < 1 second for typical projects
 - AI interpretation time: Variable (30-60 seconds typical)
-- **Total CI/CD overhead: ~45-90 seconds**
+- **Total CI/CD overhead: ~45-95 seconds**
 
 ## Implementation Plan
 
 ### Phase 1: Core Functionality (MVP)
 1. **Verification Manager** (`utils/verification_manager.py`)
    - Context manager for workspace management
-   - Baseline caching with staleness detection
-   - Automatic cleanup of temporary files
+   - Download baseline from IriusRisk version
+   - Automatic cleanup of all temporary files (baseline-* and verification-*)
 2. **Diagram Comparison** (`utils/diagram_comparison.py`)
    - XML parsing for diagram files
    - Component/dataflow/trust zone comparison
@@ -647,7 +625,7 @@ IriusRisk provides a version comparison API endpoint, but testing revealed relia
 **To Modify:**
 - `src/iriusrisk_cli/commands/mcp.py` - Register new MCP tool
 - `src/iriusrisk_cli/services/version_service.py` - Add restore helper if needed
-- `.gitignore` - Add `.iriusrisk/verification/` (or document Git strategy)
+- `.gitignore` - Add `.iriusrisk/verification/` to ignore temporary files
 
 **Documentation:**
 - `README.md` - Add CI/CD verification section
@@ -674,20 +652,12 @@ IriusRisk provides a version comparison API endpoint, but testing revealed relia
 - Document manual restore procedure
 - Consider version snapshots before verification
 
-### Baseline Cache Staleness
-**Problem:** Cached baseline may be outdated if baseline version changes.
-
-**Mitigation:**
-- Store version ID in baseline-version.json
-- Compare cached version with configured baseline version
-- Auto-regenerate cache if mismatch detected
-
 ### Cleanup on Abort
 **Problem:** If CI/CD job is cancelled mid-verification, temporary files may remain.
 
 **Mitigation:**
 - Context manager ensures cleanup in finally block
-- Next run detects and cleans stale verification-* files
+- Next run detects and cleans stale files from `.iriusrisk/verification/`
 - Document manual cleanup procedure
 
 ## Risk & Mitigation
@@ -696,10 +666,10 @@ IriusRisk provides a version comparison API endpoint, but testing revealed relia
 **Mitigation:** Provide clear guidance prompts, iterate based on feedback
 
 **Risk:** Performance too slow for CI/CD  
-**Mitigation:** Baseline caching reduces overhead; total time ~45-90 seconds is acceptable
+**Mitigation:** Total time ~45-95 seconds is acceptable for security-critical checks
 
 **Risk:** Customers don't understand how to set baselines  
-**Mitigation:** Clear documentation, video tutorials, examples, automated baseline caching
+**Mitigation:** Clear documentation, video tutorials, examples showing version creation and configuration
 
 **Risk:** False sense of security if not reviewed  
 **Mitigation:** Emphasize "visibility not enforcement" in docs, require human review step
