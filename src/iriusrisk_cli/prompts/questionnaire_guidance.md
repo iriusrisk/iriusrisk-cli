@@ -1,12 +1,29 @@
 # Questionnaire Guidance Instructions for AI Assistants
 
+## 🚨 CRITICAL: Questionnaire Data Structure
+
+**When READING questionnaires from `questionnaires.json`:**
+- Use `questionnaire.groups[].questions` (groups, not steps!)
+- Each group has `name` field and `questions` array
+
+**When SUBMITTING answers:**
+- Use `answers_data = {"steps": [...]}` format
+- The answer payload uses "steps" but the source data uses "groups"
+
+**Common Error**: Searching for `.steps[]` in questionnaires.json will find nothing. Use `.groups[]` instead.
+
 ## Executive Summary
 
 After creating a threat model in IriusRisk, questionnaires help refine the threat analysis based on actual implementation details. Your role: analyze source code to answer project and component questionnaires, then sync those answers back to IriusRisk to regenerate an improved threat model.
 
+**🚨 FIRST STEP: Check for repository scope in `.iriusrisk/project.json`**
+- If scope is defined → ONLY answer questionnaires relevant to this repository's scope
+- If no scope or general scope → Answer all questionnaires
+- See "Scope-Based Questionnaire Filtering" section below for guidance
+
 **Standard workflow:** 
 1. Import OTM → project_status() → **Offer to complete questionnaires**
-2. If accepted: sync() to download questionnaires → analyze code → track answers → sync() to push answers
+2. If accepted: sync() to download questionnaires → **check scope** → analyze code for relevant components → track answers → sync() to push answers
 3. IriusRisk rules engine regenerates threat model based on answers
 
 ## Why Questionnaires Matter
@@ -20,6 +37,66 @@ After creating a threat model in IriusRisk, questionnaires help refine the threa
 - What data is stored? → Adjusts data protection requirements
 
 **Result:** More accurate threat model with fewer false positives and threats focused on actual risks.
+
+## Scope-Based Questionnaire Filtering
+
+**CRITICAL for Multi-Repository Projects**: Check for repository scope in `.iriusrisk/project.json` BEFORE answering questionnaires.
+
+```python
+# Read scope from project.json
+import json
+with open('.iriusrisk/project.json', 'r') as f:
+    project_config = json.load(f)
+    scope = project_config.get('scope')
+```
+
+### When Scope is Defined
+
+**Only answer questionnaires relevant to this repository's scope.**
+
+**Infrastructure Scope** ("AWS infrastructure - ECS, RDS, VPC"):
+- ✅ **Answer**: Component questionnaires for infrastructure components (RDS, ECS, VPC, etc.)
+- ✅ **Answer**: Project questions about infrastructure (e.g., "Is infrastructure as code used?", "Are security groups configured?")
+- ❌ **Skip**: Application-level questions (e.g., "Is input validation implemented?", "Is CSRF protection enabled?")
+- ❌ **Skip**: Component questionnaires for application components you don't control
+
+**Application Scope** ("Backend API services"):
+- ✅ **Answer**: Component questionnaires for API/service components
+- ✅ **Answer**: Project questions about authentication, authorization, business logic
+- ❌ **Skip**: Infrastructure questions (e.g., "Is RDS encrypted?", "Are VPCs isolated?")
+- ❌ **Skip**: Frontend questions (e.g., "Is Content Security Policy enabled?")
+
+**Frontend Scope** ("React SPA"):
+- ✅ **Answer**: Component questionnaires for frontend components
+- ✅ **Answer**: Questions about client-side security, XSS protection, secure storage
+- ❌ **Skip**: Backend API implementation questions
+- ❌ **Skip**: Infrastructure/database questions
+
+**When presenting questionnaires:**
+```
+Repository scope: "Backend API services and business logic"
+
+Found 15 questionnaire questions total. Filtering to 8 questions relevant to this scope:
+
+Project Questions (3):
+- Does the application implement authentication? 
+- Is input validation performed on all user inputs?
+- Are API endpoints documented?
+
+Component Questions (5):
+- API Service: Is rate limiting implemented?
+- Auth Service: Are passwords hashed with strong algorithms?
+...
+
+Note: Skipped 7 infrastructure-related questions not relevant to this repository.
+```
+
+### When Scope is NOT Defined
+
+**No scope** or general scope:
+- Answer ALL questionnaires
+- No filtering needed
+- Standard behavior
 
 ## Available Questionnaires
 
@@ -35,6 +112,8 @@ Located in `.iriusrisk/questionnaires.json` under `project` key.
 
 **Impact:** Affects threats across ALL components in the project.
 
+**Scope filtering**: In multi-repo projects, only answer if question relates to your scope.
+
 ### 2. Component Questionnaires
 Located in `.iriusrisk/questionnaires.json` under `components` array.
 
@@ -44,6 +123,8 @@ Located in `.iriusrisk/questionnaires.json` under `components` array.
 - API: Is authentication required for all endpoints? Is there API documentation?
 
 **Impact:** Affects threats for that specific component only.
+
+**Scope filtering**: Only answer questionnaires for components in your repository's scope.
 
 ## Workflow: Complete Questionnaires
 
@@ -81,7 +162,42 @@ Call **sync(project_path)** to download:
 
 ### Step 3: Read and Summarize Questionnaires
 
-Read `.iriusrisk/questionnaires.json` and provide a summary:
+Read `.iriusrisk/questionnaires.json` and provide a summary.
+
+**🚨 CRITICAL: Questionnaire JSON Structure**
+
+The questionnaire data downloaded from IriusRisk uses **"groups"** not "steps":
+- ✅ `questionnaire.groups[].questions` (CORRECT - for reading questionnaires)
+- ❌ `questionnaire.steps[].questions` (WRONG - will find nothing)
+
+**When READING questionnaires** from `questionnaires.json`:
+```python
+# CORRECT way to iterate through questions
+for group in questionnaire_data['questionnaire']['groups']:
+    group_name = group['name']
+    for question in group['questions']:
+        question_text = question['text']
+        question_ref = question['referenceId']
+        # Process question...
+```
+
+**When SUBMITTING answers** (answer format uses "steps"):
+```python
+# Answer format for API uses "steps" not "groups"
+answers_data = {
+    "steps": [  # ← Uses "steps" for answers
+        {
+            "questions": [...]
+        }
+    ]
+}
+```
+
+**Summary:**
+- **Reading** questionnaires: `groups` → `questions`
+- **Submitting** answers: `steps` → `questions`
+
+When parsing questionnaires to find questions, use:
 
 ```json
 {
@@ -94,9 +210,9 @@ Read `.iriusrisk/questionnaires.json` and provide a summary:
     "projectId": "uuid",
     "questionnaire": {
       "ref": "project-questionnaire",
-      "steps": [
+      "groups": [
         {
-          "step": "Architecture Questions",
+          "name": "Architecture Questions",
           "questions": [
             {
               "referenceId": "has-authentication",
@@ -125,9 +241,9 @@ Read `.iriusrisk/questionnaires.json` and provide a summary:
       "componentName": "User Database",
       "questionnaire": {
         "ref": "database-questionnaire",
-        "steps": [
+        "groups": [
           {
-            "step": "Database Security",
+            "name": "Database Security",
             "questions": [
               {
                 "referenceId": "db-encryption-at-rest",

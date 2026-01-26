@@ -3,6 +3,11 @@
 ## Executive Summary
 After completing the threat modeling workflow, IriusRisk generates threats and countermeasures saved to `.iriusrisk/` directory. Your role: read these JSON files, explain findings in business terms, prioritize by risk, provide implementation guidance and code examples. Do NOT create new threats, modify risk ratings, or analyze source code for vulnerabilities—that's IriusRisk's job.
 
+**🚨 FIRST STEP: Check for repository scope in `.iriusrisk/project.json`**
+- If scope is defined → FILTER threats/countermeasures to show only items relevant to this repository's scope
+- If no scope or general scope → Show all threats/countermeasures
+- See "Scope-Based Filtering" section below for detailed guidance
+
 **⚠️ IMPORTANT: If questionnaires have NOT been completed yet, recommend completing them BEFORE analyzing threats:**
 - Questionnaires refine the threat model based on actual implementation
 - Results in fewer false positives and more accurate threats
@@ -69,6 +74,81 @@ Think of it this way:
 - **Accept** = "Yes, this threat is real, but we're okay with the risk"
 - **Not-applicable** = "No, this threat is not real in our context - false alarm"
 
+## Scope-Based Filtering for Multi-Repository Projects
+
+**CRITICAL**: Before analyzing threats/countermeasures, check for repository scope in `.iriusrisk/project.json`:
+
+```python
+# Read project.json to check for scope
+import json
+with open('.iriusrisk/project.json', 'r') as f:
+    project_config = json.load(f)
+    scope = project_config.get('scope')
+
+if scope:
+    print(f"Repository scope: {scope}")
+    # FILTER threats and countermeasures based on this scope
+```
+
+### When Scope is Defined
+
+**The sync command downloads ALL threats/countermeasures for the entire project**, but you should **only focus on threats/countermeasures relevant to this repository's scope**.
+
+**Example Scenarios:**
+
+**Infrastructure Scope** ("AWS infrastructure - ECS, RDS, VPC"):
+- ✅ **Show**: Threats related to AWS components, network security, infrastructure configuration
+- ✅ **Show**: Countermeasures like "Enable VPC Flow Logs", "Use RDS encryption at rest", "Configure security groups"
+- ❌ **Hide**: Application-level threats like SQL injection, XSS, business logic flaws
+- ❌ **Hide**: Code-level countermeasures like "Validate user input", "Implement CSRF tokens"
+
+**Application Scope** ("Backend API - order processing, user management"):
+- ✅ **Show**: Threats related to API security, authentication, business logic
+- ✅ **Show**: Countermeasures like "Implement input validation", "Use parameterized queries", "Add rate limiting"
+- ❌ **Hide**: Infrastructure threats like "Unencrypted RDS", "VPC misconfiguration"
+- ❌ **Hide**: Infrastructure countermeasures
+
+**Frontend Scope** ("React SPA - customer interface"):
+- ✅ **Show**: XSS threats, CSRF, client-side storage issues
+- ✅ **Show**: Countermeasures like "Output encoding", "Content Security Policy", "Secure cookie flags"
+- ❌ **Hide**: Backend API threats, database threats, infrastructure issues
+
+### How to Filter
+
+**Match threats to scope by checking:**
+1. **Component names** in threat data - does it reference components in your scope?
+2. **Threat categories** - does it relate to your layer (infrastructure/application/frontend)?
+3. **Descriptions** - does the threat scenario apply to what's in your repository?
+
+**When presenting filtered results:**
+```
+Repository scope: "Backend API services and business logic"
+
+Found 54 threats total, showing 23 relevant to this repository's scope:
+
+🔴 High Risk (5 threats):
+1. SQL Injection in Order API [THREAT-123]
+2. Broken Authentication in User Service [THREAT-456]
+...
+
+Found 106 countermeasures total, showing 38 relevant to this repository's scope:
+
+Priority Countermeasures:
+1. Implement parameterized queries [CM-789]
+2. Add JWT token validation [CM-012]
+...
+
+Note: Filtered to show only threats/countermeasures relevant to this repository. 
+Run from other repository contexts to see their specific security concerns.
+```
+
+### When Scope is NOT Defined
+
+**No scope** or scope is general (e.g., "Complete system"):
+- Show ALL threats and countermeasures
+- No filtering needed
+- This is the default/backward-compatible behavior
+
 ## Available Data Files
 
 After sync(), read these JSON files from `.iriusrisk/` directory:
@@ -76,11 +156,13 @@ After sync(), read these JSON files from `.iriusrisk/` directory:
 **1. threats.json** - All threats IriusRisk identified:
 - Threat descriptions, categories, risk ratings (likelihood/impact)
 - Affected components, attack vectors, STRIDE classifications, CWE mappings
+- **Note**: Contains threats for entire project (all repositories)
 
 **2. countermeasures.json** - All security controls and mitigations:
 - Control descriptions, implementation guidance, risk reduction effectiveness
 - Associated threats, implementation status, priority, industry standards (NIST, ISO 27001)
 - Cost and effort estimates
+- **Note**: Contains countermeasures for entire project (all repositories)
 
 **3. components.json** - Component library reference:
 - Available component types, properties, configurations

@@ -6,6 +6,74 @@ Analyze mixed repositories (application code + infrastructure + policies + docs)
 ## Critical Principle: One Comprehensive Threat Model
 Create ONE unified threat model including ALL components from ALL source types. Do NOT create separate models for code vs. infrastructure—IriusRisk works best with a complete, holistic view of the entire system.
 
+## Scope-Aware Analysis for Multi-Repository Projects
+
+**FIRST: Check for repository scope definition** in `.iriusrisk/project.json`:
+
+```json
+{
+  "name": "E-commerce Platform",
+  "reference_id": "ecommerce-platform",
+  "scope": "AWS cloud infrastructure via Terraform. Provisions ECS for backend API 
+           (api-backend repo), RDS PostgreSQL, ALB, CloudFront for frontend static 
+           assets (web-frontend repo). All application components from other repos 
+           should run within these AWS services."
+}
+```
+
+### When Scope is Defined
+
+**Your analysis must be FOCUSED on the scope:**
+
+1. **Understand the scope boundaries:**
+   - What is THIS repository responsible for?
+   - What components from OTHER repositories are mentioned?
+   - What is the architectural relationship to other parts?
+
+2. **Focus your component extraction:**
+   - Extract components relevant to THIS repository's scope
+   - Note references to components from other repositories
+   - Understand how your components relate to the broader system
+
+3. **Scope-specific extraction strategies:**
+
+   **Infrastructure scope** (e.g., "AWS infrastructure", "Kubernetes platform"):
+   - **Primary focus**: Cloud resources, networking, compute platforms
+   - **Extract**: VPCs, load balancers, container orchestration, managed databases, CDN, storage services
+   - **Note**: Application components mentioned in scope (e.g., "backend API from api-backend repo")
+   - **Expectation**: Your components will CONTAIN or HOST application components from other repos
+
+   **Application scope** (e.g., "Backend API", "Payment service"):
+   - **Primary focus**: Business logic, services, APIs
+   - **Extract**: Service endpoints, business logic components, data access layers, auth modules
+   - **Note**: Infrastructure mentioned in scope (e.g., "deployed to ECS from terraform repo")
+   - **Expectation**: Your components will RUN INSIDE infrastructure components from other repos
+
+   **Frontend scope** (e.g., "React SPA", "Mobile app"):
+   - **Primary focus**: Client-side components, UI layers
+   - **Extract**: Frontend application, API clients, authentication flows, client-side state management
+   - **Note**: Backend services and CDN mentioned in scope
+   - **Expectation**: Your components connect to backend APIs and run on CDN/infrastructure
+
+   **Integration/Operations scope** (e.g., "CI/CD pipeline", "Monitoring"):
+   - **Primary focus**: Operational/supporting components
+   - **Extract**: Build/deploy tools, monitoring systems, logging infrastructure
+   - **Note**: Application and infrastructure components mentioned
+   - **Expectation**: Your components OBSERVE or OPERATE ON other components
+
+4. **Cross-reference analysis:**
+   - If scope mentions "backend API from api-backend repo", look for how your components interact with it
+   - If scope says "deploys to ECS from terraform repo", understand you're providing application logic that needs container hosting
+   - Document expected touchpoints with other repositories' contributions
+
+### When Scope is NOT Defined
+
+**Use comprehensive, all-encompassing analysis:**
+- Extract ALL components from ALL source types
+- Create complete, holistic threat model
+- Include application, infrastructure, data, and integration layers
+- Standard single-repository analysis approach
+
 ## Your Role: Architecture Modeling Only
 **Do:** Extract components, trust zones, and data flows  
 **Do NOT:** Identify vulnerabilities, threats, security flaws, or speculate about weaknesses  

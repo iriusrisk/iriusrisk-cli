@@ -54,8 +54,9 @@ def _generate_reference_id(project_name: str) -> str:
 @click.option('--name', '-n', help='Project name (will prompt if not provided)')
 @click.option('--project-ref', '-p', help='Project reference ID (will generate from name if not provided)')
 @click.option('--existing-ref', '-r', help='Existing project reference ID to fetch from IriusRisk instance')
+@click.option('--scope', '-s', help='Repository scope definition describing how this repo contributes to the threat model')
 @click.option('--force', '-f', is_flag=True, help='Overwrite existing .iriusrisk directory')
-def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional[str], force: bool):
+def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional[str], scope: Optional[str], force: bool):
     """Initialize a new or existing IriusRisk project in the current directory.
     
     This command creates a .iriusrisk directory with a project.json file
@@ -65,11 +66,16 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
     You can initialize either a new project (with generated or provided details)
     or an existing project by providing its reference ID.
     
+    For multi-repository projects, define a scope to describe how this repository
+    contributes to the unified threat model. The scope helps AI assistants merge
+    contributions from multiple repositories intelligently.
+    
     Examples:
         iriusrisk init                           # Interactive setup for new project
         iriusrisk init -n "My Web App"          # Set project name for new project
         iriusrisk init -n "My App" -p abc123    # Set name and project ID for new project
         iriusrisk init -r "my-project-ref"      # Initialize existing project by reference ID
+        iriusrisk init -r "my-project-ref" --scope "AWS infrastructure - ECS, RDS, VPC"
         iriusrisk init --force                  # Overwrite existing config
     """
     current_dir = Path.cwd()
@@ -109,6 +115,26 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
             description = project_data.get('description', '')
             reference_id = project_data.get('referenceId', '')
             
+            # Handle scope definition for multi-repository contributions
+            if not scope:
+                click.echo()
+                click.echo("This project may have contributions from other repositories.")
+                click.echo("Define this repository's scope to help the AI understand how it contributes")
+                click.echo("to the unified threat model.")
+                click.echo()
+                click.echo("Examples:")
+                click.echo("  • 'Backend API implementing order processing and user management'")
+                click.echo("  • 'AWS infrastructure via Terraform - ECS, RDS, VPC networking'")
+                click.echo("  • 'React frontend - customer-facing web application'")
+                click.echo()
+                scope = click.prompt(
+                    "Repository scope (press Enter for complete system view)", 
+                    default="",
+                    show_default=False
+                )
+                if not scope:
+                    scope = None
+            
             # Create enhanced project configuration with fetched metadata
             project_config = {
                 "name": name,
@@ -128,6 +154,10 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
                 }
             }
             
+            # Add scope if provided
+            if scope:
+                project_config["scope"] = scope
+            
         except Exception as e:
             click.echo(f"❌ Failed to fetch project metadata: {e}", err=True)
             raise click.Abort()
@@ -145,6 +175,20 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
         else:
             reference_id = project_ref
         
+        # Handle scope definition for new projects
+        if not scope:
+            click.echo()
+            click.echo("Define this repository's scope (optional) to describe how it contributes")
+            click.echo("to the threat model. This is useful for multi-repository projects.")
+            click.echo()
+            scope = click.prompt(
+                "Repository scope (press Enter to skip)", 
+                default="",
+                show_default=False
+            )
+            if not scope:
+                scope = None
+        
         # Create project configuration for new project
         project_config = {
             "name": name,
@@ -153,6 +197,10 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
             "description": f"IriusRisk project configuration for {name}",
             "initialized_from": "new_project"
         }
+        
+        # Add scope if provided
+        if scope:
+            project_config["scope"] = scope
     
     try:
         # Create .iriusrisk directory
@@ -169,10 +217,30 @@ def init(name: Optional[str], project_ref: Optional[str], existing_ref: Optional
             click.echo(f"🔗 Reference ID: {project_config.get('reference_id', 'N/A')}")
             if project_config.get('description'):
                 click.echo(f"📝 Description: {project_config['description']}")
+            if project_config.get('scope'):
+                scope_text = project_config['scope']
+                # Truncate long scopes for display
+                if len(scope_text) > 100:
+                    scope_display = scope_text[:97] + "..."
+                else:
+                    scope_display = scope_text
+                click.echo(f"🎯 Scope: {scope_display}")
+                if len(scope_text) > 100:
+                    click.echo(f"   (Full scope saved to {project_file})")
         else:
             click.echo(f"✅ Initialized new IriusRisk project: {name}")
             click.echo(f"📁 Project directory: {irisrisk_dir}")
             click.echo(f"🔗 Reference ID: {project_config.get('reference_id', 'N/A')}")
+            if project_config.get('scope'):
+                scope_text = project_config['scope']
+                # Truncate long scopes for display
+                if len(scope_text) > 100:
+                    scope_display = scope_text[:97] + "..."
+                else:
+                    scope_display = scope_text
+                click.echo(f"🎯 Scope: {scope_display}")
+                if len(scope_text) > 100:
+                    click.echo(f"   (Full scope saved to {project_file})")
         
         click.echo()
         click.echo("This project will be used by default in other commands.")

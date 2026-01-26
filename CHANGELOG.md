@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-01-26
+
+### Added
+
+#### Multi-Repository Threat Modeling
+- **Repository Scope Definitions**: New `scope` field in `.iriusrisk/project.json` allows repositories to define their contribution to a unified threat model
+- **Multi-Repo Support**: Multiple repositories can now contribute to a single IriusRisk project, enabling comprehensive threat modeling for microservices, infrastructure-as-code, and distributed architectures
+- **Scope-Aware Init Command**: `iriusrisk init` now supports `--scope` parameter for defining repository contributions
+- **Interactive Scope Prompting**: When connecting to existing projects, users are prompted to define how their repository contributes
+- **OTM Export MCP Tool**: New `export_otm()` MCP tool enables AI assistants to retrieve existing threat models for intelligent merging
+- **Config Scope Support**: `Config.get_project_scope()` method for reading scope definitions
+
+#### AI Workflow Enhancements
+- **Multi-Repo AI Workflows**: AI assistants can now intelligently merge contributions from multiple repositories based on scope definitions
+- **Enhanced Prompts**: Updated `create_threat_model.md` and `analyze_source_material.md` with comprehensive multi-repository workflow guidance
+- **Scope-Aware Analysis**: AI assistants focus their analysis based on repository scope (infrastructure vs application vs frontend)
+- **Automatic OTM Download**: The `sync` command now automatically downloads the current threat model as `current-threat-model.otm`, making it immediately available for AI assistants to merge contributions without additional API calls
+- **Explicit Intent Recognition**: AI assistants now proceed directly when users explicitly request threat modeling (e.g., "threat model this code"), eliminating unnecessary permission prompts
+- **Workflow Disambiguation**: Clear separation between "threat modeling" (architecture creation/update) and "threat analysis" (reviewing existing threats) - AI no longer confuses these workflows
+- **Scope-Based Filtering**: When analyzing threats, countermeasures, or questionnaires in multi-repository projects, AI assistants now filter to show only items relevant to the current repository's scope (e.g., infrastructure repo sees infrastructure threats, application repo sees application threats)
+- **Intelligent Layout Management with Cascading Calculations**: AI assistants now use a bottom-up algorithmic approach to manage component positioning when merging threat models. The system calculates container sizes from their children (85x85 for leaf components, calculated for containers), adds appropriate padding (40 pixels), and cascades size adjustments up nested hierarchies. This prevents cramped layouts in multi-level nested structures (component in component in component) by recalculating parent sizes when children are added.
+
+### Fixed
+- **Questionnaire Structure Documentation**: Fixed critical documentation bug where prompts showed questionnaire data structure using "steps" when it actually uses "groups". This caused AI assistants to fail parsing questionnaires because they couldn't find the questions. Added prominent warnings and correct examples showing `questionnaire.groups[].questions` is the correct path.
+
+### Changed
+- **Init Command**: Enhanced to support multi-repository workflows while maintaining backward compatibility
+- **Documentation**: README updated with multi-repository examples and usage patterns
+
+### Technical Details
+
+**Use Cases Enabled:**
+- Microservices architectures with separate service repositories
+- Infrastructure-as-code (Terraform/CloudFormation) separate from application code
+- Frontend/backend repository separation
+- Platform services shared across multiple applications
+- CI/CD and operational tooling as separate concerns
+
+**Example Configuration:**
+```json
+{
+  "name": "E-commerce Platform",
+  "reference_id": "ecommerce-platform",
+  "scope": "AWS infrastructure via Terraform. Provisions ECS for backend API 
+           (api-backend repo), RDS PostgreSQL, ALB, CloudFront for frontend 
+           (web-frontend repo). All application components from other repos 
+           run within these AWS services."
+}
+```
+
+See the Multi-Repository Threat Modeling section in the README for detailed examples and usage patterns.
+
 ## [0.3.0] - 2025-01-07
 
 **Note**: Version 0.2.0 was skipped as it contained experimental features that were subsequently removed. This release builds directly on 0.1.1.
@@ -112,6 +164,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configuration best practices
 - AI workflow examples
 
+[0.4.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.4.0
 [0.3.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.3.0
 [0.1.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.1
 [0.1.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.0

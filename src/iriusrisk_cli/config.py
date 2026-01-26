@@ -245,6 +245,20 @@ class Config:
             return project_config.get('name')
         return None
     
+    def get_project_scope(self) -> Optional[str]:
+        """Get the repository scope from local project configuration.
+        
+        The scope describes how this repository contributes to the unified
+        threat model in multi-repository projects.
+        
+        Returns:
+            Scope description string or None if not defined
+        """
+        project_config = self.get_project_config()
+        if project_config:
+            return project_config.get('scope')
+        return None
+    
     def get_workspace_paths(self) -> list:
         """Get workspace paths from common IDE environment variables.
         

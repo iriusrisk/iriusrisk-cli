@@ -4,7 +4,7 @@ An AI-powered threat modeling integration that brings IriusRisk security analysi
 
 > :warning: This software has been released IriusRisk Labs as public beta. It is provided as-is, without warranty or guarantee of any kind. Features may change, data structures may evolve, and occasional issues should be expected. Use at your own discretion.
 
-> 🎉 **What's New in v0.3.0**: Questionnaire support for AI-guided threat model refinement, automatic threat model regeneration, simplified OTM import workflow, and enhanced auto-versioning. See [CHANGELOG.md](CHANGELOG.md) for full details.
+> 🎉 **What's New in v0.4.0**: Multi-repository threat modeling! Multiple repositories can now contribute to a single unified threat model—perfect for microservices, infrastructure-as-code, and distributed architectures. Each repo defines its scope, and AI intelligently merges everything into one comprehensive security view. See [CHANGELOG.md](CHANGELOG.md) for details.
 
 ## Primary Use Case: AI-Enabled IDE Integration
 
@@ -17,22 +17,34 @@ This tool is designed to work alongside AI assistants in your IDE, enabling:
 
 ## What You Can Do
 
-- **Manage Projects**: List, view, and analyze your IriusRisk projects
+- **Multi-Repository Threat Models**: Unite security across microservices, infrastructure, and frontend repos into one comprehensive view
+- **AI-Guided Threat Modeling**: Let AI assistants analyze your code and automatically create threat models
 - **Import/Export Threat Models**: Use OTM (Open Threat Model) format to create and update projects
-- **Sync Project Data**: Download threats, countermeasures, questionnaires, and components locally
-- **Answer Questionnaires**: Refine threat models by answering project and component questionnaires
-- **Analyze Threats**: View, filter, search, and update threat status
+- **Intelligent Questionnaires**: AI analyzes your code to answer security questionnaires, refining threat models based on actual implementation
+- **Analyze Threats**: View, filter, search, and update threat status with scope-based filtering for multi-repo projects
 - **Track Countermeasures**: Monitor implementation, update status, and create tracking issues
-- **Manage Components**: View and search system components in your architecture
 - **Generate Reports**: Create compliance and security reports in multiple formats (PDF, HTML, XLSX, CSV)
-- **Version Control**: Create snapshots of your threat models to track changes over time
+- **Version Control**: Automatic snapshots of your threat models to track changes over time
 - **Issue Tracker Integration**: Connect countermeasures to your issue tracking system
-- **Automate Workflows**: Script security processes with consistent CLI commands
 - **MCP Integration**: Enable AI assistants to perform all operations through Model Context Protocol
 
 ## Key Features
 
-### 🆕 Questionnaire-Driven Threat Model Refinement (v0.3.0)
+### 🆕 Multi-Repository Threat Modeling (v0.4.0)
+
+Multiple repositories can now contribute to a single unified threat model—perfect for microservices, infrastructure-as-code, and distributed architectures. Each repository defines its **scope** (what it represents), and the AI intelligently merges contributions into a comprehensive security view.
+
+**Example**: Your infrastructure repo defines AWS resources, your backend repo adds API services, and your frontend repo contributes the UI—all merged into one complete threat model showing how everything connects and where the risks are.
+
+**Key benefits**:
+- Unified security view across all repositories
+- Each team maintains their own codebase while contributing to shared threat model
+- AI-driven intelligent merging based on scope definitions
+- Scope-based filtering shows only relevant threats per repository
+
+See the [Multi-Repository Threat Modeling](#multi-repository-threat-modeling) section for detailed examples and workflows.
+
+### Questionnaire-Driven Threat Model Refinement (v0.3.0)
 
 IriusRisk questionnaires help refine your threat model based on your actual implementation details. The CLI downloads questionnaires during sync operations, and when using the MCP integration, AI assistants can analyze your source code to automatically answer these questions. Your answers trigger IriusRisk's rules engine to regenerate your threat model with more accurate, context-specific threats and countermeasures.
 
@@ -43,29 +55,21 @@ IriusRisk questionnaires help refine your threat model based on your actual impl
 4. Sync automatically pushes answers back to IriusRisk
 5. IriusRisk regenerates your threat model based on actual implementation
 
-### 🔄 Automatic Threat Model Regeneration (v0.3.0)
-
-The CLI now automatically triggers IriusRisk's rules engine to regenerate your threat model when needed—after answering questionnaires, making manual edits, or updating your architecture. The CLI monitors the regeneration process to ensure your threat model is ready before proceeding. This happens seamlessly during sync operations without manual intervention.
-
-### 📦 Simplified OTM Import Workflow (v0.3.0)
-
-The `iriusrisk otm import` command now automatically detects whether you're creating a new project or updating an existing one—no flags required. Just import your OTM file and the CLI handles the rest intelligently.
-
-### 💾 Enhanced Auto-Versioning (v0.3.0)
-
-When auto-versioning is enabled in your project configuration, the CLI automatically creates backup snapshots **before** any update operation. This ensures you can always roll back changes and track your threat model's evolution over time. Auto-versioning works consistently across all import scenarios (CLI commands, MCP tools, project updates).
-
-**Enable auto-versioning** in `.iriusrisk/project.json`:
-```json
-{
-  "auto_version": true,
-  "auto_version_prefix": "auto-backup-"
-}
-```
-
-### 🤖 AI-Powered Security Analysis
+### AI-Powered Security Analysis
 
 Through MCP integration, AI assistants can analyze your codebase, create threat models, answer questionnaires, implement countermeasures, and track progress—all within your IDE. The AI understands your code context and provides intelligent, specific security guidance.
+
+### Automatic Threat Model Regeneration
+
+The CLI automatically triggers IriusRisk's rules engine to regenerate your threat model when needed—after answering questionnaires, making manual edits, or updating your architecture. This happens seamlessly during sync operations without manual intervention.
+
+### Enhanced Auto-Versioning
+
+The CLI automatically creates backup snapshots **before** any update operation. Roll back changes anytime and track your threat model's evolution over time. Works consistently across all import scenarios (CLI commands, MCP tools, project updates).
+
+### Questionnaire-Based Refinement
+
+AI assistants can analyze your source code to automatically answer IriusRisk questionnaires, triggering the rules engine to regenerate your threat model with more accurate, context-specific threats and countermeasures based on your actual implementation.
 
 # MCP Integration for AI-Enabled IDEs
 
@@ -97,16 +101,107 @@ When integrated through MCP, AI assistants can:
 - **Sync Changes**: Automatically synchronize threat model updates between your local environment and IriusRisk
 - **Generate Reports**: Create compliance reports and security documentation
 
-## Example AI Workflow
+## Example AI Workflows
 
+### Single Repository
 1. **Code Analysis**: "Analyze my web application for security threats"
 2. **Threat Model Creation**: AI examines your code and creates a comprehensive threat model
 3. **IriusRisk Integration**: Threat model is uploaded to IriusRisk for professional analysis
-4. **Questionnaire Completion**: AI analyzes your code to answer questionnaires, refining the threat model based on actual implementation
-5. **Threat Review**: AI helps you understand the identified threats and their priorities
+4. **Questionnaire Completion**: AI analyzes your code to answer questionnaires, refining the threat model
+5. **Threat Review**: AI helps you understand and prioritize identified threats
 6. **Implementation Guidance**: AI guides you through implementing security countermeasures
 7. **Status Tracking**: Progress is tracked and synchronized with IriusRisk
-8. **Report Generation**: Compliance and security reports are generated automatically
+
+### Multi-Repository
+1. **First Repo (Backend)**: "Threat model this API" → AI creates initial threat model with API components
+2. **Second Repo (Infrastructure)**: "Update threat model with AWS infrastructure" → AI exports existing model, adds infrastructure, shows API running in ECS
+3. **Third Repo (Frontend)**: "Add frontend to threat model" → AI merges frontend components, creates complete system view
+4. **Result**: Single comprehensive threat model showing frontend → load balancer → API → database with all security threats across the stack
+
+## Multi-Repository Threat Modeling
+
+Modern applications are often distributed across multiple repositories (microservices, infrastructure-as-code, frontend/backend separation). The IriusRisk CLI supports **scope definitions** that enable multiple repositories to contribute different perspectives to a single comprehensive threat model.
+
+### How It Works
+
+Each repository defines its **scope**—a description of what part of the system it represents. The AI assistant then exports any existing threat model, analyzes the current repository based on its scope, intelligently merges contributions with existing components, and updates the unified threat model in IriusRisk.
+
+### Example: Microservices Architecture
+
+```bash
+# Repository 1: Backend API
+$ cd backend-api/
+$ iriusrisk init -n "E-commerce Platform" --scope "Node.js REST API for order processing..."
+# AI creates initial threat model with API components
+
+# Repository 2: Infrastructure
+$ cd ../terraform-aws/
+$ iriusrisk init -r "ecommerce-platform" --scope "AWS infrastructure - ECS, RDS, VPC..."
+# AI exports existing model, adds AWS infrastructure, merges intelligently
+
+# Repository 3: Frontend
+$ cd ../web-frontend/
+$ iriusrisk init -r "ecommerce-platform" --scope "React SPA for customer interface..."
+# AI exports existing model, adds frontend components, creates complete view
+```
+
+**Result**: A single, comprehensive threat model showing frontend → infrastructure → backend services and how they all connect and interact, with complete security coverage across the entire stack.
+
+### Defining Scope
+
+A good scope description includes what this repository contains, how it relates to other repositories, where components are deployed, external integrations, and trust boundaries.
+
+**Example scope definitions:**
+
+```json
+{
+  "scope": "Node.js REST API implementing core business logic for order processing, 
+            inventory management, and user accounts. Exposes REST endpoints consumed 
+            by web frontend (separate repo) and mobile apps. Connects to PostgreSQL 
+            database and Redis cache. Deployed as containerized service (infrastructure 
+            in terraform repo). Integrates with external payment gateway (Stripe) and 
+            shipping APIs."
+}
+```
+
+```json
+{
+  "scope": "AWS cloud infrastructure via Terraform. Provisions ECS Fargate containers 
+            for the API backend (api-backend repo), RDS PostgreSQL database, ElastiCache 
+            Redis, Application Load Balancer, CloudFront CDN for frontend static assets 
+            (web-frontend repo), S3 buckets, and VPC with public/private subnet isolation. 
+            All application components from other repos run within these AWS services."
+}
+```
+
+### Setting Up Multi-Repository Projects
+
+**First repository (creates project):**
+```bash
+$ cd backend-api/
+$ iriusrisk init -n "E-commerce Platform"
+# Optional: Add scope when prompted, or skip for complete system view
+```
+
+**Additional repositories (connect to existing project):**
+```bash
+$ cd ../terraform-aws/
+$ iriusrisk init -r "ecommerce-platform"
+# Prompted for scope to define this repository's contribution
+```
+
+Or use the `--scope` flag to skip prompts:
+```bash
+$ iriusrisk init -r "ecommerce-platform" --scope "AWS infrastructure via Terraform..."
+```
+
+### Working with Multi-Repository Projects
+
+When you ask the AI to create or update a threat model, it automatically runs `sync()` to download the latest threat model, analyzes your code based on the repository's scope, merges your contribution with existing components, and updates the unified threat model in IriusRisk. The `sync()` command saves the current model to `.iriusrisk/current-threat-model.otm`, making it immediately available for intelligent merging.
+
+### Scope-Based Filtering
+
+AI assistants automatically filter threats, countermeasures, and questionnaires to show only items relevant to your repository's scope. Infrastructure repos see infrastructure threats, application repos see application-level threats, and frontend repos see client-side threats. Each repository stays focused on its own security concerns while contributing to the unified threat model.
 
 # Using the CLI
 
@@ -328,9 +423,17 @@ $ iriusrisk init -n "My App" -p abc123
 # Connect to existing project by reference ID
 $ iriusrisk init -r "my-project-ref"
 
+# Connect to existing project with scope definition (multi-repository)
+$ iriusrisk init -r "my-project-ref" --scope "AWS infrastructure via Terraform"
+
+# Initialize with scope for multi-repository project
+$ iriusrisk init -n "My App" --scope "Backend API services and business logic"
+
 # Overwrite existing configuration
 $ iriusrisk init --force
 ```
+
+**Multi-Repository Projects**: Use the `--scope` parameter to define how this repository contributes to a unified threat model. The scope helps AI assistants merge contributions from multiple repositories. See the Multi-Repository Threat Modeling section above for details.
 
 ### Projects
 
@@ -394,9 +497,14 @@ $ iriusrisk otm export PROJECT_ID -o threat-model.otm
 
 # Export as JSON
 $ iriusrisk otm export PROJECT_ID --format json
+
+# Export existing threat model for multi-repository merging
+$ iriusrisk otm export -o existing-model.otm
 ```
 
 **Note**: The CLI automatically detects whether you're creating a new project or updating an existing one during import. If auto-versioning is enabled in your project configuration, a backup snapshot is automatically created before updates.
+
+**Multi-Repository Use**: When contributing to an existing threat model from a new repository, export the current threat model first. This allows AI assistants to merge your contribution with existing components intelligently based on your repository's scope definition.
 
 ### Data Synchronization
 
@@ -430,8 +538,11 @@ The sync command downloads:
 - **Countermeasures**: Security controls and their implementation status
 - **Questionnaires**: Questions to refine your threat model based on implementation details
 - **Components**: System components from the IriusRisk library and your architecture
+- **Current Threat Model (OTM)**: The complete threat model exported from IriusRisk for multi-repository merging
 
 Data is saved to `.iriusrisk/` directory by default and can be used for offline analysis or AI-assisted review.
+
+**Multi-Repository Support**: The `current-threat-model.otm` file enables multiple repositories to merge their contributions intelligently. AI assistants automatically detect and use this file as the basis for updates when contributing from additional repositories.
 
 ### Questionnaires
 
