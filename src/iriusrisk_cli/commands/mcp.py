@@ -424,6 +424,14 @@ def mcp(cli_ctx):
                     output_lines.append(f"✅ Downloaded questionnaires: {project_count} project, {component_count} components")
                     output_lines.append(f"📄 Questionnaires saved to: {results['questionnaires']['file']}")
             
+            if results.get('threat_model_otm'):
+                if 'error' in results['threat_model_otm']:
+                    output_lines.append(f"❌ Failed to download current threat model (OTM): {results['threat_model_otm']['error']}")
+                else:
+                    output_lines.append(f"✅ Downloaded current threat model (OTM)")
+                    output_lines.append(f"📄 Threat model saved to: {results['threat_model_otm']['file']}")
+                    output_lines.append(f"   📊 Size: {results['threat_model_otm']['size']:,} bytes")
+            
             # Show update results if any
             if results.get('updates_applied', 0) > 0 or results.get('updates_failed', 0) > 0:
                 output_lines.append("")
@@ -461,6 +469,11 @@ def mcp(cli_ctx):
             output_lines.append("   • Latest IriusRisk component library")
             if results.get('project_id'):
                 output_lines.append("   • Current project threats, countermeasures, and questionnaires")
+                if results.get('threat_model_otm'):
+                    output_lines.append("")
+                    output_lines.append("🔄 IMPORTANT: current-threat-model.otm exists - you should UPDATE/MERGE")
+                    output_lines.append("   the existing threat model, not create a new one from scratch.")
+                    output_lines.append("   Read the OTM file and incorporate existing components in your updates.")
             else:
                 output_lines.append("💡 Use 'iriusrisk init' to set up a project for full sync")
             
@@ -651,6 +664,103 @@ def mcp(cli_ctx):
         except Exception as e:
             error_msg = f"❌ OTM import failed: {e}"
             logger.error(f"MCP OTM import failed: {e}")
+            return error_msg
+    
+    @mcp_server.tool()
+    async def export_otm(project_id: str = None, output_path: str = None) -> str:
+        """Export the current threat model from IriusRisk as OTM format.
+        
+        This tool retrieves the existing threat model for a project and exports it
+        as an OTM file. This is essential for multi-repository workflows where
+        subsequent repositories need to see and merge with the existing threat model.
+        
+        Args:
+            project_id: Project ID or reference ID (optional if default project configured)
+            output_path: Where to save the OTM file (optional, returns content if not specified)
+            
+        Returns:
+            Status message with OTM export details, or OTM content if no output_path provided
+        """
+        from pathlib import Path
+        
+        logger.info(f"MCP tool invoked: export_otm")
+        logger.debug(f"Export parameters: project_id={project_id}, output_path={output_path}")
+        logger.info(f"Starting OTM export via MCP for project: {project_id or 'default'}")
+        
+        try:
+            # Resolve project ID from argument, project.json, or default configuration
+            if project_id:
+                resolved_project_id = project_id
+            else:
+                # Try to get project ID from project.json first
+                project_root, project_config = _find_project_root_and_config()
+                resolved_project_id = None
+                
+                if project_config:
+                    # Prefer project_id (UUID) for existing projects, fall back to reference_id
+                    resolved_project_id = project_config.get('project_id') or project_config.get('reference_id')
+                    logger.info(f"Using project ID from project.json: {resolved_project_id}")
+                
+                # Fall back to config if no project.json
+                if not resolved_project_id:
+                    resolved_project_id = config.get_default_project_id()
+                
+                if not resolved_project_id:
+                    error_msg = "❌ No project ID provided and no default project configured. Use export_otm(project_id) or set up a project with 'iriusrisk init'."
+                    logger.error(error_msg)
+                    return error_msg
+            
+            # Resolve project ID to UUID for V2 API (upfront, no fallback mechanism)
+            from ..utils.project_resolution import resolve_project_id_to_uuid
+            logger.debug(f"Resolving project ID to UUID: {resolved_project_id}")
+            final_project_id = resolve_project_id_to_uuid(resolved_project_id, api_client)
+            logger.debug(f"Resolved to UUID: {final_project_id}")
+            
+            results = []
+            results.append(f"📥 Exporting threat model from IriusRisk")
+            results.append(f"📋 Project: {final_project_id}")
+            results.append("")
+            
+            # Export the threat model using container API client
+            logger.info(f"Calling export_project_as_otm for project: {final_project_id}")
+            otm_content = api_client.export_project_as_otm(final_project_id)
+            
+            # If output path specified, save to file
+            if output_path:
+                output_file = Path(output_path)
+                output_file.write_text(otm_content, encoding='utf-8')
+                
+                results.append(f"✅ Threat model exported successfully!")
+                results.append(f"📁 Saved to: {output_file.absolute()}")
+                results.append(f"📊 Size: {len(otm_content):,} bytes")
+                results.append("")
+                results.append("💡 This OTM file contains the current threat model including:")
+                results.append("   • All components and trust zones")
+                results.append("   • Data flows between components")
+                results.append("   • Existing threats and countermeasures")
+                results.append("")
+                results.append("🔄 Use this file as a starting point to merge additional repository contributions.")
+                
+                export_result = "\n".join(results)
+                logger.info(f"OTM export completed successfully via MCP: {output_file}")
+                return export_result
+            else:
+                # Return the OTM content directly for AI to process
+                results.append(f"✅ Threat model exported successfully!")
+                results.append(f"📊 Size: {len(otm_content):,} bytes")
+                results.append("")
+                results.append("OTM Content:")
+                results.append("="*50)
+                results.append(otm_content)
+                results.append("="*50)
+                
+                export_result = "\n".join(results)
+                logger.info(f"OTM export completed successfully via MCP (returned content)")
+                return export_result
+            
+        except Exception as e:
+            error_msg = f"❌ OTM export failed: {e}"
+            logger.error(f"MCP OTM export failed: {e}")
             return error_msg
     
     @mcp_server.tool()

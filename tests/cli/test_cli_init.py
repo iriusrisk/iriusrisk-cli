@@ -29,7 +29,8 @@ class TestInitCommand:
             import os
             os.chdir(tmp_path)
             
-            result = cli_runner.invoke(cli, ['init'], input='My Test Project\n')
+            # Provide input for project name and empty scope (press Enter)
+            result = cli_runner.invoke(cli, ['init'], input='My Test Project\n\n')
             
             # Command must succeed
             assert result.exit_code == 0, f"Command failed with output: {result.output}"
@@ -65,7 +66,8 @@ class TestInitCommand:
             import os
             os.chdir(tmp_path)
             
-            result = cli_runner.invoke(cli, ['init', '--name', 'Web Application'])
+            # Provide empty input to skip scope prompt
+            result = cli_runner.invoke(cli, ['init', '--name', 'Web Application'], input='\n')
             
             assert result.exit_code == 0, f"Command failed with output: {result.output}"
             assert "Web Application" in result.output
@@ -89,7 +91,8 @@ class TestInitCommand:
             import os
             os.chdir(tmp_path)
             
-            result = cli_runner.invoke(cli, ['init', '--name', 'API Service', '--project-ref', 'api-service-123'])
+            # Provide empty input to skip scope prompt
+            result = cli_runner.invoke(cli, ['init', '--name', 'API Service', '--project-ref', 'api-service-123'], input='\n')
             
             assert result.exit_code == 0, f"Command failed with output: {result.output}"
             assert "API Service" in result.output
@@ -141,7 +144,8 @@ class TestInitCommand:
                 }
                 mock_container.return_value.get.return_value = mock_service
                 
-                result = cli_runner.invoke(cli, ['init', '--existing-ref', 'existing-ref'])
+                # Provide empty input to skip scope prompt
+                result = cli_runner.invoke(cli, ['init', '--existing-ref', 'existing-ref'], input='\n')
             
             assert result.exit_code == 0, f"Command failed with output: {result.output}"
             assert "Existing Project" in result.output
@@ -235,7 +239,8 @@ class TestInitCommand:
             with open(irius_dir / "project.json", 'w') as f:
                 json.dump(old_config, f)
             
-            result = cli_runner.invoke(cli, ['init', '--name', 'New Project', '--force'])
+            # Provide empty input to skip scope prompt
+            result = cli_runner.invoke(cli, ['init', '--name', 'New Project', '--force'], input='\n')
             
             assert result.exit_code == 0, f"Command failed with output: {result.output}"
             assert "New Project" in result.output
@@ -323,7 +328,8 @@ class TestInitCommandIntegration:
             import os
             os.chdir(tmp_path)
             
-            result = cli_runner.invoke(cli, ['init', '--name', 'Integration Test Project'])
+            # Provide empty input to skip scope prompt
+            result = cli_runner.invoke(cli, ['init', '--name', 'Integration Test Project'], input='\n')
             
             assert result.exit_code == 0
             
@@ -346,6 +352,158 @@ class TestInitCommandIntegration:
             
             assert config["name"] == "Integration Test Project"
             assert config["initialized_from"] == "new_project"
+            
+        finally:
+            os.chdir(original_cwd)
+    
+    def test_init_new_project_with_scope(self, cli_runner, mock_api_client, tmp_path):
+        """Test 'iriusrisk init --name --scope' command for multi-repo support."""
+        original_cwd = Path.cwd()
+        try:
+            import os
+            os.chdir(tmp_path)
+            
+            scope_text = "Backend API services handling order processing and user management"
+            result = cli_runner.invoke(cli, [
+                'init', 
+                '--name', 'E-commerce Platform',
+                '--scope', scope_text
+            ])
+            
+            assert result.exit_code == 0, f"Command failed with output: {result.output}"
+            assert "E-commerce Platform" in result.output
+            assert "✅ Initialized new IriusRisk project" in result.output
+            
+            # Check project.json contains scope
+            project_file = tmp_path / ".iriusrisk" / "project.json"
+            with open(project_file) as f:
+                config = json.load(f)
+            
+            assert config["name"] == "E-commerce Platform"
+            assert config["scope"] == scope_text
+            assert "Scope:" in result.output
+            
+        finally:
+            os.chdir(original_cwd)
+    
+    def test_init_existing_project_with_scope(self, cli_runner, mock_api_client, tmp_path):
+        """Test 'iriusrisk init -r --scope' for connecting to existing project with scope."""
+        # Mock API response for existing project
+        mock_project_data = {
+            "_embedded": {
+                "items": [{
+                    "id": "abc-123-def-456",
+                    "name": "E-commerce Platform",
+                    "referenceId": "ecommerce-platform",
+                    "description": "Existing project",
+                    "state": "synced",
+                    "tags": [],
+                    "isArchived": False,
+                    "isBlueprint": False,
+                    "workflowState": {"name": "in-progress"},
+                    "version": {"number": "1.0"},
+                    "modelUpdated": "2024-01-01T00:00:00Z"
+                }]
+            }
+        }
+        
+        original_cwd = Path.cwd()
+        try:
+            import os
+            os.chdir(tmp_path)
+            
+            # Mock the Container and ProjectService
+            with patch('iriusrisk_cli.commands.init.get_container') as mock_container_patch:
+                mock_service = MagicMock()
+                mock_service.list_projects.return_value = {
+                    'projects': mock_project_data['_embedded']['items'],
+                    'page_info': {},
+                    'full_response': mock_project_data
+                }
+                mock_container_patch.return_value.get.return_value = mock_service
+                
+                scope_text = "AWS infrastructure via Terraform - ECS, RDS, VPC networking"
+                result = cli_runner.invoke(cli, [
+                    'init',
+                    '-r', 'ecommerce-platform',
+                    '--scope', scope_text
+                ])
+                
+                assert result.exit_code == 0, f"Command failed with output: {result.output}"
+                assert "✅ Found project: E-commerce Platform" in result.output
+                assert "✅ Initialized existing IriusRisk project" in result.output
+                
+                # Check project.json contains scope
+                project_file = tmp_path / ".iriusrisk" / "project.json"
+                with open(project_file) as f:
+                    config = json.load(f)
+                
+                assert config["name"] == "E-commerce Platform"
+                assert config["project_id"] == "abc-123-def-456"
+                assert config["reference_id"] == "ecommerce-platform"
+                assert config["scope"] == scope_text
+                assert config["initialized_from"] == "existing_project"
+            
+        finally:
+            os.chdir(original_cwd)
+    
+    def test_config_get_project_scope(self, tmp_path):
+        """Test Config.get_project_scope() method reads scope from project.json."""
+        original_cwd = Path.cwd()
+        try:
+            import os
+            os.chdir(tmp_path)
+            
+            # Create .iriusrisk directory and project.json with scope
+            irius_dir = tmp_path / ".iriusrisk"
+            irius_dir.mkdir()
+            
+            project_config = {
+                "name": "Test Project",
+                "reference_id": "test-project-123",
+                "scope": "Backend API for order processing"
+            }
+            
+            project_file = irius_dir / "project.json"
+            with open(project_file, 'w') as f:
+                json.dump(project_config, f)
+            
+            # Test Config.get_project_scope()
+            from iriusrisk_cli.config import Config
+            config = Config()
+            
+            scope = config.get_project_scope()
+            assert scope == "Backend API for order processing"
+            
+        finally:
+            os.chdir(original_cwd)
+    
+    def test_config_get_project_scope_returns_none_when_not_defined(self, tmp_path):
+        """Test Config.get_project_scope() returns None when scope not defined."""
+        original_cwd = Path.cwd()
+        try:
+            import os
+            os.chdir(tmp_path)
+            
+            # Create .iriusrisk directory and project.json WITHOUT scope
+            irius_dir = tmp_path / ".iriusrisk"
+            irius_dir.mkdir()
+            
+            project_config = {
+                "name": "Test Project",
+                "reference_id": "test-project-123"
+            }
+            
+            project_file = irius_dir / "project.json"
+            with open(project_file, 'w') as f:
+                json.dump(project_config, f)
+            
+            # Test Config.get_project_scope()
+            from iriusrisk_cli.config import Config
+            config = Config()
+            
+            scope = config.get_project_scope()
+            assert scope is None
             
         finally:
             os.chdir(original_cwd)

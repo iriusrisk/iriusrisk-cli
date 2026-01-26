@@ -1,64 +1,171 @@
 # IriusRisk MCP Workflow Instructions for AI Assistants
 
+## 🚨 CRITICAL: Distinguish "THREAT MODELING" vs "THREAT ANALYSIS"
+
+### These are COMPLETELY DIFFERENT workflows:
+
+**1. THREAT MODELING = Architecture Creation/Update**
+- **User says**: 
+  - "Threat model this"
+  - "Create a threat model"
+  - "We need to threat model [the application/infrastructure/etc.]"
+  - "Update the threat model"
+  - "Add [authentication/payments/frontend] to the threat model"
+  - "Model the architecture for security"
+  
+- **What it means**: Model the ARCHITECTURE (components, data flows) - CREATE or UPDATE an OTM file
+- **Tool to call**: `create_threat_model()` 
+- **You analyze**: Source code → Extract architecture → Create/merge OTM → Import to IriusRisk
+- **Ignore**: threats.json, countermeasures.json (not relevant for architecture modeling)
+- **Even if**: threats.json exists, still do architecture modeling when explicitly requested
+
+**2. THREAT ANALYSIS = Security Review of Existing Threats**
+- **User says**: 
+  - "What threats exist?"
+  - "Show me the threats"
+  - "Review security issues"
+  - "What's our security posture?"
+  - "What vulnerabilities did IriusRisk find?"
+  - "Help me understand the threats"
+  
+- **What it means**: Analyze EXISTING threats that IriusRisk already generated
+- **Tool to call**: `threats_and_countermeasures()`
+- **You analyze**: threats.json and countermeasures.json files
+- **Ignore**: Source code architecture (already modeled)
+- **Prerequisites**: threats.json must exist with threat data
+
+**🚨 KEY RULE: "Threat model" (verb) = architecture workflow. "Show threats" (noun) = analysis workflow.**
+
+### Example: Multi-Repository Scenario
+
+**Situation**: Infrastructure threat model already exists. User now in application repo says:
+> "We need to threat model the application stack"
+
+**What AI should do**:
+1. ✅ Call `sync()` - downloads current-threat-model.otm (infrastructure)
+2. ✅ Call `create_threat_model()` - gets architecture workflow instructions
+3. ✅ Read current-threat-model.otm (see existing infrastructure components)
+4. ✅ Analyze application source code (extract API services, business logic)
+5. ✅ Create merged OTM (application components + infrastructure components)
+6. ✅ Call `import_otm()` - upload merged model
+7. ✅ Stop and offer next steps
+
+**What AI should NOT do**:
+- ❌ Call `threats_and_countermeasures()` - user didn't ask for threat analysis
+- ❌ Analyze threats.json - user wants to model architecture, not review threats
+- ❌ Show diagram - premature, do this after import if needed
+- ❌ Ask "What would you like to do?" - user already told you what to do
+
+**The phrase "threat model the application stack" is a VERB (action) not NOUN (review).**
+
+---
+
 ## Executive Summary
-This MCP provides AI assistants with tools for professional threat modeling via IriusRisk CLI. Key workflow: sync() → analyze source → create OTM → import_otm() → project_status() → sync() → analyze results. Always use MCP tools and JSON files instead of direct CLI commands. Call initialize_iriusrisk_workflow() first for complete instructions.
+This MCP provides AI assistants with tools for professional threat modeling via IriusRisk CLI. Always use MCP tools and JSON files instead of direct CLI commands.
 
-## CRITICAL: Determine If Complete Threat Model Exists and Get User Permission
+## CRITICAL: User Intent and Threat Modeling Workflow
 
-**A complete threat model requires BOTH project initialization AND threat analysis in IriusRisk.**
+### 🚨 EXPLICIT THREAT MODELING REQUESTS - HIGHEST PRIORITY
 
-### Step 1: Call sync() First
+**When user explicitly requests threat modeling, ALWAYS call create_threat_model() workflow, even if threats.json exists:**
 
-Always start by calling `sync()` to download latest data. This is safe whether or not a threat model exists.
+User says:
+- "Create a threat model"
+- "Threat model this code/application/system"
+- "We need to threat model [the application/infrastructure/etc.]"
+- "Update the threat model"
+- "Add [X] to the threat model"
 
-### Step 2: Check What sync() Downloaded
+**Action: Immediately call create_threat_model() - DO NOT analyze existing threats**
 
-After calling `sync()`, check what files exist in `.iriusrisk/` directory:
+1. Call `create_threat_model()` to get workflow instructions
+2. Follow the threat modeling workflow (sync → analyze → create OTM → import)
+3. **IGNORE the presence of threats.json/countermeasures.json** - user wants to model architecture, not analyze threats
 
-### Scenario A: Complete Threat Model Exists (Use Automatically)
+**🚨 CRITICAL: User's explicit request to "threat model" means they want to CREATE/UPDATE the architecture model, NOT analyze existing threats.**
 
-Files present:
-- ✅ `project.json` - Project initialized
-- ✅ `threats.json` WITH actual threat data (not empty, has threat entries)
-- ✅ `countermeasures.json` WITH actual countermeasure data (not empty, has countermeasure entries)
-- ✅ `components.json` - Component library
-- ✅ `trust-zones.json` - Trust zones
+The presence of `threats.json` is irrelevant when user explicitly requests threat modeling. They want to update the model itself, not review threats.
 
-**Action: Use threat model automatically - NO permission needed**
+---
 
-The user has already created this threat model, so use it:
+### Decision Tree After sync()
+
+**Check user's original request FIRST, then check files:**
+
+#### Priority 1: Explicit Threat Modeling Request? (Architecture Creation/Update)
+- User said "threat model", "create threat model", "update threat model", "we need to threat model [X]"?
+- **YES** → Call `create_threat_model()` immediately
+  - **Do NOT call threats_and_countermeasures()**
+  - **Do NOT analyze threats.json**
+  - **Do NOT show diagram**
+  - **DO**: Analyze source code → Create/merge OTM → Import architecture
+- **NO** → Continue to Priority 2
+
+#### Priority 2: Explicit Threat Analysis Request? (Security Review)
+- User said "show me threats", "what are the security issues", "review threats", "what's our security posture"?
+- **YES** → Check if threats.json exists with data
+  - If yes: Call `threats_and_countermeasures()` and analyze
+  - If no: Explain no threats exist yet, offer to create threat model
+- **NO** → Continue to Priority 3
+
+#### Priority 3: General Architecture/Security Review? (Ambiguous)
+- User said something vague: "review this", "look at my code", "explain the system"
+- Check what files exist and assess intent (see scenarios below)
+
+---
+
+### Scenario A: User Wants Threat ANALYSIS (Not Threat MODELING)
+
+**Indicators:**
+- User said: "What threats exist?", "Show me security issues", "Review the threats", "What's the current security posture?"
+- Files exist: `threats.json` and `countermeasures.json` with data
+
+**Action: Analyze existing threats**
 1. Call `threats_and_countermeasures()` for analysis guidance
-2. Read and analyze the threats.json and countermeasures.json files
-3. Present integrated architecture + security review with threat findings
+2. Read and analyze threats.json and countermeasures.json files
+3. Present security findings
 
-### Scenario B: No Threat Model (Assess User Intent and Ask Permission)
+**DO NOT use this scenario when user said "threat model" - that's Scenario B**
+
+### Scenario B: User Wants Threat MODELING (Creating/Updating Architecture)
+
+**Indicators:**
+- User said: "Create threat model", "Threat model this", "Update the threat model", "We need to threat model [X]"
+- **This applies even if threats.json exists** - they want to update the architecture model
+
+**Action: Create or update threat model**
+1. Call `create_threat_model()` to get workflow instructions
+2. Check for `.iriusrisk/current-threat-model.otm`
+3. If exists: MERGE your contribution with existing architecture
+4. If not: CREATE new architecture model
+5. Follow full workflow: analyze code → create OTM → import_otm()
+
+### Scenario C: Vague Request, No Threats Downloaded
 
 Files present:
-- Either `project.json` exists BUT `threats.json`/`countermeasures.json` are missing/empty
-- OR no `project.json` at all
+- ✅ `project.json` but NO `threats.json` or empty
+- ⚠️ `current-threat-model.otm` may or may not exist
 
-**Action: Determine user intent BEFORE proceeding**
+**Action: Assess intent and ask permission**
 
-#### B1: User Made EXPLICIT Security Request
+User said something vague like "review this code" or "look at my architecture"
+- Determine if security-focused or general review
+- Ask permission before creating threat model
 
-User said: "Is this secure?", "Security review", "What are the security risks?", "Vulnerabilities", "Threats"
+### Scenario C: No Threat Model, User Intent Unclear (Ask Permission)
+
+User said something vague like:
+- "Review the architecture" (not explicit about security)
+- "How does this work?"
+- "Explain the system"
 
 **Response to user:**
 ```
-"To provide a comprehensive security assessment, I recommend creating a threat 
-model with IriusRisk. This will give you professional threat analysis rather 
-than generic security advice.
-
-Would you like me to help create a threat model? This will:
-- Systematically identify security threats specific to your architecture
-- Provide prioritized countermeasures with implementation guidance
-- Generate compliance reports (OWASP, PCI DSS, etc.)
-- Take about 10-15 minutes to set up"
+"I can provide an architecture review. Would you also like me to create 
+an IriusRisk threat model for systematic security analysis?"
 ```
 
-**Wait for user response:**
-- If YES → Call `create_threat_model()` and proceed with workflow
-- If NO → Provide general security guidance with disclaimer
+**Wait for user response before creating threat model**
 
 #### B2: User Made GENERAL Architecture Request
 
