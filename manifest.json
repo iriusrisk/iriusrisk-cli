@@ -174,9 +174,9 @@
       "name": "ci_cd_verification",
       "description": "Compare threat model versions to detect security drift in CI/CD pipelines. Returns structured JSON diff showing architectural and security changes.",
       "parameters": [
-        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory (where .iriusrisk/ is located)"},
         {"name": "baseline_version", "type": "string", "required": true, "description": "Version UUID or name to use as baseline"},
-        {"name": "target_version", "type": "string", "required": false, "description": "Optional version UUID to compare against (uses current if not provided)"}
+        {"name": "target_version", "type": "string", "required": false, "description": "Optional version UUID to compare against (uses current if not provided)"},
+        {"name": "project_path", "type": "string", "required": false, "description": "Optional path to project directory (auto-discovered if not provided)"}
       ],
       "returns": {"type": "string"}
     },

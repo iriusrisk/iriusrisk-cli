@@ -1,5 +1,22 @@
 # CI/CD Threat Model Verification - AI Assistant Guide
 
+## Quick Start
+
+When a user asks to compare versions or check for security drift:
+
+```python
+# User: "Compare the baseline version to current"
+ci_cd_verification(baseline_version="Baseline Version")
+
+# User: "Check for drift since v1.0-approved"  
+ci_cd_verification(baseline_version="v1.0-approved")
+
+# User: "Compare v1.0 to v2.0"
+ci_cd_verification(baseline_version="v1.0-approved", target_version="v2.0-approved")
+```
+
+That's it. The tool auto-discovers the project context. You just need the version name or UUID.
+
 ## Purpose
 
 This tool enables you to compare different states of a threat model to detect security drift in CI/CD pipelines. You will receive **structured comparison results** (not raw files) that show architectural and security changes, which you then interpret and communicate to humans.
@@ -38,11 +55,19 @@ Use `ci_cd_verification` when:
 
 ```
 ci_cd_verification(
-    project_path: str,           # Required - path to .iriusrisk/ directory
     baseline_version: str,       # Required - version UUID or name for baseline
-    target_version: str = None   # Optional - if None, compares against current state
+    target_version: str = None,  # Optional - if None, compares against current state  
+    project_path: str = None     # Optional - auto-discovered if not provided
 )
 ```
+
+**Note:** The tool automatically discovers the project context (finds `.iriusrisk/` directory and reads project.json). You typically don't need to specify `project_path`.
+
+**Version Resolution:** You can provide either:
+- Version name (e.g., "Baseline Version", "v1.0-approved")  
+- Version UUID (e.g., "a1b2c3d4-...")
+
+The tool will resolve version names to UUIDs automatically.
 
 ## Comparison Modes
 
@@ -52,10 +77,11 @@ ci_cd_verification(
 **Use Case:** "How has the project drifted since last approval?"
 
 ```python
-ci_cd_verification(
-    project_path="/path/to/project",
-    baseline_version="baseline-v1.0"
-)
+# Simple - version name (auto-discovers project)
+ci_cd_verification(baseline_version="Baseline Version")
+
+# Or with UUID
+ci_cd_verification(baseline_version="a1b2c3d4-e5f6-...")
 ```
 
 ### Mode 4: Version vs Version (Historical Audit)
@@ -64,16 +90,32 @@ ci_cd_verification(
 **Use Case:** "What changed between approved baselines?"
 
 ```python
+# Compare two version names
 ci_cd_verification(
-    project_path="/path/to/project",
-    baseline_version="baseline-v1.0",
-    target_version="baseline-v2.0"
+    baseline_version="Baseline Version",
+    target_version="v2.0-approved"
+)
+
+# Or with UUIDs
+ci_cd_verification(
+    baseline_version="a1b2c3d4-...",
+    target_version="d4e5f6a7-..."
 )
 ```
 
 ## Understanding the Structured Diff
 
-The tool returns JSON with this structure:
+The tool returns JSON with this structure.
+
+**IMPORTANT:** The tool also preserves the raw data files in `.iriusrisk/verification/` for you to read if you need more details:
+- `baseline-diagram.xml` - Baseline architecture
+- `baseline-threats.json` - Baseline threats with full details
+- `baseline-countermeasures.json` - Baseline countermeasures with full details
+- `verification-diagram.xml` - Target architecture
+- `verification-threats.json` - Target threats with full details  
+- `verification-countermeasures.json` - Target countermeasures with full details
+
+The `metadata.verification_files` section in the response tells you the exact paths to these files. **Read these files directly** if you need to see full threat descriptions, affected components, or other details not included in the summary diff.
 
 ```json
 {
@@ -106,14 +148,20 @@ The tool returns JSON with this structure:
     "threats": {
       "added": [{id, referenceId, name, riskRating, ...}, ...],
       "removed": [{...}, ...],
-      "modified": [{id, name, changes: {...}}, ...],
-      "severity_increases": [{threat_id, old_severity, new_severity}, ...]
+      "modified": [{id, name, riskRating, changes: {...}}, ...],
+      "severity_increases": [{threat_id, old_severity, new_severity}, ...],
+      "threats_now_affecting_new_components": [{threat_id, threat_name, threat_severity, new_components, reason}, ...],
+      "total_baseline": 42,
+      "total_target": 47
     },
     "countermeasures": {
       "added": [{id, referenceId, name, state, ...}, ...],
       "removed": [{...}, ...],
       "modified": [{...}, ...],
-      "critical_removals": [{countermeasure_id, severity, reason}, ...]
+      "critical_removals": [{countermeasure_id, severity, reason}, ...],
+      "countermeasures_now_for_new_components": [{countermeasure_id, countermeasure_name, state, new_components, reason}, ...],
+      "total_baseline": 35,
+      "total_target": 38
     }
   },
   
@@ -161,9 +209,16 @@ The tool returns JSON with this structure:
 ### Security Changes
 
 **Threats Added:**
-- **What it means:** New threats identified by IriusRisk rules engine based on architecture
+- **What it means:** Completely new threats with new IDs that didn't exist in baseline
 - **Focus on:** HIGH and CRITICAL severity threats, threats without mitigations
 - **Explain:** Why these threats exist (what architectural change introduced them)
+
+**Threats Now Affecting New Components:**
+- **What it means:** Existing threats (same ID) that now also apply to newly added components
+- **This is common:** When you add a component, existing threats may now apply to it
+- **Example:** "SQL Injection" threat existed for API Server, now also applies to new Admin API component
+- **Important:** These are NOT new threats, but existing threats with expanded scope
+- **Focus on:** HIGH/CRITICAL threats that now affect sensitive new components
 
 **Severity Increases:**
 - **What it means:** Existing threats now have higher severity (LOW → MEDIUM → HIGH → CRITICAL)
@@ -315,10 +370,7 @@ The tool returns JSON with this structure:
 # User asks: "Check if this PR introduces security issues"
 
 # 1. Call the tool
-result = ci_cd_verification(
-    project_path="/workspace/my-app",
-    baseline_version="v1.0-approved"
-)
+result = ci_cd_verification(baseline_version="v1.0-approved")
 
 # 2. Parse the JSON result
 diff = json.loads(result)
@@ -332,18 +384,37 @@ for component in diff['architecture']['components']['added']:
     # What is this component?
     # What trust zone?
     # What data does it handle?
+    component_name = component['name']
 
-# 5. Examine security changes
+# 5. Check if threats were actually added
+total_baseline_threats = diff['security']['threats']['total_baseline']
+total_target_threats = diff['security']['threats']['total_target']
+
+if total_target_threats > total_baseline_threats:
+    # There ARE more threats, but maybe not showing in "added" list
+    # This happens when threats existed but now apply to new components
+    
+    # Read the target threats file directly to find threats for new component
+    target_threats_file = diff['metadata']['verification_files']['target_threats']
+    with open(target_threats_file) as f:
+        target_threats_data = json.load(f)
+        
+    # Find threats that mention the new component
+    for threat in target_threats_data['_embedded']['threats']:
+        affected_components = [c['name'] for c in threat.get('components', [])]
+        if component_name in affected_components:
+            # This threat affects the new component!
+            print(f"Found threat: {threat['name']} affects {component_name}")
+
+# 6. Examine security changes from diff
 for threat in diff['security']['threats']['added']:
-    # What's the severity?
-    # Is it mitigated?
-    # What component does it affect?
+    # These are completely new threat IDs
 
-# 6. Analyze relationships
+# 7. Analyze relationships
 # Connect architectural changes to security changes
 # Explain why new threats exist
 
-# 7. Generate report
+# 8. Generate report
 # Write executive summary
 # Detail critical issues
 # Provide recommendations

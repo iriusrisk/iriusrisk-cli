@@ -2034,7 +2034,7 @@ def mcp(cli_ctx):
             return error_msg
     
     @mcp_server.tool()
-    async def ci_cd_verification(project_path: str, baseline_version: str = None, target_version: str = None) -> str:
+    async def ci_cd_verification(baseline_version: str = None, target_version: str = None, project_path: str = None) -> str:
         """Compare threat model versions to detect security drift in CI/CD pipelines.
         
         This tool downloads diagram, threats, and countermeasures from specified versions,
@@ -2051,9 +2051,9 @@ def mcp(cli_ctx):
         - Summary statistics and risk indicators
         
         Args:
-            project_path: Path to project directory (where .iriusrisk/ is located)
             baseline_version: Version UUID or name to use as baseline (required)
             target_version: Version UUID or name to compare against (optional, uses current if not provided)
+            project_path: Optional path to project directory (auto-discovered if not provided)
             
         Returns:
             JSON string with structured diff results
@@ -2064,8 +2064,20 @@ def mcp(cli_ctx):
             from ..utils.diagram_comparison import parse_diagram_xml, compare_diagrams
             from ..utils.threat_comparison import parse_threats_json, parse_countermeasures_json, compare_threats, compare_countermeasures
             from ..utils.project_resolution import resolve_project_id_to_uuid
+            from ..utils.project_discovery import find_project_root
             from pathlib import Path
             import json
+            
+            # Auto-discover project if not provided
+            if not project_path:
+                project_root, project_config = find_project_root()
+                if not project_root:
+                    return json.dumps({
+                        "error": "project not found",
+                        "message": "❌ Could not find .iriusrisk directory. Please run 'iriusrisk init' first or specify project_path."
+                    }, indent=2)
+                project_path = str(project_root)
+                logger.info(f"Auto-discovered project at: {project_path}")
             
             logger.info(f"CI/CD verification started - project_path: {project_path}")
             
@@ -2098,23 +2110,44 @@ def mcp(cli_ctx):
             
             # Get API clients
             container = get_container()
-            api_client = container.get(ProjectApiClient)
+            api_client = container.get(IriusRiskApiClient)
+            from ..services.version_service import VersionService
+            version_service = container.get(VersionService)
             
             # Resolve project ID to UUID
-            project_uuid = resolve_project_id_to_uuid(project_id, api_client)
+            project_uuid = resolve_project_id_to_uuid(project_id, api_client.project_client)
             logger.info(f"Resolved project ID {project_id} to UUID {project_uuid}")
             
-            # Get specialized clients from main client
-            project_client = api_client
-            threat_client = api_client.threat_client if hasattr(api_client, 'threat_client') else None
-            cm_client = api_client.countermeasure_client if hasattr(api_client, 'countermeasure_client') else None
+            # Resolve version names to UUIDs if needed
+            def resolve_version(version_input):
+                """Resolve version name to UUID if needed."""
+                if not version_input:
+                    return None
+                    
+                # If it's already a UUID format, use it
+                if is_uuid_format(version_input):
+                    return version_input
+                
+                # Otherwise, lookup by name
+                versions_result = version_service.list_versions(project_uuid, page=0, size=100)
+                for version in versions_result.get('versions', []):
+                    if version.get('name') == version_input:
+                        return version.get('id')
+                
+                # If not found, try using it anyway (might be a partial UUID)
+                return version_input
             
-            if not threat_client or not cm_client:
-                # Get from container if not available through api_client
-                from ..api.threat_client import ThreatApiClient
-                from ..api.countermeasure_client import CountermeasureApiClient
-                threat_client = container.get(ThreatApiClient)
-                cm_client = container.get(CountermeasureApiClient)
+            baseline_version_uuid = resolve_version(baseline_version)
+            target_version_uuid = resolve_version(target_version) if target_version else None
+            
+            logger.info(f"Using baseline version: {baseline_version_uuid}")
+            if target_version_uuid:
+                logger.info(f"Using target version: {target_version_uuid}")
+            
+            # Get specialized clients from main client
+            project_client = api_client.project_client
+            threat_client = api_client.threat_client
+            cm_client = api_client.countermeasure_client
             
             # Determine comparison mode
             mode_desc = "Mode 3: Version vs Current" if not target_version else "Mode 4: Version vs Version"
@@ -2124,12 +2157,12 @@ def mcp(cli_ctx):
             with verification_context(project_path, project_client, threat_client, cm_client) as manager:
                 # Download baseline state
                 baseline_diagram, baseline_threats, baseline_cm = manager.download_baseline_state(
-                    project_uuid, baseline_version
+                    project_uuid, baseline_version_uuid
                 )
                 
                 # Download target state
                 target_diagram, target_threats, target_cm = manager.download_target_state(
-                    project_uuid, target_version
+                    project_uuid, target_version_uuid
                 )
                 
                 # Parse and compare diagrams
@@ -2151,9 +2184,20 @@ def mcp(cli_ctx):
                 result = {
                     "metadata": {
                         "comparison_mode": mode_desc,
-                        "baseline_version": baseline_version,
-                        "target_version": target_version or "current",
-                        "project_id": project_uuid
+                        "baseline_version": baseline_version_uuid,
+                        "baseline_version_name": baseline_version,
+                        "target_version": target_version_uuid or "current",
+                        "target_version_name": target_version or "current",
+                        "project_id": project_uuid,
+                        "verification_files": {
+                            "baseline_diagram": baseline_diagram,
+                            "baseline_threats": baseline_threats,
+                            "baseline_countermeasures": baseline_cm,
+                            "target_diagram": target_diagram,
+                            "target_threats": target_threats,
+                            "target_countermeasures": target_cm,
+                            "note": "These files are preserved for detailed analysis. Read them directly for full threat/countermeasure details."
+                        }
                     },
                     "architecture": {
                         "components": diagram_diff['components'],
@@ -2170,17 +2214,26 @@ def mcp(cli_ctx):
                             "threats_added": len(threats_diff['added']),
                             "threats_removed": len(threats_diff['removed']),
                             "threats_modified": len(threats_diff['modified']),
+                            "threats_now_affecting_new_components": len(threats_diff.get('threats_now_affecting_new_components', [])),
                             "severity_increases": len(threats_diff['severity_increases']),
+                            "total_baseline_threats": threats_diff.get('total_baseline', 0),
+                            "total_target_threats": threats_diff.get('total_target', 0),
                             "countermeasures_added": len(cm_diff['added']),
                             "countermeasures_removed": len(cm_diff['removed']),
                             "countermeasures_modified": len(cm_diff['modified']),
-                            "critical_removals": len(cm_diff['critical_removals'])
+                            "countermeasures_now_for_new_components": len(cm_diff.get('countermeasures_now_for_new_components', [])),
+                            "critical_removals": len(cm_diff['critical_removals']),
+                            "total_baseline_countermeasures": cm_diff.get('total_baseline', 0),
+                            "total_target_countermeasures": cm_diff.get('total_target', 0)
                         },
                         "risk_indicators": {
                             "has_critical_removals": len(cm_diff['critical_removals']) > 0,
                             "has_severity_increases": len(threats_diff['severity_increases']) > 0,
-                            "has_new_components": diagram_diff['summary']['components_added'] > 0
-                        }
+                            "has_new_components": diagram_diff['summary']['components_added'] > 0,
+                            "threat_count_increased": threats_diff.get('total_target', 0) > threats_diff.get('total_baseline', 0),
+                            "countermeasure_count_changed": cm_diff.get('total_target', 0) != cm_diff.get('total_baseline', 0)
+                        },
+                        "analysis_hint": "If threat/countermeasure totals changed but 'added' lists are empty, read the verification files directly to find threats for new components."
                     }
                 }
                 

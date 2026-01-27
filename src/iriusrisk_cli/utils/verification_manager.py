@@ -41,8 +41,12 @@ class VerificationManager:
         return self
         
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """Context manager exit - cleanup all temporary files."""
-        self.cleanup()
+        """Context manager exit - DO NOT cleanup automatically.
+        
+        Files are left in place for AI to analyze. Cleanup should be done
+        explicitly by calling cleanup() when AI is done with analysis.
+        """
+        logger.info("Verification context closed - files preserved for AI analysis")
         return False
     
     def download_baseline_state(self, project_id: str, version_id: Optional[str] = None) -> Tuple[str, str, str]:

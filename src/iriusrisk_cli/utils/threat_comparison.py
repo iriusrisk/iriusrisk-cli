@@ -22,7 +22,8 @@ def parse_threats_json(json_content: str) -> List[Dict[str, Any]]:
     """
     try:
         data = json.loads(json_content) if isinstance(json_content, str) else json_content
-        threats = data.get('_embedded', {}).get('threats', [])
+        # Try both 'threats' and 'items' keys (API returns 'items' for query endpoint)
+        threats = data.get('_embedded', {}).get('threats') or data.get('_embedded', {}).get('items', [])
         logger.info(f"Parsed {len(threats)} threats from JSON")
         return threats
     except (json.JSONDecodeError, KeyError) as e:
@@ -41,7 +42,8 @@ def parse_countermeasures_json(json_content: str) -> List[Dict[str, Any]]:
     """
     try:
         data = json.loads(json_content) if isinstance(json_content, str) else json_content
-        countermeasures = data.get('_embedded', {}).get('countermeasures', [])
+        # Try both 'countermeasures' and 'items' keys (API returns 'items' for query endpoint)
+        countermeasures = data.get('_embedded', {}).get('countermeasures') or data.get('_embedded', {}).get('items', [])
         logger.info(f"Parsed {len(countermeasures)} countermeasures from JSON")
         return countermeasures
     except (json.JSONDecodeError, KeyError) as e:
@@ -74,45 +76,79 @@ def compare_threats(baseline: List[Dict], target: List[Dict]) -> Dict[str, Any]:
     added = [_enrich_threat(target_dict[id]) for id in added_ids]
     removed = [_enrich_threat(baseline_dict[id]) for id in removed_ids]
     
-    # Identify modified threats
+    # Identify modified threats and component changes
     modified = []
     severity_increases = []
+    threats_now_affecting_new_components = []
     
     for threat_id in common_ids:
         baseline_threat = baseline_dict[threat_id]
         target_threat = target_dict[threat_id]
         
         changes = _find_threat_changes(baseline_threat, target_threat)
+        
+        # Check if threat moved to a different component
+        baseline_component = baseline_threat.get('component')
+        target_component = target_threat.get('component')
+        
+        if baseline_component != target_component:
+            changes['component'] = {
+                'old': baseline_component,
+                'new': target_component
+            }
+            
+            # Track threats that moved to new components
+            if target_component and target_component != baseline_component:
+                threats_now_affecting_new_components.append({
+                    'threat_id': threat_id,
+                    'threat_name': target_threat.get('name'),
+                    'threat_severity': target_threat.get('riskRating'),
+                    'new_component': target_component,
+                    'old_component': baseline_component,
+                    'reason': f"Threat moved from '{baseline_component}' to '{target_component}'"
+                })
+        
         if changes:
             modified_item = {
                 'id': threat_id,
                 'referenceId': target_threat.get('referenceId'),
                 'name': target_threat.get('name'),
+                'riskRating': target_threat.get('riskRating'),
+                'component': target_threat.get('component'),
                 'changes': changes
             }
             modified.append(modified_item)
             
             # Track severity increases
-            if 'riskRating' in changes:
-                old_severity = changes['riskRating']['old']
-                new_severity = changes['riskRating']['new']
+            if 'risk_score' in changes:
+                old_score = changes['risk_score']['old']
+                new_score = changes['risk_score']['new']
+                old_severity = _risk_score_to_severity(old_score)
+                new_severity = _risk_score_to_severity(new_score)
                 if _is_severity_increase(old_severity, new_severity):
                     severity_increases.append({
                         'threat_id': threat_id,
                         'threat_name': target_threat.get('name'),
                         'old_severity': old_severity,
-                        'new_severity': new_severity
+                        'new_severity': new_severity,
+                        'old_risk_score': old_score,
+                        'new_risk_score': new_score
                     })
     
     result = {
         'added': added,
         'removed': removed,
         'modified': modified,
-        'severity_increases': severity_increases
+        'severity_increases': severity_increases,
+        'threats_now_affecting_new_components': threats_now_affecting_new_components,
+        'total_baseline': len(baseline),
+        'total_target': len(target)
     }
     
     logger.info(f"Threat comparison: {len(added)} added, {len(removed)} removed, "
-                f"{len(modified)} modified, {len(severity_increases)} severity increases")
+                f"{len(modified)} modified, {len(severity_increases)} severity increases, "
+                f"{len(threats_now_affecting_new_components)} threats now affecting new components")
+    logger.info(f"Total threats: baseline={len(baseline)}, target={len(target)}")
     
     return result
 
@@ -142,20 +178,45 @@ def compare_countermeasures(baseline: List[Dict], target: List[Dict]) -> Dict[st
     added = [_enrich_countermeasure(target_dict[id]) for id in added_ids]
     removed = [_enrich_countermeasure(baseline_dict[id]) for id in removed_ids]
     
-    # Identify modified countermeasures
+    # Identify modified countermeasures and component changes
     modified = []
     critical_removals = []
+    countermeasures_now_for_new_components = []
     
     for cm_id in common_ids:
         baseline_cm = baseline_dict[cm_id]
         target_cm = target_dict[cm_id]
         
         changes = _find_countermeasure_changes(baseline_cm, target_cm)
+        
+        # Check if countermeasure moved to a different component
+        baseline_component = baseline_cm.get('component')
+        target_component = target_cm.get('component')
+        
+        if baseline_component != target_component:
+            changes['component'] = {
+                'old': baseline_component,
+                'new': target_component
+            }
+            
+            # Track countermeasures that moved to new components
+            if target_component and target_component != baseline_component:
+                countermeasures_now_for_new_components.append({
+                    'countermeasure_id': cm_id,
+                    'countermeasure_name': target_cm.get('name'),
+                    'state': target_cm.get('state'),
+                    'new_component': target_component,
+                    'old_component': baseline_component,
+                    'reason': f"Countermeasure moved from '{baseline_component}' to '{target_component}'"
+                })
+        
         if changes:
             modified.append({
                 'id': cm_id,
                 'referenceId': target_cm.get('referenceId'),
                 'name': target_cm.get('name'),
+                'state': target_cm.get('state'),
+                'component': target_cm.get('component'),
                 'changes': changes
             })
     
@@ -174,11 +235,16 @@ def compare_countermeasures(baseline: List[Dict], target: List[Dict]) -> Dict[st
         'added': added,
         'removed': removed,
         'modified': modified,
-        'critical_removals': critical_removals
+        'critical_removals': critical_removals,
+        'countermeasures_now_for_new_components': countermeasures_now_for_new_components,
+        'total_baseline': len(baseline),
+        'total_target': len(target)
     }
     
     logger.info(f"Countermeasure comparison: {len(added)} added, {len(removed)} removed, "
-                f"{len(modified)} modified, {len(critical_removals)} critical removals")
+                f"{len(modified)} modified, {len(critical_removals)} critical removals, "
+                f"{len(countermeasures_now_for_new_components)} countermeasures now for new components")
+    logger.info(f"Total countermeasures: baseline={len(baseline)}, target={len(target)}")
     
     return result
 
@@ -192,17 +258,45 @@ def _enrich_threat(threat: Dict) -> Dict:
     Returns:
         Enriched threat dictionary with key fields
     """
+    # Handle component (singular) - each threat is associated with one component
+    component = threat.get('component', {})
+    component_name = component.get('name') if component else None
+    
+    # Get risk score and convert to severity level
+    risk_score = threat.get('risk') or threat.get('inherentRisk') or threat.get('projectedRisk') or 0
+    severity = _risk_score_to_severity(risk_score)
+    
     return {
         'id': threat.get('id'),
         'referenceId': threat.get('referenceId'),
         'name': threat.get('name'),
         'description': threat.get('description'),
-        'riskRating': threat.get('riskRating'),
+        'risk_score': risk_score,
+        'severity': severity,
         'state': threat.get('state'),
-        'categories': threat.get('categories', []),
-        'components': [c.get('name') for c in threat.get('components', [])],
-        'countermeasures': [cm.get('name') for cm in threat.get('countermeasures', [])]
+        'component': component_name,
+        'use_case': threat.get('useCase', {}).get('name'),
+        'library': threat.get('library', {}).get('name')
     }
+
+
+def _risk_score_to_severity(risk_score: int) -> str:
+    """Convert numeric risk score to severity level.
+    
+    Args:
+        risk_score: Numeric risk score (0-100)
+        
+    Returns:
+        Severity level string
+    """
+    if risk_score >= 75:
+        return 'CRITICAL'
+    elif risk_score >= 50:
+        return 'HIGH'
+    elif risk_score >= 25:
+        return 'MEDIUM'
+    else:
+        return 'LOW'
 
 
 def _enrich_countermeasure(cm: Dict) -> Dict:
@@ -214,14 +308,19 @@ def _enrich_countermeasure(cm: Dict) -> Dict:
     Returns:
         Enriched countermeasure dictionary with key fields
     """
+    # Handle component (singular) - each countermeasure is associated with one component
+    component = cm.get('component', {})
+    component_name = component.get('name') if component else None
+    
     return {
         'id': cm.get('id'),
         'referenceId': cm.get('referenceId'),
         'name': cm.get('name'),
         'description': cm.get('description'),
         'state': cm.get('state'),
-        'mitigates_threats': [t.get('name') for t in cm.get('threats', [])],
-        'components': [c.get('name') for c in cm.get('components', [])]
+        'component': component_name,
+        'risk': cm.get('risk'),
+        'cost': cm.get('cost')
     }
 
 
@@ -238,7 +337,7 @@ def _find_threat_changes(baseline_threat: Dict, target_threat: Dict) -> Dict[str
     changes = {}
     
     # Compare key fields
-    fields_to_compare = ['riskRating', 'state', 'description']
+    fields_to_compare = ['risk_score', 'severity', 'state', 'component']
     
     for field in fields_to_compare:
         baseline_value = baseline_threat.get(field)
@@ -266,7 +365,7 @@ def _find_countermeasure_changes(baseline_cm: Dict, target_cm: Dict) -> Dict[str
     changes = {}
     
     # Compare key fields
-    fields_to_compare = ['state', 'description']
+    fields_to_compare = ['state', 'component', 'risk', 'cost']
     
     for field in fields_to_compare:
         baseline_value = baseline_cm.get(field)
