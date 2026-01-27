@@ -671,6 +671,66 @@ def sync_data_to_directory(
                 if verbose:
                     click.echo(error_msg, err=True)
         
+        # Download and save current threat model as OTM (if project exists and not excluded)
+        # This supports multi-repository workflows where subsequent repos need to merge with existing model
+        should_download_otm = (
+            final_project_id and 
+            not threats_only and 
+            not components_only and 
+            not trust_zones_only and 
+            not countermeasures_only
+        )
+        
+        logger.info(f"OTM download check: final_project_id={final_project_id}, should_download={should_download_otm}")
+        logger.debug(f"Flags: threats_only={threats_only}, countermeasures_only={countermeasures_only}, "
+                    f"components_only={components_only}, trust_zones_only={trust_zones_only}")
+        
+        if should_download_otm:
+            try:
+                logger.info(f"Starting OTM download for project: {final_project_id}")
+                if verbose:
+                    click.echo("Downloading current threat model (OTM)...")
+                
+                # Get project data to obtain reference ID (V1 OTM export endpoint may need it)
+                project_data = api_client.project_client.get_project(final_project_id)
+                reference_id = project_data.get('referenceId') or project_data.get('ref') or final_project_id
+                logger.info(f"Using reference ID for OTM export: {reference_id}")
+                
+                # Export the current threat model from IriusRisk using reference ID
+                logger.debug(f"Calling api_client.project_client.export_project_as_otm({reference_id})")
+                otm_content = api_client.project_client.export_project_as_otm(reference_id)
+                logger.info(f"Successfully retrieved OTM content: {len(otm_content)} bytes")
+                
+                otm_file = output_path / 'current-threat-model.otm'
+                logger.debug(f"Saving OTM to: {otm_file}")
+                
+                # Save OTM content to file
+                with open(otm_file, 'w', encoding='utf-8') as f:
+                    f.write(otm_content)
+                
+                logger.info(f"Saved OTM to file: {otm_file}")
+                if verbose:
+                    click.echo(f"✓ Saved current threat model to {otm_file}")
+                
+                results['threat_model_otm'] = {
+                    'size': len(otm_content),
+                    'file': str(otm_file)
+                }
+                logger.info("OTM download completed successfully")
+            except Exception as e:
+                # OTM export failure - log detailed error and report it
+                error_msg = f"Failed to export threat model as OTM: {e}"
+                logger.error(error_msg, exc_info=True)
+                results['errors'].append(error_msg)
+                if verbose:
+                    click.echo(f"⚠️  {error_msg}", err=True)
+                # Store failure info so MCP can report it
+                results['threat_model_otm'] = {
+                    'error': str(e)
+                }
+        else:
+            logger.info("OTM download skipped: conditions not met")
+        
         # Inform user if no project was available for threats/countermeasures/questionnaires
         if not final_project_id and not components_only and not trust_zones_only and verbose:
             click.echo("No project configured - only downloaded system components and trust zones. Use 'iriusrisk init' to configure a project for threat, countermeasure, and questionnaire data.")
@@ -1105,6 +1165,13 @@ def sync(project_id: Optional[str], threats_only: bool, countermeasures_only: bo
             if questionnaires_file.exists():
                 click.echo(f"📄 Questionnaires data: {questionnaires_file}")
                 logger.info(f"Created questionnaires file: {questionnaires_file}")
+        
+        if results.get('threat_model_otm'):
+            otm_file = output_path_resolved / 'current-threat-model.otm'
+            if otm_file.exists():
+                click.echo(f"📄 Current threat model (OTM): {otm_file}")
+                logger.info(f"Created threat model OTM file: {otm_file}")
+                click.echo(f"   💡 Use this file as basis for threat model updates in multi-repository workflows")
         
         # Show helpful message if project couldn't be resolved
         if not results.get('project_id') and not components_only and not trust_zones_only:

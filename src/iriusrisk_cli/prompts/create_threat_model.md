@@ -3,11 +3,555 @@
 ## Executive Summary
 Create OTM files to model system architecture for IriusRisk threat analysis. Your role: architecture modeling only (components, trust zones, data flows). Do NOT create threats or controls—IriusRisk generates those automatically. 
 
-**Standard workflow:** sync() first → create OTM → import_otm() → project_status() → **STOP and ask user what to do next**.
+**When user explicitly requests threat modeling** (e.g., "create a threat model", "threat model this code", "update the threat model"), **proceed immediately** with the workflow:
 
-**Do NOT automatically download threats/countermeasures** - IriusRisk needs time to process the threat model. Only download if user explicitly requests it.
+**Standard workflow:** sync() first → **check for .iriusrisk/current-threat-model.otm** → create/merge OTM → import_otm() → project_status() → **STOP and offer next steps**.
+
+**🚨 CRITICAL DECISION POINT:**
+- **If `.iriusrisk/current-threat-model.otm` exists** → You are UPDATING/MERGING with existing model
+- **If no local OTM file** → You are CREATING a new threat model
+
+**DO NOT ask user for permission when they've explicitly requested threat modeling.** The request IS the permission.
+
+**Do NOT automatically download threats/countermeasures after import** - IriusRisk needs time to process. After import, STOP and offer options (questionnaires, download threats, etc.).
 
 **⚠️ CRITICAL: Dataflows ONLY connect components to components. NEVER use trust zone IDs in dataflows - this causes import failure.**
+
+## Multi-Repository Threat Modeling
+
+**Multiple repositories can contribute to a SINGLE unified threat model.** This is essential for microservices, infrastructure-as-code, and multi-repository architectures.
+
+### When to Use Multi-Repository Workflow
+
+**FIRST: Check for existing threat model:**
+
+1. **Check `.iriusrisk/current-threat-model.otm`** - If this file exists, it contains the current threat model from IriusRisk
+   - This file is automatically downloaded by `sync()` 
+   - It represents the latest state of the threat model
+   - **You MUST use this as your starting point for updates**
+
+2. **Read `.iriusrisk/project.json`**:
+   - If it contains `project_id` or `reference_id`, a project exists
+   - Check for `scope` field - indicates this is a multi-repo contribution
+   
+3. **Verify project status** - Call `project_status()` to confirm project is ready
+
+**If `current-threat-model.otm` exists:**
+- **This repository is updating an existing threat model**
+- **You MUST read and merge with the existing OTM file**
+- Your job is to ADD/ENHANCE the threat model, not replace it
+- Preserve existing component IDs and add your contributions
+
+**If no `current-threat-model.otm` but project.json exists:**
+- Project may exist but hasn't been synced yet
+- Call `sync()` first to download the current threat model
+- Then proceed with merge workflow
+
+### Multi-Repository Workflow (When Project Exists)
+
+**MANDATORY steps when contributing to existing project:**
+
+1. **Check for local OTM file FIRST** - Read `.iriusrisk/current-threat-model.otm`:
+   - This file is automatically created when you run `sync()`
+   - It contains the latest threat model from IriusRisk
+   - **If this file exists, use it directly** - no need to call export_otm()
+   - If file doesn't exist, you need to run `sync()` first
+
+2. **Read the scope** from `.iriusrisk/project.json`:
+   ```json
+   {
+     "name": "E-commerce Platform",
+     "project_id": "abc-123",
+     "reference_id": "ecommerce-platform",
+     "scope": "AWS infrastructure via Terraform. Provisions ECS for backend API (api-backend repo), 
+              RDS PostgreSQL, ALB, CloudFront for frontend (web-frontend repo). All application 
+              components from other repos should be placed within appropriate AWS services."
+   }
+   ```
+
+3. **Read the existing threat model:**
+   
+   **Option A (Preferred)**: Read local file:
+   ```python
+   # Read the downloaded OTM file
+   with open('.iriusrisk/current-threat-model.otm', 'r') as f:
+       existing_otm_content = f.read()
+   ```
+   
+   **Option B (Fallback)**: Export if local file missing:
+   ```python
+   # Only if current-threat-model.otm doesn't exist
+   # First call sync() to download it, or:
+   existing_otm = export_otm(project_id="ecommerce-platform")
+   ```
+
+4. **Analyze the existing OTM:**
+   - Identify existing components and their structure
+   - Note existing trust zones
+   - Understand existing data flows
+   - Look for components mentioned in your repository's scope
+
+4. **Understand your scope and how to merge:**
+   
+   **Infrastructure scope** (e.g., "AWS infrastructure", "Kubernetes platform"):
+   - Add infrastructure components (ECS cluster, RDS, ALB, VPC, etc.)
+   - Modify existing application components to show they run INSIDE your infrastructure
+   - Example: Existing "API Service" component → make it a child of your "ECS Cluster" component
+   - Add networking components (load balancers, CDN, etc.)
+   - Define trust zones based on network boundaries (VPC, subnets, etc.)
+
+   **Application scope** (e.g., "Backend API", "Frontend SPA"):
+   - Add your application components
+   - If infrastructure exists, make your components children of infrastructure components
+   - If no infrastructure yet, use trust zones as parents
+   - Add data flows between your components
+
+   **Integration scope** (e.g., "CI/CD pipeline", "Monitoring"):
+   - Add operational/supporting components
+   - Show how they interact with application and infrastructure
+
+5. **Create merged OTM file:**
+   
+   **CRITICAL RULES:**
+   - **PRESERVE project.id** - use the EXACT same project.id from existing OTM or project.json reference_id
+   - **INCLUDE existing components** - don't remove what's already there
+   - **ADD your new components** - components from your repository analysis
+   - **MODIFY parent relationships** - adjust existing components to fit within your contribution
+   - **ADD new data flows** - show how new components connect to existing ones
+   
+   **Example merging pattern:**
+   ```yaml
+   # Existing OTM had this (from application repo):
+   components:
+     - id: "api-service"
+       name: "API Service"
+       type: "CD-V2-WEB-SERVICE"
+       parent:
+         trustZone: "public-cloud-uuid"  # Abstract parent
+   
+   # Your merged OTM (infrastructure repo) adds ECS and modifies parent:
+   components:
+     - id: "ecs-cluster"
+       name: "ECS Fargate Cluster"
+       type: "CD-V2-AWS-ECS-CLUSTER"
+       parent:
+         trustZone: "public-cloud-uuid"
+     
+     - id: "api-service"  # SAME ID - preserving existing component
+       name: "API Service"
+       type: "CD-V2-WEB-SERVICE"
+       parent:
+         component: "ecs-cluster"  # NEW PARENT - now shows it runs in ECS
+     
+     - id: "alb"  # NEW component from your analysis
+       name: "Application Load Balancer"
+       type: "CD-V2-AWS-APPLICATION-LOAD-BALANCER"
+       parent:
+         trustZone: "public-cloud-uuid"
+   
+   dataflows:
+     - id: "alb-to-api"  # NEW dataflow
+       source: "alb"
+       destination: "api-service"
+   ```
+
+6. **Verify merge quality:**
+   - All existing component IDs preserved (same IDs as before)
+   - Your new components added with unique IDs
+   - Parent relationships make architectural sense
+   - Data flows connect existing and new components appropriately
+   - Trust zones used consistently
+
+### Scope-Based Merging Guidelines
+
+**Use the scope description to guide your merging strategy:**
+
+- **"AWS infrastructure for backend API (api-backend repo)"**:
+  - Look for components named "api", "backend", "service" in existing OTM
+  - Wrap those in your AWS components (ECS, ALB, etc.)
+  
+- **"Frontend SPA deployed to CloudFront (terraform repo)"**:
+  - Look for "frontend", "web-app", "spa" components
+  - Add CloudFront and make frontend a child or connected via dataflow
+  
+- **"Kubernetes deployment for microservices (auth-service, order-service)"**:
+  - Look for services mentioned in scope
+  - Add K8s components (namespaces, pods, services)
+  - Make microservices children of K8s pod components
+
+**If scope mentions other repositories:**
+- Those components may already exist in the OTM
+- Your job is to add context/infrastructure around them
+- Don't delete or ignore them - incorporate them into your contribution
+
+### Component Layout and Positioning When Merging
+
+**⚠️ CRITICAL: OTM files include visual positioning data (x, y, width, height) for diagram layout.**
+
+**⚠️ BEFORE WORKING ON LAYOUT: You MUST validate all component types and trust zone IDs against the actual JSON files:**
+- **Every component `type`** must exist in `.iriusrisk/components.json` (exact `referenceId` match)
+- **Every trust zone ID** must exist in `.iriusrisk/trust-zones.json` (exact `id` match)
+- **DO NOT invent components or trust zones** - if you can't find an exact match, use a generic type or ask the user
+
+When merging contributions from multiple repositories, you must intelligently manage component positioning to create a clear, well-organized diagram.
+
+**Layout Management Strategy:**
+
+1. **Preserve Existing Positions** - Keep existing components roughly where they are:
+   ```yaml
+   # Existing component from first repo
+   - id: "api-service"
+     representation:
+       position:
+         x: 100
+         y: 100
+       size:
+         width: 120
+         height: 80
+   
+   # Your merge: Keep it at roughly the same position
+   - id: "api-service"
+     representation:
+       position:
+         x: 100  # Preserved or slightly adjusted
+         y: 100
+       size:
+         width: 120
+         height: 80
+   ```
+
+2. **Create Space for New Components** - Adjust layout to accommodate additions:
+   - If adding infrastructure that wraps applications, position infrastructure components to visually contain their children
+   - If adding peer services, place them alongside existing components with appropriate spacing
+   - Expand the overall diagram area if needed to prevent cramming
+   - Use consistent spacing between components (e.g., 50-100 pixels between unrelated components)
+
+3. **Maintain Architectural Clarity** - Position components to reflect relationships:
+   - **Infrastructure wrapping applications**: Position parent infrastructure components to visually contain children
+   - **Sequential data flows**: Arrange left-to-right or top-to-bottom to show flow direction
+   - **Related components**: Group by function or trust zone (databases together, services together, etc.)
+   - **Trust zone alignment**: Components in same trust zone should be visually grouped
+
+4. **Smart Adjustment Patterns:**
+
+   **Pattern A: Adding Infrastructure Around Applications**
+   ```yaml
+   # Original (application repo): API service at x:200, y:200, size 85x85
+   # Your addition (infrastructure repo): ECS cluster must encompass it
+   
+   # STEP 1: Calculate ECS cluster size based on child
+   # Child at x:200, y:200, size 85x85 means child occupies x:200-285, y:200-285
+   # Add padding: width = 85 + (2*40) = 165, height = 85 + (2*40) = 165
+   # Position parent 40px left/above child: x = 200-40 = 160, y = 200-40 = 160
+   
+   - id: "ecs-cluster"
+     representation:
+       position:
+         x: 160    # 40px left of child
+         y: 160    # 40px above child
+       size:
+         width: 165   # CALCULATED: child width + 2*padding
+         height: 165  # CALCULATED: child height + 2*padding
+   
+   - id: "api-service"  # Existing component - no change needed
+     parent:
+       component: "ecs-cluster"
+     representation:
+       position:
+         x: 200    # Original position preserved
+         y: 200
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   ```
+
+   **Pattern B: Adding Peer Services Inside Same Container**
+   ```yaml
+   # Existing auth-service at x:200, y:200 inside ecs-cluster
+   # Adding payment-service alongside it
+   # Container must GROW to accommodate both
+   
+   # STEP 1: Position new service
+   - id: "payment-service"
+     parent:
+       component: "ecs-cluster"
+     representation:
+       position:
+         x: 335    # 335 = 200 + 85 + 50 (spacing)
+         y: 200    # Same vertical position (aligned)
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   
+   # STEP 2: Recalculate parent size
+   # Children now occupy: x:200-420 (335+85), y:200-285
+   # Child area: 220x85
+   # Add padding: width = 220 + 80 = 300, height = 85 + 80 = 165
+   # Minimum: max(300, 200) = 300, max(165, 200) = 200
+   
+   - id: "ecs-cluster"
+     representation:
+       position:
+         x: 160    # Adjust left to accommodate wider content
+         y: 160
+       size:
+         width: 300   # RECALCULATED - grew from 165 to 300
+         height: 200  # RECALCULATED - uses minimum
+   
+   # STEP 3: If ecs-cluster has a parent component, recalculate that too!
+   ```
+
+   **Pattern C: Adding Load Balancer in Front (Peer at Same Level)**
+   ```yaml
+   # Existing backend at x:300, y:200 (leaf component, size 85x85)
+   # Adding ALB that routes to it (also a leaf component)
+   
+   - id: "alb"
+     representation:
+       position:
+         x: 150    # To the left (upstream in data flow)
+         y: 200    # Same vertical position
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   
+   # Backend stays unchanged
+   - id: "backend"
+     representation:
+       position:
+         x: 300    # Original position
+         y: 200
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   
+   # If both are in a container, that container must fit both:
+   # Container would need: width = (300+85-150) + 80 = 315, height = 85 + 80 = 165
+   ```
+
+5. **Typical Component Sizes:**
+   - **Standard leaf components** (services, databases, APIs, load balancers): width: 85, height: 85
+   - **Container components** (infrastructure that contains other components): Calculated based on children (see calculation algorithm below)
+
+6. **Spacing Guidelines:**
+   - **Minimum spacing** between unrelated components: 50 pixels
+   - **Comfortable spacing**: 80-100 pixels
+   - **Visual grouping**: Related components can be closer ( 30-40 pixels)
+   - **Padding inside containers**: Child components should be 30-40 pixels from parent edges
+
+7. **Cascading Size Calculation Algorithm:**
+
+   **⚠️ CRITICAL: When adding components to nested hierarchies, you MUST recalculate sizes from bottom-up (leaves to root).**
+   
+   **⚠️ VALIDATION FIRST: Before applying this algorithm, VALIDATE every component type:**
+   - Open `.iriusrisk/components.json`
+   - For EACH component in your OTM, search for its `type` value in components.json
+   - Verify the COMPLETE `referenceId` exists (e.g., "CD-V2-AWS-ECS-CLUSTER")
+   - If not found, DO NOT use that component - find an alternative or use a generic type
+   
+   Components can be nested multiple levels deep (component in component in component in trust zone). When you add new child components, parent sizes must expand, which causes grandparent sizes to expand, etc.
+   
+   **Algorithm (work from leaf nodes up to root):**
+   
+   a. **Identify leaf components** (components with no children):
+      - **VALIDATE**: Verify component type exists in components.json
+      - Set size to 85x85 pixels (standard)
+      
+   b. **For each parent component** (components that contain other components):
+      - **VALIDATE**: Verify parent component type exists in components.json
+      - List all direct children
+      - Calculate bounding box needed to contain all children with padding:
+        ```
+        child_area_width = max(child.x + child.width for all children) - min(child.x for all children)
+        child_area_height = max(child.y + child.height for all children) - min(child.y for all children)
+        
+        parent.width = child_area_width + (2 * PADDING)   # PADDING = 40 pixels
+        parent.height = child_area_height + (2 * PADDING)
+        
+        # Minimum size for containers
+        parent.width = max(parent.width, 200)
+        parent.height = max(parent.height, 200)
+        ```
+      
+   c. **Repeat step b for each level** moving up the hierarchy:
+      - First calculate sizes for components at depth N (deepest parents)
+      - Then calculate sizes for components at depth N-1 (their parents)
+      - Continue until reaching root components (those with trust zone parents)
+   
+   **Practical Example:**
+   
+   ```yaml
+   # Scenario: Adding 2 new microservices to existing ECS cluster that already has 1 service
+   
+   # STEP 1: Position leaf components (the services)
+   - id: "auth-service"    # Existing
+     representation:
+       position: {x: 220, y: 220}
+       size: {width: 85, height: 85}    # Leaf component
+   
+   - id: "payment-service"  # New - position to the right
+     representation:
+       position: {x: 350, y: 220}       # 350 = 220 + 85 + 45 (component + width + spacing)
+       size: {width: 85, height: 85}    # Leaf component
+   
+   - id: "order-service"    # New - position below
+     representation:
+       position: {x: 220, y: 350}       # 350 = 220 + 85 + 45 (component + height + spacing)
+       size: {width: 85, height: 85}    # Leaf component
+   
+   # STEP 2: Calculate parent size based on children
+   # Children occupy: x from 220 to 435 (350+85), y from 220 to 435 (350+85)
+   # Child area: 215x215
+   # Add padding: 215 + (2*40) = 295x295
+   
+   - id: "ecs-cluster"      # Parent container - SIZE MUST ADJUST
+     representation:
+       position: {x: 150, y: 150}       # Parent positioned to encompass children
+       size: {width: 295, height: 295}  # CALCULATED from children, not hardcoded!
+   
+   # STEP 3: If ecs-cluster is inside another component, recalculate that component's size too
+   # Continue up the tree...
+   ```
+   
+   **Key Rules:**
+   - **NEVER use fixed sizes for container components** - always calculate from children
+   - **Always add padding** (30-40 pixels) around children
+   - **Recalculate bottom-up** - start with deepest nested components first
+   - **Adjust positions if needed** to maintain spacing when parent grows
+   - If a parent component grows, its parent may need to grow too - cascade up the tree
+
+**What NOT to Do:**
+- ❌ **NEVER invent component types** - every `type` must exist in components.json
+- ❌ **NEVER invent trust zone IDs** - every trust zone must exist in trust-zones.json
+- ❌ Don't assume a component type exists without verifying in components.json
+- ❌ Don't use abbreviated component types (must be COMPLETE referenceId)
+- ❌ Don't use hardcoded/fixed sizes for container components (components with children)
+- ❌ Don't forget to recalculate parent sizes when adding child components
+- ❌ Don't cram all new components into a tiny corner
+- ❌ Don't place components at x:0, y:0 unless intentional
+- ❌ Don't overlap components (unless showing containment with parent/child)
+- ❌ Don't ignore existing positioning data - work with it
+- ❌ Don't create massive gaps between related components
+- ❌ Don't stop at one level - cascade size adjustments up the entire tree
+
+**What TO Do:**
+- ✅ **FIRST: Open and read components.json - verify EVERY component type exists**
+- ✅ **FIRST: Open and read trust-zones.json - verify EVERY trust zone ID exists**
+- ✅ Search components.json for each component type before using it
+- ✅ Copy COMPLETE referenceId from components.json (e.g., "CD-V2-AWS-ECS-CLUSTER")
+- ✅ **ALWAYS calculate container sizes bottom-up** from their children
+- ✅ Start with leaf components (85x85), then calculate parent sizes, then grandparent sizes
+- ✅ Recalculate EVERY ancestor when adding components to a nested hierarchy
+- ✅ Add appropriate padding (40 pixels) around children when calculating parent sizes
+- ✅ Analyze existing component positions before planning your additions
+- ✅ Position new components to reflect data flow and architecture relationships
+- ✅ Use calculated size differences to show depth (deeper nesting = larger containers)
+- ✅ Leave room for future additions from other repositories
+
+**Critical Process for Nested Hierarchies:**
+
+When you add components to a nested structure, follow this process:
+
+1. **Identify the hierarchy depth:**
+   ```
+   Trust Zone
+     └─ VPC Component (depth 1)
+        └─ ECS Cluster Component (depth 2)
+           └─ Service Components (depth 3 - leaves)
+   ```
+
+2. **Work bottom-up:**
+   - Depth 3 (leaves): Set to 85x85
+   - Depth 2 (ECS Cluster): Calculate from children + padding
+   - Depth 1 (VPC): Calculate from ECS Cluster + padding
+   - Trust Zone: Adjust if using visual representation
+
+3. **Show your calculations:**
+   ```
+   # Adding 2 services to ECS cluster that has 1 existing service
+   # Existing: auth-service at (200, 200)
+   # New: payment-service at (335, 200), order-service at (200, 335)
+   # 
+   # Services occupy: x:200-420, y:200-420 = 220x220 area
+   # ECS cluster needs: 220 + 80 (padding) = 300x300
+   # ECS at (160, 160) to give 40px padding
+   #
+   # If ECS is inside VPC, VPC must now accommodate 300x300 cluster
+   # VPC needs: 300 + 80 (padding) = 380x380
+   # VPC at (120, 120) to give 40px padding
+   ```
+
+This algorithmic approach ensures diagrams remain organized even with deep nesting.
+
+**Example Adjustment:**
+```yaml
+# Scenario: Infrastructure repo adding AWS components around existing application components
+
+# Existing OTM had (from application repo):
+components:
+  - id: "auth-api"
+    representation:
+      position: {x: 200, y: 200}
+      size: {width: 85, height: 85}
+  - id: "user-api"
+    representation:
+      position: {x: 335, y: 200}  # 335 = 200 + 85 + 50
+      size: {width: 85, height: 85}
+
+# Your merged OTM (infrastructure repo) - SHOWING CALCULATION PROCESS:
+
+# STEP 1: Calculate ECS cluster size to contain both APIs
+# Children occupy: x from 200 to 420 (335+85), y from 200 to 285 (200+85)
+# Child area: width = 420-200 = 220, height = 285-200 = 85
+# Add padding: width = 220 + (2*40) = 300, height = 85 + (2*40) = 165
+# Apply minimum: width = max(300, 200) = 300, height = max(165, 200) = 200
+# Position: x = 200 - 40 = 160, y = 200 - 40 = 160
+
+components:
+  # New load balancer positioned upstream (leaf component)
+  - id: "alb"
+    representation:
+      position: {x: 50, y: 200}  # To the left, aligned vertically
+      size: {width: 85, height: 85}  # Standard leaf size
+  
+  # New infrastructure component - SIZE CALCULATED FROM CHILDREN
+  - id: "ecs-cluster"
+    representation:
+      position: {x: 160, y: 160}  # 40px left/above leftmost/topmost child
+      size: {width: 300, height: 200}  # CALCULATED: 220 + 80 padding, 85 + 80 + min
+  
+  # Existing components - preserved
+  - id: "auth-api"
+    parent:
+      component: "ecs-cluster"
+    representation:
+      position: {x: 200, y: 200}  # Original position kept
+      size: {width: 85, height: 85}
+  
+  - id: "user-api"
+    parent:
+      component: "ecs-cluster"
+    representation:
+      position: {x: 335, y: 200}  # Original position kept
+      size: {width: 85, height: 85}
+  
+  # New database positioned to the right of cluster (leaf component)
+  # Position: 160 (cluster x) + 300 (cluster width) + 50 (spacing) = 510
+  - id: "rds-database"
+    representation:
+      position: {x: 510, y: 200}  # To the right with spacing
+      size: {width: 85, height: 85}  # Standard leaf size
+```
+
+**Key Principle:** The goal is to create a diagram that looks intentionally designed, not randomly assembled. Each repository's contribution should integrate smoothly while maintaining visual consistency and architectural clarity.
+
+### When NOT to Use Multi-Repository Workflow
+
+**Use standard (single-repo) workflow when:**
+- `.iriusrisk/project.json` doesn't exist (new project)
+- `project_id` field is missing (project not yet created)
+- No `scope` field present (single repository project)
+- User explicitly states this is a new, independent project
 
 ## Critical Error #1: Dataflows Connect Components, NOT Trust Zones
 
@@ -31,7 +575,9 @@ dataflows:
 
 ## Critical Error #2: Component Types Must Use COMPLETE, EXACT referenceId
 
-**Most common component mapping failure:** Abbreviating or truncating the referenceId instead of using the complete string.
+**Most common component mapping failure:** Abbreviating, truncating, or INVENTING the referenceId instead of using the complete string from components.json.
+
+**🚨 ABSOLUTE RULE: EVERY component type MUST exist in `.iriusrisk/components.json`. If it's not in that file, you CANNOT use it.**
 
 ```yaml
 # ✅ CORRECT - Complete referenceId from components.json:
@@ -45,9 +591,22 @@ type: "aws-ecs"  # Way too short - FAILS
 
 # ❌ WRONG - Partially truncated:
 type: "CD-V2-AWS-ECS"  # Missing "-CLUSTER" - FAILS
+
+# ❌ WRONG - Invented based on pattern:
+type: "CD-V2-AWS-FARGATE-SERVICE"  # Doesn't exist in components.json - FAILS
+
+# ❌ WRONG - Made up descriptive name:
+type: "CD-V2-CONTAINER-SERVICE"  # Not verified in components.json - FAILS
 ```
 
-**Rule:** Read `.iriusrisk/components.json`, find the `referenceId` field, **copy the ENTIRE string without modification**. Do not abbreviate, even if it looks redundant.
+**Mandatory Validation Process:**
+1. **BEFORE using any component type** - Open `.iriusrisk/components.json`
+2. **Search for keywords** related to what you need (e.g., "ECS", "database", "WAF")
+3. **Find the matching component** - Read the `name` field to confirm it's what you need
+4. **Copy the COMPLETE `referenceId`** - Do not modify, abbreviate, or truncate it
+5. **If not found** - Use a generic type or ask the user, DO NOT invent a type
+
+**Rule:** Read `.iriusrisk/components.json`, find the `referenceId` field, **copy the ENTIRE string without modification**. Do not abbreviate, even if it looks redundant. **Never invent component types - they must exist in the file.**
 
 ## Critical Error #3: NEVER CHANGE PROJECT ID WHEN UPDATING
 
@@ -122,33 +681,98 @@ The project.id is the ONLY field that must never be modified when updating. Trea
 
 ## Required Workflow Checklist
 
-**Complete steps 0-7, then STOP and wait for user.** Step 8 only when user explicitly requests.
+**🚨 VALIDATION RULE - READ THIS FIRST:**
+- **EVERY component type** you use MUST exist in `.iriusrisk/components.json` - Open the file and verify!
+- **EVERY trust zone ID** you use MUST exist in `.iriusrisk/trust-zones.json` - Open the file and verify!
+- **DO NOT invent components or trust zones** - If you can't find an exact match, use a generic type or ask
+- This is THE MOST COMMON failure mode - always validate before creating OTM!
 
-- ☐ Step 0: **sync(project_path)** - Download components & trust zones
-- ☐ Step 1: Analyze source material - Identify architectural components
-- ☐ Step 2: Check `.iriusrisk/project.json` - Read project name/ID if exists
-- ☐ Step 3: Create OTM file - ONLY components, trust zones, dataflows (dataflows connect components ONLY)
-- ☐ Step 4: Map components - Use exact referenceId from components.json
-- ☐ Step 5: **import_otm()** - Upload OTM to IriusRisk
-- ☐ Step 6: **project_status()** - Verify project ready
-- ☐ Step 7: Present results - Offer options - **STOP HERE and wait for user**
-- ☐ Step 8: **sync()** again - **ONLY if user explicitly requests** - Download threats/countermeasures
+**Complete steps 0-8, then STOP and wait for user.** Step 9 only when user explicitly requests.
+
+- ☐ Step 0: **sync(project_path)** - Download components, trust zones, AND current threat model OTM
+- ☐ Step 1: **CHECK FOR `.iriusrisk/current-threat-model.otm`** - If exists, READ IT IMMEDIATELY
+  - **If file exists**: You are in MERGE mode - read OTM, see existing components
+  - **If file missing**: You are in CREATE mode - start from scratch
+- ☐ Step 2: Analyze source material - Identify architectural components from THIS repository
+- ☐ Step 3: Check `.iriusrisk/project.json` - Read project name/ID/scope if exists
+- ☐ Step 4: Create OTM file:
+  - **MERGE mode**: Include existing components + your new components, update parent relationships
+  - **CREATE mode**: All components from your analysis
+- ☐ Step 5: Map components - Use exact referenceId from components.json
+- ☐ Step 6: **import_otm()** - Upload OTM to IriusRisk
+- ☐ Step 7: **project_status()** - Verify project ready
+- ☐ Step 8: Present results - Offer options - **STOP HERE and wait for user**
+- ☐ Step 9: **sync()** again - **ONLY if user explicitly requests** - Download updated threats/countermeasures
+
+**🚨 REMEMBER: If user said "threat model [X]", you are doing architecture modeling. DO NOT call threats_and_countermeasures() or analyze threats.json.**
 
 ## Detailed Workflow
 
-### Step 0: sync(project_path) - Download Component Library AND Trust Zones
+### Step 0: sync(project_path) - Download Component Library, Trust Zones, AND Current Threat Model
 
 **Mandatory first step.** Call sync() with full absolute project path (e.g., `sync("/Users/username/my-project")`).
 
 **What it does:**
 - Downloads complete IriusRisk component library to `.iriusrisk/components.json`
 - Downloads trust zones to `.iriusrisk/trust-zones.json` ⚠️ CRITICAL
-- If project exists, also downloads current threats/countermeasures
+- **Downloads current threat model to `.iriusrisk/current-threat-model.otm`** ⚠️ NEW
+- If project exists, also downloads current threats/countermeasures/questionnaires
 - Prevents OTM import failures due to unknown component types or trust zones
 
-**⚠️ CRITICAL:** You MUST read `.iriusrisk/trust-zones.json` to get valid trust zone IDs. Do NOT invent trust zone names or IDs - use only the exact IDs from this file.
+**⚠️ CRITICAL FILES TO CHECK AFTER SYNC (THESE ARE YOUR VALIDATION SOURCES):**
+1. **`.iriusrisk/trust-zones.json`** - ⚠️ EVERY trust zone ID MUST come from this file - DO NOT invent IDs
+2. **`.iriusrisk/components.json`** - ⚠️ EVERY component type MUST exist in this file - DO NOT invent types
+3. **`.iriusrisk/current-threat-model.otm`** - If exists, you are UPDATING existing model (merge required)
+4. **`.iriusrisk/project.json`** - Check for scope definition
 
-### Step 1-2: Analyze Source & Check Configuration
+**VALIDATION REQUIREMENT:** Before creating your OTM, you MUST open components.json and trust-zones.json and verify every single component type and trust zone ID you plan to use actually exists in those files. This is not optional.
+
+**Decision Logic After Step 0:**
+- **If `current-threat-model.otm` exists**: This is an UPDATE/MERGE workflow - read and merge with existing OTM
+- **If no `current-threat-model.otm`**: This is a NEW threat model - create from scratch
+
+### Step 1: Check for Existing Threat Model (BEFORE analyzing source)
+
+**🚨 MANDATORY FIRST STEP: Check for `.iriusrisk/current-threat-model.otm`**
+
+```python
+# Check if file exists
+from pathlib import Path
+otm_file = Path('.iriusrisk/current-threat-model.otm')
+if otm_file.exists():
+    # READ IT IMMEDIATELY
+    with open(otm_file, 'r') as f:
+        existing_otm = f.read()
+    print(f"Found existing threat model: {len(existing_otm)} bytes")
+    # YOU ARE IN MERGE MODE - preserve existing components
+else:
+    print("No existing threat model - creating from scratch")
+    # YOU ARE IN CREATE MODE
+```
+
+**If this file exists:**
+- ✅ **YOU ARE UPDATING/MERGING** with an existing threat model
+- ✅ **READ the entire file** to understand existing components
+- ✅ Your job is to ADD your contribution, not replace
+- ✅ Parse the OTM to see: existing components, trust zones, dataflows
+- ✅ Plan how to integrate your new components with existing ones
+
+**If this file does NOT exist:**
+- You are creating a new threat model from scratch
+- Proceed with standard analysis
+
+### Step 2: Analyze Source & Check Configuration
+
+**FIRST: Check for existing threat model:**
+- **You already checked for `.iriusrisk/current-threat-model.otm`** in Step 1
+- If it exists and you read it, you know existing architecture
+- Your analysis should focus on ADDING to it, not duplicating
+
+**Check for existing project:**
+- Look for `.iriusrisk/project.json`
+- If exists, use `name` and `reference_id` from that file (the `reference_id` will be used as the OTM `project.id`)
+- Check for `scope` field to understand this repository's role
+- If not exists, create descriptive names from source material
 
 **Analyze source material:**
 - Identify infrastructure (VMs, containers, databases, load balancers)
@@ -157,12 +781,8 @@ The project.id is the ONLY field that must never be modified when updating. Trea
 - Identify external systems (third-party APIs, services)
 - Plan nesting (business logic runs within infrastructure)
 - Identify data flows between components
+- **If existing OTM exists**: Plan how to integrate your components with existing ones
 - **Do NOT identify threats or security issues**
-
-**Check for existing project:**
-- Look for `.iriusrisk/project.json`
-- If exists, use `name` and `reference_id` from that file (the `reference_id` will be used as the OTM `project.id`)
-- If not exists, create descriptive names from source material
 
 ### Step 3: Create OTM File
 
@@ -172,15 +792,20 @@ The project.id is the ONLY field that must never be modified when updating. Trea
 
 **⚠️ MANDATORY: Read `.iriusrisk/trust-zones.json` file FIRST**
 
+**🚨 ABSOLUTE RULE: EVERY trust zone ID you use MUST exist in `.iriusrisk/trust-zones.json`. If it's not in that file, you CANNOT use it.**
+
 Before creating your OTM file, you MUST:
-1. Read `.iriusrisk/trust-zones.json` (created by sync() in Step 0)
-2. Identify which trust zones you need from the available zones
-3. Use the EXACT `id` field values from trust-zones.json in your OTM
+1. **Open and read** `.iriusrisk/trust-zones.json` (created by sync() in Step 0)
+2. **Identify which trust zones you need** from the available zones in the file
+3. **Copy the EXACT `id` field values** from trust-zones.json (these are UUIDs like "b61d6911-338d-11e8-8c37-ad2a1d5c1e0c")
+4. **Verify each trust zone ID** before using it in your OTM
 
 **DO NOT:**
-- Invent trust zone names or IDs
-- Use descriptive names instead of actual IDs
+- Invent trust zone names or IDs (e.g., "internet", "dmz", "application" - these are NOT IDs)
+- Use descriptive names instead of actual UUID IDs
 - Create new trust zones not in trust-zones.json
+- Assume a trust zone exists without checking the file
+- Use trust zone names as IDs (use the UUID from the `id` field, not the `name` field)
 
 **Trust zones in OTM file:**
 ```yaml
@@ -483,17 +1108,24 @@ dataflows:
 
 ### Step 4: Map Components to IriusRisk Types and VALIDATE
 
+**🚨 THIS IS THE MOST CRITICAL STEP - 80% OF FAILURES HAPPEN HERE**
+
 **⚠️ MANDATORY: Open and read `.iriusrisk/components.json`** (created by sync() in Step 0). This file contains all valid component types.
 
-**⚠️ CRITICAL: Use the COMPLETE referenceId - DO NOT abbreviate, truncate, or shorten it.**
+**⚠️ CRITICAL: Use the COMPLETE referenceId - DO NOT abbreviate, truncate, shorten, or INVENT it.**
 
-**Mapping and Validation Process:**
-1. **For each component** you identified in Step 1, open `.iriusrisk/components.json`
-2. **Search the file** for keywords related to your component (e.g., "WAF", "database", "ECS", "lambda")
-3. **Find the matching component entry** - look at the `name` field to confirm it matches
-4. **Copy the ENTIRE `referenceId` field value** - do not modify, abbreviate, or truncate it
+**⚠️ ABSOLUTE RULE: If a component type is NOT in components.json, you CANNOT use it. Do NOT invent component types.**
+
+**Mapping and Validation Process (FOLLOW EVERY STEP):**
+1. **Open `.iriusrisk/components.json`** in your editor/viewer
+2. **For each component** you identified in Step 1, search the file for keywords (e.g., "WAF", "database", "ECS", "lambda")
+3. **Find the matching component entry** - Read the `name` field to confirm it's what you need
+4. **Copy the ENTIRE `referenceId` field value** - Do not modify, abbreviate, truncate, or invent anything
 5. **Paste it exactly** as the `type` in your OTM component
-6. **Verify** the referenceId you copied exists in components.json before using it
+6. **If no match found** - Use a generic component type OR ask the user - **DO NOT invent a type**
+7. **Double-check** - Before moving to next component, verify you copied from the file (not from memory/pattern)
+
+**VALIDATION CHECKPOINT:** Before proceeding to Step 5, go through your OTM and verify you can find EVERY component type in components.json. If you can't find it, you must change it.
 
 **Common error pattern - DO NOT DO THIS:**
 ```json
@@ -726,19 +1358,28 @@ When user requests, call **sync(project_path)** again to download:
 
 ## Final Validation Checklist
 
-Before completing, validate ALL references:
+**🚨 MANDATORY PRE-FLIGHT VALIDATION - DO NOT SKIP:**
+
+**Component Type Validation (MOST COMMON FAILURE):**
+- ☐ **Opened and read `.iriusrisk/components.json`**
+- ☐ **For EVERY component in OTM: Searched components.json for the type**
+- ☐ **For EVERY component in OTM: Verified COMPLETE referenceId exists** (not abbreviated, not invented)
+- ☐ **If component type not found: Used generic alternative or asked user** (did NOT invent)
+
+**Trust Zone Validation (SECOND MOST COMMON FAILURE):**
+- ☐ **Opened and read `.iriusrisk/trust-zones.json`**
+- ☐ **For EVERY trust zone in OTM: Verified exact UUID ID exists in trust-zones.json**
+- ☐ **Used UUID IDs from `id` field** (not descriptive names from `name` field)
+- ☐ **Did NOT invent trust zone IDs** (every ID came from the file)
 
 **Initial Setup:**
 - ☐ Used sync() first - Downloaded components.json AND trust-zones.json
-- ☐ **Read trust-zones.json and identified available trust zones with their IDs**
 - ☐ Read components.json for component type mapping (not CLI commands)
+- ☐ Read trust-zones.json and identified available trust zones with their UUIDs
 - ☐ If updating existing project: Read project.json or exported OTM to know existing component IDs
 
 **OTM Structure:**
 - ☐ Created OTM with ONLY architecture (no threats/controls)
-- ☐ **For EVERY component: Opened components.json, found the component, copied COMPLETE referenceId**
-- ☐ **Verified each referenceId exists in components.json** (e.g., "CD-V2-AWS-WAF-WEB-APPLICATION-FIREWALL", not "CD-V2-AWS-WAF")
-- ☐ **Used EXACT trust zone IDs from trust-zones.json (not invented names)**
 - ☐ **Verified EVERY component has a parent (trustZone or component)**
 
 **Reference Validation (CRITICAL):**
@@ -756,16 +1397,20 @@ Before completing, validate ALL references:
 **Remember:**
 - AI role: Architecture modeling only
 - IriusRisk role: Threat identification and security analysis (automatic)
-- **TOP ERRORS TO AVOID:**
-  1. **Abbreviating component referenceIds** - Use COMPLETE string from components.json (e.g., "CD-V2-AWS-WAF-WEB-APPLICATION-FIREWALL" not "CD-V2-AWS-WAF")
-  2. **Inventing component referenceIds** - Every referenceId MUST exist in components.json (open the file and verify)
-  3. **Inventing trust zone IDs** - MUST read trust-zones.json and use exact IDs
-  4. **Components without parents** - Every component MUST have trustZone or component parent
-  5. **Referencing non-existent components** - All parent/dataflow component IDs must exist in OTM
-  6. **Using trust zone IDs in dataflows** - Dataflows connect components only
-- **Before submitting OTM - Cross-reference validation:**
-  - Open components.json and verify EVERY component type referenceId exists in that file
-  - List all component IDs defined in your OTM
-  - Verify every parent component reference is in that list
-  - Verify every dataflow source/destination is in that list
-  - Verify every trust zone ID exists in trust-zones.json
+- **TOP ERRORS TO AVOID (IN ORDER OF FREQUENCY):**
+  1. **Inventing component types** - EVERY component type MUST exist in components.json - Open the file and verify BEFORE using!
+  2. **Inventing trust zone IDs** - EVERY trust zone ID MUST exist in trust-zones.json - Open the file and verify BEFORE using!
+  3. **Abbreviating component referenceIds** - Use COMPLETE string from components.json (e.g., "CD-V2-AWS-WAF-WEB-APPLICATION-FIREWALL" not "CD-V2-AWS-WAF")
+  4. **Assuming components exist** - Never assume - always validate in components.json
+  5. **Components without parents** - Every component MUST have trustZone or component parent
+  6. **Referencing non-existent components** - All parent/dataflow component IDs must exist in OTM
+  7. **Using trust zone IDs in dataflows** - Dataflows connect components only
+- **MANDATORY PRE-SUBMISSION VALIDATION (DO NOT SKIP):**
+  1. **Open components.json** - For EVERY component type in your OTM, search the file and verify exact referenceId exists
+  2. **Open trust-zones.json** - For EVERY trust zone ID in your OTM, verify exact UUID exists in the file
+  3. **If not found** - DO NOT use that component/trust zone - find alternative or ask user
+  4. List all component IDs defined in your OTM
+  5. Verify every parent component reference is in that list
+  6. Verify every dataflow source/destination is in that list
+  
+**Validation is not optional - it is THE MOST CRITICAL step. 80% of OTM import failures are due to invented/invalid component types or trust zone IDs.**
