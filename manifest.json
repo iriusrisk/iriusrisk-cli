@@ -169,6 +169,53 @@
         {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"}
       ],
       "returns": {"type": "string"}
+    },
+    {
+      "name": "ci_cd_verification",
+      "description": "Compare threat model versions to detect security drift in CI/CD pipelines. Returns structured JSON diff showing architectural and security changes.",
+      "parameters": [
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory (where .iriusrisk/ is located)"},
+        {"name": "baseline_version", "type": "string", "required": true, "description": "Version UUID or name to use as baseline"},
+        {"name": "target_version", "type": "string", "required": false, "description": "Optional version UUID to compare against (uses current if not provided)"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "export_otm",
+      "description": "Export the current threat model from IriusRisk as OTM format.",
+      "parameters": [
+        {"name": "project_id", "type": "string", "required": false, "description": "Project ID or reference ID"},
+        {"name": "output_path", "type": "string", "required": false, "description": "Where to save the OTM file"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "questionnaire_guidance",
+      "description": "Get comprehensive instructions for completing project and component questionnaires.",
+      "parameters": [],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "track_project_questionnaire_update",
+      "description": "Track a project questionnaire update for later synchronization with IriusRisk.",
+      "parameters": [
+        {"name": "project_id", "type": "string", "required": true, "description": "Project UUID"},
+        {"name": "answers_data", "type": "object", "required": true, "description": "Questionnaire answers in IriusRisk format"},
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"},
+        {"name": "context", "type": "string", "required": false, "description": "Optional context about analysis"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "track_component_questionnaire_update",
+      "description": "Track a component questionnaire update for later synchronization with IriusRisk.",
+      "parameters": [
+        {"name": "component_id", "type": "string", "required": true, "description": "Component UUID"},
+        {"name": "answers_data", "type": "object", "required": true, "description": "Questionnaire answers in IriusRisk format"},
+        {"name": "project_path", "type": "string", "required": true, "description": "Full path to the project directory"},
+        {"name": "context", "type": "string", "required": false, "description": "Optional context about analysis"}
+      ],
+      "returns": {"type": "string"}
     }
   ]
 }

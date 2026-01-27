@@ -590,6 +590,71 @@ class ProjectApiClient(BaseApiClient):
                 error_msg = str(e)
             raise requests.RequestException(f"OTM export failed: {error_msg}")
     
+    def get_diagram_content(self, project_id: str) -> str:
+        """Get project diagram content in mxGraph XML format.
+        
+        Args:
+            project_id: Project UUID
+            
+        Returns:
+            Diagram XML content as string (mxGraph format)
+        """
+        import requests
+        
+        self.logger.info(f"Retrieving diagram content for project: {project_id}")
+        
+        session = requests.Session()
+        session.headers.update({
+            'api-token': self._config.api_token,
+            'Accept': 'application/xml'
+        })
+        
+        url = f"{self.base_url}/projects/{project_id}/diagram/content"
+        
+        try:
+            response = session.get(url)
+            response.raise_for_status()
+            self._log_response('GET', url, {}, response)
+            self.logger.info(f"Successfully retrieved diagram content ({len(response.text)} bytes)")
+            return response.text
+        except requests.RequestException as e:
+            self.logger.error(f"Failed to retrieve diagram content: {e}")
+            raise
+    
+    def get_diagram_content_version(self, project_id: str, version_id: str) -> str:
+        """Get diagram content for a specific project version.
+        
+        Args:
+            project_id: Project UUID
+            version_id: Version UUID
+            
+        Returns:
+            Diagram XML content as string (mxGraph format)
+        """
+        import requests
+        
+        self.logger.info(f"Retrieving diagram content for version: {version_id}")
+        
+        session = requests.Session()
+        session.headers.update({
+            'api-token': self._config.api_token,
+            'Accept': 'application/xml'
+        })
+        
+        url = f"{self.base_url}/projects/{project_id}/diagram/content"
+        params = {'version': version_id}
+        
+        try:
+            response = session.get(url, params=params)
+            response.raise_for_status()
+            self._log_response('GET', url, params, response)
+            self.logger.info(f"Successfully retrieved diagram content for version ({len(response.text)} bytes)")
+            return response.text
+        except requests.RequestException as e:
+            self.logger.error(f"Failed to retrieve diagram content: {e}")
+            raise
+
+    
     def get_components(self,
                       page: int = 0,
                       size: int = 20,

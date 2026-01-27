@@ -2032,6 +2032,168 @@ def mcp(cli_ctx):
             error_msg = f"❌ Failed to create project version: {str(e)}"
             logger.error(f"MCP create_project_version failed: {e}")
             return error_msg
+    
+    @mcp_server.tool()
+    async def ci_cd_verification(project_path: str, baseline_version: str = None, target_version: str = None) -> str:
+        """Compare threat model versions to detect security drift in CI/CD pipelines.
+        
+        This tool downloads diagram, threats, and countermeasures from specified versions,
+        compares them to identify architectural and security changes, and returns a
+        structured diff for AI interpretation.
+        
+        Comparison Modes:
+        - Mode 3 (version vs current): baseline_version specified, no target_version
+        - Mode 4 (version vs version): both baseline_version and target_version specified
+        
+        The tool returns a structured JSON diff showing:
+        - Architecture changes: components, dataflows, trust zones added/removed/modified
+        - Security changes: threats and countermeasures added/removed/modified
+        - Summary statistics and risk indicators
+        
+        Args:
+            project_path: Path to project directory (where .iriusrisk/ is located)
+            baseline_version: Version UUID or name to use as baseline (required)
+            target_version: Version UUID or name to compare against (optional, uses current if not provided)
+            
+        Returns:
+            JSON string with structured diff results
+        """
+        try:
+            from ..container import get_container
+            from ..utils.verification_manager import verification_context
+            from ..utils.diagram_comparison import parse_diagram_xml, compare_diagrams
+            from ..utils.threat_comparison import parse_threats_json, parse_countermeasures_json, compare_threats, compare_countermeasures
+            from ..utils.project_resolution import resolve_project_id_to_uuid
+            from pathlib import Path
+            import json
+            
+            logger.info(f"CI/CD verification started - project_path: {project_path}")
+            
+            # Validate inputs
+            if not baseline_version:
+                return json.dumps({
+                    "error": "baseline_version is required",
+                    "message": "❌ You must specify a baseline version ID for comparison"
+                }, indent=2)
+            
+            # Get project configuration
+            project_root = Path(project_path)
+            config_file = project_root / '.iriusrisk' / 'project.json'
+            
+            if not config_file.exists():
+                return json.dumps({
+                    "error": "project not found",
+                    "message": f"❌ No .iriusrisk/project.json found in {project_path}"
+                }, indent=2)
+            
+            with open(config_file, 'r') as f:
+                project_config = json.load(f)
+            
+            project_id = project_config.get('id') or project_config.get('reference_id')
+            if not project_id:
+                return json.dumps({
+                    "error": "invalid project config",
+                    "message": "❌ No project ID found in project.json"
+                }, indent=2)
+            
+            # Get API clients
+            container = get_container()
+            api_client = container.get(ProjectApiClient)
+            
+            # Resolve project ID to UUID
+            project_uuid = resolve_project_id_to_uuid(project_id, api_client)
+            logger.info(f"Resolved project ID {project_id} to UUID {project_uuid}")
+            
+            # Get specialized clients from main client
+            project_client = api_client
+            threat_client = api_client.threat_client if hasattr(api_client, 'threat_client') else None
+            cm_client = api_client.countermeasure_client if hasattr(api_client, 'countermeasure_client') else None
+            
+            if not threat_client or not cm_client:
+                # Get from container if not available through api_client
+                from ..api.threat_client import ThreatApiClient
+                from ..api.countermeasure_client import CountermeasureApiClient
+                threat_client = container.get(ThreatApiClient)
+                cm_client = container.get(CountermeasureApiClient)
+            
+            # Determine comparison mode
+            mode_desc = "Mode 3: Version vs Current" if not target_version else "Mode 4: Version vs Version"
+            logger.info(f"Comparison mode: {mode_desc}")
+            
+            # Use verification context for safe download and cleanup
+            with verification_context(project_path, project_client, threat_client, cm_client) as manager:
+                # Download baseline state
+                baseline_diagram, baseline_threats, baseline_cm = manager.download_baseline_state(
+                    project_uuid, baseline_version
+                )
+                
+                # Download target state
+                target_diagram, target_threats, target_cm = manager.download_target_state(
+                    project_uuid, target_version
+                )
+                
+                # Parse and compare diagrams
+                baseline_diagram_data = parse_diagram_xml(Path(baseline_diagram).read_text())
+                target_diagram_data = parse_diagram_xml(Path(target_diagram).read_text())
+                diagram_diff = compare_diagrams(baseline_diagram_data, target_diagram_data)
+                
+                # Parse and compare threats
+                baseline_threats_data = parse_threats_json(Path(baseline_threats).read_text())
+                target_threats_data = parse_threats_json(Path(target_threats).read_text())
+                threats_diff = compare_threats(baseline_threats_data, target_threats_data)
+                
+                # Parse and compare countermeasures
+                baseline_cm_data = parse_countermeasures_json(Path(baseline_cm).read_text())
+                target_cm_data = parse_countermeasures_json(Path(target_cm).read_text())
+                cm_diff = compare_countermeasures(baseline_cm_data, target_cm_data)
+                
+                # Build structured result
+                result = {
+                    "metadata": {
+                        "comparison_mode": mode_desc,
+                        "baseline_version": baseline_version,
+                        "target_version": target_version or "current",
+                        "project_id": project_uuid
+                    },
+                    "architecture": {
+                        "components": diagram_diff['components'],
+                        "dataflows": diagram_diff['dataflows'],
+                        "trust_zones": diagram_diff['trust_zones']
+                    },
+                    "security": {
+                        "threats": threats_diff,
+                        "countermeasures": cm_diff
+                    },
+                    "summary": {
+                        "architecture_changes": diagram_diff['summary'],
+                        "security_changes": {
+                            "threats_added": len(threats_diff['added']),
+                            "threats_removed": len(threats_diff['removed']),
+                            "threats_modified": len(threats_diff['modified']),
+                            "severity_increases": len(threats_diff['severity_increases']),
+                            "countermeasures_added": len(cm_diff['added']),
+                            "countermeasures_removed": len(cm_diff['removed']),
+                            "countermeasures_modified": len(cm_diff['modified']),
+                            "critical_removals": len(cm_diff['critical_removals'])
+                        },
+                        "risk_indicators": {
+                            "has_critical_removals": len(cm_diff['critical_removals']) > 0,
+                            "has_severity_increases": len(threats_diff['severity_increases']) > 0,
+                            "has_new_components": diagram_diff['summary']['components_added'] > 0
+                        }
+                    }
+                }
+                
+                logger.info("CI/CD verification complete")
+                return json.dumps(result, indent=2)
+                
+        except Exception as e:
+            error_msg = f"❌ CI/CD verification failed: {str(e)}"
+            logger.error(f"MCP ci_cd_verification failed: {e}")
+            return json.dumps({
+                "error": str(e),
+                "message": error_msg
+            }, indent=2)
 
     try:
         logger.info("MCP server initialized successfully")

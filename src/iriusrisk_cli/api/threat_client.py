@@ -72,6 +72,56 @@ class ThreatApiClient(BaseApiClient):
         
         return result
     
+    def get_threats_version(self, 
+                           project_id: str,
+                           version_id: str,
+                           page: int = 0, 
+                           size: int = 20) -> Dict[str, Any]:
+        """Get threats for a specific project version.
+        
+        Args:
+            project_id: Project ID to get threats for
+            version_id: Version UUID
+            page: Page number (0-based)
+            size: Number of items per page
+            
+        Returns:
+            Paged response with threats from the specified version
+        """
+        self.logger.info(f"Retrieving threats for project {project_id}, version {version_id}")
+        
+        params = {
+            'page': page,
+            'size': size,
+            'version': version_id
+        }
+        
+        filter_body = {
+            "filters": {
+                "all": {
+                    "states": ["expose", "partly-mitigate", "mitigate", "hidden"],
+                    "libraries": [],
+                    "componentTags": [],
+                    "currentRisks": [],
+                    "countermeasureProgressRanges": [],
+                    "countermeasureTestStatuses": [],
+                    "weaknessTestStatuses": [],
+                    "components": [],
+                    "useCases": [],
+                    "owners": [],
+                    "customFieldValues": []
+                }
+            }
+        }
+        
+        result = self._make_request('POST', f'/projects/{project_id}/threats/query', params=params, json=filter_body)
+        
+        if result and '_embedded' in result and 'threats' in result['_embedded']:
+            threat_count = len(result['_embedded']['threats'])
+            self.logger.info(f"Retrieved {threat_count} threats from version")
+        
+        return result
+    
     def get_threat(self, project_id: str, threat_id: str) -> Dict[str, Any]:
         """Get a specific threat by ID within a project.
         

@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-01-27
+
+### Added
+
+#### CI/CD Drift Detection
+- **Threat Model Comparison**: New `ci_cd_verification` MCP tool enables AI-powered detection of security drift in CI/CD pipelines
+- **Version-Based Comparison**: Compare threat model versions to identify architectural and security changes
+- **Diagram Comparison**: Parse mxGraph XML diagrams to detect component, dataflow, and trust zone changes
+- **Security Comparison**: Compare threats and countermeasures JSON to identify new threats, severity increases, and countermeasure removals
+- **Structured Diff Output**: Python tool performs all parsing and comparison, returning structured JSON diff for AI interpretation
+- **Verification Manager**: Context manager for safe download, comparison, and cleanup of temporary verification files
+- **Multiple Comparison Modes**: 
+  - Mode 3: Compare specific version against current project state (drift detection)
+  - Mode 4: Compare two versions (historical audit)
+- **AI Guidance**: Comprehensive prompt (`ci_cd_verification.md`) guides AI assistants on interpreting comparison results and generating human-readable reports
+
+#### API Client Extensions
+- **Diagram Content Retrieval**: New `get_diagram_content()` method retrieves diagram XML (mxGraph format) from current project
+- **Version-Specific Diagram**: New `get_diagram_content_version()` method retrieves diagram XML from specific version snapshots
+- **Version-Specific Threats**: New `get_threats_version()` method retrieves threats from specific version snapshots
+- **Version-Specific Countermeasures**: New `get_countermeasures_version()` method retrieves countermeasures from specific version snapshots
+
+#### Utilities
+- **Diagram Comparison** (`utils/diagram_comparison.py`): Parse and compare mxGraph XML diagrams
+- **Threat Comparison** (`utils/threat_comparison.py`): Parse and compare threats/countermeasures JSON
+- **Verification Manager** (`utils/verification_manager.py`): Manage verification workspace, downloads, and cleanup
+
+### Technical Details
+
+**Comparison Workflow:**
+1. Download baseline and target states (diagram XML, threats JSON, countermeasures JSON)
+2. Parse diagram XML to extract components, dataflows, trust zones
+3. Compare baseline vs target to identify added/removed/modified elements
+4. Return structured JSON diff with comprehensive metadata
+
+**Python Tool Responsibilities:**
+- All deterministic operations (downloading, parsing, comparing)
+- XML/JSON parsing and structural comparison
+- Workspace management and cleanup
+
+**AI Assistant Responsibilities:**
+- Interpret structured diff results
+- Assess security implications of changes
+- Generate human-readable reports
+- Make recommendations for security team review
+
+**Use Cases:**
+- PR security review in CI/CD pipelines
+- Drift detection from approved baselines
+- Historical audit of threat model evolution
+- Compliance verification workflows
+
 ## [0.4.0] - 2026-01-26
 
 ### Added

@@ -63,6 +63,58 @@ class CountermeasureApiClient(BaseApiClient):
             self.logger.info(f"Retrieved {countermeasure_count} countermeasures (total: {total_elements})")
         
         return result
+    
+    def get_countermeasures_version(self,
+                                   project_id: str,
+                                   version_id: str,
+                                   page: int = 0,
+                                   size: int = 20) -> Dict[str, Any]:
+        """Get countermeasures for a specific project version.
+        
+        Args:
+            project_id: Project ID to get countermeasures for
+            version_id: Version UUID
+            page: Page number (0-based)
+            size: Number of items per page
+            
+        Returns:
+            Paged response with countermeasures from the specified version
+        """
+        self.logger.info(f"Retrieving countermeasures for project {project_id}, version {version_id}")
+        
+        params = {
+            'page': page,
+            'size': size,
+            'version': version_id
+        }
+
+        filter_body = {
+            "filters": {
+                "all": {
+                    "testResults": [],
+                    "states": [],
+                    "priorities": [],
+                    "testExpiryDateStates": [],
+                    "issueStates": [],
+                    "owners": [],
+                    "tags": [],
+                    "customFieldValues": []
+                },
+                "any": {
+                    "components": [],
+                    "threats": [],
+                    "useCases": []
+                }
+            }
+        }
+
+        result = self._make_request('POST', f'/projects/{project_id}/countermeasures/query', params=params, json=filter_body)
+        
+        if result and '_embedded' in result and 'countermeasures' in result['_embedded']:
+            countermeasure_count = len(result['_embedded']['countermeasures'])
+            self.logger.info(f"Retrieved {countermeasure_count} countermeasures from version")
+        
+        return result
 
     def get_countermeasure(self, project_id: str, countermeasure_id: str) -> Dict[str, Any]:
         """Get a specific countermeasure by ID within a project."""
