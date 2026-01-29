@@ -11,8 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-#### CI/CD Drift Detection
-- **Threat Model Comparison**: New `ci_cd_verification` MCP tool enables AI-powered detection of security drift in CI/CD pipelines
+#### CI/CD Drift Detection - Three-Tool Architecture
+
+**1. `compare_versions` - Pure Comparison Tool**
+- Compare any two threat model versions (or version vs current)
+- Returns structured JSON diff showing architectural and security changes
+- Detects components, dataflows, trust zones, threats, and countermeasures changes
+- Data-focused tool for direct version comparison
+
+**2. `countermeasure_verification` - Control Implementation Checker**
+- Verify security controls are correctly implemented in code
+- Links issue tracker references to countermeasures
+- Guides AI through implementation analysis workflow
+- Updates countermeasure test status (passed/failed) via API
+
+**3. `ci_cd_verification` - Orchestration Workflow**
+- Meta-tool that coordinates comprehensive security reviews
+- Calls compare_versions + countermeasure_verification as needed
+- Provides workflow guidance for CI/CD pipelines
+- Generates unified security reports
 - **Version-Based Comparison**: Compare threat model versions to identify architectural and security changes
 - **Diagram Comparison**: Parse mxGraph XML diagrams to detect component, dataflow, and trust zone changes
 - **Security Comparison**: Compare threats and countermeasures JSON to identify new threats, severity increases, and countermeasure removals
@@ -28,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Version-Specific Diagram**: New `get_diagram_content_version()` method retrieves diagram XML from specific version snapshots
 - **Version-Specific Threats**: New `get_threats_version()` method retrieves threats from specific version snapshots
 - **Version-Specific Countermeasures**: New `get_countermeasures_version()` method retrieves countermeasures from specific version snapshots
+- **Countermeasure Test Updates**: New `update_countermeasure_test()` method updates test status (passed/failed) for control verification
 
 #### Utilities
 - **Diagram Comparison** (`utils/diagram_comparison.py`): Parse and compare mxGraph XML diagrams
@@ -42,21 +60,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 3. Compare baseline vs target to identify added/removed/modified elements
 4. Return structured JSON diff with comprehensive metadata
 
+**Tool Separation:**
+- **compare_versions**: Pure comparison - downloads, parses, diffs, returns structured results
+- **countermeasure_verification**: Control validation - guides AI through implementation verification
+- **ci_cd_verification**: Orchestrator - coordinates full security review workflow
+
 **Python Tool Responsibilities:**
 - All deterministic operations (downloading, parsing, comparing)
 - XML/JSON parsing and structural comparison
-- Workspace management and cleanup
+- Workspace management and file preservation
+- API methods for test status updates
 
 **AI Assistant Responsibilities:**
 - Interpret structured diff results
+- Verify control implementations in code
 - Assess security implications of changes
 - Generate human-readable reports
 - Make recommendations for security team review
 
 **Use Cases:**
-- PR security review in CI/CD pipelines
-- Drift detection from approved baselines
-- Historical audit of threat model evolution
+- **compare_versions**: Direct version comparison, drift detection, historical audits
+- **countermeasure_verification**: PR control verification, security fix validation
+- **ci_cd_verification**: Complete CI/CD security gates, comprehensive pre-deployment reviews
 - Compliance verification workflows
 
 ## [0.4.0] - 2026-01-26
@@ -70,6 +95,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Interactive Scope Prompting**: When connecting to existing projects, users are prompted to define how their repository contributes
 - **OTM Export MCP Tool**: New `export_otm()` MCP tool enables AI assistants to retrieve existing threat models for intelligent merging
 - **Config Scope Support**: `Config.get_project_scope()` method for reading scope definitions
+
+#### Threat Modeling Prompt Improvements
+- **Tag Usage Clarification**: Added comprehensive guidance on proper tag usage in OTM files
+- **Architectural Tags Only**: Clear rules that tags describe architecture/purpose, NOT vulnerabilities
+- **Vulnerability Tag Prohibition**: Explicit examples of what NOT to tag (sql-injection-vulnerable, etc.)
+- **Tag Pollution Prevention**: Guidance prevents AI from cluttering diagrams with vulnerability labels
+- **Updated Prompts**: `create_threat_model.md` and `analyze_source_material.md` with tag best practices
 
 #### AI Workflow Enhancements
 - **Multi-Repo AI Workflows**: AI assistants can now intelligently merge contributions from multiple repositories based on scope definitions

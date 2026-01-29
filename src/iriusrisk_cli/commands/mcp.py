@@ -2034,8 +2034,8 @@ def mcp(cli_ctx):
             return error_msg
     
     @mcp_server.tool()
-    async def ci_cd_verification(baseline_version: str = None, target_version: str = None, project_path: str = None) -> str:
-        """Compare threat model versions to detect security drift in CI/CD pipelines.
+    async def compare_versions(baseline_version: str = None, target_version: str = None, project_path: str = None) -> str:
+        """Compare threat model versions to detect architectural and security changes.
         
         This tool downloads diagram, threats, and countermeasures from specified versions,
         compares them to identify architectural and security changes, and returns a
@@ -2079,7 +2079,7 @@ def mcp(cli_ctx):
                 project_path = str(project_root)
                 logger.info(f"Auto-discovered project at: {project_path}")
             
-            logger.info(f"CI/CD verification started - project_path: {project_path}")
+            logger.info(f"Version comparison started - project_path: {project_path}")
             
             # Validate inputs
             if not baseline_version:
@@ -2237,15 +2237,177 @@ def mcp(cli_ctx):
                     }
                 }
                 
-                logger.info("CI/CD verification complete")
+                logger.info("Version comparison complete")
                 return json.dumps(result, indent=2)
                 
         except Exception as e:
-            error_msg = f"❌ CI/CD verification failed: {str(e)}"
-            logger.error(f"MCP ci_cd_verification failed: {e}")
+            error_msg = f"❌ Version comparison failed: {str(e)}"
+            logger.error(f"MCP compare_versions failed: {e}")
             return json.dumps({
                 "error": str(e),
                 "message": error_msg
+            }, indent=2)
+    
+    @mcp_server.tool()
+    async def countermeasure_verification(issue_references: str = None, project_path: str = None) -> str:
+        """Verify if countermeasures linked to issue tracker tasks are correctly implemented in code.
+        
+        This tool guides AI through control implementation verification by:
+        1. Extracting issue references from git context (branch, commits, PR)
+        2. Finding countermeasures linked to those issues
+        3. Guiding AI to analyze code vs countermeasure requirements
+        4. Providing API to update countermeasure test status
+        
+        This is primarily a WORKFLOW tool - most work is done by AI analysis.
+        
+        Args:
+            issue_references: Optional comma-separated issue IDs (e.g., "PROJ-1234,PROJ-1235")
+                            If not provided, AI should extract from git context
+            project_path: Optional path to project directory (auto-discovered if not provided)
+            
+        Returns:
+            Workflow guidance and countermeasure data for AI to analyze
+        """
+        try:
+            from ..utils.project_discovery import find_project_root
+            from pathlib import Path
+            import json
+            
+            # Auto-discover project if not provided
+            if not project_path:
+                project_root, project_config = find_project_root()
+                if not project_root:
+                    return """❌ Could not find .iriusrisk directory. 
+                    
+Please ensure you're in a project directory or specify project_path."""
+                project_path = str(project_root)
+            
+            logger.info(f"Countermeasure verification - project_path: {project_path}")
+            
+            # Load the countermeasure verification prompt
+            guidance = _load_prompt('countermeasure_verification')
+            
+            # Load current countermeasures if available
+            cm_file = Path(project_path) / '.iriusrisk' / 'countermeasures.json'
+            
+            if cm_file.exists():
+                with open(cm_file, 'r') as f:
+                    cm_data = json.load(f)
+                
+                countermeasures = cm_data.get('_embedded', {}).get('items', [])
+                
+                # Filter by issue references if provided
+                if issue_references:
+                    issue_ids = [ref.strip() for ref in issue_references.split(',')]
+                    linked_cms = [cm for cm in countermeasures 
+                                 if cm.get('issueId') in issue_ids]
+                    
+                    result = {
+                        "guidance": guidance,
+                        "issue_references": issue_ids,
+                        "linked_countermeasures": len(linked_cms),
+                        "countermeasures": linked_cms,
+                        "next_steps": [
+                            "For each countermeasure, analyze the code changes to verify implementation",
+                            "Use update_countermeasure_test_status() to record pass/fail results"
+                        ]
+                    }
+                else:
+                    result = {
+                        "guidance": guidance,
+                        "total_countermeasures": len(countermeasures),
+                        "countermeasures_with_issues": len([cm for cm in countermeasures if cm.get('issueId')]),
+                        "next_steps": [
+                            "Extract issue references from git context (branch name, commits, PR description)",
+                            "Call countermeasure_verification again with issue_references parameter",
+                            "Or manually filter countermeasures and verify implementation"
+                        ]
+                    }
+                
+                return json.dumps(result, indent=2)
+            else:
+                return f"""❌ No countermeasures.json found.
+
+Please run 'sync' first to download countermeasures from IriusRisk.
+
+{guidance}"""
+                
+        except Exception as e:
+            logger.error(f"MCP countermeasure_verification failed: {e}")
+            return json.dumps({
+                "error": str(e),
+                "message": f"❌ Countermeasure verification failed: {str(e)}"
+            }, indent=2)
+    
+    @mcp_server.tool()
+    async def ci_cd_verification(baseline_version: str = None, project_path: str = None) -> str:
+        """Complete CI/CD security verification combining version comparison and control verification.
+        
+        This is an ORCHESTRATOR tool that guides AI through comprehensive security review:
+        1. Compare baseline version against current state (architectural drift)
+        2. Verify countermeasure implementations (if relevant)
+        3. Risk delta analysis
+        4. Generate comprehensive security report
+        
+        This tool provides workflow guidance and calls compare_versions and 
+        countermeasure_verification as needed.
+        
+        Args:
+            baseline_version: Version UUID or name to compare against (optional - AI can determine)
+            project_path: Optional path to project directory (auto-discovered if not provided)
+            
+        Returns:
+            Workflow guidance for comprehensive CI/CD security review
+        """
+        try:
+            # Load the CI/CD verification workflow prompt
+            guidance = _load_prompt('ci_cd_verification')
+            
+            # Build orchestration response
+            result = {
+                "workflow": "ci_cd_verification",
+                "guidance": guidance,
+                "steps": [
+                    {
+                        "step": 1,
+                        "name": "Architectural Drift Detection",
+                        "tool": "compare_versions",
+                        "action": "Compare baseline version against current/PR state",
+                        "parameters": {"baseline_version": baseline_version or "TBD"},
+                        "output": "Structured diff showing architecture and security changes"
+                    },
+                    {
+                        "step": 2,
+                        "name": "Control Implementation Verification",
+                        "tool": "countermeasure_verification",
+                        "action": "Verify countermeasures are correctly implemented",
+                        "condition": "If PR/changes are linked to issue tracker tasks",
+                        "output": "Implementation verification results with test status updates"
+                    },
+                    {
+                        "step": 3,
+                        "name": "Risk Delta Analysis",
+                        "action": "Analyze comparison results for security implications",
+                        "notes": "Interpret structured diff, assess risk changes, identify critical issues"
+                    },
+                    {
+                        "step": 4,
+                        "name": "Generate Report",
+                        "action": "Create human-readable security report",
+                        "output": "Comprehensive security drift report for review"
+                    }
+                ],
+                "baseline_version": baseline_version,
+                "project_path": project_path or "auto-discovered"
+            }
+            
+            return json.dumps(result, indent=2)
+            
+        except Exception as e:
+            logger.error(f"MCP ci_cd_verification failed: {e}")
+            return json.dumps({
+                "error": str(e),
+                "message": f"❌ CI/CD verification failed: {str(e)}"
             }, indent=2)
 
     try:

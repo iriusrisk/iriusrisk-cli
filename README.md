@@ -4,7 +4,7 @@ An AI-powered threat modeling integration that brings IriusRisk security analysi
 
 > :warning: This software has been released IriusRisk Labs as public beta. It is provided as-is, without warranty or guarantee of any kind. Features may change, data structures may evolve, and occasional issues should be expected. Use at your own discretion.
 
-> 🎉 **What's New in v0.4.0**: Multi-repository threat modeling! Multiple repositories can now contribute to a single unified threat model—perfect for microservices, infrastructure-as-code, and distributed architectures. Each repo defines its scope, and AI intelligently merges everything into one comprehensive security view. See [CHANGELOG.md](CHANGELOG.md) for details.
+> 🎉 **What's New in v0.5.0**: CI/CD Security Verification! Three new MCP tools enable AI-powered security drift detection in CI/CD pipelines: **compare_versions** (version comparison), **countermeasure_verification** (control implementation checking), and **ci_cd_verification** (comprehensive security review orchestration). Includes headless automation script for CI/CD integration. See [CHANGELOG.md](CHANGELOG.md) for details.
 
 ## Primary Use Case: AI-Enabled IDE Integration
 
@@ -17,6 +17,10 @@ This tool is designed to work alongside AI assistants in your IDE, enabling:
 
 ## What You Can Do
 
+- **CI/CD Security Verification**: Automated security drift detection in CI/CD pipelines with three specialized tools:
+  - Compare threat model versions to detect architectural and security changes
+  - Verify security control implementations in code
+  - Generate comprehensive security reports for PR reviews and deployments
 - **Multi-Repository Threat Models**: Unite security across microservices, infrastructure, and frontend repos into one comprehensive view
 - **AI-Guided Threat Modeling**: Let AI assistants analyze your code and automatically create threat models
 - **Import/Export Threat Models**: Use OTM (Open Threat Model) format to create and update projects
@@ -202,6 +206,140 @@ When you ask the AI to create or update a threat model, it automatically runs `s
 ### Scope-Based Filtering
 
 AI assistants automatically filter threats, countermeasures, and questionnaires to show only items relevant to your repository's scope. Infrastructure repos see infrastructure threats, application repos see application-level threats, and frontend repos see client-side threats. Each repository stays focused on its own security concerns while contributing to the unified threat model.
+
+## CI/CD Security Verification (v0.5.0)
+
+Automated security drift detection and control verification for CI/CD pipelines. Three specialized MCP tools enable AI-powered security reviews at different stages of your development workflow.
+
+### The Three Tools
+
+**1. `compare_versions` - Version Comparison**
+
+Compare any two threat model versions to detect architectural and security changes. Returns structured JSON diff showing what changed.
+
+```
+# Simple drift detection
+"Compare baseline version to current"
+
+# Historical audit
+"Compare v1.0-approved to v2.0-approved"
+```
+
+**Use when:** Checking for security drift, auditing changes, understanding threat model evolution.
+
+**2. `countermeasure_verification` - Control Implementation Verification**
+
+Verify that security controls linked to issue tracker tasks (Jira, GitHub Issues, etc.) are correctly implemented in code.
+
+```
+# Verify specific issue
+"Verify that PROJ-1234 is correctly implemented"
+
+# Verify all linked controls in PR
+"Check if security controls are properly implemented"
+```
+
+**Use when:** Reviewing PRs that claim to fix security issues, validating control implementations, ensuring countermeasures match code.
+
+**3. `ci_cd_verification` - Comprehensive Security Review**
+
+Orchestrator that coordinates complete security reviews by combining version comparison, control verification, risk analysis, and reporting.
+
+```
+# Full CI/CD security gate
+"Run comprehensive security verification against baseline"
+```
+
+**Use when:** CI/CD pipelines, pre-deployment security gates, comprehensive PR reviews requiring multiple analyses.
+
+### Headless Automation Script
+
+For CI/CD pipelines, use the included `iriusrisk-verification.sh` script:
+
+```bash
+# Run from your project directory
+./iriusrisk-verification.sh --type <verification-type>
+
+# Types:
+# drift          - Detect drift from baseline
+# pr             - Full PR security review  
+# control        - Verify control implementation
+# comprehensive  - Complete security gate
+# audit          - Historical version comparison
+```
+
+**Example CI/CD Integration:**
+
+```yaml
+# .github/workflows/security-check.yml
+name: Security Verification
+on: [pull_request]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Security Verification
+        run: |
+          ./iriusrisk-verification.sh --type pr
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IRIUSRISK_API_TOKEN: ${{ secrets.IRIUSRISK_API_TOKEN }}
+          IRIUSRISK_DOMAIN: release.iriusrisk.com
+```
+
+### What Gets Detected
+
+**Architectural Changes:**
+- Components added, removed, or modified
+- Dataflows added, removed, or modified (including trust boundary crossings)
+- Trust zone changes (components moved between security zones)
+
+**Security Changes:**
+- New threats introduced (with severity levels)
+- Threat severity increases
+- Countermeasures added or removed
+- Critical security control removals
+
+**Control Implementation:**
+- Whether security controls are correctly implemented in code
+- Evidence-based verification with specific file/line references
+- Pass/fail status with detailed reasoning
+
+### Workflow Examples
+
+**Drift Detection:**
+```
+> Compare baseline version to current state
+
+AI will:
+1. Compare versions using compare_versions tool
+2. Identify architectural and security changes
+3. Generate DRIFT_REPORT.md with findings
+```
+
+**PR Security Review:**
+```
+> Run security review of this pull request
+
+AI will:
+1. Analyze current code and create updated OTM
+2. Import OTM to IriusRisk
+3. Compare against baseline version
+4. Generate PR_REPORT.md with security assessment
+```
+
+**Control Verification:**
+```
+> Verify that PROJ-1234 is correctly implemented
+
+AI will:
+1. Find countermeasure linked to PROJ-1234
+2. Analyze code changes
+3. Verify implementation matches requirement
+4. Generate CONTROL_VERIFICATION_REPORT.md with pass/fail status
+```
 
 # Using the CLI
 

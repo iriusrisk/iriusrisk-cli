@@ -219,3 +219,37 @@ class CountermeasureApiClient(BaseApiClient):
         else:
             # Use single countermeasure API (uses project's default issue tracker)
             return self._make_request('POST', f'/projects/countermeasures/{countermeasure_id}/create-issue', json={})
+    
+    def update_countermeasure_test(self, test_id: str, test_result: str, 
+                                   result_source: str = "script",
+                                   steps: Optional[str] = None,
+                                   notes: Optional[str] = None,
+                                   expiry_date: Optional[str] = None) -> Dict[str, Any]:
+        """Update the test status of a countermeasure.
+        
+        Args:
+            test_id: Test UUID (from countermeasure._links.test.href)
+            test_result: Test result - "passed", "failed", "error", "not-tested", "not-applicable", "partially-tested"
+            result_source: Source of test result - "manual", "script", "junit", "owaspzap", etc. (default: "script")
+            steps: Optional steps taken to verify the control
+            notes: Optional detailed notes about the verification
+            expiry_date: Optional expiry date in ISO format (e.g., "2026-02-01T00:00:00Z")
+            
+        Returns:
+            Updated test response
+        """
+        self.logger.info(f"Updating countermeasure test {test_id} to '{test_result}'")
+        
+        body = {
+            "testResult": test_result,
+            "resultSource": result_source
+        }
+        
+        if steps:
+            body["steps"] = steps
+        if notes:
+            body["notes"] = notes
+        if expiry_date:
+            body["expiryDate"] = expiry_date
+        
+        return self._make_request('PUT', f'/projects/countermeasures/tests/{test_id}', json=body)

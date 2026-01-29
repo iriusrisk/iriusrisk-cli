@@ -171,11 +171,29 @@
       "returns": {"type": "string"}
     },
     {
-      "name": "ci_cd_verification",
-      "description": "Compare threat model versions to detect security drift in CI/CD pipelines. Returns structured JSON diff showing architectural and security changes.",
+      "name": "compare_versions",
+      "description": "Compare threat model versions to detect architectural and security changes. Returns structured JSON diff showing components, dataflows, threats, and countermeasures that changed.",
       "parameters": [
         {"name": "baseline_version", "type": "string", "required": true, "description": "Version UUID or name to use as baseline"},
         {"name": "target_version", "type": "string", "required": false, "description": "Optional version UUID to compare against (uses current if not provided)"},
+        {"name": "project_path", "type": "string", "required": false, "description": "Optional path to project directory (auto-discovered if not provided)"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "countermeasure_verification",
+      "description": "Verify if countermeasures linked to issue tracker tasks are correctly implemented in code. Guides AI through control implementation analysis and test status updates.",
+      "parameters": [
+        {"name": "issue_references", "type": "string", "required": false, "description": "Optional comma-separated issue IDs (extracted from git if not provided)"},
+        {"name": "project_path", "type": "string", "required": false, "description": "Optional path to project directory (auto-discovered if not provided)"}
+      ],
+      "returns": {"type": "string"}
+    },
+    {
+      "name": "ci_cd_verification",
+      "description": "Complete CI/CD security verification orchestrator. Guides AI through comprehensive review: version comparison, control verification, risk analysis, and report generation.",
+      "parameters": [
+        {"name": "baseline_version", "type": "string", "required": false, "description": "Optional baseline version (AI can determine from context)"},
         {"name": "project_path", "type": "string", "required": false, "description": "Optional path to project directory (auto-discovered if not provided)"}
       ],
       "returns": {"type": "string"}

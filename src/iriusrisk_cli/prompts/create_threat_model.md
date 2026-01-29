@@ -679,6 +679,156 @@ The project.id is the ONLY field that must never be modified when updating. Trea
 
 **Why:** IriusRisk automatically generates all threats and controls after OTM import.
 
+## 🚨 CRITICAL: Tags in OTM - Architecture ONLY, NOT Vulnerabilities
+
+**Tags are for ARCHITECTURAL categorization, NOT for documenting vulnerabilities you find in code.**
+
+### What Tags Are For
+
+Tags describe the **purpose, function, or data sensitivity** of components and dataflows in the architecture:
+
+```yaml
+# ✅ CORRECT - Architectural/functional tags
+components:
+  - id: "payment-api"
+    name: "Payment Service"
+    type: "CD-V2-WEB-SERVICE"
+    tags:
+      - "pci-dss-scope"           # Compliance scope
+      - "payment-processing"      # Business function
+      - "customer-data"           # Data sensitivity
+      - "high-availability"       # Operational requirement
+      - "public-facing"           # Exposure level
+
+dataflows:
+  - id: "app-to-payment"
+    source: "web-app"
+    destination: "payment-api"
+    tags:
+      - "credit-card-data"        # Data type flowing
+      - "encrypted-in-transit"    # Security control present
+      - "pci-dss-boundary"        # Compliance boundary
+```
+
+### What Tags Are NOT For
+
+**❌ NEVER use tags to document vulnerabilities or security flaws you find in code:**
+
+```yaml
+# ❌ WRONG - Vulnerability tags (DO NOT DO THIS)
+components:
+  - id: "flask-app"
+    name: "Flask API"
+    type: "CD-V2-WEB-SERVICE"
+    tags:
+      - "sql-injection-vulnerable"      # ❌ This is a THREAT, not architecture
+      - "insecure-deserialization"      # ❌ This is a VULNERABILITY
+      - "command-injection-vulnerable"  # ❌ This is a SECURITY FLAW
+      - "sensitive-data-exposure"       # ❌ This is a WEAKNESS
+
+dataflows:
+  - id: "app-to-db"
+    source: "flask-app"
+    destination: "database"
+    tags:
+      - "sql-injection-vulnerable"   # ❌ NO! This is a threat
+      - "no-parameterization"        # ❌ NO! This is an implementation flaw
+      - "arbitrary-code-execution"   # ❌ NO! This is a vulnerability
+```
+
+### Why This Matters
+
+1. **IriusRisk identifies vulnerabilities** - The threat library contains thousands of threats based on component types and patterns. Your job is to model the architecture correctly, and IriusRisk will identify the relevant threats.
+
+2. **Tags clutter the diagram** - Vulnerability tags appear as labels on the diagram, making it unreadable and unprofessional.
+
+3. **Mixes concerns** - The OTM describes "what is" (architecture), not "what's wrong" (threats). Threats come from IriusRisk's rules engine after import.
+
+4. **Makes threat modeling subjective** - Different analysts would add different vulnerability tags. The architecture should be objective.
+
+5. **Defeats the purpose** - If you manually tag all vulnerabilities, why use IriusRisk's automated threat detection?
+
+### When You Find Vulnerabilities in Code
+
+**If you notice vulnerabilities while analyzing source code (SQL injection, weak crypto, etc.):**
+
+1. ✅ **DO** model the architecture accurately (component types, data flows)
+2. ✅ **DO** use appropriate component types that will trigger threat detection (e.g., `CD-V2-WEB-SERVICE` for SQL injection prone components)
+3. ✅ **DO** note code issues in your analysis comments or report to the user
+4. ❌ **DO NOT** add vulnerability tags to the OTM
+5. ❌ **DO NOT** try to manually enumerate threats in the architecture
+
+**Trust IriusRisk to find the threats based on your accurate architecture modeling.**
+
+### Good Tag Examples
+
+**Architectural purpose:**
+- `authentication-service`
+- `payment-processing`
+- `user-registration`
+- `admin-functionality`
+
+**Data sensitivity:**
+- `pii-processing`
+- `financial-data`
+- `health-records`
+- `customer-data`
+
+**Compliance scope:**
+- `pci-dss-scope`
+- `hipaa-scope`
+- `gdpr-relevant`
+- `sox-controls`
+
+**Operational characteristics:**
+- `public-facing`
+- `internal-only`
+- `high-availability`
+- `batch-processing`
+
+**Network exposure:**
+- `internet-accessible`
+- `vpn-only`
+- `private-network`
+
+### Bad Tag Examples (NEVER USE)
+
+**Vulnerability/weakness tags:**
+- ❌ `sql-injection-vulnerable`
+- ❌ `xss-vulnerable`
+- ❌ `insecure-deserialization`
+- ❌ `command-injection`
+- ❌ `weak-crypto`
+- ❌ `hardcoded-credentials`
+
+**Implementation flaw tags:**
+- ❌ `no-parameterization`
+- ❌ `no-validation`
+- ❌ `unauthenticated`
+- ❌ `unencrypted`
+- ❌ `pickle-serialization`
+
+**Security finding tags:**
+- ❌ `ssrf-vulnerable`
+- ❌ `csrf-vulnerable`
+- ❌ `arbitrary-code-execution`
+- ❌ `untrusted-input`
+- ❌ `sensitive-data-exposure`
+
+### Rule of Thumb
+
+**Ask yourself: "Is this tag describing WHAT the component IS, or WHAT'S WRONG with it?"**
+
+- If it describes **what it is** → ✅ Good tag
+- If it describes **what's wrong** → ❌ Bad tag (let IriusRisk find the vulnerability)
+
+### Summary
+
+**Tags = Architecture categorization**  
+**Threats = IriusRisk's job**
+
+Do not conflate these. Model the architecture accurately, use meaningful architectural tags, and trust IriusRisk to identify all the vulnerabilities.
+
 ## Required Workflow Checklist
 
 **🚨 VALIDATION RULE - READ THIS FIRST:**

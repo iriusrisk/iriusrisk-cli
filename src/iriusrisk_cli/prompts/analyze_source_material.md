@@ -79,6 +79,87 @@ Create ONE unified threat model including ALL components from ALL source types. 
 **Do NOT:** Identify vulnerabilities, threats, security flaws, or speculate about weaknesses  
 **Why:** IriusRisk performs all security analysis automatically
 
+## 🚨 CRITICAL: Tags Are For Architecture, NOT Vulnerabilities
+
+When analyzing source code, you will inevitably notice security issues (SQL injection, weak crypto, etc.). **DO NOT add these as tags to components or dataflows.**
+
+### ✅ CORRECT Tag Usage - Architectural Categorization
+
+**Tags describe the NATURE and PURPOSE of components:**
+
+```yaml
+components:
+  - id: "payment-api"
+    name: "Payment Service"
+    tags:
+      - "payment-processing"      # ✅ Business function
+      - "pci-dss-scope"          # ✅ Compliance relevance
+      - "customer-data"          # ✅ Data sensitivity
+      - "public-facing"          # ✅ Network exposure
+
+dataflows:
+  - id: "app-to-payment"
+    source: "app"
+    destination: "payment-api"
+    tags:
+      - "credit-card-data"       # ✅ Data type
+      - "encrypted"              # ✅ Protection status
+```
+
+### ❌ WRONG Tag Usage - Vulnerability Documentation
+
+**NEVER add tags for vulnerabilities you find in code:**
+
+```yaml
+# ❌ DO NOT DO THIS - Even if you find these issues in source code
+components:
+  - id: "flask-app"
+    tags:
+      - "sql-injection-vulnerable"      # ❌ NO! This is a threat
+      - "insecure-deserialization"      # ❌ NO! This is a vulnerability
+      - "command-injection"             # ❌ NO! Security flaw
+      - "weak-crypto"                   # ❌ NO! Implementation issue
+
+dataflows:
+  - id: "app-to-db"
+    tags:
+      - "no-parameterization"           # ❌ NO! Implementation flaw
+      - "unauthenticated"               # ❌ NO! Security weakness
+      - "arbitrary-code-execution"      # ❌ NO! Vulnerability
+```
+
+### Why This Rule Exists
+
+1. **IriusRisk finds vulnerabilities** - Its threat library identifies these based on component types
+2. **Tags clutter diagrams** - Vulnerability labels make the diagram unreadable
+3. **Defeats automation** - If you manually tag all issues, why use IriusRisk?
+4. **Mixes concerns** - OTM = architecture (what IS), Threats = security analysis (what's WRONG)
+
+### What To Do When You Find Vulnerabilities
+
+**When analyzing code and you notice security issues:**
+
+1. ✅ Model the architecture accurately (use correct component types)
+2. ✅ Use architectural tags (purpose, data type, compliance scope)
+3. ✅ Trust IriusRisk to detect the vulnerabilities
+4. ✅ Note code issues separately (mention in your summary to user)
+5. ❌ DO NOT add vulnerability tags to OTM
+
+**Example:**
+```
+You find SQL injection in app.py line 73.
+- ✅ DO: Model it as CD-V2-WEB-SERVICE with database dataflow
+- ✅ DO: Mention "Found SQL injection at line 73" in your analysis summary
+- ❌ DON'T: Add "sql-injection-vulnerable" tag to the component
+- IriusRisk will automatically flag SQL injection threats for web services with database connections
+```
+
+### Rule of Thumb
+
+**Before adding a tag, ask: "Does this describe WHAT the component IS or WHAT'S WRONG with it?"**
+- Describes what it is → ✅ Good architectural tag
+- Describes what's wrong → ❌ Bad tag (let IriusRisk find it)
+
 ## Component Types to Extract
 
 ### 1. Application/Functional Components
