@@ -132,3 +132,5 @@ dmypy.json
 logs/
 data/
 .iriusrisk/verification/
+
+.notes/

@@ -508,6 +508,104 @@ Testing connection to IriusRisk...
 
 If the test fails, it will provide specific error information to help you troubleshoot configuration issues.
 
+## TLS/SSL Certificate Configuration
+
+### Corporate Environments with TLS Interception
+
+If you're in a corporate environment with TLS interception (web proxies/firewalls that replace SSL certificates), you may encounter certificate verification errors:
+
+```
+SSLError: [SSL: CERTIFICATE_VERIFY_FAILED]
+```
+
+The CLI supports multiple methods to handle this:
+
+#### Option 1: CLI Flags (Easiest)
+
+Use CLI flags on any command:
+
+**Use Custom CA Bundle (Recommended):**
+```bash
+iriusrisk --ca-bundle /path/to/corporate-ca.crt projects list
+iriusrisk --ca-bundle C:\certs\corporate-ca.crt test
+```
+
+**Disable SSL Verification (Testing Only):**
+```bash
+iriusrisk --no-tls-verify projects list
+```
+
+⚠️ **WARNING: `--no-tls-verify` disables security and should only be used for testing/debugging.**
+
+#### Option 2: Environment Variables
+
+Set once per session or permanently:
+
+```bash
+# Linux/Mac
+export IRIUS_CA_BUNDLE=/path/to/corporate-ca.crt
+
+# Windows (Command Prompt)
+set IRIUS_CA_BUNDLE=C:\certs\corporate-ca.crt
+
+# Windows (PowerShell)
+$env:IRIUS_CA_BUNDLE = "C:\certs\corporate-ca.crt"
+
+# To disable verification (testing only)
+export IRIUS_VERIFY_SSL=false
+```
+
+#### Option 3: User Config File (Permanent)
+
+Edit `~/.iriusrisk/config.json`:
+
+```json
+{
+  "hostname": "your-iriusrisk-server",
+  "api_token": "your-api-token",
+  "ca_bundle": "/path/to/corporate-ca.crt"
+}
+```
+
+#### Option 4: Project .env File
+
+Create `.env` in your project directory:
+
+```bash
+IRIUS_CA_BUNDLE=/path/to/corporate-ca.crt
+```
+
+#### Getting Your Corporate CA Certificate
+
+**Windows:**
+1. Open Certificate Manager: Press `Windows Key + R`, type `certmgr.msc`, press Enter
+2. Navigate to: **Trusted Root Certification Authorities** → **Certificates**
+3. Find your corporate CA certificate (ask IT if unsure)
+4. Right-click → **All Tasks** → **Export**
+5. Choose **Base-64 encoded X.509 (.CER)**
+6. Save to a file (e.g., `C:\certs\corporate-ca.crt`)
+
+**Linux/Mac:**
+Your IT department should provide the certificate, or it may be in `/etc/ssl/certs/`.
+
+#### Standard Environment Variables
+
+The CLI also respects standard certificate environment variables:
+- `REQUESTS_CA_BUNDLE`
+- `CURL_CA_BUNDLE`
+- `SSL_CERT_FILE`
+
+These work the same as `IRIUS_CA_BUNDLE` and are checked automatically.
+
+#### Configuration Priority
+
+TLS settings are resolved in this order (highest to lowest):
+1. CLI flags (`--no-tls-verify`, `--ca-bundle`)
+2. Environment variables (`IRIUS_VERIFY_SSL`, `IRIUS_CA_BUNDLE`)
+3. Standard env vars (`REQUESTS_CA_BUNDLE`, `CURL_CA_BUNDLE`, `SSL_CERT_FILE`)
+4. `.env` file in project directory
+5. `~/.iriusrisk/config.json` user config
+
 ## Getting help
 
 Users can get help using the following commands:

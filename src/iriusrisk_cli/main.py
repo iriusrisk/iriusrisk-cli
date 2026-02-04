@@ -25,8 +25,10 @@ from .commands.versions import versions
 @click.option('--quiet', '-q', is_flag=True, help='Suppress non-essential output')
 @click.option('--log-file', type=click.Path(), help='Write logs to specified file')
 @click.option('--log-level', type=click.Choice(['DEBUG', 'INFO', 'WARN', 'ERROR'], case_sensitive=False), help='Set log level')
+@click.option('--no-tls-verify', is_flag=True, help='Disable SSL certificate verification (insecure, for testing only)')
+@click.option('--ca-bundle', type=click.Path(exists=True), help='Path to custom CA certificate bundle')
 @click.pass_context
-def cli(ctx, version, verbose, debug, quiet, log_file, log_level):
+def cli(ctx, version, verbose, debug, quiet, log_file, log_level, no_tls_verify, ca_bundle):
     """IriusRisk CLI - A command line interface for IriusRisk API v2.
     
     This tool enables developers and security engineers to integrate 
@@ -75,6 +77,11 @@ def cli(ctx, version, verbose, debug, quiet, log_file, log_level):
             'quiet': quiet,
             'log_file': resolved_log_file,
             'log_level': log_level
+        }
+        # Store TLS config in context for Config class to access
+        ctx.obj.tls_config = {
+            'no_tls_verify': no_tls_verify,
+            'ca_bundle': ca_bundle
         }
         # Register cleanup function to run on exit
         atexit.register(cleanup_cli_context)

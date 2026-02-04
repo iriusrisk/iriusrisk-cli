@@ -278,6 +278,89 @@ class Config:
                 workspace_paths.append(Path(value))
         
         return workspace_paths
+    
+    @property
+    def verify_ssl(self) -> bool:
+        """Get SSL verification setting from cascading configuration sources.
+        
+        Priority order (highest to lowest):
+        1. --no-tls-verify CLI flag
+        2. IRIUS_VERIFY_SSL environment variable
+        3. .env file in project directory
+        4. verify_ssl in ~/.iriusrisk/config.json
+        
+        Returns:
+            True to verify SSL certificates (default), False to disable verification
+        """
+        # Check CLI flag first (if available)
+        try:
+            import click
+            ctx = click.get_current_context(silent=True)
+            if ctx and ctx.obj and hasattr(ctx.obj, 'tls_config'):
+                if ctx.obj.tls_config.get('no_tls_verify'):
+                    return False
+        except (RuntimeError, AttributeError):
+            pass
+        
+        # Check environment variable
+        env_value = os.getenv('IRIUS_VERIFY_SSL')
+        if env_value is not None:
+            # Handle common truthy/falsy strings
+            return env_value.lower() not in ('false', '0', 'no', 'off', 'disabled')
+        
+        # Check user config
+        user_config = self._get_user_config()
+        if user_config and 'verify_ssl' in user_config:
+            return bool(user_config['verify_ssl'])
+        
+        # Default to True (verify SSL)
+        return True
+    
+    @property
+    def ca_bundle(self) -> Optional[str]:
+        """Get CA bundle path from cascading configuration sources.
+        
+        Priority order (highest to lowest):
+        1. --ca-bundle CLI flag
+        2. IRIUS_CA_BUNDLE environment variable
+        3. REQUESTS_CA_BUNDLE environment variable (standard)
+        4. CURL_CA_BUNDLE environment variable (standard)
+        5. SSL_CERT_FILE environment variable (standard)
+        6. .env file in project directory
+        7. ca_bundle in ~/.iriusrisk/config.json
+        
+        Returns:
+            Path to CA bundle file, or None to use system default
+        """
+        # Check CLI flag first (if available)
+        try:
+            import click
+            ctx = click.get_current_context(silent=True)
+            if ctx and ctx.obj and hasattr(ctx.obj, 'tls_config'):
+                cli_ca_bundle = ctx.obj.tls_config.get('ca_bundle')
+                if cli_ca_bundle:
+                    return cli_ca_bundle
+        except (RuntimeError, AttributeError):
+            pass
+        
+        # Check IriusRisk-specific environment variable
+        ca_bundle = os.getenv('IRIUS_CA_BUNDLE')
+        if ca_bundle:
+            return ca_bundle
+        
+        # Check standard environment variables that requests library uses
+        for env_var in ['REQUESTS_CA_BUNDLE', 'CURL_CA_BUNDLE', 'SSL_CERT_FILE']:
+            ca_bundle = os.getenv(env_var)
+            if ca_bundle:
+                return ca_bundle
+        
+        # Check user config
+        user_config = self._get_user_config()
+        if user_config and 'ca_bundle' in user_config:
+            return user_config['ca_bundle']
+        
+        # No custom CA bundle configured
+        return None
 
 
 def save_user_config(hostname: Optional[str] = None, api_token: Optional[str] = None) -> None:

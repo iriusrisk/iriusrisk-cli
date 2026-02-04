@@ -38,6 +38,26 @@ class BaseApiClient:
         # Set up logging
         self.logger = logging.getLogger(f"iriusrisk_cli.api.{self.__class__.__name__}")
         
+        # Configure SSL/TLS verification
+        self.verify_ssl = config.verify_ssl
+        self.ca_bundle = config.ca_bundle
+        
+        # Log SSL configuration
+        if not self.verify_ssl:
+            self.logger.warning(
+                "⚠️  SSL CERTIFICATE VERIFICATION IS DISABLED ⚠️\n"
+                "This is insecure and should only be used for testing/debugging.\n"
+                "Your connection is vulnerable to man-in-the-middle attacks."
+            )
+        elif self.ca_bundle:
+            self.logger.info(f"Using custom CA bundle: {self.ca_bundle}")
+            # Validate CA bundle file exists
+            if not Path(self.ca_bundle).exists():
+                raise ValueError(
+                    f"CA bundle file not found: {self.ca_bundle}\n"
+                    "Please verify the path is correct and the file exists."
+                )
+        
         # Set up response logging
         self.log_responses = os.getenv('IRIUS_LOG_RESPONSES', '').lower() in ('true', '1', 'yes')
         if self.log_responses:
@@ -64,6 +84,19 @@ class BaseApiClient:
                 sanitized[key] = value
         
         return sanitized
+    
+    def _get_verify_param(self):
+        """Get the verify parameter for requests.
+        
+        Returns:
+            False to disable verification, path to CA bundle, or True for default
+        """
+        if not self.verify_ssl:
+            return False
+        elif self.ca_bundle:
+            return self.ca_bundle
+        else:
+            return True
     
     def _should_retry(self, response: requests.Response, attempt: int, max_retries: int = 3) -> bool:
         """Determine if a request should be retried based on response.
@@ -133,6 +166,10 @@ class BaseApiClient:
                 # Add default timeout if not specified
                 if 'timeout' not in kwargs:
                     kwargs['timeout'] = 30
+                
+                # Add SSL verification setting if not explicitly provided
+                if 'verify' not in kwargs:
+                    kwargs['verify'] = self._get_verify_param()
                 
                 if attempt > 1:
                     self.logger.info(f"Retry attempt {attempt}/{max_retries} for {method} {endpoint}")
@@ -365,6 +402,9 @@ class BaseApiClient:
             # Add default timeout if not specified
             if 'timeout' not in kwargs:
                 kwargs['timeout'] = 30
+            # Add SSL verification setting if not explicitly provided
+            if 'verify' not in kwargs:
+                kwargs['verify'] = self._get_verify_param()
             response = self.session.request(method, url, **kwargs)
             response_time = time.time() - start_time
             
@@ -427,6 +467,9 @@ class BaseApiClient:
             # Add default timeout if not specified
             if 'timeout' not in kwargs:
                 kwargs['timeout'] = 30
+            # Add SSL verification setting if not explicitly provided
+            if 'verify' not in kwargs:
+                kwargs['verify'] = self._get_verify_param()
             response = self.session.request(method, url, **kwargs)
             response_time = time.time() - start_time
             

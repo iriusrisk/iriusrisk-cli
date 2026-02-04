@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-02-04
+
+### Added
+
+#### TLS/SSL Certificate Configuration
+
+- **Custom CA Bundle Support**: Configure custom CA certificate bundles for corporate/intercepted TLS environments
+- **SSL Verification Control**: Option to disable SSL verification for testing/debugging (with security warnings)
+- **Multiple Configuration Methods**:
+  - **CLI flags**: `--ca-bundle PATH`, `--no-tls-verify` (easiest for one-off commands)
+  - Environment variables: `IRIUS_VERIFY_SSL`, `IRIUS_CA_BUNDLE`
+  - Standard env vars: `REQUESTS_CA_BUNDLE`, `CURL_CA_BUNDLE`, `SSL_CERT_FILE`
+  - User config: `~/.iriusrisk/config.json` with `verify_ssl` and `ca_bundle` fields
+  - `.env` file support in project directory
+- **Cascading Configuration**: Settings follow standard Config class cascade (CLI flags → env vars → user config)
+- **Security Warnings**: Prominent warnings logged when SSL verification is disabled
+- **CA Bundle Validation**: Automatic validation that CA bundle files exist before use
+- **Cross-Platform Support**: Works on Windows, Linux, and macOS
+
+**Usage Examples**:
+```bash
+# Using CLI flags (easiest)
+iriusrisk --ca-bundle /path/to/corporate-ca.crt projects list
+iriusrisk --no-tls-verify test  # Testing only!
+
+# Using environment variables
+export IRIUS_CA_BUNDLE=/path/to/corporate-ca.crt
+iriusrisk projects list
+
+# Using .env file
+echo "IRIUS_CA_BUNDLE=/path/to/corporate-ca.crt" >> .env
+iriusrisk projects list
+```
+
+**User Config Example** (`~/.iriusrisk/config.json`):
+```json
+{
+  "hostname": "iriusrisk.example.com",
+  "api_token": "your-token",
+  "ca_bundle": "/path/to/corporate-ca.crt",
+  "verify_ssl": true
+}
+```
+
 ## [0.5.1] - 2026-02-04
 
 Updated create_threat_model prompt to ignore deprecated components by default.
