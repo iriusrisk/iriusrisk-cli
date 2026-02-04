@@ -575,7 +575,11 @@ dataflows:
 
 ## Critical Error #2: Component Types Must Use COMPLETE, EXACT referenceId
 
-**Most common component mapping failure:** Abbreviating, truncating, or INVENTING the referenceId instead of using the complete string from components.json.
+**Most common component mapping failure:** Using deprecated components, or abbreviating/truncating/inventing the referenceId instead of using the complete string from components.json.
+
+**🚨 ABSOLUTE RULE: Filter out deprecated components when parsing components.json (40% of components are deprecated):**
+- Skip if `category.name === "Deprecated"`
+- Skip if `name` starts with `"Deprecated - "`
 
 **🚨 ABSOLUTE RULE: EVERY component type MUST exist in `.iriusrisk/components.json`. If it's not in that file, you CANNOT use it.**
 
@@ -1214,7 +1218,21 @@ dataflows:
   parent:
     component: "load-balancer"  # WRONG
 
-# ❌ WRONG #7: Abbreviated or truncated component type
+# ❌ WRONG #7: Using deprecated component (VERY COMMON - 40% are deprecated!)
+- id: "my-webapp"
+  type: "microsoft-azure-web-apps"  # ❌ Deprecated component
+  # In components.json this has:
+  # "name": "Deprecated - Azure Web Apps"
+  # "category": {"name": "Deprecated"}
+
+# ✅ CORRECT: Use active, non-deprecated component
+- id: "my-webapp"  
+  type: "CD-V2-AZURE-WEB-APPS"  # ✅ Active version
+  # In components.json this has:
+  # "name": "Azure Web Apps" (no "Deprecated -" prefix)
+  # "category": {"name": "Microsoft Azure"}
+
+# ❌ WRONG #8: Abbreviated or truncated component type
 - id: "my-waf"
   type: "CD-V2-AWS-WAF"  # ❌ Truncated - missing rest of referenceId
 
@@ -1269,11 +1287,17 @@ dataflows:
 **Mapping and Validation Process (FOLLOW EVERY STEP):**
 1. **Open `.iriusrisk/components.json`** in your editor/viewer
 2. **For each component** you identified in Step 1, search the file for keywords (e.g., "WAF", "database", "ECS", "lambda")
-3. **Find the matching component entry** - Read the `name` field to confirm it's what you need
-4. **Copy the ENTIRE `referenceId` field value** - Do not modify, abbreviate, truncate, or invent anything
-5. **Paste it exactly** as the `type` in your OTM component
-6. **If no match found** - Use a generic component type OR ask the user - **DO NOT invent a type**
-7. **Double-check** - Before moving to next component, verify you copied from the file (not from memory/pattern)
+3. **FILTER OUT DEPRECATED COMPONENTS** - Skip any component where:
+   ```
+   component["category"]["name"] == "Deprecated" OR
+   component["name"].startswith("Deprecated - ")
+   ```
+   Note: ~40% of components are deprecated. If you find a deprecated match, keep searching for an active alternative.
+4. **Find the matching ACTIVE component entry** - Read the `name` field to confirm it's what you need
+5. **Copy the ENTIRE `referenceId` field value** - Do not modify, abbreviate, truncate, or invent anything
+6. **Paste it exactly** as the `type` in your OTM component
+7. **If no active match found** - Use a generic component type OR ask the user - **DO NOT invent a type or use deprecated**
+8. **Double-check** - Before moving to next component, verify you copied from the file (not from memory/pattern)
 
 **VALIDATION CHECKPOINT:** Before proceeding to Step 5, go through your OTM and verify you can find EVERY component type in components.json. If you can't find it, you must change it.
 
@@ -1512,9 +1536,10 @@ When user requests, call **sync(project_path)** again to download:
 
 **Component Type Validation (MOST COMMON FAILURE):**
 - ☐ **Opened and read `.iriusrisk/components.json`**
-- ☐ **For EVERY component in OTM: Searched components.json for the type**
+- ☐ **Filtered out deprecated components** (category.name !== "Deprecated" AND name does NOT start with "Deprecated - ")
+- ☐ **For EVERY component in OTM: Searched components.json for ACTIVE (non-deprecated) type**
 - ☐ **For EVERY component in OTM: Verified COMPLETE referenceId exists** (not abbreviated, not invented)
-- ☐ **If component type not found: Used generic alternative or asked user** (did NOT invent)
+- ☐ **If component type not found: Used generic alternative or asked user** (did NOT invent or use deprecated)
 
 **Trust Zone Validation (SECOND MOST COMMON FAILURE):**
 - ☐ **Opened and read `.iriusrisk/trust-zones.json`**
@@ -1548,19 +1573,23 @@ When user requests, call **sync(project_path)** again to download:
 - AI role: Architecture modeling only
 - IriusRisk role: Threat identification and security analysis (automatic)
 - **TOP ERRORS TO AVOID (IN ORDER OF FREQUENCY):**
-  1. **Inventing component types** - EVERY component type MUST exist in components.json - Open the file and verify BEFORE using!
-  2. **Inventing trust zone IDs** - EVERY trust zone ID MUST exist in trust-zones.json - Open the file and verify BEFORE using!
-  3. **Abbreviating component referenceIds** - Use COMPLETE string from components.json (e.g., "CD-V2-AWS-WAF-WEB-APPLICATION-FIREWALL" not "CD-V2-AWS-WAF")
-  4. **Assuming components exist** - Never assume - always validate in components.json
-  5. **Components without parents** - Every component MUST have trustZone or component parent
-  6. **Referencing non-existent components** - All parent/dataflow component IDs must exist in OTM
-  7. **Using trust zone IDs in dataflows** - Dataflows connect components only
+  1. **Using deprecated components** - Filter: category.name !== "Deprecated" AND name does NOT start with "Deprecated - " (~40% are deprecated!)
+  2. **Inventing component types** - EVERY component type MUST exist in components.json - Open the file and verify BEFORE using!
+  3. **Inventing trust zone IDs** - EVERY trust zone ID MUST exist in trust-zones.json - Open the file and verify BEFORE using!
+  4. **Abbreviating component referenceIds** - Use COMPLETE string from components.json (e.g., "CD-V2-AWS-WAF-WEB-APPLICATION-FIREWALL" not "CD-V2-AWS-WAF")
+  5. **Assuming components exist** - Never assume - always validate in components.json
+  6. **Components without parents** - Every component MUST have trustZone or component parent
+  7. **Referencing non-existent components** - All parent/dataflow component IDs must exist in OTM
+  8. **Using trust zone IDs in dataflows** - Dataflows connect components only
 - **MANDATORY PRE-SUBMISSION VALIDATION (DO NOT SKIP):**
   1. **Open components.json** - For EVERY component type in your OTM, search the file and verify exact referenceId exists
-  2. **Open trust-zones.json** - For EVERY trust zone ID in your OTM, verify exact UUID exists in the file
-  3. **If not found** - DO NOT use that component/trust zone - find alternative or ask user
-  4. List all component IDs defined in your OTM
-  5. Verify every parent component reference is in that list
-  6. Verify every dataflow source/destination is in that list
+  2. **Filter deprecated** - Verify NO components have category.name="Deprecated" or name starting with "Deprecated - "
+  3. **Open trust-zones.json** - For EVERY trust zone ID in your OTM, verify exact UUID exists in the file
+  4. **If not found or deprecated** - DO NOT use that component/trust zone - find active alternative or ask user
+  5. List all component IDs defined in your OTM
+  6. Verify every parent component reference is in that list
+  7. Verify every dataflow source/destination is in that list
   
-**Validation is not optional - it is THE MOST CRITICAL step. 80% of OTM import failures are due to invented/invalid component types or trust zone IDs.**
+**Validation is not optional - it is THE MOST CRITICAL step. 80% of OTM import failures are due to:**
+1. **Using deprecated components** (40% of components are deprecated - MUST filter them out)
+2. **Invented/invalid component types or trust zone IDs**
