@@ -12,6 +12,12 @@ from ..api_client import IriusRiskApiClient
 from ..config import Config
 from ..utils.project import resolve_project_id, get_project_context_info
 from ..services.version_service import VersionService
+from ..utils.otm_utils import (
+    strip_layout_from_otm, 
+    has_layout_data,
+    validate_otm_schema,
+    get_otm_validation_summary
+)
 
 logger = logging.getLogger(__name__)
 
@@ -60,19 +66,26 @@ def _check_project_exists(api_client: IriusRiskApiClient, project_id: str) -> bo
 @click.argument('otm_file', type=click.Path(exists=True, readable=True))
 @click.option('--format', 'output_format', type=click.Choice(['json', 'table']), 
               default='table', help='Output format')
-def import_cmd(otm_file: str, output_format: str):
+@click.option('--reset-layout', is_flag=True, default=False,
+              help='Strip all layout/positioning data before import (forces IriusRisk auto-layout)')
+def import_cmd(otm_file: str, output_format: str, reset_layout: bool):
     """Import an OTM file to create or update a project.
     
     If a project with the same ID already exists, it will be automatically updated.
     If auto-versioning is enabled in project.json, a backup version will be created
     before updating an existing project.
     
+    The --reset-layout flag removes all component positions and sizes, forcing
+    IriusRisk to auto-layout the diagram from scratch. Useful when the diagram
+    has become messy or after major architectural refactoring.
+    
     Args:
         OTM_FILE: Path to the OTM file to import
         
     Examples:
-        iriusrisk otm import example.otm              # Create new or auto-update existing
-        iriusrisk otm import example.otm --format json  # Output as JSON
+        iriusrisk otm import example.otm                    # Create new or auto-update existing
+        iriusrisk otm import example.otm --format json      # Output as JSON
+        iriusrisk otm import example.otm --reset-layout     # Reset diagram layout
     """
     otm_path = Path(otm_file)
     
@@ -85,10 +98,16 @@ def import_cmd(otm_file: str, output_format: str):
         container = get_container()
         api_client = container.get(IriusRiskApiClient)
         
-        # Check for auto-versioning configuration and project identity
+        # Check for auto-versioning and auto-reset-layout configuration
         config = Config()
         project_config = config.get_project_config()
         auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
+        auto_reset_layout = project_config and project_config.get('auto_reset_layout', False)
+        
+        # Determine if we should reset layout (flag takes precedence over config)
+        should_reset_layout = reset_layout or auto_reset_layout
+        if should_reset_layout:
+            logger.info(f"Layout reset enabled (flag={reset_layout}, config={auto_reset_layout})")
         
         # Determine the project ID that will be used for import
         target_project_id = None
@@ -138,24 +157,75 @@ def import_cmd(otm_file: str, output_format: str):
                     click.echo(f"⚠️  Warning: Could not create backup version: {e}")
                     click.echo("   Continuing with import...")
         
+        # Read OTM content
+        with open(otm_path, 'r', encoding='utf-8') as f:
+            otm_content = f.read()
+        
+        # Validate OTM against schema
+        click.echo("🔍 Validating OTM file against schema...")
+        is_valid, validation_errors = validate_otm_schema(otm_content)
+        
+        if not is_valid:
+            click.echo("❌ OTM validation failed!\n", err=True)
+            click.echo("Validation errors:", err=True)
+            for error in validation_errors:
+                click.echo(f"  • {error}", err=True)
+            
+            # Show summary to help user understand what's in the file
+            try:
+                summary = get_otm_validation_summary(otm_content)
+                click.echo("\nOTM file summary:", err=True)
+                click.echo(f"  Project: {summary['project_name']} (ID: {summary['project_id']})", err=True)
+                click.echo(f"  Trust Zones: {summary['trust_zones_count']}", err=True)
+                click.echo(f"  Components: {summary['components_count']}", err=True)
+                click.echo(f"  Dataflows: {summary['dataflows_count']}", err=True)
+                click.echo(f"  Threats: {summary['threats_count']}", err=True)
+                click.echo(f"  Mitigations: {summary['mitigations_count']}", err=True)
+            except Exception:
+                pass  # Don't fail if summary generation fails
+            
+            click.echo("\n⚠️  Please fix the validation errors before importing.", err=True)
+            click.echo("See OTM specification: https://github.com/iriusrisk/OpenThreatModel", err=True)
+            raise click.Abort()
+        
+        click.echo("✓ OTM validation passed")
+        
+        # Apply layout reset if requested
+        if should_reset_layout:
+            if has_layout_data(otm_content):
+                click.echo("🔄 Resetting diagram layout (stripping position/size data)...")
+                otm_content = strip_layout_from_otm(otm_content)
+                click.echo("   ✓ Layout data removed - IriusRisk will auto-layout the diagram")
+            else:
+                click.echo("ℹ️  No layout data found in OTM file (already clean)")
+        
         # Perform the import (always with auto-update enabled)
         if should_override_project_id:
-            # Read OTM content, modify project ID, then import
+            # Modify project ID to match reference_id from project.json
             click.echo(f"Importing OTM file: {otm_file}")
             click.echo(f"📝 Overriding project ID to match project.json: {override_project_id}")
             
-            with open(otm_path, 'r', encoding='utf-8') as f:
-                otm_content = f.read()
-            
-            # Modify the project ID to match reference_id from project.json
+            # Modify the project ID
             modified_content = api_client.project_client._modify_otm_project_id(otm_content, override_project_id)
             
             # Import using the modified content (auto-update enabled)
             result = api_client.import_otm_content(modified_content, auto_update=True)
         else:
-            # Normal import without override (auto-update enabled)
+            # Normal import (auto-update enabled)
             click.echo(f"Importing OTM file: {otm_file}")
-            result = api_client.import_otm_file(str(otm_path), auto_update=True)
+            
+            # Write modified content to temp file if layout was reset
+            if should_reset_layout and has_layout_data(otm_content):
+                import tempfile
+                with tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False, encoding='utf-8') as tmp:
+                    tmp.write(otm_content)
+                    tmp_path = tmp.name
+                try:
+                    result = api_client.import_otm_file(tmp_path, auto_update=True)
+                finally:
+                    Path(tmp_path).unlink(missing_ok=True)
+            else:
+                result = api_client.import_otm_file(str(otm_path), auto_update=True)
         
         if output_format == 'json':
             click.echo(json.dumps(result, indent=2))

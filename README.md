@@ -203,6 +203,11 @@ $ iriusrisk init -r "ecommerce-platform" --scope "AWS infrastructure via Terrafo
 
 When you ask the AI to create or update a threat model, it automatically runs `sync()` to download the latest threat model, analyzes your code based on the repository's scope, merges your contribution with existing components, and updates the unified threat model in IriusRisk. The `sync()` command saves the current model to `.iriusrisk/current-threat-model.otm`, making it immediately available for intelligent merging.
 
+**Important:** The AI creates ALL OTM files in the `.iriusrisk/` directory with clear temporary naming (e.g., `.iriusrisk/temp-update-20260206-143022.otm`). It ALWAYS runs `sync()` first to download the current state, then uses IDENTICAL merge logic whether updating a single repository or merging multi-repository contributions. This ensures:
+- Changes made in IriusRisk (questionnaires, threat status, countermeasures) are never overwritten
+- Existing component layout positions are preserved
+- All updates follow the same reliable merge algorithm
+
 ### Scope-Based Filtering
 
 AI assistants automatically filter threats, countermeasures, and questionnaires to show only items relevant to your repository's scope. Infrastructure repos see infrastructure threats, application repos see application-level threats, and frontend repos see client-side threats. Each repository stays focused on its own security concerns while contributing to the unified threat model.
@@ -627,6 +632,9 @@ $ iriusrisk otm import example.otm
 # Import with JSON output
 $ iriusrisk otm import example.otm --format json
 
+# Import and reset diagram layout (forces IriusRisk auto-layout)
+$ iriusrisk otm import example.otm --reset-layout
+
 # Export project as OTM format
 $ iriusrisk otm export PROJECT_ID
 
@@ -642,7 +650,136 @@ $ iriusrisk otm export -o existing-model.otm
 
 **Note**: The CLI automatically detects whether you're creating a new project or updating an existing one during import. If auto-versioning is enabled in your project configuration, a backup snapshot is automatically created before updates.
 
+#### OTM Schema Validation
+
+All OTM files are automatically validated against the official [Open Threat Model JSON schema](https://github.com/iriusrisk/OpenThreatModel) before import. This catches structural issues early and prevents data loss:
+
+```bash
+$ iriusrisk otm import threat-model.otm
+🔍 Validating OTM file against schema...
+✓ OTM validation passed
+Importing OTM file: threat-model.otm
+...
+```
+
+If validation fails, you'll see clear error messages:
+
+```
+❌ OTM validation failed!
+
+Validation errors:
+  • At 'project': 'id' is a required property
+  • At 'components -> 0': 'parent' is a required property
+  • At 'dataflows -> 0 -> source': 'component-xyz' does not exist
+
+OTM file summary:
+  Project: My App (ID: None)
+  Trust Zones: 2
+  Components: 5
+  Dataflows: 3
+  Threats: 0
+  Mitigations: 0
+
+⚠️  Please fix the validation errors before importing.
+See OTM specification: https://github.com/iriusrisk/OpenThreatModel
+```
+
+**What validation catches:**
+- Missing required fields:
+  - `otmVersion` (required at root)
+  - `project.name` and `project.id` (required)
+  - `component.parent` (trustZone or component - required)
+  - `trustZone.risk.trustRating` (required)
+  - `dataflow.source` and `dataflow.destination` (required)
+- Invalid data types (strings vs numbers, etc.)
+- Malformed structure
+- Schema violations
+
+**Benefits:**
+- **Prevents data loss** - Catches issues before they reach IriusRisk
+- **Clear errors** - Shows exactly what's wrong and where
+- **Early detection** - Fails fast before API calls
+- **Spec compliance** - Ensures OTM files follow official specification
+- **Better AI output** - AI can see validation errors and fix them
+
+**Dependencies:**
+- Requires `jsonschema>=4.0.0` (automatically installed)
+- Requires `pyyaml>=6.0.0` (automatically installed)
+
+#### Layout Reset Feature
+
+Use `--reset-layout` to strip all component positions and sizes, forcing IriusRisk to auto-layout the diagram from scratch:
+
+```bash
+# One-time layout reset
+$ iriusrisk otm import threat-model.otm --reset-layout
+```
+
+Or enable automatic layout reset for all imports in `.iriusrisk/project.json`:
+
+```json
+{
+  "name": "My Project",
+  "reference_id": "my-project-abc",
+  "auto_versioning": true,
+  "auto_reset_layout": false
+}
+```
+
+**When to use layout reset:**
+- Diagram has become messy after multiple updates
+- Major architectural refactoring makes old positions irrelevant
+- Want IriusRisk's auto-layout to reorganize everything
+- Testing/debugging with fresh layout
+
+**AI usage:** When calling `import_otm()` via MCP, use `reset_layout=True` parameter to reset layout.
+
 **Multi-Repository Use**: When contributing to an existing threat model from a new repository, export the current threat model first. This allows AI assistants to merge your contribution with existing components intelligently based on your repository's scope definition.
+
+#### OTM File Management Best Practices
+
+**All OTM files go in `.iriusrisk/` directory:**
+- AI creates temporary OTM files with clear naming: `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm`
+- Never creates OTM files in repository root
+- Temporary files can be deleted after successful import
+
+**Always sync first:**
+- AI ALWAYS runs `iriusrisk sync` before any threat modeling operation
+- Downloads `.iriusrisk/current-threat-model.otm` with current state from IriusRisk
+- This is the ONLY authoritative local copy
+
+**Identical merge logic for all updates:**
+- Whether updating a single repository or merging multi-repo contributions
+- AI uses the SAME merge algorithm:
+  1. Read `current-threat-model.otm`
+  2. Preserve ALL existing components, IDs, and layout positions
+  3. Add NEW components with calculated positions
+  4. Save to `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm`
+  5. Import the temporary file
+
+**Correct workflow:**
+```bash
+# AI workflow (automatic)
+$ iriusrisk sync                                    # ALWAYS first - downloads current state
+# AI reads .iriusrisk/current-threat-model.otm
+# AI merges changes preserving existing components and layout
+# AI creates .iriusrisk/temp-update-20260206-143022.otm
+$ iriusrisk otm import .iriusrisk/temp-update-20260206-143022.otm
+
+# Manual workflow (if needed)
+$ iriusrisk sync                                    # Get current state
+# Manually edit .iriusrisk/current-threat-model.otm
+# Save as .iriusrisk/temp-update-20260206-143022.otm
+$ iriusrisk otm import .iriusrisk/temp-update-20260206-143022.otm
+```
+
+**What NOT to do:**
+```bash
+# ❌ WRONG - Skip sync
+# ❌ WRONG - Create OTM files in repo root
+# ❌ WRONG - Use different logic for single-repo vs multi-repo
+# ❌ WRONG - Ignore existing layout positions
+```
 
 ### Data Synchronization
 

@@ -74,18 +74,369 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 ## Component Layout
 
 **Basic rules:**
+- Preserve existing positions when updating
 - Leaf components: 85x85 pixels
 - Container components: Calculate from children (child_area + 80px padding, min 200x200)
 - Spacing: 50-100px between components
-- Arrange left-to-right for data flow
-- Group related components together
 
-**For UPDATES:** Preserve existing positions, add new components with calculated positions
+**If `reset_layout=True` or `auto_reset_layout: true`:**
+- DO NOT include `representation` sections
+- Backend strips all layout data
+- IriusRisk auto-layouts from scratch
 
 **For detailed positioning algorithms:** Call `otm_layout_guidance()` MCP tool
 
-**If `reset_layout=True`:** Backend strips layout, IriusRisk auto-layouts
+**Layout Management Strategy:**
 
+1. **Preserve Existing Positions** - Keep existing components roughly where they are:
+   ```yaml
+   # Existing component from first repo
+   - id: "api-service"
+     representation:
+       position:
+         x: 100
+         y: 100
+       size:
+         width: 120
+         height: 80
+   
+   # Your merge: Keep it at roughly the same position
+   - id: "api-service"
+     representation:
+       position:
+         x: 100  # Preserved or slightly adjusted
+         y: 100
+       size:
+         width: 120
+         height: 80
+   ```
+
+2. **Create Space for New Components** - Adjust layout to accommodate additions:
+   - If adding infrastructure that wraps applications, position infrastructure components to visually contain their children
+   - If adding peer services, place them alongside existing components with appropriate spacing
+   - Expand the overall diagram area if needed to prevent cramming
+   - Use consistent spacing between components (e.g., 50-100 pixels between unrelated components)
+
+3. **Maintain Architectural Clarity** - Position components to reflect relationships:
+   - **Infrastructure wrapping applications**: Position parent infrastructure components to visually contain children
+   - **Sequential data flows**: Arrange left-to-right or top-to-bottom to show flow direction
+   - **Related components**: Group by function or trust zone (databases together, services together, etc.)
+   - **Trust zone alignment**: Components in same trust zone should be visually grouped
+
+4. **Smart Adjustment Patterns:**
+
+   **Pattern A: Adding Infrastructure Around Applications**
+   ```yaml
+   # Original (application repo): API service at x:200, y:200, size 85x85
+   # Your addition (infrastructure repo): ECS cluster must encompass it
+   
+   # STEP 1: Calculate ECS cluster size based on child
+   # Child at x:200, y:200, size 85x85 means child occupies x:200-285, y:200-285
+   # Add padding: width = 85 + (2*40) = 165, height = 85 + (2*40) = 165
+   # Position parent 40px left/above child: x = 200-40 = 160, y = 200-40 = 160
+   
+   - id: "ecs-cluster"
+     representation:
+       position:
+         x: 160    # 40px left of child
+         y: 160    # 40px above child
+       size:
+         width: 165   # CALCULATED: child width + 2*padding
+         height: 165  # CALCULATED: child height + 2*padding
+   
+   - id: "api-service"  # Existing component - no change needed
+     parent:
+       component: "ecs-cluster"
+     representation:
+       position:
+         x: 200    # Original position preserved
+         y: 200
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   ```
+
+   **Pattern B: Adding Peer Services Inside Same Container**
+   ```yaml
+   # Existing auth-service at x:200, y:200 inside ecs-cluster
+   # Adding payment-service alongside it
+   # Container must GROW to accommodate both
+   
+   # STEP 1: Position new service
+   - id: "payment-service"
+     parent:
+       component: "ecs-cluster"
+     representation:
+       position:
+         x: 335    # 335 = 200 + 85 + 50 (spacing)
+         y: 200    # Same vertical position (aligned)
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   
+   # STEP 2: Recalculate parent size
+   # Children now occupy: x:200-420 (335+85), y:200-285
+   # Child area: 220x85
+   # Add padding: width = 220 + 80 = 300, height = 85 + 80 = 165
+   # Minimum: max(300, 200) = 300, max(165, 200) = 200
+   
+   - id: "ecs-cluster"
+     representation:
+       position:
+         x: 160    # Adjust left to accommodate wider content
+         y: 160
+       size:
+         width: 300   # RECALCULATED - grew from 165 to 300
+         height: 200  # RECALCULATED - uses minimum
+   
+   # STEP 3: If ecs-cluster has a parent component, recalculate that too!
+   ```
+
+   **Pattern C: Adding Load Balancer in Front (Peer at Same Level)**
+   ```yaml
+   # Existing backend at x:300, y:200 (leaf component, size 85x85)
+   # Adding ALB that routes to it (also a leaf component)
+   
+   - id: "alb"
+     representation:
+       position:
+         x: 150    # To the left (upstream in data flow)
+         y: 200    # Same vertical position
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   
+   # Backend stays unchanged
+   - id: "backend"
+     representation:
+       position:
+         x: 300    # Original position
+         y: 200
+       size:
+         width: 85   # Standard leaf size
+         height: 85
+   
+   # If both are in a container, that container must fit both:
+   # Container would need: width = (300+85-150) + 80 = 315, height = 85 + 80 = 165
+   ```
+
+5. **Typical Component Sizes:**
+   - **Standard leaf components** (services, databases, APIs, load balancers): width: 85, height: 85
+   - **Container components** (infrastructure that contains other components): Calculated based on children (see calculation algorithm below)
+
+6. **Spacing Guidelines:**
+   - **Minimum spacing** between unrelated components: 50 pixels
+   - **Comfortable spacing**: 80-100 pixels
+   - **Visual grouping**: Related components can be closer ( 30-40 pixels)
+   - **Padding inside containers**: Child components should be 30-40 pixels from parent edges
+
+7. **Cascading Size Calculation Algorithm:**
+
+   **⚠️ CRITICAL: When adding components to nested hierarchies, you MUST recalculate sizes from bottom-up (leaves to root).**
+   
+   **⚠️ VALIDATION FIRST: Before applying this algorithm, VALIDATE every component type:**
+   - Open `.iriusrisk/components.json`
+   - For EACH component in your OTM, search for its `type` value in components.json
+   - Verify the COMPLETE `referenceId` exists (e.g., "CD-V2-AWS-ECS-CLUSTER")
+   - If not found, DO NOT use that component - find an alternative or use a generic type
+   
+   Components can be nested multiple levels deep (component in component in component in trust zone). When you add new child components, parent sizes must expand, which causes grandparent sizes to expand, etc.
+   
+   **Algorithm (work from leaf nodes up to root):**
+   
+   a. **Identify leaf components** (components with no children):
+      - **VALIDATE**: Verify component type exists in components.json
+      - Set size to 85x85 pixels (standard)
+      
+   b. **For each parent component** (components that contain other components):
+      - **VALIDATE**: Verify parent component type exists in components.json
+      - List all direct children
+      - Calculate bounding box needed to contain all children with padding:
+        ```
+        child_area_width = max(child.x + child.width for all children) - min(child.x for all children)
+        child_area_height = max(child.y + child.height for all children) - min(child.y for all children)
+        
+        parent.width = child_area_width + (2 * PADDING)   # PADDING = 40 pixels
+        parent.height = child_area_height + (2 * PADDING)
+        
+        # Minimum size for containers
+        parent.width = max(parent.width, 200)
+        parent.height = max(parent.height, 200)
+        ```
+      
+   c. **Repeat step b for each level** moving up the hierarchy:
+      - First calculate sizes for components at depth N (deepest parents)
+      - Then calculate sizes for components at depth N-1 (their parents)
+      - Continue until reaching root components (those with trust zone parents)
+   
+   **Practical Example:**
+   
+   ```yaml
+   # Scenario: Adding 2 new microservices to existing ECS cluster that already has 1 service
+   
+   # STEP 1: Position leaf components (the services)
+   - id: "auth-service"    # Existing
+     representation:
+       position: {x: 220, y: 220}
+       size: {width: 85, height: 85}    # Leaf component
+   
+   - id: "payment-service"  # New - position to the right
+     representation:
+       position: {x: 350, y: 220}       # 350 = 220 + 85 + 45 (component + width + spacing)
+       size: {width: 85, height: 85}    # Leaf component
+   
+   - id: "order-service"    # New - position below
+     representation:
+       position: {x: 220, y: 350}       # 350 = 220 + 85 + 45 (component + height + spacing)
+       size: {width: 85, height: 85}    # Leaf component
+   
+   # STEP 2: Calculate parent size based on children
+   # Children occupy: x from 220 to 435 (350+85), y from 220 to 435 (350+85)
+   # Child area: 215x215
+   # Add padding: 215 + (2*40) = 295x295
+   
+   - id: "ecs-cluster"      # Parent container - SIZE MUST ADJUST
+     representation:
+       position: {x: 150, y: 150}       # Parent positioned to encompass children
+       size: {width: 295, height: 295}  # CALCULATED from children, not hardcoded!
+   
+   # STEP 3: If ecs-cluster is inside another component, recalculate that component's size too
+   # Continue up the tree...
+   ```
+   
+   **Key Rules:**
+   - **NEVER use fixed sizes for container components** - always calculate from children
+   - **Always add padding** (30-40 pixels) around children
+   - **Recalculate bottom-up** - start with deepest nested components first
+   - **Adjust positions if needed** to maintain spacing when parent grows
+   - If a parent component grows, its parent may need to grow too - cascade up the tree
+
+**What NOT to Do:**
+- ❌ **NEVER invent component types** - every `type` must exist in components.json
+- ❌ **NEVER invent trust zone IDs** - every trust zone must exist in trust-zones.json
+- ❌ Don't assume a component type exists without verifying in components.json
+- ❌ Don't use abbreviated component types (must be COMPLETE referenceId)
+- ❌ Don't use hardcoded/fixed sizes for container components (components with children)
+- ❌ Don't forget to recalculate parent sizes when adding child components
+- ❌ Don't cram all new components into a tiny corner
+- ❌ Don't place components at x:0, y:0 unless intentional
+- ❌ Don't overlap components (unless showing containment with parent/child)
+- ❌ Don't ignore existing positioning data - work with it
+- ❌ Don't create massive gaps between related components
+- ❌ Don't stop at one level - cascade size adjustments up the entire tree
+
+**What TO Do:**
+- ✅ **FIRST: Open and read components.json - verify EVERY component type exists**
+- ✅ **FIRST: Open and read trust-zones.json - verify EVERY trust zone ID exists**
+- ✅ Search components.json for each component type before using it
+- ✅ Copy COMPLETE referenceId from components.json (e.g., "CD-V2-AWS-ECS-CLUSTER")
+- ✅ **ALWAYS calculate container sizes bottom-up** from their children
+- ✅ Start with leaf components (85x85), then calculate parent sizes, then grandparent sizes
+- ✅ Recalculate EVERY ancestor when adding components to a nested hierarchy
+- ✅ Add appropriate padding (40 pixels) around children when calculating parent sizes
+- ✅ Analyze existing component positions before planning your additions
+- ✅ Position new components to reflect data flow and architecture relationships
+- ✅ Use calculated size differences to show depth (deeper nesting = larger containers)
+- ✅ Leave room for future additions from other repositories
+
+**Critical Process for Nested Hierarchies:**
+
+When you add components to a nested structure, follow this process:
+
+1. **Identify the hierarchy depth:**
+   ```
+   Trust Zone
+     └─ VPC Component (depth 1)
+        └─ ECS Cluster Component (depth 2)
+           └─ Service Components (depth 3 - leaves)
+   ```
+
+2. **Work bottom-up:**
+   - Depth 3 (leaves): Set to 85x85
+   - Depth 2 (ECS Cluster): Calculate from children + padding
+   - Depth 1 (VPC): Calculate from ECS Cluster + padding
+   - Trust Zone: Adjust if using visual representation
+
+3. **Show your calculations:**
+   ```
+   # Adding 2 services to ECS cluster that has 1 existing service
+   # Existing: auth-service at (200, 200)
+   # New: payment-service at (335, 200), order-service at (200, 335)
+   # 
+   # Services occupy: x:200-420, y:200-420 = 220x220 area
+   # ECS cluster needs: 220 + 80 (padding) = 300x300
+   # ECS at (160, 160) to give 40px padding
+   #
+   # If ECS is inside VPC, VPC must now accommodate 300x300 cluster
+   # VPC needs: 300 + 80 (padding) = 380x380
+   # VPC at (120, 120) to give 40px padding
+   ```
+
+This algorithmic approach ensures diagrams remain organized even with deep nesting.
+
+**Example Adjustment:**
+```yaml
+# Scenario: Infrastructure repo adding AWS components around existing application components
+
+# Existing OTM had (from application repo):
+components:
+  - id: "auth-api"
+    representation:
+      position: {x: 200, y: 200}
+      size: {width: 85, height: 85}
+  - id: "user-api"
+    representation:
+      position: {x: 335, y: 200}  # 335 = 200 + 85 + 50
+      size: {width: 85, height: 85}
+
+# Your merged OTM (infrastructure repo) - SHOWING CALCULATION PROCESS:
+
+# STEP 1: Calculate ECS cluster size to contain both APIs
+# Children occupy: x from 200 to 420 (335+85), y from 200 to 285 (200+85)
+# Child area: width = 420-200 = 220, height = 285-200 = 85
+# Add padding: width = 220 + (2*40) = 300, height = 85 + (2*40) = 165
+# Apply minimum: width = max(300, 200) = 300, height = max(165, 200) = 200
+# Position: x = 200 - 40 = 160, y = 200 - 40 = 160
+
+components:
+  # New load balancer positioned upstream (leaf component)
+  - id: "alb"
+    representation:
+      position: {x: 50, y: 200}  # To the left, aligned vertically
+      size: {width: 85, height: 85}  # Standard leaf size
+  
+  # New infrastructure component - SIZE CALCULATED FROM CHILDREN
+  - id: "ecs-cluster"
+    representation:
+      position: {x: 160, y: 160}  # 40px left/above leftmost/topmost child
+      size: {width: 300, height: 200}  # CALCULATED: 220 + 80 padding, 85 + 80 + min
+  
+  # Existing components - preserved
+  - id: "auth-api"
+    parent:
+      component: "ecs-cluster"
+    representation:
+      position: {x: 200, y: 200}  # Original position kept
+      size: {width: 85, height: 85}
+  
+  - id: "user-api"
+    parent:
+      component: "ecs-cluster"
+    representation:
+      position: {x: 335, y: 200}  # Original position kept
+      size: {width: 85, height: 85}
+  
+  # New database positioned to the right of cluster (leaf component)
+  # Position: 160 (cluster x) + 300 (cluster width) + 50 (spacing) = 510
+  - id: "rds-database"
+    representation:
+      position: {x: 510, y: 200}  # To the right with spacing
+      size: {width: 85, height: 85}  # Standard leaf size
+```
+
+**Key Principle:** The goal is to create a diagram that looks intentionally designed, not randomly assembled. Each repository's contribution should integrate smoothly while maintaining visual consistency and architectural clarity.
+
+### When NOT to Use Multi-Repository Workflow
 
 **Use standard (single-repo) workflow when:**
 - `.iriusrisk/project.json` doesn't exist (new project)
@@ -93,27 +444,118 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 - No `scope` field present (single repository project)
 - User explicitly states this is a new, independent project
 
-## Common Errors to Avoid
+## Critical Error #1: Dataflows Connect Components, NOT Trust Zones
 
-**Error 1: Dataflows use trust zone IDs**
-- ❌ WRONG: `source: "internet"` (trust zone)
-- ✅ CORRECT: `source: "mobile-app"` (component)
-- Rule: Dataflows connect components ONLY
+**Most common OTM import failure:** Using trust zone IDs in dataflows instead of component IDs.
 
-**Error 2: Abbreviated component types**
-- ❌ WRONG: `type: "CD-AWS-ECS"` (abbreviated)
-- ✅ CORRECT: `type: "CD-V2-AWS-ECS-CLUSTER"` (complete referenceId)
-- Rule: Use COMPLETE referenceId from components.json
+```yaml
+# ✅ CORRECT - Component to Component:
+dataflows:
+  - id: "user-to-app"
+    source: "mobile-app"      # component ID
+    destination: "web-server" # component ID
 
-**Error 3: Using deprecated components**
-- Filter out: `category.name == "Deprecated"` or `name` starts with "Deprecated - "
-- ~40% of components are deprecated
+# ❌ WRONG - Trust Zone IDs (CAUSES IMPORT FAILURE):
+dataflows:
+  - id: "bad-flow"
+    source: "internet"        # trust zone ID - FAILS!
+    destination: "dmz"        # trust zone ID - FAILS!
+```
 
-**Error 4: Changing project.id**
-- ❌ NEVER change project.id when updating
-- ✅ ALWAYS preserve exact project.id from existing OTM or project.json reference_id
+**Rule:** Trust zones CONTAIN components. Dataflows CONNECT components directly.
 
-**For detailed validation guidance:** Call `otm_validation_guidance()` MCP tool
+## Critical Error #2: Component Types Must Use COMPLETE, EXACT referenceId
+
+**Most common component mapping failure:** Using deprecated components, or abbreviating/truncating/inventing the referenceId instead of using the complete string from components.json.
+
+**🚨 ABSOLUTE RULE: Filter out deprecated components when parsing components.json (40% of components are deprecated):**
+- Skip if `category.name === "Deprecated"`
+- Skip if `name` starts with `"Deprecated - "`
+
+**🚨 ABSOLUTE RULE: EVERY component type MUST exist in `.iriusrisk/components.json`. If it's not in that file, you CANNOT use it.**
+
+```yaml
+# ✅ CORRECT - Complete referenceId from components.json:
+type: "CD-V2-AWS-WAF-WEB-APPLICATION-FIREWALL"  # Full string, even though long
+
+# ❌ WRONG - Abbreviated (common mistake):
+type: "CD-V2-AWS-WAF"  # Missing "-WEB-APPLICATION-FIREWALL" - FAILS
+
+# ❌ WRONG - Simplified:
+type: "aws-ecs"  # Way too short - FAILS
+
+# ❌ WRONG - Partially truncated:
+type: "CD-V2-AWS-ECS"  # Missing "-CLUSTER" - FAILS
+
+# ❌ WRONG - Invented based on pattern:
+type: "CD-V2-AWS-FARGATE-SERVICE"  # Doesn't exist in components.json - FAILS
+
+# ❌ WRONG - Made up descriptive name:
+type: "CD-V2-CONTAINER-SERVICE"  # Not verified in components.json - FAILS
+```
+
+**Mandatory Validation Process:**
+1. **BEFORE using any component type** - Open `.iriusrisk/components.json`
+2. **Search for keywords** related to what you need (e.g., "ECS", "database", "WAF")
+3. **Find the matching component** - Read the `name` field to confirm it's what you need
+4. **Copy the COMPLETE `referenceId`** - Do not modify, abbreviate, or truncate it
+5. **If not found** - Use a generic type or ask the user, DO NOT invent a type
+
+**Rule:** Read `.iriusrisk/components.json`, find the `referenceId` field, **copy the ENTIRE string without modification**. Do not abbreviate, even if it looks redundant. **Never invent component types - they must exist in the file.**
+
+## Critical Error #3: NEVER CHANGE PROJECT ID WHEN UPDATING
+
+**🚨 ABSOLUTE RULE: The `project.id` field in an OTM file is SACRED and MUST NEVER BE CHANGED.**
+
+### When Creating NEW Threat Models:
+```yaml
+# Read from .iriusrisk/project.json:
+# reference_id: "my-app-xyz"
+
+# Use that EXACT value in OTM:
+project:
+  id: "my-app-xyz"  # ✅ Taken from project.json reference_id
+  name: "My App"
+```
+
+### When UPDATING Existing Threat Models:
+
+**FORBIDDEN ACTIONS - NEVER DO THESE:**
+- ❌ Changing project.id to make it "more descriptive"
+- ❌ Adding version numbers to project.id (e.g., "my-app-v2")
+- ❌ Changing project.id because of import errors
+- ❌ Using a UUID instead of the reference_id
+- ❌ Modifying project.id in ANY way for ANY reason
+
+**REQUIRED ACTIONS:**
+- ✅ Read existing OTM file if it exists
+- ✅ **PRESERVE the exact project.id from existing OTM** 
+- ✅ **OR use reference_id from project.json if OTM doesn't exist**
+- ✅ **NEVER EVER EVER change the project.id once set**
+
+```yaml
+# Existing OTM has:
+project:
+  id: "badger-app-7ozf"  # This is GOSPEL - DO NOT CHANGE
+
+# When updating to add features:
+project:
+  id: "badger-app-7ozf"  # ✅ SAME - NEVER CHANGED
+  name: "Badger App with Payments"  # ← Name can change, ID CANNOT
+```
+
+**Why this matters:**
+- The project.id links the OTM to the IriusRisk project
+- Changing it breaks this connection and creates duplicate projects
+- IriusRisk will reject updates with mismatched IDs
+- The project.id from project.json is the source of truth
+
+**If import_otm() fails:**
+- ❌ **DO NOT** try changing the project.id to "fix" it
+- ✅ **DO** stop and report the actual error
+- ✅ **DO** tell the user to check project state in IriusRisk UI
+
+The project.id is the ONLY field that must never be modified when updating. Treat it as immutable, permanent, and untouchable.
 
 ## Your Role: Architecture Modeling Only
 
@@ -132,14 +574,154 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 
 **Why:** IriusRisk automatically generates all threats and controls after OTM import.
 
-## Tags - Architecture ONLY
+## 🚨 CRITICAL: Tags in OTM - Architecture ONLY, NOT Vulnerabilities
 
-**Tags describe WHAT components ARE, not WHAT'S WRONG with them.**
+**Tags are for ARCHITECTURAL categorization, NOT for documenting vulnerabilities you find in code.**
 
-**Good tags:** `payment-processing`, `pci-dss-scope`, `public-facing`, `customer-data`
-**Bad tags:** `sql-injection-vulnerable`, `weak-crypto`, `no-validation`
+### What Tags Are For
 
-IriusRisk finds vulnerabilities automatically - don't add them as tags.
+Tags describe the **purpose, function, or data sensitivity** of components and dataflows in the architecture:
+
+```yaml
+# ✅ CORRECT - Architectural/functional tags
+components:
+  - id: "payment-api"
+    name: "Payment Service"
+    type: "CD-V2-WEB-SERVICE"
+    tags:
+      - "pci-dss-scope"           # Compliance scope
+      - "payment-processing"      # Business function
+      - "customer-data"           # Data sensitivity
+      - "high-availability"       # Operational requirement
+      - "public-facing"           # Exposure level
+
+dataflows:
+  - id: "app-to-payment"
+    source: "web-app"
+    destination: "payment-api"
+    tags:
+      - "credit-card-data"        # Data type flowing
+      - "encrypted-in-transit"    # Security control present
+      - "pci-dss-boundary"        # Compliance boundary
+```
+
+### What Tags Are NOT For
+
+**❌ NEVER use tags to document vulnerabilities or security flaws you find in code:**
+
+```yaml
+# ❌ WRONG - Vulnerability tags (DO NOT DO THIS)
+components:
+  - id: "flask-app"
+    name: "Flask API"
+    type: "CD-V2-WEB-SERVICE"
+    tags:
+      - "sql-injection-vulnerable"      # ❌ This is a THREAT, not architecture
+      - "insecure-deserialization"      # ❌ This is a VULNERABILITY
+      - "command-injection-vulnerable"  # ❌ This is a SECURITY FLAW
+      - "sensitive-data-exposure"       # ❌ This is a WEAKNESS
+
+dataflows:
+  - id: "app-to-db"
+    source: "flask-app"
+    destination: "database"
+    tags:
+      - "sql-injection-vulnerable"   # ❌ NO! This is a threat
+      - "no-parameterization"        # ❌ NO! This is an implementation flaw
+      - "arbitrary-code-execution"   # ❌ NO! This is a vulnerability
+```
+
+### Why This Matters
+
+1. **IriusRisk identifies vulnerabilities** - The threat library contains thousands of threats based on component types and patterns. Your job is to model the architecture correctly, and IriusRisk will identify the relevant threats.
+
+2. **Tags clutter the diagram** - Vulnerability tags appear as labels on the diagram, making it unreadable and unprofessional.
+
+3. **Mixes concerns** - The OTM describes "what is" (architecture), not "what's wrong" (threats). Threats come from IriusRisk's rules engine after import.
+
+4. **Makes threat modeling subjective** - Different analysts would add different vulnerability tags. The architecture should be objective.
+
+5. **Defeats the purpose** - If you manually tag all vulnerabilities, why use IriusRisk's automated threat detection?
+
+### When You Find Vulnerabilities in Code
+
+**If you notice vulnerabilities while analyzing source code (SQL injection, weak crypto, etc.):**
+
+1. ✅ **DO** model the architecture accurately (component types, data flows)
+2. ✅ **DO** use appropriate component types that will trigger threat detection (e.g., `CD-V2-WEB-SERVICE` for SQL injection prone components)
+3. ✅ **DO** note code issues in your analysis comments or report to the user
+4. ❌ **DO NOT** add vulnerability tags to the OTM
+5. ❌ **DO NOT** try to manually enumerate threats in the architecture
+
+**Trust IriusRisk to find the threats based on your accurate architecture modeling.**
+
+### Good Tag Examples
+
+**Architectural purpose:**
+- `authentication-service`
+- `payment-processing`
+- `user-registration`
+- `admin-functionality`
+
+**Data sensitivity:**
+- `pii-processing`
+- `financial-data`
+- `health-records`
+- `customer-data`
+
+**Compliance scope:**
+- `pci-dss-scope`
+- `hipaa-scope`
+- `gdpr-relevant`
+- `sox-controls`
+
+**Operational characteristics:**
+- `public-facing`
+- `internal-only`
+- `high-availability`
+- `batch-processing`
+
+**Network exposure:**
+- `internet-accessible`
+- `vpn-only`
+- `private-network`
+
+### Bad Tag Examples (NEVER USE)
+
+**Vulnerability/weakness tags:**
+- ❌ `sql-injection-vulnerable`
+- ❌ `xss-vulnerable`
+- ❌ `insecure-deserialization`
+- ❌ `command-injection`
+- ❌ `weak-crypto`
+- ❌ `hardcoded-credentials`
+
+**Implementation flaw tags:**
+- ❌ `no-parameterization`
+- ❌ `no-validation`
+- ❌ `unauthenticated`
+- ❌ `unencrypted`
+- ❌ `pickle-serialization`
+
+**Security finding tags:**
+- ❌ `ssrf-vulnerable`
+- ❌ `csrf-vulnerable`
+- ❌ `arbitrary-code-execution`
+- ❌ `untrusted-input`
+- ❌ `sensitive-data-exposure`
+
+### Rule of Thumb
+
+**Ask yourself: "Is this tag describing WHAT the component IS, or WHAT'S WRONG with it?"**
+
+- If it describes **what it is** → ✅ Good tag
+- If it describes **what's wrong** → ❌ Bad tag (let IriusRisk find the vulnerability)
+
+### Summary
+
+**Tags = Architecture categorization**  
+**Threats = IriusRisk's job**
+
 Do not conflate these. Model the architecture accurately, use meaningful architectural tags, and trust IriusRisk to identify all the vulnerabilities.
 
 ## Required Workflow Checklist
@@ -167,11 +749,13 @@ Do not conflate these. Model the architecture accurately, use meaningful archite
   
 - ☐ Step 3: Check `.iriusrisk/project.json` - Read project name/ID/scope
   
-- ☐ Step 4: Create OTM file with VALIDATED IDs and types
-  - **🚨 CRITICAL: Use validated trust zone UUIDs from trust-zones.json**
-  - **🚨 CRITICAL: Use validated component referenceIds from components.json**
-  - **MERGE mode**: Preserve ALL existing components, IDs, and layout; add NEW components
-  - **CREATE mode**: All components from analysis with simple layout
+- ☐ Step 4: Create merged OTM file
+  - **MERGE mode**: Use IDENTICAL logic as multi-repo workflow
+    - Preserve ALL existing components with their IDs
+    - Preserve ALL layout positions (x, y, width, height)
+    - Add NEW components with calculated positions
+    - Recalculate parent container sizes if needed
+  - **CREATE mode**: All components from analysis
   - **Save to**: `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm` (or temp-initial.otm)
   
 - ☐ Step 5: Validate components - Use exact referenceId from components.json

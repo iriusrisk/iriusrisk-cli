@@ -499,7 +499,7 @@ def mcp(cli_ctx):
             return error_msg
     
     @mcp_server.tool()
-    async def import_otm(otm_file_path: str) -> str:
+    async def import_otm(otm_file_path: str, reset_layout: bool = False) -> str:
         """Import an OTM file to create or update a project in IriusRisk.
         
         This tool imports an OTM (Open Threat Model) file to IriusRisk, creating a new
@@ -507,14 +507,24 @@ def mcp(cli_ctx):
         
         Args:
             otm_file_path: Path to the OTM file to import
+            reset_layout: If True, strip all layout/positioning data before import.
+                         This forces IriusRisk to auto-layout the diagram from scratch.
+                         Useful when the diagram has become messy or after major refactoring.
+                         Default: False
             
         Returns:
             Status message indicating the result of the import operation.
         """
         from pathlib import Path
+        from ..utils.otm_utils import (
+            strip_layout_from_otm, 
+            has_layout_data,
+            validate_otm_schema,
+            get_otm_validation_summary
+        )
         
         logger.info("MCP tool invoked: import_otm")
-        logger.debug(f"Import parameters: otm_file_path={otm_file_path}")
+        logger.debug(f"Import parameters: otm_file_path={otm_file_path}, reset_layout={reset_layout}")
         logger.info(f"Starting OTM import via MCP for file: {otm_file_path}")
         
         try:
@@ -537,8 +547,14 @@ def mcp(cli_ctx):
             results.append(f"📤 Importing OTM file: {otm_path.name}")
             results.append(f"📂 File path: {otm_path.absolute()}")
             
-            # Check for auto-versioning configuration
+            # Check for auto-versioning and auto-reset-layout configuration
             auto_versioning_enabled = project_config and project_config.get('auto_versioning', False)
+            auto_reset_layout = project_config and project_config.get('auto_reset_layout', False)
+            
+            # Determine if we should reset layout (parameter takes precedence over config)
+            should_reset_layout = reset_layout or auto_reset_layout
+            if should_reset_layout:
+                logger.info(f"Layout reset enabled (parameter={reset_layout}, config={auto_reset_layout})")
             
             # Check if we need to override the OTM project ID with reference_id from project.json
             should_override_project_id = False
@@ -622,22 +638,80 @@ def mcp(cli_ctx):
             
             results.append("")
             
+            # Read OTM content
+            with open(otm_path, 'r', encoding='utf-8') as f:
+                otm_content = f.read()
+            
+            # Validate OTM against schema
+            results.append("🔍 Validating OTM file against schema...")
+            is_valid, validation_errors = validate_otm_schema(otm_content)
+            
+            if not is_valid:
+                error_lines = ["❌ OTM validation failed!", ""]
+                error_lines.append("Validation errors:")
+                for error in validation_errors:
+                    error_lines.append(f"  • {error}")
+                
+                # Show summary to help understand what's in the file
+                try:
+                    summary = get_otm_validation_summary(otm_content)
+                    error_lines.append("")
+                    error_lines.append("OTM file summary:")
+                    error_lines.append(f"  Project: {summary['project_name']} (ID: {summary['project_id']})")
+                    error_lines.append(f"  Trust Zones: {summary['trust_zones_count']}")
+                    error_lines.append(f"  Components: {summary['components_count']}")
+                    error_lines.append(f"  Dataflows: {summary['dataflows_count']}")
+                    error_lines.append(f"  Threats: {summary['threats_count']}")
+                    error_lines.append(f"  Mitigations: {summary['mitigations_count']}")
+                except Exception:
+                    pass  # Don't fail if summary generation fails
+                
+                error_lines.append("")
+                error_lines.append("⚠️  Please fix the validation errors before importing.")
+                error_lines.append("See OTM specification: https://github.com/iriusrisk/OpenThreatModel")
+                
+                error_msg = "\n".join(error_lines)
+                logger.error(f"OTM validation failed, aborting import")
+                return error_msg
+            
+            results.append("✓ OTM validation passed")
+            results.append("")
+            
+            # Apply layout reset if requested
+            if should_reset_layout:
+                if has_layout_data(otm_content):
+                    results.append("🔄 Resetting diagram layout (stripping position/size data)...")
+                    otm_content = strip_layout_from_otm(otm_content)
+                    results.append("   ✓ Layout data removed - IriusRisk will auto-layout the diagram")
+                    logger.info("Layout data stripped from OTM before import")
+                else:
+                    results.append("ℹ️  No layout data found in OTM file (already clean)")
+                results.append("")
+            
             # Import the OTM file (auto-update if project exists) using container API client
             if should_override_project_id:
-                # Read OTM content, modify project ID, then import
+                # Modify project ID to match reference_id from project.json
                 results.append(f"📝 Overriding project ID to match project.json: {override_project_id}")
                 
-                with open(otm_path, 'r', encoding='utf-8') as f:
-                    otm_content = f.read()
-                
-                # Modify the project ID to match reference_id from project.json
+                # Modify the project ID
                 modified_content = api_client.project_client._modify_otm_project_id(otm_content, override_project_id)
                 
                 # Import using the modified content
                 result = api_client.import_otm_content(modified_content, auto_update=True)
             else:
-                # Normal import without override
-                result = api_client.import_otm_file(str(otm_path), auto_update=True)
+                # Normal import
+                # If layout was reset, write to temp file
+                if should_reset_layout and has_layout_data(otm_content):
+                    import tempfile
+                    with tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False, encoding='utf-8') as tmp:
+                        tmp.write(otm_content)
+                        tmp_path = tmp.name
+                    try:
+                        result = api_client.import_otm_file(tmp_path, auto_update=True)
+                    finally:
+                        Path(tmp_path).unlink(missing_ok=True)
+                else:
+                    result = api_client.import_otm_file(str(otm_path), auto_update=True)
             
             # Extract key information
             project_id = result.get('id', 'Unknown')
@@ -1130,6 +1204,47 @@ def mcp(cli_ctx):
         instructions = _load_prompt("create_threat_model")
         logger.info("Provided CreateThreatModel instructions to AI assistant")
         return _apply_prompt_customizations('create_threat_model', instructions)
+    
+    @mcp_server.tool()
+    async def otm_layout_guidance() -> str:
+        """Get detailed guidance for OTM component layout and positioning.
+        
+        This tool provides comprehensive instructions for AI assistants on how to
+        position components in OTM diagrams, calculate parent container sizes,
+        and handle nested component hierarchies.
+        
+        Call this tool when you need detailed algorithms for:
+        - Positioning components in diagrams
+        - Calculating parent container sizes from children
+        - Preserving existing layout when updating
+        - Handling nested hierarchies (component in component in trust zone)
+        
+        Returns:
+            Detailed layout positioning algorithms and examples.
+        """
+        instructions = _load_prompt("otm_layout_guidance")
+        logger.info("Provided OTM layout guidance to AI assistant")
+        return instructions
+    
+    @mcp_server.tool()
+    async def otm_validation_guidance() -> str:
+        """Get detailed guidance for validating OTM trust zones and component types.
+        
+        This tool provides comprehensive instructions for AI assistants on how to
+        validate trust zone IDs and component types against the IriusRisk library.
+        
+        Call this tool when you need detailed guidance on:
+        - Reading and using trust-zones.json (UUID extraction)
+        - Reading and using components.json (referenceId extraction)
+        - Filtering deprecated components
+        - Common validation mistakes and how to avoid them
+        
+        Returns:
+            Detailed validation instructions and examples.
+        """
+        instructions = _load_prompt("otm_validation_guidance")
+        logger.info("Provided OTM validation guidance to AI assistant")
+        return instructions
     
     @mcp_server.tool()
     async def track_threat_update(threat_id: str, status: str, reason: str, project_path: str, context: str = None, comment: str = None) -> str:

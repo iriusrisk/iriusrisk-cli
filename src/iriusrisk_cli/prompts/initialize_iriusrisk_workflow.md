@@ -63,6 +63,37 @@
 ## Executive Summary
 This MCP provides AI assistants with tools for professional threat modeling via IriusRisk CLI. Always use MCP tools and JSON files instead of direct CLI commands.
 
+## 🚨 CRITICAL: OTM File Management and Workflow
+
+### ALL OTM Files Must Be in `.iriusrisk/` Directory
+
+**MANDATORY RULES:**
+1. **ALL OTM files go in `.iriusrisk/` directory** - NEVER in repository root
+2. **Use clear temporary naming:**
+   - `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm` for updates
+   - `.iriusrisk/temp-initial.otm` for initial creation
+3. **ALWAYS run sync() FIRST** - before any threat modeling operation
+4. **Use IDENTICAL merge logic** - whether single-repo update or multi-repo contribution
+
+### The ONLY Authoritative Source
+
+**`.iriusrisk/current-threat-model.otm`** (downloaded by sync()) is the ONLY source of truth:
+- Downloaded by `sync()` from IriusRisk
+- Always reflects the current state
+- Contains existing components, IDs, and layout positions
+- This is what you MUST read and merge with for ALL updates
+
+### Workflow for ALL Updates (Single-Repo or Multi-Repo)
+
+**The workflow is IDENTICAL regardless of scenario:**
+1. **sync()** - MANDATORY FIRST STEP (downloads current-threat-model.otm)
+2. Check if `.iriusrisk/current-threat-model.otm` exists
+3. If exists: MERGE mode (preserve everything, add new components)
+4. If not: CREATE mode (but still check project.json)
+5. Save to `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm`
+6. Import the temporary file
+7. Temporary file can be deleted after successful import
+
 ## CRITICAL: User Intent and Threat Modeling Workflow
 
 ### 🚨 EXPLICIT THREAT MODELING REQUESTS - HIGHEST PRIORITY
@@ -134,11 +165,16 @@ The presence of `threats.json` is irrelevant when user explicitly requests threa
 - **This applies even if threats.json exists** - they want to update the architecture model
 
 **Action: Create or update threat model**
-1. Call `create_threat_model()` to get workflow instructions
-2. Check for `.iriusrisk/current-threat-model.otm`
-3. If exists: MERGE your contribution with existing architecture
-4. If not: CREATE new architecture model
-5. Follow full workflow: analyze code → create OTM → import_otm()
+1. **ALWAYS call sync() FIRST** - mandatory before any analysis
+2. Call `create_threat_model()` to get workflow instructions
+3. Check for `.iriusrisk/current-threat-model.otm` (downloaded by sync)
+4. If exists: MERGE mode - use IDENTICAL logic as multi-repo workflow
+   - Preserve ALL existing components, IDs, and layout
+   - Add NEW components with calculated positions
+5. If not: CREATE mode - but still check project.json
+6. Save to `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm`
+7. Follow full workflow: analyze code → create merged OTM → import_otm()
+8. **Remember:** sync() is ALWAYS the first step, merge logic is ALWAYS identical
 
 ### Scenario C: Vague Request, No Threats Downloaded
 
@@ -277,7 +313,54 @@ model anytime.
 
 Example: Instead of suggesting "Run `iriusrisk sync`", immediately call `sync(project_path="/absolute/path")`
 
-### 2. Countermeasure Updates Require Two Calls
+### 2. ALWAYS sync() First - Use Identical Merge Logic
+
+**CRITICAL RULES:**
+1. **ALWAYS call sync() FIRST** - before any threat modeling operation
+2. **ALL updates use IDENTICAL merge logic** - whether single-repo or multi-repo
+3. **ALL OTM files go in `.iriusrisk/` directory** with temporary naming
+4. **ALWAYS preserve existing components and layout** when merging
+
+**Correct approach for ANY update:**
+```
+Step 1: ALWAYS sync first
+sync() → downloads .iriusrisk/current-threat-model.otm
+
+Step 2: Check what exists
+if current-threat-model.otm exists:
+    # MERGE MODE - use identical logic as multi-repo
+    - Read entire file
+    - Preserve ALL existing components and IDs
+    - Preserve ALL layout positions (x, y, width, height)
+    - Add NEW components with calculated positions
+else:
+    # CREATE MODE
+    - Still check project.json for existing project
+    - Create initial model
+
+Step 3: Save merged result
+Save to: .iriusrisk/temp-update-20260206-143022.otm
+
+Step 4: Import
+import_otm(".iriusrisk/temp-update-20260206-143022.otm")
+
+Step 5: Cleanup (optional)
+Delete temporary file after successful import
+```
+
+**Wrong approach:**
+```
+❌ Skip sync() and work from old data
+❌ Create OTM files in repository root
+❌ Use different logic for single-repo vs multi-repo
+❌ Ignore existing layout positions
+❌ Fail to preserve existing components
+Result: Overwrites IriusRisk changes, data loss, layout chaos
+```
+
+**The ONLY authoritative local copy is `.iriusrisk/current-threat-model.otm`** downloaded by `sync()`.
+
+### 3. Countermeasure Updates Require Two Calls
 The IriusRisk API requires status updates and comments to be sent separately. For ANY countermeasure status change:
 
 **Step 1:** Update status only (no comment parameter)
@@ -331,7 +414,7 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 
 **CRITICAL:** Always pass `project_path` parameter with the ABSOLUTE path to the project directory (where `.iriusrisk` is located) to all update tracking functions.
 
-### 3. Automatic Sync After Updates
+### 4. Automatic Sync After Updates
 **MANDATORY BEHAVIOR:** After calling `track_threat_update()` or `track_countermeasure_update()`, you MUST immediately call `sync()` to push changes to IriusRisk.
 
 **Why this is required:**

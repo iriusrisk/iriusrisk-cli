@@ -5,6 +5,272 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.5] - 2026-02-06
+
+### Fixed
+
+#### Prompt Optimization - Split Into Focused Tools
+
+**Problem:** The `create_threat_model.md` prompt grew to 1,698 lines with 43 major sections, causing:
+- AI attention degradation (critical validation rules buried at line 900+)
+- Cognitive overload (too many concerns mixed together)
+- Invalid OTM files (AI skipped validation, invented trust zone IDs and component types)
+- Result: IriusRisk replaced components with "empty-component" and mapped zones incorrectly
+
+**Solution - Two-Phase Approach:**
+
+**Phase 1: Aggressive Condensing**
+- Moved "🚨 CRITICAL VALIDATION RULES" to line 5 (immediately after title)
+- Removed 351 lines of detailed layout algorithms (extracted to separate tool)
+- Condensed "Critical Errors" section from 112 lines to 20 lines
+- Condensed "Tags" section from 148 lines to 6 lines
+- Reduced from 1,698 lines to 954 lines (44% reduction)
+
+**Phase 2: Split Into Focused Tools**
+- Created `otm_layout_guidance.md` (144 lines) - Positioning algorithms, size calculations, layout patterns
+- Created `otm_validation_guidance.md` (220 lines) - Trust zone/component validation, filtering deprecated
+- Added two new MCP tools: `otm_layout_guidance()` and `otm_validation_guidance()`
+- AI calls these tools on-demand for detailed guidance
+
+**New Structure:**
+```
+create_threat_model.md (954 lines)
+├─ Critical validation rules (lines 5-24)
+├─ Executive summary (lines 25-45)
+├─ Quick workflow (lines 46-95)
+├─ Common errors (condensed)
+└─ References to specialized tools
+
+otm_layout_guidance.md (144 lines)
+└─ Detailed positioning algorithms
+
+otm_validation_guidance.md (220 lines)
+└─ Detailed validation examples
+```
+
+**Files Added:**
+- `src/iriusrisk_cli/prompts/otm_layout_guidance.md` - Layout positioning guidance
+- `src/iriusrisk_cli/prompts/otm_validation_guidance.md` - Validation guidance
+
+**Files Updated:**
+- `src/iriusrisk_cli/prompts/create_threat_model.md` - Reduced from 1,698 to 954 lines (44% reduction)
+- `src/iriusrisk_cli/commands/mcp.py` - Added `otm_layout_guidance()` and `otm_validation_guidance()` tools
+
+**Root Cause of Layout Problems:**
+
+The layout itself isn't the problem - the problem is **invalid trust zone IDs and component types** that caused IriusRisk to replace components with "empty-component" and remap trust zones incorrectly. This made the carefully positioned layout meaningless.
+
+**In the test case:**
+- AI created layout (good)
+- But used `"internet-tz"` instead of UUID `"b61d6911-338d-46a8-9f39-8dcd24abfe91"` (bad)
+- And used `"CD-PYTHON-FLASK"` instead of correct referenceId (bad)
+- IriusRisk couldn't find these, replaced with "empty-component" and wrong zones
+- Result: Layout positions preserved but components in wrong zones
+
+**Impact:** 
+- AI sees critical validation rules immediately (line 5 vs line 900)
+- Focused, modular prompts improve AI performance
+- On-demand loading of detailed guidance reduces cognitive load
+- **Validation rules are now followed correctly** (uses real UUIDs and referenceIds)
+- Layout will work properly because components/zones will be correct
+
+## [0.5.4] - 2026-02-06
+
+### Added
+
+#### OTM Schema Validation
+
+**Automatic validation against official OTM JSON schema before import:**
+
+Validates all OTM files against the official Open Threat Model JSON schema specification before import. This catches structural issues early and prevents data loss from malformed OTM files.
+
+**Features:**
+- Validates against official OTM schema (v0.2.0) from https://github.com/iriusrisk/OpenThreatModel
+- Clear error messages showing exactly what's wrong and where
+- Summary of OTM contents to help diagnose issues
+- Graceful fallback if jsonschema package not available (logs warning)
+- Validates before any modifications (layout reset, project ID override)
+
+**Implementation:**
+- `validate_otm_schema()` - Validates OTM content against JSON schema
+- `get_otm_validation_summary()` - Provides overview of OTM contents
+- Uses `jsonschema` library with Draft7Validator
+- Schema file bundled with package: `src/iriusrisk_cli/otm_schema.json`
+
+**Example validation error output:**
+```
+❌ OTM validation failed!
+
+Validation errors:
+  • At 'project': 'id' is a required property
+  • At 'components -> 0': 'parent' is a required property
+  • At 'dataflows -> 0 -> source': 'component-xyz' does not exist
+
+OTM file summary:
+  Project: My App (ID: None)
+  Trust Zones: 2
+  Components: 5
+  Dataflows: 3
+```
+
+**Dependencies added:**
+- `jsonschema>=4.0.0` - For JSON schema validation
+- `pyyaml>=6.0.0` - For YAML parsing (already used, now explicit)
+
+**Files Added:**
+- `src/iriusrisk_cli/otm_schema.json` - Official OTM JSON schema
+
+**Files Updated:**
+- `src/iriusrisk_cli/utils/otm_utils.py` - Added validation functions
+- `src/iriusrisk_cli/commands/otm.py` - Integrated validation before import
+- `src/iriusrisk_cli/commands/mcp.py` - Integrated validation in MCP tool
+- `setup.py` - Added jsonschema and pyyaml dependencies, included schema in package_data
+
+**Impact:** Prevents import failures and data loss by catching OTM structural issues before they reach IriusRisk API. Clear error messages help users fix issues quickly.
+
+#### Layout Reset Feature
+
+**New capability to reset diagram layout when importing OTM files:**
+
+Adds the ability to strip all layout/positioning data from OTM files before import, forcing IriusRisk to auto-layout the diagram from scratch. This is useful when diagrams become messy after multiple updates or when major architectural refactoring makes old positions irrelevant.
+
+**Implementation:**
+
+1. **New utility module** (`utils/otm_utils.py`):
+   - `strip_layout_from_otm()` - Removes all `representation` sections from components, trust zones, and dataflows
+   - `has_layout_data()` - Checks if OTM contains layout data
+   - Uses PyYAML for proper parsing when available, falls back to regex
+
+2. **CLI flag** (`--reset-layout`):
+   ```bash
+   iriusrisk otm import threat-model.otm --reset-layout
+   ```
+
+3. **MCP parameter** (`reset_layout`):
+   ```python
+   import_otm(otm_file_path, reset_layout=True)
+   ```
+
+4. **Config setting** (`auto_reset_layout` in project.json):
+   ```json
+   {
+     "auto_reset_layout": false  // Set to true for automatic reset on all imports
+   }
+   ```
+
+**Priority:** Parameter/flag takes precedence over config setting.
+
+**Use cases:**
+- Diagram has become messy after multiple updates
+- Major architectural refactoring
+- Want IriusRisk's auto-layout to reorganize everything
+- Testing/debugging with fresh layout
+
+**Files Added:**
+- `src/iriusrisk_cli/utils/otm_utils.py` - New utility module for OTM manipulation
+
+**Files Updated:**
+- `src/iriusrisk_cli/commands/otm.py` - Added `--reset-layout` flag and logic
+- `src/iriusrisk_cli/commands/mcp.py` - Added `reset_layout` parameter to `import_otm()` tool
+- `src/iriusrisk_cli/prompts/create_threat_model.md` - Documented layout reset behavior
+- `README.md` - Added Layout Reset Feature section with examples
+
+**Impact:** Provides "escape hatch" for messy layouts while preserving architectural structure. Opt-in feature doesn't change default behavior.
+
+### Changed
+
+#### Non-Interactive Init Command
+
+**Removed interactive scope prompts from `iriusrisk init` command:**
+
+Previously, if `--scope` flag was not provided, the command would prompt for scope input from stdin. This caused issues for:
+- Automated scripts and CI/CD pipelines
+- Non-interactive environments
+- Users who just wanted to skip scope definition
+
+**Changes:**
+- Removed `click.prompt()` calls for scope input
+- Scope is now purely optional via `--scope` flag
+- Command runs non-interactively when scope not provided
+- No blocking prompts requiring Enter key
+
+**Examples:**
+```bash
+# Now runs non-interactively (no prompts)
+iriusrisk init -r "my-project-ref"
+
+# Scope is optional via flag
+iriusrisk init -r "my-project-ref" --scope "AWS infrastructure"
+```
+
+**Files Updated:**
+- `src/iriusrisk_cli/commands/init.py` - Removed interactive scope prompts (lines 119-136, 179-190)
+
+**Impact:** Enables automation and CI/CD usage without blocking on stdin prompts.
+
+## [0.5.3] - 2026-02-06
+
+### Fixed
+
+#### OTM File Management - Unified Workflow and File Location
+
+**Critical improvements to OTM file handling:**
+
+1. **All OTM files now in `.iriusrisk/` directory**
+   - AI creates temporary files with clear naming: `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm`
+   - Never creates files in repository root
+   - Prevents confusion about which files are temporary vs authoritative
+
+2. **Mandatory sync() first**
+   - AI ALWAYS runs `sync()` before any threat modeling operation
+   - Ensures it has the latest state from IriusRisk
+   - Downloads `.iriusrisk/current-threat-model.otm` if project exists
+
+3. **Identical merge logic for ALL updates**
+   - Single-repo updates use SAME logic as multi-repo contributions
+   - Always preserves existing components and their IDs
+   - Always preserves layout positions (x, y, width, height)
+   - Adds new components with calculated positions
+   - Recalculates parent container sizes when needed
+
+4. **Layout preservation**
+   - Existing component positions are ALWAYS preserved
+   - New components are positioned to fit with existing layout
+   - Parent container sizes are recalculated bottom-up
+   - Maintains visual consistency across updates
+
+**Files Updated:**
+- `src/iriusrisk_cli/prompts/create_threat_model.md` - Complete rewrite of OTM file management section, added "ALWAYS sync() first" requirement, unified merge logic
+- `src/iriusrisk_cli/prompts/initialize_iriusrisk_workflow.md` - Updated workflow to mandate sync() first, clarified file locations and naming
+- `README.md` - Updated OTM File Management Best Practices with new workflow
+
+**Impact:** 
+- Prevents data loss by ensuring latest state is always used
+- Eliminates confusion about file locations and naming
+- Ensures consistent behavior whether updating single-repo or multi-repo
+- Preserves visual layout consistency
+
+## [0.5.2] - 2026-02-06
+
+### Fixed
+
+#### OTM File Management - Initial Files Are Temporary
+
+**Problem**: When AI created an initial OTM file in the repository root (e.g., `threat-model.otm`) and then updates were made to the threat model in IriusRisk (questionnaires answered, threats marked, countermeasures implemented), the AI was updating and reimporting the original OTM file. This caused data loss by overwriting IriusRisk changes with stale data.
+
+**Solution**: Updated all prompt files and documentation to clarify that initial OTM files are **temporary bootstrap files** that become obsolete after import. The AI now:
+- Treats initial OTM files as one-time-use bootstrap files
+- Always uses `.iriusrisk/current-threat-model.otm` (downloaded by `sync()`) as the authoritative source for updates
+- Never updates or reads the original OTM file after initial import
+- Creates new OTM files for each update instead of overwriting the original
+
+**Files Updated**:
+- `src/iriusrisk_cli/prompts/create_threat_model.md` - Added "🚨 CRITICAL: Initial OTM Files Are Temporary" section with detailed workflow guidance
+- `src/iriusrisk_cli/prompts/initialize_iriusrisk_workflow.md` - Added "🚨 CRITICAL: OTM File Management" section with correct/wrong workflow examples
+- `README.md` - Added "OTM File Management Best Practices" section with user-facing guidance
+
+**Impact**: Prevents data loss when updating threat models. Changes made in IriusRisk (questionnaires, threat status, countermeasures) are now preserved during AI-driven updates.
+
 ## [0.5.1] - 2026-02-04
 
 Updated create_threat_model prompt to ignore deprecated components by default.

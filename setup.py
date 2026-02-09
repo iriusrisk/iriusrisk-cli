@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="iriusrisk-cli",
-    version="0.5.1",
+    version="0.5.5",
     author="IriusRisk",
     author_email="support@iriusrisk.com",
     description="AI-powered threat modeling integration for IriusRisk. Command line interface and MCP server for security analysis.",
@@ -24,7 +24,7 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     package_data={
-        "iriusrisk_cli": ["prompts/*.md"],
+        "iriusrisk_cli": ["prompts/*.md", "otm_schema.json"],
     },
     include_package_data=True,
     keywords=[
@@ -64,6 +64,8 @@ setup(
         "python-dotenv>=0.19.0",
         "tabulate>=0.8.0",
         "mcp>=1.0.0",
+        "jsonschema>=4.0.0",
+        "pyyaml>=6.0.0",
     ],
     entry_points={
         "console_scripts": [

@@ -214,8 +214,8 @@ AVAILABLE COMMANDS:
         
     OTM (Open Threat Model):
         iriusrisk otm example                               # Generate example OTM file
-        iriusrisk otm import example.otm                    # Import OTM file as new project
-        iriusrisk otm import example.otm -u PROJECT_ID      # Update existing project with OTM
+        iriusrisk otm import example.otm                    # Import OTM file (auto-validates against schema)
+        iriusrisk otm import example.otm --reset-layout     # Import and reset diagram layout
         iriusrisk otm export PROJECT_ID                     # Export project as OTM format
         iriusrisk otm export PROJECT_ID -o file.otm        # Export to specific file
         
