@@ -231,25 +231,122 @@ def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
 
 
 @click.command()
+@click.option('--include-tags', multiple=True, help='Include only tools with these category tags (e.g., workflow, project)')
+@click.option('--exclude-tags', multiple=True, help='Exclude tools with these category tags')
+@click.option('--include-tools', multiple=True, help='Include specific tools by name')
+@click.option('--exclude-tools', multiple=True, help='Exclude specific tools by name')
+@click.option('--list-tools', is_flag=True, help='List all available tools with their categories and exit')
 @pass_cli_context
-def mcp(cli_ctx):
+def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_tools):
     """Start MCP (Model Context Protocol) server for AI integration.
     
     This command starts an MCP server that provides tools for AI assistants
     to interact with IriusRisk CLI functionality. The server communicates
     via stdio and is designed to be used by AI-enabled IDEs like Cursor.
     
-    The MCP server provides:
-    - Instructions for AI on how to use IriusRisk MCP tools
-    - Version information for the IriusRisk CLI
-    - Future: Additional IriusRisk-specific tools and capabilities
+    Tool Filtering:
     
-    This command is not intended for direct user interaction but rather
-    for integration with AI systems that support MCP.
+    You can control which tools are exposed to AI clients using category tags
+    or specific tool names:
+    
+    \b
+    Categories:
+      - workflow: AI workflow guidance and instructions
+      - project: Project management and data synchronization
+      - threats-and-controls: Threat and countermeasure tracking
+      - questionnaires: Questionnaire updates
+      - reporting: Report generation
+      - versioning: Version management and comparison
+      - utility: Utility functions
+    
+    \b
+    Examples:
+      # Exclude all workflow guidance tools
+      iriusrisk mcp --exclude-tags workflow
+      
+      # Only expose project and reporting tools
+      iriusrisk mcp --include-tags project reporting
+      
+      # Exclude specific tools
+      iriusrisk mcp --exclude-tools sync import_otm
+      
+      # List all available tools
+      iriusrisk mcp --list-tools
     """
+    # Define tool categories for reference
+    TOOL_CATEGORIES = {
+        'workflow': [
+            'initialize_iriusrisk_workflow', 'threats_and_countermeasures',
+            'questionnaire_guidance', 'analyze_source_material', 'create_threat_model',
+            'otm_layout_guidance', 'otm_validation_guidance', 'architecture_and_design_review',
+            'security_development_advisor', 'countermeasure_verification', 'ci_cd_verification'
+        ],
+        'project': ['sync', 'import_otm', 'export_otm', 'project_status', 'show_diagram'],
+        'threats-and-controls': [
+            'track_threat_update', 'track_countermeasure_update', 'create_countermeasure_issue',
+            'get_pending_updates', 'clear_updates'
+        ],
+        'questionnaires': ['track_project_questionnaire_update', 'track_component_questionnaire_update'],
+        'reporting': ['generate_report', 'list_standards'],
+        'versioning': ['list_project_versions', 'create_project_version', 'compare_versions'],
+        'utility': ['get_cli_version']
+    }
+    
+    # Handle --list-tools flag
+    if list_tools:
+        click.echo("Available MCP Tools by Category:\n")
+        for category, tools in sorted(TOOL_CATEGORIES.items()):
+            click.echo(f"  {category}:")
+            for tool in sorted(tools):
+                click.echo(f"    - {tool}")
+            click.echo()
+        click.echo(f"Total: {sum(len(tools) for tools in TOOL_CATEGORIES.values())} tools")
+        sys.exit(0)
+    
+    # Validate include/exclude arguments
+    all_categories = set(TOOL_CATEGORIES.keys())
+    all_tools = set(tool for tools in TOOL_CATEGORIES.values() for tool in tools)
+    
+    # Check if provided tags/tools are valid
+    for tag in include_tags:
+        if tag not in all_categories and tag not in all_tools:
+            click.echo(f"Error: Unknown category or tool '{tag}'", err=True)
+            click.echo(f"Valid categories: {', '.join(sorted(all_categories))}", err=True)
+            click.echo("Use --list-tools to see all available tools", err=True)
+            sys.exit(1)
+    
+    for tag in exclude_tags:
+        if tag not in all_categories and tag not in all_tools:
+            click.echo(f"Error: Unknown category or tool '{tag}'", err=True)
+            click.echo(f"Valid categories: {', '.join(sorted(all_categories))}", err=True)
+            click.echo("Use --list-tools to see all available tools", err=True)
+            sys.exit(1)
+    
+    for tool in include_tools:
+        if tool not in all_tools:
+            click.echo(f"Error: Unknown tool '{tool}'", err=True)
+            click.echo("Use --list-tools to see all available tools", err=True)
+            sys.exit(1)
+    
+    for tool in exclude_tools:
+        if tool not in all_tools:
+            click.echo(f"Error: Unknown tool '{tool}'", err=True)
+            click.echo("Use --list-tools to see all available tools", err=True)
+            sys.exit(1)
+    
     # Configure MCP logging based on CLI context
     setup_mcp_logging(cli_ctx)
     logger.info("Starting IriusRisk MCP server")
+    
+    # Log filtering configuration
+    if include_tags:
+        logger.info(f"Including tool categories: {', '.join(include_tags)}")
+    if exclude_tags:
+        logger.info(f"Excluding tool categories: {', '.join(exclude_tags)}")
+    if include_tools:
+        logger.info(f"Including specific tools: {', '.join(include_tools)}")
+    if exclude_tools:
+        logger.info(f"Excluding specific tools: {', '.join(exclude_tools)}")
     
     # Store CLI context for use in MCP functions
     config = cli_ctx.get_config()
@@ -2525,8 +2622,77 @@ Please run 'sync' first to download countermeasures from IriusRisk.
                 "message": f"❌ CI/CD verification failed: {str(e)}"
             }, indent=2)
 
+    # Apply tool filtering based on CLI options (using remove_tool for FastMCP v1.x compatibility)
     try:
-        logger.info("MCP server initialized successfully")
+        tools_to_remove = set()
+        
+        # Handle include-tags (allowlist mode)
+        if include_tags:
+            # Separate categories from tool names in include list
+            included_categories = [tag for tag in include_tags if tag in all_categories]
+            included_tool_names = [tag for tag in include_tags if tag in all_tools]
+            
+            # Build set of tools that should be kept
+            tools_to_keep = set()
+            for category in included_categories:
+                tools_to_keep.update(TOOL_CATEGORIES[category])
+            tools_to_keep.update(included_tool_names)
+            
+            # Mark all other tools for removal
+            for tool_name in all_tools:
+                if tool_name not in tools_to_keep:
+                    tools_to_remove.add(tool_name)
+            
+            logger.info(f"Allowlist mode: keeping only {len(tools_to_keep)} tools from categories/tools: {', '.join(include_tags)}")
+        
+        # Handle exclude-tags (blocklist mode)
+        if exclude_tags:
+            # Separate categories from tool names in exclude list
+            excluded_categories = [tag for tag in exclude_tags if tag in all_categories]
+            excluded_tool_names = [tag for tag in exclude_tags if tag in all_tools]
+            
+            # Add tools from excluded categories
+            for category in excluded_categories:
+                tools_to_remove.update(TOOL_CATEGORIES[category])
+            
+            # Add explicitly excluded tool names
+            tools_to_remove.update(excluded_tool_names)
+            
+            logger.info(f"Excluding {len(tools_to_remove)} tools from categories/tools: {', '.join(exclude_tags)}")
+        
+        # Handle include-tools (add to keep list, remove others)
+        if include_tools and not include_tags:
+            # Only if we're not already in allowlist mode from include-tags
+            tools_to_keep = set(include_tools)
+            for tool_name in all_tools:
+                if tool_name not in tools_to_keep:
+                    tools_to_remove.add(tool_name)
+            logger.info(f"Keeping only specified tools: {', '.join(include_tools)}")
+        elif include_tools:
+            # Add to existing allowlist
+            logger.info(f"Additionally including tools: {', '.join(include_tools)}")
+            # Remove these from the removal set if they were marked for removal
+            for tool_name in include_tools:
+                tools_to_remove.discard(tool_name)
+        
+        # Handle exclude-tools (add to removal list)
+        if exclude_tools:
+            tools_to_remove.update(exclude_tools)
+            logger.info(f"Excluding specific tools: {', '.join(exclude_tools)}")
+        
+        # Remove filtered tools from the server
+        for tool_name in tools_to_remove:
+            try:
+                mcp_server.remove_tool(tool_name)
+                logger.debug(f"Removed tool: {tool_name}")
+            except Exception as e:
+                logger.warning(f"Could not remove tool {tool_name}: {e}")
+        
+        if tools_to_remove:
+            logger.info(f"Tool filtering applied: {len(tools_to_remove)} tools removed, {len(all_tools) - len(tools_to_remove)} tools available")
+        else:
+            logger.info("No tool filtering applied - all 29 tools available")
+        
         # Run the MCP server with stdio transport
         mcp_server.run(transport='stdio')
     except Exception as e:

@@ -1062,6 +1062,100 @@ The generated configuration looks like:
 }
 ```
 
+### Filtering MCP Tools
+
+You can control which tools are exposed to AI clients by filtering them based on categories or specific tool names. This is useful when you want to:
+
+- Reduce the scope of tools available to the AI
+- Use custom workflow instructions instead of built-in guidance
+- Expose only specific functionality (e.g., only reporting tools)
+
+#### Tool Categories
+
+Tools are organized into the following categories:
+
+- **workflow**: AI workflow guidance and instructions (11 tools)
+- **project**: Project management and data synchronization (5 tools)
+- **threats-and-controls**: Threat and countermeasure tracking (5 tools)
+- **questionnaires**: Questionnaire updates (2 tools)
+- **reporting**: Report generation (2 tools)
+- **versioning**: Version management and comparison (3 tools)
+- **utility**: Utility functions (1 tool)
+
+#### Filtering Options
+
+Add filtering arguments to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "iriusrisk-cli": {
+      "command": "iriusrisk",
+      "args": [
+        "mcp",
+        "--exclude-tags", "workflow"
+      ]
+    }
+  }
+}
+```
+
+**Available options:**
+
+- `--include-tags <category>`: Include only tools with these category tags (allowlist mode)
+- `--exclude-tags <category>`: Exclude tools with these category tags (blocklist mode)
+- `--include-tools <tool_name>`: Include specific tools by name
+- `--exclude-tools <tool_name>`: Exclude specific tools by name
+- `--list-tools`: List all available tools with their categories
+
+**Examples:**
+
+```bash
+# Exclude all workflow guidance tools
+iriusrisk mcp --exclude-tags workflow
+
+# Only expose project and reporting tools
+iriusrisk mcp --include-tags project --include-tags reporting
+
+# Exclude specific tools
+iriusrisk mcp --exclude-tools sync --exclude-tools import_otm
+
+# List all available tools and their categories
+iriusrisk mcp --list-tools
+```
+
+**MCP Configuration Examples:**
+
+```json
+{
+  "mcpServers": {
+    "iriusrisk-cli-minimal": {
+      "command": "iriusrisk",
+      "args": [
+        "mcp",
+        "--exclude-tags", "workflow",
+        "--exclude-tags", "versioning"
+      ]
+    }
+  }
+}
+```
+
+```json
+{
+  "mcpServers": {
+    "iriusrisk-cli-reporting-only": {
+      "command": "iriusrisk",
+      "args": [
+        "mcp",
+        "--include-tags", "reporting",
+        "--include-tags", "utility"
+      ]
+    }
+  }
+}
+```
+
 ### Customizing MCP Prompts
 
 You can customize the prompts that MCP tools provide to AI assistants by adding a `prompts` section to your `.iriusrisk/project.json` file. This allows you to add organization-specific security standards, compliance requirements, or technology constraints.
