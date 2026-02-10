@@ -5,6 +5,125 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-02-10
+
+### Added
+
+#### Agent Skills - Portable AI Workflows
+
+**Converted all MCP workflow prompts to portable Agent Skills following the [Agent Skills open standard](https://agentskills.io):**
+
+Agent Skills are portable, version-controlled packages that teach AI agents how to perform domain-specific tasks. They work across any agent that supports the standard (Cursor, Windsurf, Cline, etc.) and can be shared, versioned, and reused.
+
+**Skills organized by LLM capability:**
+
+**Reasoning Models** (complex analysis, multi-step workflows):
+- `ci-cd-verification` - Orchestrate comprehensive CI/CD security reviews
+- `compare-versions` - Compare threat model versions, interpret structured diffs
+- `countermeasure-verification` - Verify security controls are correctly implemented in code
+
+**General Models** (standard workflows for most LLMs):
+- `architecture-design-review` - Architecture/design review trigger point
+- `initialize-iriusrisk-workflow` - Complete workflow instructions for all IriusRisk operations
+- `analyze-source-material` - Analyze repositories to extract components for threat modeling
+- `create-threat-model` - Step-by-step OTM file creation with validation
+- `threats-and-countermeasures` - Analyze threats/countermeasures, provide implementation guidance
+- `security-development-advisor` - Help developers assess security impact
+
+**Code-Focused** (heavy code analysis):
+- `questionnaire-guidance` - Analyze source code to answer IriusRisk questionnaires
+
+**Shared** (reference material for all models):
+- `otm-layout-guidance` - Detailed OTM component layout and positioning guidance
+- `otm-validation-guidance` - Validation rules for trust zones and component types
+
+**Benefits:**
+- **Portable**: Works across any agent supporting the Agent Skills standard
+- **Version-controlled**: Skills are tracked in Git alongside code
+- **Organized**: Categorized by model capability (reasoning, general, code-focused)
+- **Discoverable**: Agents automatically find and apply skills based on context
+- **Reusable**: Share skills across projects and teams
+
+**Files Added:**
+- `skills/README.md` - Skills documentation and organization guide
+- `skills/reasoning-models/ci-cd-verification/SKILL.md`
+- `skills/reasoning-models/compare-versions/SKILL.md`
+- `skills/reasoning-models/countermeasure-verification/SKILL.md`
+- `skills/general-models/architecture-design-review/SKILL.md`
+- `skills/general-models/initialize-iriusrisk-workflow/SKILL.md`
+- `skills/general-models/analyze-source-material/SKILL.md`
+- `skills/general-models/create-threat-model/SKILL.md`
+- `skills/general-models/threats-and-countermeasures/SKILL.md`
+- `skills/general-models/security-development-advisor/SKILL.md`
+- `skills/code-focused/questionnaire-guidance/SKILL.md`
+- `skills/shared/otm-layout-guidance/SKILL.md`
+- `skills/shared/otm-validation-guidance/SKILL.md`
+
+**Files Updated:**
+- `README.md` - Added Agent Skills section and MCP tool filtering documentation
+
+**Impact:** Makes IriusRisk workflows portable across AI agents, improves discoverability, and enables better model selection based on task complexity.
+
+#### MCP Tool Filtering
+
+**Added ability to filter which MCP tools are exposed to AI clients:**
+
+Control which tools are available through MCP by filtering based on categories or specific tool names. Useful for reducing scope, using custom workflows, or exposing only specific functionality.
+
+**Tool Categories:**
+- `workflow` - AI workflow guidance and instructions (11 tools)
+- `project` - Project management and data synchronization (5 tools)
+- `threats-and-controls` - Threat and countermeasure tracking (5 tools)
+- `questionnaires` - Questionnaire updates (2 tools)
+- `reporting` - Report generation (2 tools)
+- `versioning` - Version management and comparison (3 tools)
+- `utility` - Utility functions (1 tool)
+
+**Filtering Options:**
+```bash
+# Exclude workflow guidance tools
+iriusrisk mcp --exclude-tags workflow
+
+# Only expose project and reporting tools
+iriusrisk mcp --include-tags project --include-tags reporting
+
+# Exclude specific tools
+iriusrisk mcp --exclude-tools sync --exclude-tools import_otm
+
+# List all available tools and their categories
+iriusrisk mcp --list-tools
+```
+
+**MCP Configuration Example:**
+```json
+{
+  "mcpServers": {
+    "iriusrisk-cli": {
+      "command": "iriusrisk",
+      "args": [
+        "mcp",
+        "--exclude-tags", "workflow"
+      ]
+    }
+  }
+}
+```
+
+**Use Cases:**
+- Reduce tool scope for specific AI clients
+- Use custom workflow instructions instead of built-in guidance
+- Expose only reporting functionality for compliance teams
+- Create specialized MCP configurations for different roles
+
+**Files Updated:**
+- `src/iriusrisk_cli/commands/mcp.py` - Added filtering logic and CLI options
+- `README.md` - Added MCP tool filtering documentation
+
+**Files Added:**
+- `tests/unit/test_mcp_tool_filtering.py` - Test coverage for filtering functionality
+
+**Impact:** Provides fine-grained control over MCP tool exposure, enabling customized AI workflows and role-based tool access.
+
 ## [0.5.5] - 2026-02-06
 
 ### Fixed
@@ -516,6 +635,8 @@ See the Multi-Repository Threat Modeling section in the README for detailed exam
 - Configuration best practices
 - AI workflow examples
 
+[0.6.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.0
+[0.5.5]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.5.5
 [0.4.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.4.0
 [0.3.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.3.0
 [0.1.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.1.1

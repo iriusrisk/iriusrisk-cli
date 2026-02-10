@@ -38,7 +38,7 @@ class TestMainCLICommands:
         
         assert result.exit_code == 0, f"Version command failed: {result.output}"
         assert "IriusRisk CLI version" in result.output
-        assert "0.4.0" in result.output  # Current version
+        assert "0.6.0" in result.output  # Current version
     
     def test_cli_version_flag(self, cli_runner):
         """Test 'iriusrisk --version' flag."""
@@ -46,7 +46,7 @@ class TestMainCLICommands:
         
         assert result.exit_code == 0, f"Version flag failed: {result.output}"
         assert "IriusRisk CLI version" in result.output
-        assert "0.4.0" in result.output
+        assert "0.6.0" in result.output
     
     def test_cli_help_flag(self, cli_runner):
         """Test 'iriusrisk --help' flag."""

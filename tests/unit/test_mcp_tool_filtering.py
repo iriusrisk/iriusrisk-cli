@@ -72,7 +72,7 @@ class TestMCPToolFiltering:
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
     def test_exclude_tags_calls_disable(self, mock_fastmcp, mock_container):
-        """Test that --exclude-tags calls mcp_server.disable() with correct tags."""
+        """Test that --exclude-tags removes tools from the excluded category."""
         mock_server = MagicMock()
         mock_fastmcp.return_value = mock_server
         mock_container.return_value.get.return_value = MagicMock()
@@ -82,15 +82,19 @@ class TestMCPToolFiltering:
         
         result = self.runner.invoke(cli, ['mcp', '--exclude-tags', 'workflow'])
         
-        # Verify disable was called with workflow tag
-        mock_server.disable.assert_called()
-        call_args = mock_server.disable.call_args
-        assert 'workflow' in call_args[1]['tags']
+        # Verify remove_tool was called for workflow tools
+        # The workflow category has 11 tools
+        assert mock_server.remove_tool.call_count == 11
+        
+        # Verify some specific workflow tools were removed
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'initialize_iriusrisk_workflow' in removed_tools
+        assert 'threats_and_countermeasures' in removed_tools
     
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
     def test_include_tags_calls_enable_with_only(self, mock_fastmcp, mock_container):
-        """Test that --include-tags calls mcp_server.enable() with only=True."""
+        """Test that --include-tags removes all tools except those in the included category."""
         mock_server = MagicMock()
         mock_fastmcp.return_value = mock_server
         mock_container.return_value.get.return_value = MagicMock()
@@ -100,16 +104,20 @@ class TestMCPToolFiltering:
         
         result = self.runner.invoke(cli, ['mcp', '--include-tags', 'project'])
         
-        # Verify enable was called with only=True
-        mock_server.enable.assert_called()
-        call_args = mock_server.enable.call_args
-        assert call_args[1]['only'] is True
-        assert 'project' in call_args[1]['tags']
+        # Verify remove_tool was called for all non-project tools
+        # Total tools: 29, project category has 5 tools, so 24 should be removed
+        assert mock_server.remove_tool.call_count == 24
+        
+        # Verify project tools were NOT removed
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'sync' not in removed_tools
+        assert 'import_otm' not in removed_tools
+        assert 'export_otm' not in removed_tools
     
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
     def test_exclude_tools_calls_disable_with_keys(self, mock_fastmcp, mock_container):
-        """Test that --exclude-tools calls mcp_server.disable() with tool keys."""
+        """Test that --exclude-tools removes the specified tools."""
         mock_server = MagicMock()
         mock_fastmcp.return_value = mock_server
         mock_container.return_value.get.return_value = MagicMock()
@@ -119,15 +127,15 @@ class TestMCPToolFiltering:
         
         result = self.runner.invoke(cli, ['mcp', '--exclude-tools', 'sync'])
         
-        # Verify disable was called with correct key format
-        mock_server.disable.assert_called()
-        call_args = mock_server.disable.call_args
-        assert 'tool:sync' in call_args[1]['keys']
+        # Verify remove_tool was called with the sync tool
+        mock_server.remove_tool.assert_called()
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'sync' in removed_tools
     
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
     def test_include_tools_calls_enable_with_keys(self, mock_fastmcp, mock_container):
-        """Test that --include-tools calls mcp_server.enable() with tool keys."""
+        """Test that --include-tools removes all tools except the specified ones."""
         mock_server = MagicMock()
         mock_fastmcp.return_value = mock_server
         mock_container.return_value.get.return_value = MagicMock()
@@ -137,11 +145,14 @@ class TestMCPToolFiltering:
         
         result = self.runner.invoke(cli, ['mcp', '--include-tools', 'sync', '--include-tools', 'import_otm'])
         
-        # Verify enable was called with correct key format
-        mock_server.enable.assert_called()
-        call_args = mock_server.enable.call_args
-        assert 'tool:sync' in call_args[1]['keys']
-        assert 'tool:import_otm' in call_args[1]['keys']
+        # Verify remove_tool was called for all tools except sync and import_otm
+        # Total tools: 29, keeping 2, so 27 should be removed
+        assert mock_server.remove_tool.call_count == 27
+        
+        # Verify the specified tools were NOT removed
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'sync' not in removed_tools
+        assert 'import_otm' not in removed_tools
     
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
@@ -156,11 +167,13 @@ class TestMCPToolFiltering:
         
         result = self.runner.invoke(cli, ['mcp', '--exclude-tags', 'workflow', '--exclude-tags', 'reporting'])
         
-        # Verify disable was called with both tags
-        mock_server.disable.assert_called()
-        call_args = mock_server.disable.call_args
-        assert 'workflow' in call_args[1]['tags']
-        assert 'reporting' in call_args[1]['tags']
+        # Verify remove_tool was called for both workflow (11 tools) and reporting (2 tools)
+        assert mock_server.remove_tool.call_count == 13
+        
+        # Verify tools from both categories were removed
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'initialize_iriusrisk_workflow' in removed_tools  # workflow
+        assert 'generate_report' in removed_tools  # reporting
     
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
@@ -175,12 +188,14 @@ class TestMCPToolFiltering:
         
         result = self.runner.invoke(cli, ['mcp', '--include-tags', 'project', '--include-tags', 'utility'])
         
-        # Verify enable was called with both tags and only=True
-        mock_server.enable.assert_called()
-        call_args = mock_server.enable.call_args
-        assert 'project' in call_args[1]['tags']
-        assert 'utility' in call_args[1]['tags']
-        assert call_args[1]['only'] is True
+        # Verify remove_tool was called for all tools except project (5) and utility (1)
+        # Total tools: 29, keeping 6, so 23 should be removed
+        assert mock_server.remove_tool.call_count == 23
+        
+        # Verify tools from included categories were NOT removed
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'sync' not in removed_tools  # project
+        assert 'get_cli_version' not in removed_tools  # utility
     
     @patch('src.iriusrisk_cli.container.get_container')
     @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
@@ -199,9 +214,13 @@ class TestMCPToolFiltering:
             '--exclude-tools', 'sync'
         ])
         
-        # Verify both enable and disable were called
-        assert mock_server.enable.called
-        assert mock_server.disable.called
+        # Verify remove_tool was called
+        # Project has 5 tools, but we're excluding sync, so 24 + 1 = 25 tools removed
+        assert mock_server.remove_tool.call_count == 25
+        
+        # Verify sync was removed even though it's in the project category
+        removed_tools = [call[0][0] for call in mock_server.remove_tool.call_args_list]
+        assert 'sync' in removed_tools
     
     def test_valid_category_names(self):
         """Test that all expected categories are recognized."""
@@ -215,8 +234,17 @@ class TestMCPToolFiltering:
             assert result.exit_code == 0
             assert f'{category}:' in result.output
     
-    def test_tool_name_as_include_tag(self):
+    @patch('src.iriusrisk_cli.container.get_container')
+    @patch('src.iriusrisk_cli.commands.mcp.FastMCP')
+    def test_tool_name_as_include_tag(self, mock_fastmcp, mock_container):
         """Test that specific tool names can be used in --include-tags."""
+        mock_server = MagicMock()
+        mock_fastmcp.return_value = mock_server
+        mock_container.return_value.get.return_value = MagicMock()
+        
+        # Mock run to prevent actual server startup
+        mock_server.run.side_effect = KeyboardInterrupt()
+        
         # This should work - the code allows both categories and tool names
         result = self.runner.invoke(cli, ['mcp', '--include-tags', 'sync'])
         # Should not error out during validation

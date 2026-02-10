@@ -4,7 +4,7 @@ An AI-powered threat modeling integration that brings IriusRisk security analysi
 
 > :warning: This software has been released IriusRisk Labs as public beta. It is provided as-is, without warranty or guarantee of any kind. Features may change, data structures may evolve, and occasional issues should be expected. Use at your own discretion.
 
-> 🎉 **What's New in v0.5.0**: CI/CD Security Verification! Three new MCP tools enable AI-powered security drift detection in CI/CD pipelines: **compare_versions** (version comparison), **countermeasure_verification** (control implementation checking), and **ci_cd_verification** (comprehensive security review orchestration). Includes headless automation script for CI/CD integration. See [CHANGELOG.md](CHANGELOG.md) for details.
+> 🎉 **What's New in v0.6.0**: Agent Skills and MCP Tool Filtering! All workflow prompts converted to portable **Agent Skills** following the [Agent Skills open standard](https://agentskills.io) - now works across any agent (Cursor, Windsurf, Cline, etc.). Skills organized by LLM capability (reasoning, general, code-focused). Plus **MCP tool filtering** for fine-grained control over which tools are exposed to AI clients. See [CHANGELOG.md](CHANGELOG.md) for details.
 
 ## Primary Use Case: AI-Enabled IDE Integration
 
@@ -104,6 +104,59 @@ When integrated through MCP, AI assistants can:
 - **Implement Countermeasures**: Guide you through implementing security controls and track their status
 - **Sync Changes**: Automatically synchronize threat model updates between your local environment and IriusRisk
 - **Generate Reports**: Create compliance reports and security documentation
+
+## Agent Skills - Portable AI Workflows
+
+**New in v0.6.0**: All workflow prompts have been converted to portable **Agent Skills** following the [Agent Skills open standard](https://agentskills.io).
+
+Agent Skills are portable, version-controlled packages that teach AI agents how to perform domain-specific tasks. They work across any agent that supports the standard (Cursor, Windsurf, Cline, etc.) and can be shared, versioned, and reused.
+
+### Skills by Category
+
+Skills are organized by LLM capability to help you choose the right model for each task:
+
+#### Reasoning Models (Complex Analysis)
+
+Best for: Claude Sonnet, GPT-4, o1, other reasoning-capable models
+
+- **ci-cd-verification** - Orchestrate comprehensive CI/CD security reviews
+- **compare-versions** - Compare threat model versions, interpret structured diffs
+- **countermeasure-verification** - Verify security controls are correctly implemented in code
+
+#### General Models (Standard Workflows)
+
+Best for: Most modern LLMs (Claude, GPT-4, Gemini, etc.)
+
+- **architecture-design-review** - Architecture/design review trigger point
+- **initialize-iriusrisk-workflow** - Complete workflow instructions for all IriusRisk operations
+- **analyze-source-material** - Analyze repositories to extract components for threat modeling
+- **create-threat-model** - Step-by-step OTM file creation with validation
+- **threats-and-countermeasures** - Analyze threats/countermeasures, provide implementation guidance
+- **security-development-advisor** - Help developers assess security impact
+
+#### Code-Focused (Heavy Analysis)
+
+Best for: Models with strong code analysis capabilities
+
+- **questionnaire-guidance** - Analyze source code to answer IriusRisk questionnaires
+
+#### Shared (Reference Material)
+
+Best for: All models
+
+- **otm-layout-guidance** - Detailed OTM component layout and positioning guidance
+- **otm-validation-guidance** - Validation rules for trust zones and component types
+
+### Using Agent Skills
+
+In Cursor and other compatible agents, skills are automatically discovered from the `skills/` directory in your project or globally from `~/.cursor/skills/`.
+
+**To use a skill:**
+1. Type `/` in Agent chat
+2. Search for the skill name
+3. Or let the agent automatically apply it based on context
+
+**Learn more:** See [skills/README.md](skills/README.md) for detailed documentation on each skill and model recommendations.
 
 ## Example AI Workflows
 
