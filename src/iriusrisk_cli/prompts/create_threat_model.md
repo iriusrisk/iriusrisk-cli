@@ -73,16 +73,14 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 
 ## Component Layout
 
-**Basic rules:**
-- Leaf components: 85x85 pixels
-- Container components: Calculate from children (child_area + 80px padding, min 200x200)
-- Spacing: 50-100px between components
-- Arrange left-to-right for data flow
-- Group related components together
+**⚠️ For NEW threat models: Do NOT include `representations` in your OTM.**
+- IriusRisk automatically generates a diagram layout after import
+- Omitting representations avoids common schema validation errors and keeps the OTM simple
+- Focus only on components, trust zones, parent relationships, and dataflows
 
-**For UPDATES:** Preserve existing positions, add new components with calculated positions
-
-**For detailed positioning algorithms:** Call `otm_layout_guidance()` MCP tool
+**For UPDATES (existing model with layout):**
+- If `current-threat-model.otm` contains `representations`, preserve them using the correct schema structure
+- Call `otm_layout_guidance()` MCP tool for the correct representations schema and positioning algorithms
 
 **If `reset_layout=True`:** Backend strips layout, IriusRisk auto-layouts
 
@@ -368,6 +366,8 @@ trustZones:
 ## Complete Example
 
 **IMPORTANT:** This example uses placeholder trust zone IDs. In reality, you MUST read `.iriusrisk/trust-zones.json` and use the actual IDs from that file.
+
+**NOTE:** This example intentionally omits `representations` — for new threat models, IriusRisk auto-layouts the diagram. Only include `representations` when updating a model that already has them. If you need to include them, call `otm_layout_guidance()` for the correct schema structure. Using the wrong representations structure is a common cause of validation failures.
 
 ```yaml
 otmVersion: 0.1.0
@@ -800,6 +800,7 @@ Verifies:
 ### Step 7: Present Results & Offer Options - STOP HERE
 
 **⚠️ CRITICAL: Do NOT automatically run sync() to download threats/countermeasures.**
+**⚠️ CRITICAL: Do NOT automatically download the threat model diagram.**
 
 **Why NOT automatic:**
 - IriusRisk needs time to process the threat model and generate threats
@@ -807,6 +808,7 @@ Verifies:
 - User may want to refine the architecture first
 - User may want to complete questionnaires first for more accurate threat analysis
 - User controls the pace and timing
+- Downloading the diagram is only useful if the user specifically wants to see it
 
 **What to do:**
 1. Summarize what was accomplished:
@@ -822,6 +824,8 @@ Verifies:
    - **Option D:** "What would you like to do next?"
 
 3. **WAIT for user response** - do not proceed automatically
+
+**Note:** Only download the diagram using show_diagram() if the user explicitly asks to see it.
 
 **⚠️ IMPORTANT: Completing questionnaires (Option A) is RECOMMENDED before downloading threats because:**
 - It makes the threat model more accurate by incorporating actual implementation details
@@ -925,6 +929,7 @@ When user requests, call **sync(project_path)** again to download:
 - ☐ Used import_otm() to upload
 - ☐ Used project_status() to verify
 - ☐ Presented user with options and STOPPED (did not auto-sync)
+- ☐ Did NOT automatically download diagram (only if user requests it)
 
 **Remember:**
 - AI role: Architecture modeling only

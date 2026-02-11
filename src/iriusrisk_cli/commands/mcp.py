@@ -1108,7 +1108,10 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
     
     @mcp_server.tool()
     async def show_diagram(project_path: str, project_id: str = None, size: str = "PREVIEW") -> str:
-        """Download and display the project threat model diagram.
+        """Download the project threat model diagram when explicitly requested by the user.
+        
+        IMPORTANT: Only call this tool when the user specifically asks to see or download 
+        the diagram. Do NOT call this automatically after creating a threat model.
         
         This tool downloads the project's automatically generated threat model diagram
         as a PNG image. The diagram shows the architecture with components, trust zones,
@@ -1386,7 +1389,9 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
                    For 'not-applicable': Must explain why threat doesn't apply to this architecture
             project_path: Full path to the project directory (where .iriusrisk is located)
             context: Optional context about what was implemented or changed
-            comment: HTML-formatted comment with implementation details, code snippets, and technical notes.
+            comment: HTML-formatted comment explaining the reasoning. Must answer WHY, not restate WHAT.
+                    For code changes: include file paths with line numbers (e.g., "src/db.py lines 45-52").
+                    For not-applicable: explain the architectural reason the threat doesn't apply.
                     Use HTML tags: <p>, <strong>, <ul><li>, <code>, <pre>
             
         Returns:
@@ -1434,11 +1439,12 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         1. FIRST CALL: Update status with brief reason (NO comment parameter)
         2. SECOND CALL: Add detailed explanatory comment (WITH comment parameter)
         
-        REQUIRED COMMENTS FOR ALL STATUS CHANGES:
-        - required: Why necessary, what risks it addresses, business justification
-        - implemented: What was implemented, how it works, testing approach  
-        - rejected: Why not applicable, alternatives considered, reasoning
-        - recommended: Why suggested, benefits, implementation considerations
+        COMMENT QUALITY - Comments must explain WHY, never restate the status:
+        - BAD: "Marked as N/A because it's not applicable" (says nothing useful)
+        - GOOD: "N/A - AWS VPC config is managed by the platform team, outside application developer scope"
+        - implemented: Specific file paths WITH line numbers, what was changed, how it addresses the threat
+        - not-applicable/rejected: The specific architectural reason (e.g., "no web interface", "managed service handles this")
+        - accept: What compensating controls exist and why residual risk is acceptable
         
         MANDATORY HTML FORMATTING: Comments MUST use HTML format for proper rendering in IriusRisk.
         Use these HTML tags (NEVER use markdown or plain text):
@@ -1457,8 +1463,9 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
             reason: Brief explanation of why the status is being changed
             project_path: Full path to the project directory (where .iriusrisk is located)
             context: Optional context about what was implemented or changed
-            comment: REQUIRED for 'implemented' status - HTML-formatted comment with implementation details, 
-                    code snippets, configuration changes, file paths, and testing approach
+            comment: REQUIRED for 'implemented' status - HTML-formatted comment explaining WHY and HOW.
+                    Must include: specific file paths with line numbers, what was changed, how it addresses the threat.
+                    For not-applicable: the specific architectural reason this doesn't apply to this context.
             
         Returns:
             Status message indicating the update was tracked

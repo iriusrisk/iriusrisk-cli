@@ -1,16 +1,20 @@
 # Questionnaire Guidance Instructions for AI Assistants
 
-## 🚨 CRITICAL: Questionnaire Data Structure
+## CRITICAL: Questionnaire Data Structure
 
 **When READING questionnaires from `questionnaires.json`:**
 - Use `questionnaire.groups[].questions` (groups, not steps!)
-- Each group has `name` field and `questions` array
+- Each group has a `text` field (the group name) and a `questions` array
+- **WARNING**: The group name field is `text`, NOT `name`
 
 **When SUBMITTING answers:**
 - Use `answers_data = {"steps": [...]}` format
 - The answer payload uses "steps" but the source data uses "groups"
 
-**Common Error**: Searching for `.steps[]` in questionnaires.json will find nothing. Use `.groups[]` instead.
+**Common Errors**:
+- Searching for `.steps[]` in questionnaires.json will find nothing. Use `.groups[]` instead.
+- Using `group['name']` will fail. Use `group['text']` to get the group name.
+- Using `answer['selected']` will fail. The field is `answer['answer']` (string "true"/"false").
 
 ## Executive Summary
 
@@ -117,14 +121,22 @@ Located in `.iriusrisk/questionnaires.json` under `project` key.
 ### 2. Component Questionnaires
 Located in `.iriusrisk/questionnaires.json` under `components` array.
 
-**Each component may have specific questions like:**
-- Database: Is encryption at rest enabled? Are backups automated?
-- Web Service: Is input validation implemented? Is rate limiting in place?
-- API: Is authentication required for all endpoints? Is there API documentation?
+**Each component typically has TWO question groups:**
+
+1. **"Security Context" group** (HIGH PRIORITY) — Security-specific questions with 4 standardized answer options (not-applicable / required / recommended / implemented). These directly affect which threats and countermeasures IriusRisk generates. Examples:
+   - S3 Bucket: Is encryption at rest enabled? Is public access blocked? Is S3 Object Lock active?
+   - RDS Database: Is Multi-AZ deployed? Is TLS used for connections? Is encryption at rest enabled?
+   - ECS Cluster: Is least privilege used for tasks? Are tasks restricted to private subnets?
+   - REST API: Is rate limiting active? Is RBAC implemented? Is HTTPS enforced?
+   - Web Client: Is JavaScript sandboxing used? Is HTTPS enforced with strong TLS?
+
+2. **"Assets" group** — Data asset tracking questions with multi-select answers (Stored / Processed / Sent / Received). These map data flow through each component.
 
 **Impact:** Affects threats for that specific component only.
 
 **Scope filtering**: Only answer questionnaires for components in your repository's scope.
+
+**CRITICAL**: You MUST look at ALL groups for each component. Do not stop after finding one group.
 
 ## Workflow: Complete Questionnaires
 
@@ -164,21 +176,24 @@ Call **sync(project_path)** to download:
 
 Read `.iriusrisk/questionnaires.json` and provide a summary.
 
-**🚨 CRITICAL: Questionnaire JSON Structure**
+**CRITICAL: Questionnaire JSON Structure**
 
 The questionnaire data downloaded from IriusRisk uses **"groups"** not "steps":
-- ✅ `questionnaire.groups[].questions` (CORRECT - for reading questionnaires)
-- ❌ `questionnaire.steps[].questions` (WRONG - will find nothing)
+- `questionnaire.groups[].questions` (CORRECT - for reading questionnaires)
+- `questionnaire.steps[].questions` (WRONG - will find nothing)
 
 **When READING questionnaires** from `questionnaires.json`:
 ```python
 # CORRECT way to iterate through questions
 for group in questionnaire_data['questionnaire']['groups']:
-    group_name = group['name']
+    group_name = group['text']     # NOTE: field is 'text', NOT 'name'
     for question in group['questions']:
         question_text = question['text']
         question_ref = question['referenceId']
-        # Process question...
+        for answer in question['answers']:
+            answer_text = answer['text']
+            answer_ref = answer['referenceId']
+            current_value = answer['answer']  # NOTE: field is 'answer', NOT 'selected'
 ```
 
 **When SUBMITTING answers** (answer format uses "steps"):
@@ -194,39 +209,81 @@ answers_data = {
 ```
 
 **Summary:**
-- **Reading** questionnaires: `groups` → `questions`
+- **Reading** questionnaires: `groups` → `questions` (group name field: `text`, answer state field: `answer`)
 - **Submitting** answers: `steps` → `questions`
 
-When parsing questionnaires to find questions, use:
+### CRITICAL: Component Question Group Types
+
+**Every component questionnaire has TWO groups that you MUST examine:**
+
+1. **"Assets"** group — Questions about how data assets flow through this component
+2. **"Security Context"** group — Security-specific questions about the component's configuration and controls
+
+**You MUST iterate ALL groups for each component.** If you only look at the first group, you will miss the Security Context questions entirely (since Assets typically appears first).
+
+#### "Security Context" Group (HIGH PRIORITY)
+
+These are the questions that directly refine the threat model. They ask about specific security controls, configurations, and practices for the component type. Each question has **four standardized answer options**:
+
+| Answer text | Reference ID suffix | Meaning |
+|---|---|---|
+| "No, and this is not applicable" | `.mark.as.not.applicable` | The control doesn't apply to this architecture |
+| "No, but it is required" | `.mark.as.required` | Not yet implemented but should be |
+| "Not sure" | `.mark.as.recommended` | Under analysis / uncertain |
+| "Yes, it is implemented" | `.mark.as.implemented` | Already in place |
+
+**Examples of Security Context questions (by component type):**
+- **S3 Bucket**: "Is encryption of data at rest in Amazon S3 currently in use?", "Is S3 Object Lock active?", "Is the S3 bucket public access block implemented?"
+- **RDS Database**: "Is Multi-AZ deployment enabled?", "Do you use TLS for all client connections?", "Is encryption at rest enabled?"
+- **ECS Cluster**: "Do you configure auto scaling policies?", "Does the system use least privilege for tasks?"
+- **Load Balancer**: "Is deletion protection activated?", "Is AWS WAF with managed rules deployed?"
+- **RESTful API**: "Is rate limiting activated?", "Is Role-Based Access Control implemented?", "Is HTTPS encrypting all API communication?"
+- **Web Client**: "Is JavaScript sandboxing used?", "Is sensitive data securely stored on the client side?"
+
+#### "Assets" Group
+
+These questions track how each data asset is handled by the component. Each question follows the pattern:
+`"{asset_name}: How is it handled by this component?"`
+
+with multi-select answers (`allowsMultipleAnswers: true`):
+- "Stored" — Data is persisted in this component
+- "Processed" — Data is transformed or used by this component
+- "Sent from component" — Data flows out of this component
+- "Received by component" — Data flows into this component
+
+Asset questions have referenceIds starting with `asset.` (e.g., `asset.1`, `asset.2`).
+
+### Actual questionnaires.json Structure
+
+Here is the real JSON structure you will encounter:
 
 ```json
 {
   "metadata": {
     "project_id": "uuid",
     "data_type": "questionnaires",
-    "component_count": 5
+    "component_count": 9
   },
   "project": {
     "projectId": "uuid",
     "questionnaire": {
-      "ref": "project-questionnaire",
       "groups": [
         {
-          "name": "Architecture Questions",
+          "text": "Group Name Here",
           "questions": [
             {
-              "referenceId": "has-authentication",
-              "text": "Does the application implement authentication?",
+              "referenceId": "question-ref-id",
+              "text": "The question text?",
+              "description": "",
+              "priority": 4,
+              "allowsMultipleAnswers": false,
+              "required": false,
               "answers": [
                 {
-                  "referenceId": "has-authentication-yes",
-                  "text": "Yes",
-                  "selected": false
-                },
-                {
-                  "referenceId": "has-authentication-no",
-                  "text": "No",
-                  "selected": false
+                  "referenceId": "answer-ref-id",
+                  "text": "Answer option text",
+                  "description": "",
+                  "answer": "false"
                 }
               ]
             }
@@ -238,22 +295,43 @@ When parsing questionnaires to find questions, use:
   "components": [
     {
       "componentId": "uuid",
-      "componentName": "User Database",
+      "componentName": "S3 Application Storage",
       "questionnaire": {
-        "ref": "database-questionnaire",
         "groups": [
           {
-            "name": "Database Security",
+            "text": "Assets",
             "questions": [
               {
-                "referenceId": "db-encryption-at-rest",
-                "text": "Is encryption at rest enabled?",
+                "referenceId": "asset.1",
+                "text": "UserData: How is it handled by this component?",
+                "description": "",
+                "priority": 2043,
+                "allowsMultipleAnswers": true,
+                "required": false,
                 "answers": [
-                  {
-                    "referenceId": "db-encryption-yes",
-                    "text": "Yes",
-                    "selected": false
-                  }
+                  {"referenceId": "UserDataStored", "text": "Stored", "description": null, "answer": "false"},
+                  {"referenceId": "UserDataProcessed", "text": "Processed", "description": null, "answer": "false"},
+                  {"referenceId": "UserDataSent from component", "text": "Sent from component", "description": null, "answer": "false"},
+                  {"referenceId": "UserDataReceived by component", "text": "Received by component", "description": null, "answer": "false"}
+                ]
+              }
+            ]
+          },
+          {
+            "text": "Security Context",
+            "questions": [
+              {
+                "referenceId": "provided.question.C-AWS-S3-CNT-06",
+                "text": "Is the encryption of data at rest in Amazon S3 currently in use?",
+                "description": "",
+                "priority": 7000,
+                "allowsMultipleAnswers": false,
+                "required": false,
+                "answers": [
+                  {"referenceId": "provided.question.C-AWS-S3-CNT-06.mark.as.not.applicable", "text": "No, and this is not applicable", "description": "This requirement cannot be implemented in this system or is out of scope", "answer": "false"},
+                  {"referenceId": "provided.question.C-AWS-S3-CNT-06.mark.as.required", "text": "No, but it is required", "description": "This requirement has to be implemented", "answer": "false"},
+                  {"referenceId": "provided.question.C-AWS-S3-CNT-06.mark.as.recommended", "text": "Not sure", "description": "This requirement is under analysis", "answer": "false"},
+                  {"referenceId": "provided.question.C-AWS-S3-CNT-06.mark.as.implemented", "text": "Yes, it is implemented", "description": "", "answer": "true"}
                 ]
               }
             ]
@@ -273,46 +351,86 @@ Project-level (5 questions):
 - Authentication implementation
 - TLS/HTTPS usage
 - Logging and monitoring
-- Data protection measures
-- Incident response
 
 Component-level:
-- User Database (3 questions): encryption, backups, access controls
-- API Service (4 questions): authentication, rate limiting, input validation
-- Web Application (6 questions): session management, XSS protection, CSRF tokens
+Each component has two question groups: "Assets" (data flow tracking) and "Security Context" (security controls).
+
+Security Context questions (these refine the threat model):
+- S3 Application Storage (17 questions): encryption at rest, public access blocking, S3 Object Lock, access logging, IAM roles...
+- RDS PostgreSQL Database (7 questions): Multi-AZ, TLS connections, encryption at rest, network restrictions...
+- ECS Fargate Cluster (7 questions): auto scaling, least privilege, private subnets, monitoring...
+- Application Load Balancer (5 questions): deletion protection, WAF, access logging, desync mitigation...
+- Wildlife Tracker API (9 questions): rate limiting, RBAC, HTTPS, input sanitization, session management...
+
+Asset questions (data flow mapping):
+- All components share 46 asset tracking questions about how data flows through each component.
 
 I'll analyze your source code to answer these. This will take a moment...
 ```
+
+**IMPORTANT: You MUST iterate ALL groups for each component.** Do not stop after finding the "Assets" group. The "Security Context" group contains the high-value security questions that directly affect threat generation.
 
 ### Step 4: Analyze Source Code to Determine Answers
 
 **CRITICAL: You MUST analyze the actual source code to determine truthful answers.**
 
-**For each question:**
-1. Identify what code/configuration would indicate "yes" vs "no"
-2. Search the codebase for relevant files, patterns, libraries
+**Process ALL groups for each component — both "Assets" and "Security Context".**
+
+#### Answering Security Context Questions
+
+Security Context questions have four answer options. Choose the one that best matches reality:
+
+| If the code shows... | Select... |
+|---|---|
+| The security control is implemented and active | "Yes, it is implemented" |
+| The control is needed but not yet in place | "No, but it is required" |
+| The control doesn't apply to this architecture/component | "No, and this is not applicable" |
+| You cannot determine from the code | "Not sure" |
+
+**For each Security Context question:**
+1. Identify what code, configuration, or infrastructure would indicate the control is in place
+2. Search the codebase for relevant files, patterns, libraries, IaC definitions
 3. Make an evidence-based determination
 4. Document your reasoning in the context field
 
-**Example analysis for "Does the application implement authentication?":**
-
-```python
-# Search for authentication-related code
-# Check for: auth middleware, JWT usage, session management, login endpoints
-
-# Example findings:
-# - Found authentication middleware in src/middleware/auth.py
-# - JWT tokens used for API authentication
-# - Login endpoint at POST /api/auth/login
-# - Protected routes require authentication
-# → ANSWER: YES (has-authentication-yes)
+**Example analysis for "Is the encryption of data at rest in Amazon S3 currently in use?":**
 ```
+# Search for S3 encryption configuration in:
+# - Terraform/CloudFormation: server_side_encryption_configuration, SSEAlgorithm
+# - AWS CDK: encryption property on S3 bucket constructs
+# - AWS CLI scripts: --server-side-encryption flags
+#
+# Finding: terraform/s3.tf has server_side_encryption_configuration with aws:kms
+# → ANSWER: "Yes, it is implemented" (*.mark.as.implemented)
+```
+
+**Example analysis for "Is rate limiting and IP blocking activated?":**
+```
+# Search for rate limiting in:
+# - Application middleware: throttle, rate_limit decorators
+# - API gateway config: throttling settings
+# - Nginx/reverse proxy: limit_req_zone
+# - WAF rules: rate-based rules
+#
+# Finding: No rate limiting middleware in app code, no WAF rules in IaC
+# → ANSWER: "No, but it is required" (*.mark.as.required)
+```
+
+#### Answering Asset Questions
+
+Asset questions track data flow. For each `"{asset_name}: How is it handled by this component?"`:
+- Determine which of Stored / Processed / Sent / Received apply (multiple can be selected)
+- Base this on how data actually flows through the component in the architecture
+- For a database component: likely "Stored" and possibly "Processed"
+- For an API component: likely "Processed", "Sent from component", "Received by component"
+- For a storage component like S3: likely "Stored", "Received by component"
 
 **DO NOT:**
 - Guess or assume answers without checking code
-- Answer "yes" to make the user feel good
-- Answer "no" conservatively without checking
-- Skip questions because they seem hard
+- Answer "implemented" to make the user feel good
+- Answer "not applicable" just because the answer seems hard to find
+- Skip the Security Context group after processing Assets
+- Skip the Assets group after processing Security Context
 
 **DO:**
 - Search files for relevant patterns (grep, file reads)
@@ -465,127 +583,130 @@ What would be most helpful?
 
 ## Common Question Patterns and Analysis Approaches
 
-### Authentication Questions
+### Security Context Questions (4-Option Pattern)
+
+These are the most impactful questions. They follow a consistent pattern with four answer options.
+
+#### AWS Infrastructure Security Context Examples
+
+**S3 Bucket questions** — search for:
+- Terraform: `aws_s3_bucket`, `server_side_encryption_configuration`, `block_public_access`, `versioning`, `object_lock_configuration`, `logging`
+- CloudFormation: `AWS::S3::Bucket`, `BucketEncryption`, `PublicAccessBlockConfiguration`
+
+**RDS Database questions** — search for:
+- Terraform: `aws_db_instance`, `multi_az`, `storage_encrypted`, `kms_key_id`, `iam_database_authentication_enabled`
+- Connection strings: TLS/SSL parameters, `sslmode=require`
+
+**ECS/Fargate questions** — search for:
+- Terraform: `aws_ecs_task_definition`, `task_role_arn`, `network_mode`, `awsvpc`, subnet configurations
+- IAM policies: least privilege task roles, execution roles
+
+**Load Balancer questions** — search for:
+- Terraform: `aws_lb`, `deletion_protection`, `access_logs`, `aws_wafv2_web_acl_association`
+- Listener configurations: HTTPS, TLS policies
+
+#### Application Security Context Examples
+
+**RESTful API questions** — search for:
+- Rate limiting: middleware, decorators (`@rate_limit`, `flask-limiter`, `express-rate-limit`)
+- RBAC: role checks, permission decorators, authorization middleware
+- HTTPS: server config, certificate setup, redirect rules
+- Input sanitization: validation libraries (pydantic, marshmallow, joi), `@validate`, `sanitize()`
+- Session management: session config, token expiration, secure cookie flags
+
+**Web Client questions** — search for:
+- Frame-busting: `X-Frame-Options`, CSP `frame-ancestors`, JavaScript frame detection
+- JavaScript sandboxing: CSP policies, sandbox attributes, eval restrictions
+- Client-side storage: localStorage/sessionStorage usage, sensitive data checks
+- HTTPS enforcement: HSTS headers, redirect rules, `Strict-Transport-Security`
+
+### Project-Level Question Patterns
+
+#### Authentication Questions
 
 **Question:** "Does the application implement authentication?"
 
 **Analysis approach:**
-```bash
-# Search for common auth patterns
-grep -r "authenticate\|login\|jwt\|session\|passport\|auth0" src/
-grep -r "@require_auth\|@login_required\|@authenticated" src/
-grep -r "Authorization:\|Bearer\|token" src/
-
-# Check for auth libraries
-grep "jsonwebtoken\|passport\|express-session\|django.contrib.auth" package.json requirements.txt
-
-# Check middleware/guards
-find src/ -name "*auth*.py" -o -name "*guard*.ts" -o -name "*middleware*.js"
-```
+- Search for: auth middleware, JWT usage, session management, login endpoints
+- Check for: `@require_auth`, `@login_required`, `Authorization: Bearer`, passport.js
+- Libraries: jsonwebtoken, passport, express-session, django.contrib.auth
 
 **Answer YES if:** Auth middleware exists, JWT/session tokens used, protected routes, login endpoints
 **Answer NO if:** No auth code found, all routes publicly accessible
 
-### Encryption/TLS Questions
+#### Encryption/TLS Questions
 
 **Question:** "Is TLS/HTTPS used for communications?"
 
 **Analysis approach:**
-```bash
-# Check server config
-grep -r "https:\|ssl\|tls\|certificate" nginx.conf docker-compose.yml
-
-# Check API clients
-grep -r "https://\|ssl.*true\|tls.*enabled" src/
-
-# Check environment configs
-grep "SSL\|TLS\|HTTPS" .env* config/*
-```
+- Check server config: nginx.conf, docker-compose.yml for https/ssl/tls/certificate
+- Check API clients: https:// URLs, ssl=true, tls=enabled
+- Check IaC: ALB listeners on port 443, certificate ARNs
 
 **Answer YES if:** HTTPS URLs in config, SSL certificates configured, TLS enabled in servers
 **Answer NO if:** HTTP URLs only, no SSL config
 
-### Input Validation Questions
+#### Input Validation Questions
 
 **Question:** "Is input validation implemented?"
 
 **Analysis approach:**
-```bash
-# Search for validation
-grep -r "validate\|sanitize\|validator\|schema" src/
-
-# Check for validation libraries
-grep "joi\|yup\|express-validator\|marshmallow\|pydantic" package.json requirements.txt
-
-# Look for validation decorators/middleware
-grep -r "@Valid\|@validated\|validate_request" src/
-```
+- Search for: validate, sanitize, validator, schema
+- Libraries: joi, yup, express-validator, marshmallow, pydantic
+- Decorators: @Valid, @validated, validate_request
 
 **Answer YES if:** Validation library used, validation on input endpoints, schema validation
 **Answer NO if:** No validation code, raw input used directly
 
-### Logging/Monitoring Questions
+### Asset Questions (Multi-Select Pattern)
 
-**Question:** "Is there logging and monitoring?"
+For each `"{asset_name}: How is it handled by this component?"`:
 
-**Analysis approach:**
-```bash
-# Search for logging
-grep -r "logger\|log\.\|console.log\|logging\|winston\|pino" src/
+**Determine which answers to select based on the component's role:**
 
-# Check for monitoring services
-grep "datadog\|newrelic\|sentry\|prometheus\|cloudwatch" package.json
-
-# Look for log configs
-find . -name "*log*.config.*" -o -name "*logging*.yml"
-```
-
-**Answer YES if:** Logger configured, monitoring service integrated, structured logging
-**Answer NO if:** Only console.log or no logging
-
-### Database Security Questions
-
-**Question:** "Is database encryption at rest enabled?"
+| Component Type | Typical Asset Handling |
+|---|---|
+| Database (RDS, DynamoDB) | Stored, possibly Processed |
+| Object Storage (S3) | Stored, Received by component |
+| API Service | Processed, Sent from component, Received by component |
+| Load Balancer | Sent from component, Received by component |
+| Web Client | Processed, Sent from component, Received by component |
+| Cache (Redis, ElastiCache) | Stored, Processed |
+| Logging Service | Stored, Received by component |
 
 **Analysis approach:**
-```bash
-# Check database config
-grep -r "encrypt.*rest\|storage.*encrypt\|encrypted.*true" terraform/ cloudformation/
-
-# Check cloud provider configs
-grep "StorageEncrypted\|encrypted\|kms" terraform/ aws/ gcp/
-
-# Check database.yml or similar
-grep "encrypt\|ssl" config/database.yml .env
-```
-
-**Answer YES if:** Encryption flag set in IaC, KMS keys configured, encrypted storage enabled
-**Answer NO if:** No encryption config found
+- Review the OTM dataflows to understand what data moves between components
+- Check the source code for data transformations, API calls, database writes
+- For each asset, determine if the component stores, processes, sends, or receives it
 
 ## Handling Multiple Components
 
 When a project has many components with questionnaires:
 
-**Strategy 1: Group by component type**
-- Answer all database component questions together
+**Strategy 1: Prioritize Security Context, then Assets**
+- Answer ALL Security Context questions first across all components (these refine the threat model)
+- Then answer Asset questions (these track data flow)
+- This ensures the highest-impact answers are completed even if interrupted
+
+**Strategy 2: Group by component type**
+- Answer all database component questions together (Security Context + Assets)
 - Answer all API component questions together
 - Efficient code analysis (search once, apply to all similar components)
-
-**Strategy 2: Prioritize critical components**
-- Start with components handling sensitive data
-- Then public-facing components
-- Finally internal infrastructure
 
 **Strategy 3: Batch API calls**
 - Track multiple component answers before syncing
 - One sync at the end applies all updates
 
-**Always inform user of progress:**
+**Always inform user of progress — show both group types:**
 ```
 Analyzing components:
-✅ User Database (3/3 questions answered)
-✅ API Service (4/4 questions answered)
-⏳ Web Application (analyzing now...)
+✅ S3 Application Storage
+   - Security Context: 17/17 questions answered (encryption, access control, monitoring...)
+   - Assets: 46/46 asset flow questions answered
+✅ RDS PostgreSQL Database
+   - Security Context: 7/7 questions answered (Multi-AZ, TLS, encryption...)
+   - Assets: 46/46 asset flow questions answered
+⏳ Wildlife Tracker API (analyzing Security Context now...)
 ```
 
 ## Error Handling
@@ -594,15 +715,16 @@ Analyzing components:
 1. Document what you searched for
 2. Explain why it's unclear
 3. Ask user for clarification
-4. Provide a conservative default (usually "no")
+4. For Security Context questions: select "Not sure" (mark.as.recommended) — this flags the question for review without making false claims
+5. For Asset questions: skip the asset if you cannot determine data flow
 
-**Example:**
+**Example (Security Context):**
 ```
-I couldn't definitively determine if rate limiting is implemented for the API Service.
+I couldn't definitively determine if rate limiting is implemented for the Wildlife Tracker API.
 
 What I checked:
 - No rate limiting middleware found in src/middleware/
-- No rate-limit packages in package.json
+- No rate-limit packages in requirements.txt
 - No rate limit configuration in nginx.conf or API gateway config
 
 However, rate limiting might be configured at:
@@ -610,8 +732,8 @@ However, rate limiting might be configured at:
 - Load balancer level
 - Third-party service
 
-Do you have rate limiting configured? If unsure, I'll answer "no" (conservative) 
-and IriusRisk will flag it as a potential risk to address.
+Do you have rate limiting configured? If unsure, I'll answer "Not sure" 
+(mark.as.recommended) so it stays flagged for review.
 ```
 
 ## Best Practices
@@ -651,10 +773,12 @@ After completing questionnaires and syncing:
 When completing questionnaires:
 - ☐ Offer to complete questionnaires after OTM import
 - ☐ If accepted, sync() to download questionnaires
-- ☐ Read questionnaires.json and summarize for user
-- ☐ Analyze source code to determine truthful answers
+- ☐ Read questionnaires.json and summarize for user (show both Assets and Security Context groups)
+- ☐ For each component, iterate ALL groups (do not stop at the first group)
+- ☐ Answer Security Context questions (4-option pattern: not-applicable / required / recommended / implemented)
+- ☐ Answer Asset questions (multi-select: Stored / Processed / Sent / Received)
 - ☐ Track project questionnaire answers with context
-- ☐ Track component questionnaire answers with context
+- ☐ Track component questionnaire answers with context (include both groups)
 - ☐ Immediately sync() to push answers (don't ask permission)
 - ☐ Inform user of results and threat model changes
 - ☐ Offer next steps (review threats, implement countermeasures)

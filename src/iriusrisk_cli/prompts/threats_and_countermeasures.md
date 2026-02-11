@@ -64,15 +64,22 @@ DO NOT suggest CLI commands like `iriusrisk sync`. ALWAYS use the sync() MCP too
 
 ## DO NOT CONFUSE: Accept vs Not-Applicable
 
-**WRONG**: Marking a threat as "not-applicable" because the risk is low or acceptable
-**RIGHT**: Mark as "accept" - the threat exists, we acknowledge it, we accept the risk
+**Rule of thumb:** "Accept" = threat is real, we live with it. "Not-applicable" = threat doesn't exist here.
+- Don't mark as "not-applicable" because risk is low — that's "accept"
+- Don't mark as "accept" when it's a false positive — that's "not-applicable"
 
-**WRONG**: Marking a threat as "accept" when it's a false positive
-**RIGHT**: Mark as "not-applicable" - the threat doesn't actually exist in this context
+## Comment Quality for Status Updates
 
-Think of it this way:
-- **Accept** = "Yes, this threat is real, but we're okay with the risk"
-- **Not-applicable** = "No, this threat is not real in our context - false alarm"
+**Every comment must explain the REASONING, not restate the status.**
+
+- BAD: "Marked as N/A because this countermeasure is not applicable" (says nothing)
+- GOOD: "N/A — AWS VPC configuration is managed by the platform team via Terraform in the infra repo, outside application developer scope"
+- BAD: "Implemented input validation" (too vague)
+- GOOD: "Replaced string concatenation with parameterized queries in `src/db.py` (lines 45-52). All user inputs now validated via Pydantic models before reaching the database layer."
+
+**For code changes:** Always include specific file paths WITH line numbers.
+**For not-applicable:** Explain the specific architectural reason it doesn't apply.
+**For accept:** State what compensating controls exist and why residual risk is acceptable.
 
 ## Scope-Based Filtering for Multi-Repository Projects
 

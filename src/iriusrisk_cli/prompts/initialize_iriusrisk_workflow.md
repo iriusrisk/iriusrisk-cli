@@ -53,7 +53,7 @@
 **What AI should NOT do**:
 - ❌ Call `threats_and_countermeasures()` - user didn't ask for threat analysis
 - ❌ Analyze threats.json - user wants to model architecture, not review threats
-- ❌ Show diagram - premature, do this after import if needed
+- ❌ Call `show_diagram()` - ONLY download diagram when user explicitly requests it
 - ❌ Ask "What would you like to do?" - user already told you what to do
 
 **The phrase "threat model the application stack" is a VERB (action) not NOUN (review).**
@@ -128,7 +128,7 @@ The presence of `threats.json` is irrelevant when user explicitly requests threa
 - **YES** → Call `create_threat_model()` immediately
   - **Do NOT call threats_and_countermeasures()**
   - **Do NOT analyze threats.json**
-  - **Do NOT show diagram**
+  - **Do NOT call show_diagram()** - only download diagram if user explicitly asks for it
   - **DO**: Analyze source code → Create/merge OTM → Import architecture
 - **NO** → Continue to Priority 2
 
@@ -371,7 +371,7 @@ track_countermeasure_update(countermeasure_id="...", status="implemented", reaso
 **Step 2:** Add explanatory comment (with HTML formatting)
 ```
 track_countermeasure_update(countermeasure_id="...", status="implemented", reason="Adding details", project_path="/absolute/path/to/project",
-  comment="<p><strong>Implementation:</strong></p><ul><li>Added validation in api.py</li></ul>")
+  comment="<p><strong>Implementation:</strong></p><ul><li>Replaced string concatenation with parameterized queries in <code>src/api/orders.py</code> (lines 45-52)</li><li>Added Pydantic input validation for all order endpoints</li></ul>")
 ```
 
 **Why:** IriusRisk API design requires separate calls for status vs. comment updates.  
@@ -528,7 +528,7 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 **User:** "I've implemented input validation. How do I track this?"  
 **AI:** Make two calls to track_countermeasure_update(), then immediately call sync():
 1. Update status: `countermeasure_id="...", status="implemented", reason="Added input validation", project_path="/absolute/path/to/project"`
-2. Add comment: `countermeasure_id="...", status="implemented", reason="Adding details", project_path="/absolute/path/to/project", comment="<p><strong>Implementation:</strong></p><ul><li>Added validation middleware in api.py</li></ul>"`
+2. Add comment: `countermeasure_id="...", status="implemented", reason="Adding details", project_path="/absolute/path/to/project", comment="<p><strong>Implementation:</strong></p><ul><li>Added Pydantic validation in <code>src/api.py</code> (lines 23-45) for all user-facing endpoints</li></ul>"`
 3. **Immediately call sync(project_path="/absolute/path/to/project")** to apply changes to IriusRisk (don't ask, just do it)
 
 **User:** "Find the SQL injection countermeasure"  
@@ -552,7 +552,7 @@ track_countermeasure_update(
     status="implemented",
     reason="Adding implementation details",
     project_path="/absolute/path/to/project",
-    comment="<p><strong>Implementation:</strong></p><ul><li>Added middleware in <code>api.py</code></li><li>Uses pydantic validation</li></ul>"
+    comment="<p><strong>Implementation:</strong></p><ul><li>Replaced raw SQL with parameterized queries in <code>src/db/queries.py</code> (lines 31-58)</li><li>Added Pydantic request validation in <code>src/api/routes.py</code> (lines 12-30)</li></ul>"
 )
 ```
 
