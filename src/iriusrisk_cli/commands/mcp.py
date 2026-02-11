@@ -602,6 +602,10 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         This tool imports an OTM (Open Threat Model) file to IriusRisk, creating a new
         project or updating an existing one if it already exists.
         
+        IMPORTANT: Always call sync() BEFORE creating or modifying the OTM file you plan to import.
+        sync() downloads the latest current-threat-model.otm that you must read and merge with.
+        Without this, you will overwrite changes made in the IriusRisk web interface.
+        
         Args:
             otm_file_path: Path to the OTM file to import
             reset_layout: If True, strip all layout/positioning data before import.
@@ -1297,6 +1301,9 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         
         This tool provides step-by-step instructions for AI assistants on how to
         create a complete threat model using the IriusRisk CLI workflow.
+        
+        IMPORTANT: Always call sync() FIRST before following these instructions.
+        sync() downloads the current threat model state that you must merge with.
         
         Returns:
             Detailed instructions for creating threat models from source material.

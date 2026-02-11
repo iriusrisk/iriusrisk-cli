@@ -1,5 +1,18 @@
 # IriusRisk MCP Workflow Instructions for AI Assistants
 
+## 🚨 UNIVERSAL RULE: Sync Before and After Every Operation
+
+**Every operation that reads or modifies threat model data MUST follow this pattern:**
+
+> **sync() → read current state → make changes → import/track → sync()**
+
+- **sync() BEFORE**: Pull latest state before reading or modifying ANY `.iriusrisk/` data (OTM files, threats, countermeasures). Users may have made changes in the IriusRisk web interface that you don't have locally.
+- **sync() AFTER**: Push changes after tracking updates (countermeasures, threats, questionnaires). Do not ask permission.
+
+**Skipping the initial sync() will overwrite changes the user made in the web interface. This is non-negotiable.**
+
+---
+
 ## 🚨 CRITICAL: Distinguish "THREAT MODELING" vs "THREAT ANALYSIS"
 
 ### These are COMPLETELY DIFFERENT workflows:
