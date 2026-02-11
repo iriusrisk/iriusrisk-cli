@@ -16,35 +16,47 @@ project:
   name: "Test Project"
   id: "test-project"
 
+representations:
+  - name: "Diagram Representation"
+    id: "diagram-1"
+    type: "diagram"
+    size:
+      width: 1000
+      height: 800
+
 components:
   - id: "component-1"
     name: "Component 1"
     type: "web-service"
-    representation:
-      position:
-        x: 100
-        y: 200
-      size:
-        width: 85
-        height: 85
+    representations:
+      - representation: "diagram-1"
+        id: "component-1-diagram"
+        position:
+          x: 100
+          y: 200
+        size:
+          width: 85
+          height: 85
   - id: "component-2"
     name: "Component 2"
     type: "database"
-    representation:
-      position:
-        x: 300
-        y: 200
-      size:
-        width: 85
-        height: 85
+    representations:
+      - representation: "diagram-1"
+        id: "component-2-diagram"
+        position:
+          x: 300
+          y: 200
+        size:
+          width: 85
+          height: 85
 """
     
     result = strip_layout_from_otm(otm_with_layout)
     
     # Verify layout data is removed
-    assert 'representation:' not in result
+    assert 'representations:' not in result
     assert 'position:' not in result
-    assert 'size:' not in result
+    assert 'diagram-1' not in result
     
     # Verify structure is preserved
     assert 'component-1' in result
@@ -60,18 +72,28 @@ project:
   name: "Test Project"
   id: "test-project"
 
+representations:
+  - name: "Diagram Representation"
+    id: "diagram-1"
+    type: "diagram"
+    size:
+      width: 1000
+      height: 800
+
 trustZones:
   - id: "internet"
     name: "Internet"
     risk:
       trustRating: 1
-    representation:
-      position:
-        x: 0
-        y: 0
-      size:
-        width: 500
-        height: 500
+    representations:
+      - representation: "diagram-1"
+        id: "internet-diagram"
+        position:
+          x: 0
+          y: 0
+        size:
+          width: 500
+          height: 500
 
 components:
   - id: "web-app"
@@ -79,13 +101,15 @@ components:
     type: "web-service"
     parent:
       trustZone: "internet"
-    representation:
-      position:
-        x: 100
-        y: 100
-      size:
-        width: 85
-        height: 85
+    representations:
+      - representation: "diagram-1"
+        id: "web-app-diagram"
+        position:
+          x: 100
+          y: 100
+        size:
+          width: 85
+          height: 85
 
 dataflows:
   - id: "flow-1"
@@ -109,19 +133,38 @@ dataflows:
     assert 'flow-1' in result
     
     # Verify layout is removed
-    assert 'representation:' not in result
+    assert 'representations:' not in result
+    assert 'position:' not in result
 
 
 def test_has_layout_data_true():
     """Test detecting layout data presence."""
     otm_with_layout = """components:
   - id: "test"
-    representation:
-      position:
-        x: 100
+    representations:
+      - representation: "diagram-1"
+        id: "test-diagram"
+        position:
+          x: 100
+          y: 200
 """
     
     assert has_layout_data(otm_with_layout) is True
+
+
+def test_has_layout_data_true_top_level():
+    """Test detecting top-level representations section."""
+    otm_with_top_level = """representations:
+  - name: "Diagram Representation"
+    id: "diagram-1"
+    type: "diagram"
+
+components:
+  - id: "test"
+    name: "Test"
+"""
+    
+    assert has_layout_data(otm_with_top_level) is True
 
 
 def test_has_layout_data_false():
@@ -167,7 +210,7 @@ components:
     # Should preserve everything
     assert 'component-1' in result
     assert 'web-service' in result
-    assert 'representation:' not in result
+    assert 'representations:' not in result
 
 
 def test_validate_otm_schema_valid():

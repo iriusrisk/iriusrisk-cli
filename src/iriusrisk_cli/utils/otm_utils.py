@@ -16,13 +16,15 @@ logger = logging.getLogger(__name__)
 def strip_layout_from_otm(otm_content: str) -> str:
     """Remove all layout/positioning data from OTM content.
     
-    This removes the 'representation' section from all components and trust zones,
-    forcing IriusRisk to auto-layout the diagram from scratch.
+    This removes the 'representations' sections from all components, trust zones,
+    dataflows, and the top-level representations array, forcing IriusRisk to
+    auto-layout the diagram from scratch.
     
     Removes:
-    - representation.position (x, y coordinates)
-    - representation.size (width, height)
-    - Any other representation data
+    - Top-level representations array (diagram canvas definition)
+    - Component-level representations (position, size per component)
+    - Trust zone-level representations
+    - Dataflow-level representations (routing points)
     
     This is useful when:
     - The diagram has become messy after multiple updates
@@ -49,26 +51,31 @@ def strip_layout_from_otm(otm_content: str) -> str:
         # Parse the OTM
         otm_data = yaml.safe_load(otm_content)
         
-        # Remove representation from components
+        # Remove top-level representations (diagram canvas definition)
+        if 'representations' in otm_data:
+            del otm_data['representations']
+            logger.debug("Removed top-level representations section")
+        
+        # Remove representations from components
         if 'components' in otm_data:
             for component in otm_data['components']:
-                if 'representation' in component:
-                    del component['representation']
-                    logger.debug(f"Removed representation from component: {component.get('id', 'unknown')}")
+                if 'representations' in component:
+                    del component['representations']
+                    logger.debug(f"Removed representations from component: {component.get('id', 'unknown')}")
         
-        # Remove representation from trust zones
+        # Remove representations from trust zones
         if 'trustZones' in otm_data:
             for trust_zone in otm_data['trustZones']:
-                if 'representation' in trust_zone:
-                    del trust_zone['representation']
-                    logger.debug(f"Removed representation from trust zone: {trust_zone.get('id', 'unknown')}")
+                if 'representations' in trust_zone:
+                    del trust_zone['representations']
+                    logger.debug(f"Removed representations from trust zone: {trust_zone.get('id', 'unknown')}")
         
-        # Remove representation from dataflows (if any have routing points)
+        # Remove representations from dataflows (if any have routing points)
         if 'dataflows' in otm_data:
             for dataflow in otm_data['dataflows']:
-                if 'representation' in dataflow:
-                    del dataflow['representation']
-                    logger.debug(f"Removed representation from dataflow: {dataflow.get('id', 'unknown')}")
+                if 'representations' in dataflow:
+                    del dataflow['representations']
+                    logger.debug(f"Removed representations from dataflow: {dataflow.get('id', 'unknown')}")
         
         # Convert back to YAML
         modified_content = yaml.dump(otm_data, default_flow_style=False, sort_keys=False)
@@ -93,22 +100,20 @@ def _strip_layout_regex(otm_content: str) -> str:
     Returns:
         Modified OTM content with layout data removed
     """
-    # Pattern to match entire representation blocks
-    # Matches:
-    #   representation:
-    #     position:
-    #       x: 100
-    #       y: 200
-    #     size:
-    #       width: 85
-    #       height: 85
+    # Pattern to match entire representations blocks (plural, per OTM spec)
+    # Matches both top-level and nested representations arrays:
+    #   representations:
+    #     - representation: "diagram-1"
+    #       id: "component-diagram"
+    #       position: {x: 100, y: 200}
+    #       size: {width: 85, height: 85}
     
-    # Remove representation blocks (handles multi-line with proper indentation)
-    pattern = r'^\s*representation:\s*\n(?:\s+\w+:.*\n)*'
+    # Remove representations blocks (handles multi-line with proper indentation)
+    pattern = r'^\s*representations:\s*\n(?:\s+.*\n)*?(?=\S|\Z)'
     modified = re.sub(pattern, '', otm_content, flags=re.MULTILINE)
     
-    # Also handle single-line representation if any
-    modified = re.sub(r'^\s*representation:.*$', '', modified, flags=re.MULTILINE)
+    # Also handle single-line representations if any
+    modified = re.sub(r'^\s*representations:.*$', '', modified, flags=re.MULTILINE)
     
     # Clean up any resulting multiple blank lines
     modified = re.sub(r'\n\n\n+', '\n\n', modified)
@@ -120,6 +125,9 @@ def _strip_layout_regex(otm_content: str) -> str:
 def has_layout_data(otm_content: str) -> bool:
     """Check if OTM content contains layout/positioning data.
     
+    Checks for the 'representations' key (plural, per OTM spec) on
+    components, trust zones, dataflows, and at the top level.
+    
     Args:
         otm_content: OTM content as string
         
@@ -130,29 +138,33 @@ def has_layout_data(otm_content: str) -> bool:
         import yaml
         otm_data = yaml.safe_load(otm_content)
         
+        # Check top-level representations
+        if 'representations' in otm_data:
+            return True
+        
         # Check components
         if 'components' in otm_data:
             for component in otm_data['components']:
-                if 'representation' in component:
+                if 'representations' in component:
                     return True
         
         # Check trust zones
         if 'trustZones' in otm_data:
             for trust_zone in otm_data['trustZones']:
-                if 'representation' in trust_zone:
+                if 'representations' in trust_zone:
                     return True
         
         # Check dataflows
         if 'dataflows' in otm_data:
             for dataflow in otm_data['dataflows']:
-                if 'representation' in dataflow:
+                if 'representations' in dataflow:
                     return True
         
         return False
         
     except ImportError:
         # Fallback to simple string search
-        return 'representation:' in otm_content
+        return 'representations:' in otm_content
 
 
 def validate_otm_schema(otm_content: str) -> Tuple[bool, Optional[List[str]]]:

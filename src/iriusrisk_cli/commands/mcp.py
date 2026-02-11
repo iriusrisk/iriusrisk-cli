@@ -801,16 +801,10 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
                 result = api_client.import_otm_content(modified_content, auto_update=True)
             else:
                 # Normal import
-                # If layout was reset, write to temp file
-                if should_reset_layout and has_layout_data(otm_content):
-                    import tempfile
-                    with tempfile.NamedTemporaryFile(mode='w', suffix='.otm', delete=False, encoding='utf-8') as tmp:
-                        tmp.write(otm_content)
-                        tmp_path = tmp.name
-                    try:
-                        result = api_client.import_otm_file(tmp_path, auto_update=True)
-                    finally:
-                        Path(tmp_path).unlink(missing_ok=True)
+                # If layout was reset, use import_otm_content with the stripped string
+                # (can't use import_otm_file since that reads the original file from disk)
+                if should_reset_layout:
+                    result = api_client.import_otm_content(otm_content, auto_update=True)
                 else:
                     result = api_client.import_otm_file(str(otm_path), auto_update=True)
             
