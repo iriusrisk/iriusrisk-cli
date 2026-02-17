@@ -27,11 +27,12 @@
 Create OTM files to model system architecture for IriusRisk threat analysis. Your role: architecture modeling only (components, trust zones, data flows). Do NOT create threats or controls—IriusRisk generates those automatically.
 
 **Standard workflow:** 
-1. **sync()** - Downloads trust-zones.json, components.json, current-threat-model.otm
+1. **sync(project_path)** - Downloads trust-zones.json, components.json, current-threat-model.otm
 2. **READ trust-zones.json and components.json** - Validate IDs/types exist
 3. Check `.iriusrisk/current-threat-model.otm` - Merge if exists
-4. Create OTM in `.iriusrisk/temp-*.otm` with validated IDs/types
-5. import_otm() → project_status() → **STOP**
+4. Read `.iriusrisk/project.json` → note the `reference_id` (you'll need it for subsequent tool calls)
+5. Create OTM in `.iriusrisk/temp-*.otm` with validated IDs/types
+6. import_otm() → project_status(project_id=reference_id) → **STOP**
 
 ## Quick Reference
 
@@ -179,7 +180,7 @@ Do not conflate these. Model the architecture accurately, use meaningful archite
   - If validation fails, you'll see clear error messages
   - Fix any structural issues before proceeding
   
-- ☐ Step 7: **project_status()** - Verify project ready
+- ☐ Step 7: **project_status(project_id=reference_id)** - Verify project ready (use reference_id from project.json)
   
 - ☐ Step 8: Present results - Offer options - **STOP HERE and wait for user**
   
@@ -787,9 +788,9 @@ When import fails with an error (401, 403, 400, etc.), you MUST:
 
 Report the error, explain what it likely means, and let the user resolve it. Do NOT attempt workarounds.
 
-### Step 6: project_status() - Verify Success
+### Step 6: project_status(project_id) - Verify Success
 
-Call **project_status()**
+Call **project_status(project_id=reference_id)** using the `reference_id` from `.iriusrisk/project.json`.
 
 Verifies:
 - Project exists and accessible
@@ -927,7 +928,7 @@ When user requests, call **sync(project_path)** again to download:
 
 **Upload:**
 - ☐ Used import_otm() to upload
-- ☐ Used project_status() to verify
+- ☐ Used project_status(project_id=reference_id) to verify (reference_id from project.json)
 - ☐ Presented user with options and STOPPED (did not auto-sync)
 - ☐ Did NOT automatically download diagram (only if user requests it)
 

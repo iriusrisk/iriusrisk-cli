@@ -267,8 +267,8 @@ Shall I help with that? It will save time fixing security issues later vs. in pr
 **Call `create_threat_model()`** to get OTM creation instructions, then:
 1. Create OTM file modeling the architecture
 2. Call `import_otm()` to upload and trigger IriusRisk analysis  
-3. Call `project_status()` to verify processing
-4. Call `sync()` again to download generated threats/countermeasures
+3. Call `project_status(project_id)` to verify processing (use `reference_id` from `.iriusrisk/project.json`)
+4. Call `sync(project_path)` again to download generated threats/countermeasures
 5. Present integrated architecture + security review
 
 ### Step 4: If User Declines or Just Wants Architecture Review
@@ -407,7 +407,7 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 3. **get_cli_version()** - Get IriusRisk CLI version
 4. **sync(project_path)** - Download components, trust zones, and project data from IriusRisk
 5. **import_otm(otm_file_path)** - Upload OTM file to create/update project in IriusRisk
-6. **project_status(project_id)** - Check project details and processing status
+6. **project_status(project_id)** - Check project details and processing status (pass `reference_id` from `.iriusrisk/project.json`)
 
 ### Analysis & Guidance Tools
 7. **threats_and_countermeasures()** - Get instructions for analyzing security findings
@@ -470,11 +470,12 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 1. sync(project_path) - Download latest component library
 2. analyze_source_material() - Get analysis guidance (for mixed repos)
 3. create_threat_model() - Get OTM creation instructions
-4. [Create OTM file based on guidance]
-5. import_otm(otm_file_path) - Upload to IriusRisk
-6. project_status() - Verify processing complete
-7. sync(project_path) - Download generated threats/countermeasures
-8. threats_and_countermeasures() - Get analysis instructions
+4. Read `.iriusrisk/project.json` to get `reference_id` for use in subsequent tool calls
+5. [Create OTM file based on guidance]
+6. import_otm(otm_file_path) - Upload to IriusRisk
+7. project_status(project_id=reference_id) - Verify processing complete
+8. sync(project_path) - Download generated threats/countermeasures
+9. threats_and_countermeasures() - Get analysis instructions
 
 ### Security Implementation Tracking Workflow
 1. sync(project_path) - Download current threats/countermeasures
@@ -530,7 +531,7 @@ The IriusRisk MCP (Model Context Protocol) provides AI assistants with tools to 
 - If empty/missing → "No threat analysis yet. Let me help create a threat model..." → Follow creation workflow
 
 **User:** "I want to create a threat model from my Node.js + Terraform repository"  
-**AI:** Call sync() → analyze_source_material() → create_threat_model() → [create OTM] → import_otm() → project_status() → sync()
+**AI:** Call sync(project_path) → analyze_source_material() → create_threat_model() → read project.json for reference_id → [create OTM] → import_otm() → project_status(project_id=reference_id) → sync(project_path)
 
 **User:** "I'm adding a new API endpoint"  
 **AI:** Check threat model exists → Assess impact → "This changes your attack surface. Let me update the threat model..." → Guide OTM update.

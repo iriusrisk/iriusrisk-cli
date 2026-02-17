@@ -13,24 +13,11 @@ from .sync import sync_data_to_directory
 from ..utils.project import resolve_project_id, get_project_context_info
 from ..utils.updates import get_update_tracker
 from ..utils.project_resolution import resolve_project_id_to_uuid_strict, is_uuid_format
-from ..utils.project_discovery import find_project_root
 from ..utils.mcp_logging import setup_mcp_logging
 from ..api.project_client import ProjectApiClient
 import json
 
 logger = logging.getLogger(__name__)
-
-
-def _find_project_root_and_config():
-    """Find the project root directory and read project.json if it exists.
-    
-    DEPRECATED: This function is maintained for backward compatibility.
-    Use utils.project_discovery.find_project_root() instead.
-    
-    Returns:
-        tuple: (project_root_path, project_config_dict or None)
-    """
-    return find_project_root()
 
 
 def _load_prompt(prompt_name: str) -> str:
@@ -164,20 +151,19 @@ def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
     """
     from pathlib import Path
     
-    # Debug logging
-    logger.info(f"_apply_prompt_customizations called for tool: {tool_name}")
-    logger.info(f"Current working directory: {Path.cwd()}")
+    logger.debug(f"_apply_prompt_customizations called for tool: {tool_name}")
     
-    # Use the same project discovery logic as other MCP tools
-    project_root, project_config = find_project_root()
-    logger.info(f"Project root found: {project_root}")
-    logger.info(f"Project config loaded: {project_config is not None}")
-    if project_config:
-        logger.info(f"Project config keys: {list(project_config.keys())}")
-        logger.info(f"Has prompts section: {'prompts' in project_config}")
+    # Read project.json only from cwd/.iriusrisk/ - no searching parent dirs or ~/src/*
+    project_config = None
+    try:
+        project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
+        if project_json_path.exists():
+            with open(project_json_path, 'r') as f:
+                project_config = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        pass
     
     if not project_config:
-        logger.info(f"No project config found, returning base prompt for {tool_name}")
         return base_prompt
     
     customizations = project_config.get('prompts', {}).get(tool_name, {})
@@ -629,8 +615,22 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         logger.info(f"Starting OTM import via MCP for file: {otm_file_path}")
         
         try:
-            # Find project root and read project.json if it exists
-            project_root, project_config = _find_project_root_and_config()
+            # Read project.json from the same directory as the OTM file.
+            # OTM files live at .iriusrisk/temp-*.otm so project.json is a
+            # sibling file. No searching parent dirs or other locations.
+            otm_path_for_discovery = Path(otm_file_path)
+            otm_parent = otm_path_for_discovery.parent
+            project_root = otm_parent.parent if otm_parent.name == '.iriusrisk' else otm_parent
+            project_config = None
+            
+            project_json_path = otm_parent / 'project.json' if otm_parent.name == '.iriusrisk' else otm_parent / '.iriusrisk' / 'project.json'
+            if project_json_path.exists():
+                try:
+                    with open(project_json_path, 'r') as f:
+                        project_config = json.load(f)
+                    logger.info(f"Loaded project config from: {project_json_path}")
+                except (json.JSONDecodeError, OSError) as e:
+                    logger.warning(f"Could not read project.json at {project_json_path}: {e}")
             
             # Validate file path
             otm_path = Path(otm_file_path)
@@ -844,7 +844,7 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         subsequent repositories need to see and merge with the existing threat model.
         
         Args:
-            project_id: Project ID or reference ID (optional if default project configured)
+            project_id: Project ID or reference ID (read from .iriusrisk/project.json reference_id field)
             output_path: Where to save the OTM file (optional, returns content if not specified)
             
         Returns:
@@ -857,27 +857,12 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         logger.info(f"Starting OTM export via MCP for project: {project_id or 'default'}")
         
         try:
-            # Resolve project ID from argument, project.json, or default configuration
-            if project_id:
-                resolved_project_id = project_id
-            else:
-                # Try to get project ID from project.json first
-                project_root, project_config = _find_project_root_and_config()
-                resolved_project_id = None
-                
-                if project_config:
-                    # Prefer project_id (UUID) for existing projects, fall back to reference_id
-                    resolved_project_id = project_config.get('project_id') or project_config.get('reference_id')
-                    logger.info(f"Using project ID from project.json: {resolved_project_id}")
-                
-                # Fall back to config if no project.json
-                if not resolved_project_id:
-                    resolved_project_id = config.get_default_project_id()
-                
-                if not resolved_project_id:
-                    error_msg = "❌ No project ID provided and no default project configured. Use export_otm(project_id) or set up a project with 'iriusrisk init'."
-                    logger.error(error_msg)
-                    return error_msg
+            # Project ID must be provided by the AI caller
+            if not project_id:
+                error_msg = "❌ No project ID provided. Use export_otm(project_id='your-project-ref-id')."
+                logger.error(error_msg)
+                return error_msg
+            resolved_project_id = project_id
             
             # Resolve project ID to UUID for V2 API (upfront, no fallback mechanism)
             from ..utils.project_resolution import resolve_project_id_to_uuid
@@ -940,40 +925,21 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         it exists, has been processed, and is ready for use.
         
         Args:
-            project_id: Project ID or reference ID (optional if default project configured)
+            project_id: Project ID or reference ID (from .iriusrisk/project.json reference_id field)
             
         Returns:
             Status message with project details and processing status.
         """
-        logger.info(f"Checking project status via MCP for project: {project_id or 'default'}")
+        logger.info(f"Checking project status via MCP for project: {project_id or 'none'}")
         
         try:
-            # Resolve project ID from argument, project.json, or default configuration
-            if project_id:
-                resolved_project_id = project_id
-            else:
-                # Try to get project ID from project.json first
-                from pathlib import Path
-                project_json_path = Path.cwd() / '.iriusrisk' / 'project.json'
-                resolved_project_id = None
-                
-                if project_json_path.exists():
-                    try:
-                        with open(project_json_path, 'r') as f:
-                            project_config = json.load(f)
-                        resolved_project_id = project_config.get('project_id')
-                        logger.info(f"Using project ID from project.json: {resolved_project_id}")
-                    except Exception as e:
-                        logger.warning(f"Could not read project.json: {e}")
-                
-                # Fall back to config if no project.json
-                if not resolved_project_id:
-                    resolved_project_id = config.get_default_project_id()
-                
-                if not resolved_project_id:
-                    error_msg = "❌ No project ID provided and no default project configured. Use project_status(project_id) or set up a project with 'iriusrisk init'."
-                    logger.error(error_msg)
-                    return error_msg
+            # Project ID must be provided by the AI caller
+            if not project_id:
+                error_msg = "❌ No project ID provided. Read .iriusrisk/project.json and pass the reference_id to project_status(project_id)."
+                logger.error(error_msg)
+                return error_msg
+            
+            resolved_project_id = project_id
             
             results = []
             results.append(f"🔍 Checking project status: {resolved_project_id}")
@@ -2115,7 +2081,7 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         previous configurations.
         
         Args:
-            project_id: Project UUID or reference ID (optional if project.json exists in current directory)
+            project_id: Project UUID or reference ID (read from .iriusrisk/project.json)
             
         Returns:
             Formatted list of versions with details about each snapshot.
@@ -2130,14 +2096,9 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
             version_service = container.get(VersionService)
             api_client = container.get(IriusRiskApiClient)
             
-            # Resolve project ID
+            # Project ID must be provided by the AI caller
             if not project_id:
-                project_root, project_config = find_project_root()
-                if project_config:
-                    project_id = project_config.get('project_id')
-                
-                if not project_id:
-                    return "❌ No project ID provided and no project.json found in current directory"
+                return "❌ No project ID provided. Use list_project_versions(project_id='your-project-id')."
             
             # Resolve to UUID
             resolved_project_id = resolve_project_id_to_uuid_strict(project_id, api_client.project_client)
@@ -2191,7 +2152,7 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         Args:
             name: Name for the version (e.g., "v1.0", "Before API refactor")
             description: Optional description of what this version represents
-            project_id: Project UUID or reference ID (optional if project.json exists in current directory)
+            project_id: Project UUID or reference ID (read from .iriusrisk/project.json)
             
         Returns:
             Success message with version details or error message.
@@ -2206,14 +2167,9 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
             version_service = container.get(VersionService)
             api_client = container.get(IriusRiskApiClient)
             
-            # Resolve project ID
+            # Project ID must be provided by the AI caller
             if not project_id:
-                project_root, project_config = find_project_root()
-                if project_config:
-                    project_id = project_config.get('project_id')
-                
-                if not project_id:
-                    return "❌ No project ID provided and no project.json found in current directory"
+                return "❌ No project ID provided. Use create_project_version(name='...', project_id='your-project-id')."
             
             # Resolve to UUID
             resolved_project_id = resolve_project_id_to_uuid_strict(project_id, api_client.project_client)
@@ -2273,7 +2229,7 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         Args:
             baseline_version: Version UUID or name to use as baseline (required)
             target_version: Version UUID or name to compare against (optional, uses current if not provided)
-            project_path: Optional path to project directory (auto-discovered if not provided)
+            project_path: Full path to the project directory (where .iriusrisk is located)
             
         Returns:
             JSON string with structured diff results
@@ -2284,20 +2240,15 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
             from ..utils.diagram_comparison import parse_diagram_xml, compare_diagrams
             from ..utils.threat_comparison import parse_threats_json, parse_countermeasures_json, compare_threats, compare_countermeasures
             from ..utils.project_resolution import resolve_project_id_to_uuid
-            from ..utils.project_discovery import find_project_root
             from pathlib import Path
             import json
             
-            # Auto-discover project if not provided
+            # Project path must be provided by the AI caller
             if not project_path:
-                project_root, project_config = find_project_root()
-                if not project_root:
-                    return json.dumps({
-                        "error": "project not found",
-                        "message": "❌ Could not find .iriusrisk directory. Please run 'iriusrisk init' first or specify project_path."
-                    }, indent=2)
-                project_path = str(project_root)
-                logger.info(f"Auto-discovered project at: {project_path}")
+                return json.dumps({
+                    "error": "project_path required",
+                    "message": "❌ No project_path provided. Use compare_versions(baseline_version='...', project_path='/path/to/project')."
+                }, indent=2)
             
             logger.info(f"Version comparison started - project_path: {project_path}")
             
@@ -2483,24 +2434,18 @@ def mcp(cli_ctx, include_tags, exclude_tags, include_tools, exclude_tools, list_
         Args:
             issue_references: Optional comma-separated issue IDs (e.g., "PROJ-1234,PROJ-1235")
                             If not provided, AI should extract from git context
-            project_path: Optional path to project directory (auto-discovered if not provided)
+            project_path: Full path to the project directory (where .iriusrisk is located)
             
         Returns:
             Workflow guidance and countermeasure data for AI to analyze
         """
         try:
-            from ..utils.project_discovery import find_project_root
             from pathlib import Path
             import json
             
-            # Auto-discover project if not provided
+            # Project path must be provided by the AI caller
             if not project_path:
-                project_root, project_config = find_project_root()
-                if not project_root:
-                    return """❌ Could not find .iriusrisk directory. 
-                    
-Please ensure you're in a project directory or specify project_path."""
-                project_path = str(project_root)
+                return "❌ No project_path provided. Use countermeasure_verification(project_path='/path/to/project')."
             
             logger.info(f"Countermeasure verification - project_path: {project_path}")
             
