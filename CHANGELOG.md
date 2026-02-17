@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2026-02-17
+
+### Fixed
+
+- **Project reference ID resolution** - Fixed a bug where the MCP `import_otm` tool could pick up the wrong `project.json` from an unrelated directory, causing the OTM project ID to be overwritten with a stale reference ID from a different project. The tool now reads project config only from the OTM file's own `.iriusrisk/` directory.
+- **Removed global project discovery from all MCP tools** - MCP tools no longer search parent directories or `~/src/*` for `project.json`. Tools that need a project ID (`project_status`, `export_otm`, `list_project_versions`, `create_project_version`) now require it as a parameter. The AI reads `.iriusrisk/project.json` directly and passes the value.
+- **OTM format preservation** - `_modify_otm_project_id` now preserves the original format (JSON stays JSON, YAML stays YAML) instead of converting everything to YAML via `yaml.dump`.
+- **OTM import transport** - `import_otm_content` and `update_project_with_otm_content` now use multipart file upload (matching `import_otm_file`) instead of sending raw text with `Content-Type: text/plain`.
+
+### Changed
+
+- Updated `create_threat_model` and `initialize_iriusrisk_workflow` prompts to explicitly instruct AI to pass `reference_id` from `project.json` when calling `project_status()` and other tools.
+
 ## [0.6.0] - 2026-02-10
 
 ### Added
