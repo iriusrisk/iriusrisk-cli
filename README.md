@@ -17,13 +17,15 @@ This tool is designed to work alongside AI assistants in your IDE, enabling:
 
 ## What You Can Do
 
+- **Agent Skills**: Portable AI workflow skills that work across any compatible agent (Cursor, Windsurf, Cline, etc.), organized by LLM capability
+- **MCP Tool Filtering**: Fine-grained control over which MCP tools are exposed to AI clients, with category-based and per-tool filtering
 - **CI/CD Security Verification**: Automated security drift detection in CI/CD pipelines with three specialized tools:
   - Compare threat model versions to detect architectural and security changes
   - Verify security control implementations in code
   - Generate comprehensive security reports for PR reviews and deployments
 - **Multi-Repository Threat Models**: Unite security across microservices, infrastructure, and frontend repos into one comprehensive view
 - **AI-Guided Threat Modeling**: Let AI assistants analyze your code and automatically create threat models
-- **Import/Export Threat Models**: Use OTM (Open Threat Model) format to create and update projects
+- **Import/Export Threat Models**: Use OTM (Open Threat Model) format to create and update projects, with automatic schema validation
 - **Intelligent Questionnaires**: AI analyzes your code to answer security questionnaires, refining threat models based on actual implementation
 - **Analyze Threats**: View, filter, search, and update threat status with scope-based filtering for multi-repo projects
 - **Track Countermeasures**: Monitor implementation, update status, and create tracking issues
@@ -34,11 +36,27 @@ This tool is designed to work alongside AI assistants in your IDE, enabling:
 
 ## Key Features
 
-### 🆕 Multi-Repository Threat Modeling (v0.4.0)
+### 🆕 Agent Skills - Portable AI Workflows (v0.6.0)
+
+All workflow prompts are now available as portable **Agent Skills** following the [Agent Skills open standard](https://agentskills.io). Skills work across any agent that supports the standard (Cursor, Windsurf, Cline, etc.) and are organized by LLM capability—reasoning, general, and code-focused. Version-controlled and shareable across projects and teams.
+
+See the [Agent Skills](#agent-skills---portable-ai-workflows) section for the full skill catalog and usage instructions.
+
+### 🆕 MCP Tool Filtering (v0.6.0)
+
+Control which MCP tools are exposed to AI clients by filtering based on categories or specific tool names. Reduce scope for specific clients, use custom workflow instructions instead of built-in guidance, or create specialized MCP configurations for different roles and teams.
+
+See the [Filtering MCP Tools](#filtering-mcp-tools) section for configuration details.
+
+### CI/CD Security Verification (v0.5.0)
+
+Automated security drift detection and control verification for CI/CD pipelines. Three specialized MCP tools enable AI-powered security reviews: version comparison for drift detection, countermeasure verification against code, and comprehensive orchestrated security gates for pre-deployment checks.
+
+See the [CI/CD Security Verification](#cicd-security-verification-v050) section for detailed workflows and examples.
+
+### Multi-Repository Threat Modeling (v0.4.0)
 
 Multiple repositories can now contribute to a single unified threat model—perfect for microservices, infrastructure-as-code, and distributed architectures. Each repository defines its **scope** (what it represents), and the AI intelligently merges contributions into a comprehensive security view.
-
-**Example**: Your infrastructure repo defines AWS resources, your backend repo adds API services, and your frontend repo contributes the UI—all merged into one complete threat model showing how everything connects and where the risks are.
 
 **Key benefits**:
 - Unified security view across all repositories
@@ -70,10 +88,6 @@ The CLI automatically triggers IriusRisk's rules engine to regenerate your threa
 ### Enhanced Auto-Versioning
 
 The CLI automatically creates backup snapshots **before** any update operation. Roll back changes anytime and track your threat model's evolution over time. Works consistently across all import scenarios (CLI commands, MCP tools, project updates).
-
-### Questionnaire-Based Refinement
-
-AI assistants can analyze your source code to automatically answer IriusRisk questionnaires, triggering the rules engine to regenerate your threat model with more accurate, context-specific threats and countermeasures based on your actual implementation.
 
 # MCP Integration for AI-Enabled IDEs
 
