@@ -27,14 +27,22 @@ description: Step-by-step instructions for creating IriusRisk threat models (OTM
 
 **These files are downloaded by sync() - you MUST read them before creating OTM.**
 
+## 🚨 MANDATORY: ALWAYS sync() BEFORE MODIFYING THE THREAT MODEL
+
+**The local `current-threat-model.otm` file may be STALE.** Users can modify the threat model via the IriusRisk web interface at any time (moving components, changing layout, adding/removing elements). A local OTM file only reflects the state at the time of the last sync — it does NOT automatically update.
+
+**RULE: You MUST call sync() before every modification, even if `current-threat-model.otm` already exists locally.** Never assume the local file is current. The only safe source of truth is a fresh sync from IriusRisk.
+
+**The ONLY exception:** If you JUST called sync() moments ago in the same operation (e.g., you synced, then immediately create the OTM in the same workflow). Even then, if there is any doubt, sync again.
+
 ## Executive Summary
 
 Create OTM files to model system architecture for IriusRisk threat analysis. Your role: architecture modeling only (components, trust zones, data flows). Do NOT create threats or controls—IriusRisk generates those automatically.
 
 **Standard workflow:** 
-1. **sync()** - Downloads trust-zones.json, components.json, current-threat-model.otm
+1. **sync()** - MANDATORY FIRST STEP. Downloads trust-zones.json, components.json, current-threat-model.otm. **Do this even if local files already exist — they may be stale.**
 2. **READ trust-zones.json and components.json** - Validate IDs/types exist
-3. Check `.iriusrisk/current-threat-model.otm` - Merge if exists
+3. Check `.iriusrisk/current-threat-model.otm` - Merge if exists (now guaranteed fresh from step 1)
 4. Create OTM in `.iriusrisk/temp-*.otm` with validated IDs/types
 5. import_otm() → project_status() → **STOP**
 
@@ -42,17 +50,17 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 
 **File locations:**
 - Save OTM to: `.iriusrisk/temp-initial.otm` or `.iriusrisk/temp-update-YYYYMMDD-HHMMSS.otm`
-- Read current state from: `.iriusrisk/current-threat-model.otm` (if exists)
+- Read current state from: `.iriusrisk/current-threat-model.otm` (after a fresh sync — NEVER trust a pre-existing local copy)
 
 **Workflow:**
-1. sync() → 2. Read validation files → 3. Create/merge OTM → 4. import_otm()
+1. **sync() ALWAYS** (even if local files exist) → 2. Read validation files → 3. Create/merge OTM → 4. import_otm()
 
 **Dataflows:** Connect components ONLY (never trust zones)
 
 ## Merge Logic - Single-Repo and Multi-Repo Are IDENTICAL
 
 **Whether updating from same repo or different repo, the workflow is IDENTICAL:**
-1. sync() downloads `.iriusrisk/current-threat-model.otm`
+1. **sync() FIRST** — downloads fresh `.iriusrisk/current-threat-model.otm` from IriusRisk. **Do NOT skip this step even if the file already exists locally** — the user may have modified the model via the web interface since the last sync, and using a stale file will lose their changes (layout, new components, etc.)
 2. If exists: READ it, preserve ALL components/IDs/layout, add NEW components
 3. If not: CREATE initial model
 4. Save to `.iriusrisk/temp-*.otm`
@@ -79,6 +87,11 @@ Create OTM files to model system architecture for IriusRisk threat analysis. You
 **Error 4: Changing project.id**
 - ❌ NEVER change project.id when updating
 - ✅ ALWAYS preserve exact project.id from existing OTM or project.json reference_id
+
+**Error 5: Skipping sync() when local OTM file already exists**
+- ❌ WRONG: Seeing `current-threat-model.otm` locally and using it without syncing first
+- ✅ CORRECT: ALWAYS run sync() before reading or modifying the threat model
+- The user may have changed layout, added components, or modified the model via the IriusRisk web interface since the last sync. Using a stale file overwrites their changes.
 
 ## Your Role: Architecture Modeling Only
 
@@ -114,12 +127,13 @@ IriusRisk finds vulnerabilities automatically - don't add them as tags.
 
 **Complete steps 0-8, then STOP and wait for user.** Step 9 only when user explicitly requests.
 
-- ☐ Step 0: **sync(project_path)** - MANDATORY FIRST STEP
+- ☐ Step 0: **sync(project_path)** - 🚨 MANDATORY FIRST STEP — NO EXCEPTIONS
   - Downloads components.json, trust-zones.json
   - Downloads current-threat-model.otm if project exists
+  - **⚠️ You MUST run sync() even if local files already exist** — the user may have changed the model in the IriusRisk web interface. A pre-existing local `current-threat-model.otm` is NOT guaranteed to be current. Only a fresh sync is reliable.
   
-- ☐ Step 1: **CHECK `.iriusrisk/current-threat-model.otm`** (downloaded by sync)
-  - **If exists**: MERGE mode - read entire file, preserve everything
+- ☐ Step 1: **CHECK `.iriusrisk/current-threat-model.otm`** (freshly downloaded by sync in Step 0)
+  - **If exists**: MERGE mode - read entire file, preserve everything (layout, components, IDs)
   - **If missing**: CREATE mode - but still check project.json
   
 - ☐ Step 2: Analyze source material

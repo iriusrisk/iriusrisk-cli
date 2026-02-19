@@ -28,7 +28,10 @@ Call this skill when you need detailed guidance on:
 
 ### For UPDATES (Existing layout present)
 
-**Preserve existing layout:**
+**🚨 CRITICAL: sync() BEFORE reading existing layout.**
+Users frequently adjust component positions and sizes in the IriusRisk web interface. A local `current-threat-model.otm` file may contain outdated layout that does NOT reflect changes made in the UI. You MUST call sync() to download the latest OTM before reading or preserving any layout data — even if the file already exists locally.
+
+**Preserve existing layout (from freshly synced OTM):**
 - Keep existing component positions (x, y)
 - Keep existing component sizes (width, height)
 - Add new components with calculated positions that fit

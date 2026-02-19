@@ -348,6 +348,8 @@ dataflows:
 
 1. Call analyze_source_material() for guidance
 2. Call create_threat_model() for OTM creation workflow
-3. Execute: sync() → create OTM → import_otm() → project_status() → sync()
+3. Execute: **sync() FIRST (mandatory, even if local files exist)** → create OTM → import_otm() → project_status() → sync()
+
+**⚠️ IMPORTANT:** Always call sync() before creating or modifying the OTM, even if `.iriusrisk/current-threat-model.otm` already exists locally. The user may have modified the threat model via the IriusRisk web interface since the last sync. Using a stale local file will overwrite their changes.
 
 Result: Single, comprehensive threat model for holistic IriusRisk analysis across all system layers.

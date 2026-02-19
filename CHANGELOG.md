@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2026-02-18
+
+### Fixed
+
+- **Stale threat model during updates** - AI prompts and skills now enforce a mandatory sync before any threat model modification, even if a local `current-threat-model.otm` already exists. Previously, layout and component changes made in the IriusRisk web interface could be overwritten if the AI reused a stale local file.
+
 ## [0.6.1] - 2026-02-17
 
 ### Fixed
@@ -397,6 +403,8 @@ Multiple repositories can now contribute to a single IriusRisk project, enabling
 - Configuration best practices
 - AI workflow examples
 
+[0.6.2]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.2
+[0.6.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.1
 [0.6.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.0
 [0.5.5]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.5.5
 [0.5.4]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.5.4
