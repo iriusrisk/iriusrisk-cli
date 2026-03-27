@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.3] - 2026-03-27
+
+### Fixed
+
+- **Countermeasure issue tracker command** - Fixed a bug where `countermeasure create-issue` would fail to create issues in the selected issue tracker.
+
 ## [0.6.2] - 2026-02-18
 
 ### Fixed
@@ -403,6 +409,7 @@ Multiple repositories can now contribute to a single IriusRisk project, enabling
 - Configuration best practices
 - AI workflow examples
 
+[0.6.3]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.3
 [0.6.2]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.2
 [0.6.1]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.1
 [0.6.0]: https://github.com/iriusrisk/iriusrisk_cli/releases/tag/v0.6.0

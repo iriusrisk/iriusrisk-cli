@@ -7,6 +7,7 @@ from .service_factory import ServiceFactory
 from .repositories.project_repository import ProjectRepository
 from .repositories.threat_repository import ThreatRepository
 from .repositories.countermeasure_repository import CountermeasureRepository
+from .repositories.issue_tracker_repository import IssueTrackerRepository
 from .repositories.report_repository import ReportRepository
 from .repositories.version_repository import VersionRepository
 from .repositories.questionnaire_repository import QuestionnaireRepository
@@ -57,6 +58,9 @@ class Container:
         self._factories[CountermeasureRepository] = lambda: CountermeasureRepository(
             api_client=self.get(IriusRiskApiClient).countermeasure_client
         )
+        self._factories[IssueTrackerRepository] = lambda: IssueTrackerRepository(
+            api_client=self.get(IriusRiskApiClient).issue_tracker_client
+        )
         self._factories[ReportRepository] = lambda: ReportRepository(
             api_client=self.get(IriusRiskApiClient).report_client
         )
@@ -77,7 +81,8 @@ class Container:
             threat_repository=self.get(ThreatRepository)
         )
         self._factories[CountermeasureService] = lambda: CountermeasureService(
-            countermeasure_repository=self.get(CountermeasureRepository)
+            countermeasure_repository=self.get(CountermeasureRepository),
+            issue_tracker_repository=self.get(IssueTrackerRepository)
         )
         self._factories[ReportService] = lambda: ReportService(
             report_repository=self.get(ReportRepository)

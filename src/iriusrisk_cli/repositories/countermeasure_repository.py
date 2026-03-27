@@ -274,33 +274,6 @@ class CountermeasureRepository(BaseRepository):
             # to avoid duplicate error messages
             self._handle_error(e, f"creating issue for countermeasure '{countermeasure_id}'")
     
-    def get_issue_tracker_profiles(self) -> Dict[str, Any]:
-        """Get available issue tracker profiles.
-        
-        Returns:
-            Dictionary containing issue tracker profiles
-            
-        Raises:
-            IriusRiskError: If API request fails
-        """
-        logger.debug("Retrieving issue tracker profiles")
-        
-        try:
-            response = self.api_client.get_issue_tracker_profiles()
-            profiles_data = self._extract_items_from_response(response)
-            
-            logger.debug(f"Retrieved {len(profiles_data)} issue tracker profiles")
-            
-            return {
-                'profiles': profiles_data,
-                'full_response': response
-            }
-            
-        except Exception as e:
-            # Don't log here - let the error handling layer handle it
-            # to avoid duplicate error messages
-            self._handle_error(e, "retrieving issue tracker profiles")
-    
     def find_countermeasure_by_reference_or_uuid(self, project_id: str, 
                                                countermeasure_id: str) -> Optional[Dict[str, Any]]:
         """Find a countermeasure by reference ID or UUID.

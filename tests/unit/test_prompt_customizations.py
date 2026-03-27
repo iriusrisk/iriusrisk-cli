@@ -1,5 +1,6 @@
 """Tests for MCP prompt customization feature."""
 
+import json
 import pytest
 import tempfile
 from pathlib import Path
@@ -168,26 +169,37 @@ class TestPromptCustomizationValidation:
 
 class TestPromptCustomizationApplication:
     """Test application of prompt customizations."""
-    
+
+    def _write_project_config(self, project_root: Path, config: dict) -> None:
+        """Write a project.json into the temp directory's .iriusrisk folder."""
+        iriusrisk_dir = project_root / '.iriusrisk'
+        iriusrisk_dir.mkdir(exist_ok=True)
+        with open(iriusrisk_dir / 'project.json', 'w') as f:
+            json.dump(config, f)
+
     def test_no_customization_returns_base_prompt(self):
-        """Test that base prompt is returned when no customization exists."""
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=(None, None)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
-            assert result == 'Base prompt text'
-    
+        """Test that base prompt is returned when no .iriusrisk/project.json exists."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
+                assert result == 'Base prompt text'
+
     def test_no_project_config_returns_base_prompt(self):
-        """Test that base prompt is returned when project config doesn't exist."""
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', {})):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
-            assert result == 'Base prompt text'
-    
+        """Test that base prompt is returned when project config file is absent."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
+                assert result == 'Base prompt text'
+
     def test_no_prompts_section_returns_base_prompt(self):
         """Test that base prompt is returned when prompts section doesn't exist."""
         project_config = {"name": "test-project"}
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
-            assert result == 'Base prompt text'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
+                assert result == 'Base prompt text'
+
     def test_no_tool_customization_returns_base_prompt(self):
         """Test that base prompt is returned when tool has no customization."""
         project_config = {
@@ -196,10 +208,12 @@ class TestPromptCustomizationApplication:
                 "some_other_tool": {"prefix": "Other tool prefix"}
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
-            assert result == 'Base prompt text'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt text')
+                assert result == 'Base prompt text'
+
     def test_prefix_customization(self):
         """Test that prefix customization is applied correctly."""
         project_config = {
@@ -210,10 +224,12 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
-            assert result == 'PREFIX: Base prompt'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
+                assert result == 'PREFIX: Base prompt'
+
     def test_postfix_customization(self):
         """Test that postfix customization is applied correctly."""
         project_config = {
@@ -224,10 +240,12 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
-            assert result == 'Base prompt :POSTFIX'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
+                assert result == 'Base prompt :POSTFIX'
+
     def test_replace_customization(self):
         """Test that replace customization completely overrides base prompt."""
         project_config = {
@@ -238,10 +256,12 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
-            assert result == 'Completely custom prompt'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
+                assert result == 'Completely custom prompt'
+
     def test_prefix_and_postfix_customization(self):
         """Test that both prefix and postfix are applied correctly."""
         project_config = {
@@ -253,10 +273,12 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
-            assert result == 'START: Base prompt :END'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
+                assert result == 'START: Base prompt :END'
+
     def test_replace_ignores_prefix_and_postfix(self):
         """Test that replace action ignores prefix and postfix."""
         project_config = {
@@ -269,10 +291,12 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
-            assert result == 'Replacement text'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
+                assert result == 'Replacement text'
+
     def test_multiline_customizations(self):
         """Test that multiline customizations work correctly."""
         project_config = {
@@ -284,10 +308,12 @@ class TestPromptCustomizationApplication:
                 }
             }
         }
-        with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-            result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
-            assert result == 'Line 1\nLine 2\n\nBase prompt\n\nFooter line 1\nFooter line 2'
-    
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self._write_project_config(Path(tmpdir), project_config)
+            with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
+                assert result == 'Line 1\nLine 2\n\nBase prompt\n\nFooter line 1\nFooter line 2'
+
     def test_all_valid_tool_names(self):
         """Test that customizations work for all valid tool names."""
         valid_tools = [
@@ -298,7 +324,7 @@ class TestPromptCustomizationApplication:
             'architecture_and_design_review',
             'security_development_advisor'
         ]
-        
+
         for tool_name in valid_tools:
             project_config = {
                 "name": "test-project",
@@ -306,9 +332,11 @@ class TestPromptCustomizationApplication:
                     tool_name: {"prefix": f"Custom for {tool_name}: "}
                 }
             }
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', return_value=('/test/path', project_config)):
-                result = _apply_prompt_customizations(tool_name, 'Base')
-                assert result == f"Custom for {tool_name}: Base"
+            with tempfile.TemporaryDirectory() as tmpdir:
+                self._write_project_config(Path(tmpdir), project_config)
+                with patch('pathlib.Path.cwd', return_value=Path(tmpdir)):
+                    result = _apply_prompt_customizations(tool_name, 'Base')
+                    assert result == f"Custom for {tool_name}: Base"
 
 
 class TestFileBasedPromptCustomizationValidation:
@@ -541,18 +569,17 @@ class TestLoadPromptText:
 
 class TestFileBasedPromptCustomizationApplication:
     """Test application of file-based prompt customizations."""
-    
+
     def test_file_based_prefix(self):
         """Test that file-based prefix is loaded and applied."""
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)
             iriusrisk_dir = project_root / ".iriusrisk"
             iriusrisk_dir.mkdir()
-            
-            # Create prefix file
+
             prefix_file = iriusrisk_dir / "prefix.md"
             prefix_file.write_text("FILE PREFIX: ", encoding='utf-8')
-            
+
             project_config = {
                 "name": "test-project",
                 "prompts": {
@@ -561,23 +588,23 @@ class TestFileBasedPromptCustomizationApplication:
                     }
                 }
             }
-            
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', 
-                      return_value=(project_root, project_config)):
+            with open(iriusrisk_dir / 'project.json', 'w') as f:
+                json.dump(project_config, f)
+
+            with patch('pathlib.Path.cwd', return_value=project_root):
                 result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
                 assert result == 'FILE PREFIX: Base prompt'
-    
+
     def test_file_based_postfix(self):
         """Test that file-based postfix is loaded and applied."""
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)
             iriusrisk_dir = project_root / ".iriusrisk"
             iriusrisk_dir.mkdir()
-            
-            # Create postfix file
+
             postfix_file = iriusrisk_dir / "postfix.md"
             postfix_file.write_text(" :FILE POSTFIX", encoding='utf-8')
-            
+
             project_config = {
                 "name": "test-project",
                 "prompts": {
@@ -586,23 +613,23 @@ class TestFileBasedPromptCustomizationApplication:
                     }
                 }
             }
-            
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', 
-                      return_value=(project_root, project_config)):
+            with open(iriusrisk_dir / 'project.json', 'w') as f:
+                json.dump(project_config, f)
+
+            with patch('pathlib.Path.cwd', return_value=project_root):
                 result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
                 assert result == 'Base prompt :FILE POSTFIX'
-    
+
     def test_file_based_replace(self):
         """Test that file-based replace is loaded and applied."""
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)
             iriusrisk_dir = project_root / ".iriusrisk"
             iriusrisk_dir.mkdir()
-            
-            # Create replacement file
+
             replace_file = iriusrisk_dir / "replacement.md"
             replace_file.write_text("Complete replacement from file", encoding='utf-8')
-            
+
             project_config = {
                 "name": "test-project",
                 "prompts": {
@@ -611,23 +638,23 @@ class TestFileBasedPromptCustomizationApplication:
                     }
                 }
             }
-            
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', 
-                      return_value=(project_root, project_config)):
+            with open(iriusrisk_dir / 'project.json', 'w') as f:
+                json.dump(project_config, f)
+
+            with patch('pathlib.Path.cwd', return_value=project_root):
                 result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
                 assert result == 'Complete replacement from file'
-    
+
     def test_mixed_string_and_file_customization(self):
         """Test mixing inline string and file-based customizations."""
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)
             iriusrisk_dir = project_root / ".iriusrisk"
             iriusrisk_dir.mkdir()
-            
-            # Create postfix file
+
             postfix_file = iriusrisk_dir / "postfix.md"
             postfix_file.write_text("\n\nFile-based footer", encoding='utf-8')
-            
+
             project_config = {
                 "name": "test-project",
                 "prompts": {
@@ -637,25 +664,25 @@ class TestFileBasedPromptCustomizationApplication:
                     }
                 }
             }
-            
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', 
-                      return_value=(project_root, project_config)):
+            with open(iriusrisk_dir / 'project.json', 'w') as f:
+                json.dump(project_config, f)
+
+            with patch('pathlib.Path.cwd', return_value=project_root):
                 result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
                 assert result == 'Inline prefix\nBase prompt\n\nFile-based footer'
-    
+
     def test_file_from_subdirectory(self):
         """Test loading file from a subdirectory."""
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)
             iriusrisk_dir = project_root / ".iriusrisk"
             iriusrisk_dir.mkdir()
-            
-            # Create subdirectory and file
+
             custom_dir = iriusrisk_dir / "custom_prompts"
             custom_dir.mkdir()
             prefix_file = custom_dir / "prefix.md"
             prefix_file.write_text("Subdirectory prefix: ", encoding='utf-8')
-            
+
             project_config = {
                 "name": "test-project",
                 "prompts": {
@@ -664,19 +691,20 @@ class TestFileBasedPromptCustomizationApplication:
                     }
                 }
             }
-            
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', 
-                      return_value=(project_root, project_config)):
+            with open(iriusrisk_dir / 'project.json', 'w') as f:
+                json.dump(project_config, f)
+
+            with patch('pathlib.Path.cwd', return_value=project_root):
                 result = _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
                 assert result == 'Subdirectory prefix: Base prompt'
-    
+
     def test_file_not_found_error_propagates(self):
         """Test that file not found errors are properly propagated."""
         with tempfile.TemporaryDirectory() as tmpdir:
             project_root = Path(tmpdir)
             iriusrisk_dir = project_root / ".iriusrisk"
             iriusrisk_dir.mkdir()
-            
+
             project_config = {
                 "name": "test-project",
                 "prompts": {
@@ -685,9 +713,10 @@ class TestFileBasedPromptCustomizationApplication:
                     }
                 }
             }
-            
-            with patch('src.iriusrisk_cli.commands.mcp.find_project_root', 
-                      return_value=(project_root, project_config)):
+            with open(iriusrisk_dir / 'project.json', 'w') as f:
+                json.dump(project_config, f)
+
+            with patch('pathlib.Path.cwd', return_value=project_root):
                 with pytest.raises(FileNotFoundError):
                     _apply_prompt_customizations('threats_and_countermeasures', 'Base prompt')
 

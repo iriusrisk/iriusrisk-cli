@@ -46,6 +46,7 @@ def patch_api_client(monkeypatch):
     from iriusrisk_cli.repositories.project_repository import ProjectRepository
     from iriusrisk_cli.repositories.threat_repository import ThreatRepository
     from iriusrisk_cli.repositories.countermeasure_repository import CountermeasureRepository
+    from iriusrisk_cli.repositories.issue_tracker_repository import IssueTrackerRepository
     from iriusrisk_cli.repositories.report_repository import ReportRepository
     from iriusrisk_cli.repositories.version_repository import VersionRepository
     from iriusrisk_cli.services.project_service import ProjectService
@@ -61,9 +62,10 @@ def patch_api_client(monkeypatch):
     project_repository = ProjectRepository(api_client=mock_client)
     threat_repository = ThreatRepository(api_client=mock_client)
     countermeasure_repository = CountermeasureRepository(api_client=mock_client)
+    issue_tracker_repository = IssueTrackerRepository(api_client=mock_client)
     report_repository = ReportRepository(api_client=mock_client)
     version_repository = VersionRepository(api_client=mock_client.version_client)
-    
+
     # Create real service instances with our mock repositories
     project_service = ProjectService(
         project_repository=project_repository,
@@ -71,7 +73,10 @@ def patch_api_client(monkeypatch):
         countermeasure_repository=countermeasure_repository
     )
     threat_service = ThreatService(threat_repository=threat_repository)
-    countermeasure_service = CountermeasureService(countermeasure_repository=countermeasure_repository)
+    countermeasure_service = CountermeasureService(
+        countermeasure_repository=countermeasure_repository,
+        issue_tracker_repository=issue_tracker_repository
+    )
     report_service = ReportService(report_repository=report_repository)
     version_service = VersionService(
         version_repository=version_repository,

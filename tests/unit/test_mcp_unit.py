@@ -9,10 +9,8 @@ from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock, mock_open
 import asyncio
 
-from src.iriusrisk_cli.commands.mcp import (
-    _find_project_root_and_config,
-    setup_mcp_logging
-)
+from src.iriusrisk_cli.utils.project_discovery import find_project_root as _find_project_root_and_config
+from src.iriusrisk_cli.commands.mcp import setup_mcp_logging
 
 
 class TestMCPProjectRootFinding:
@@ -268,7 +266,7 @@ class TestMCPServerTools:
             'reference_id': 'test-ref'
         }
         
-        with patch('src.iriusrisk_cli.commands.mcp._find_project_root_and_config') as mock_find:
+        with patch('src.iriusrisk_cli.utils.project_discovery.find_project_root') as mock_find:
             mock_find.return_value = (Path('/test/project'), project_config)
             
             with patch('src.iriusrisk_cli.commands.mcp.FastMCP') as mock_fastmcp:
@@ -284,7 +282,7 @@ class TestMCPServerTools:
     
     def test_mcp_server_initialization_without_project_config(self):
         """Test MCP server initialization when no project config exists."""
-        with patch('src.iriusrisk_cli.commands.mcp._find_project_root_and_config') as mock_find:
+        with patch('src.iriusrisk_cli.utils.project_discovery.find_project_root') as mock_find:
             mock_find.return_value = (Path('/test/project'), None)
             
             with patch('src.iriusrisk_cli.commands.mcp.FastMCP') as mock_fastmcp:

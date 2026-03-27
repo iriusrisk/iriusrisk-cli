@@ -6,6 +6,7 @@ from .api.project_client import ProjectApiClient
 from .api.threat_client import ThreatApiClient
 from .api.countermeasure_client import CountermeasureApiClient
 from .api.report_client import ReportApiClient
+from .api.issue_tracker_client import IssueTrackerApiClient
 from .api.health_client import HealthApiClient
 from .api.version_client import VersionApiClient
 from .api.questionnaire_client import QuestionnaireApiClient
@@ -29,6 +30,7 @@ class IriusRiskApiClient:
         self.threat_client = ThreatApiClient(config=config)
         self.countermeasure_client = CountermeasureApiClient(config=config)
         self.report_client = ReportApiClient(config=config)
+        self.issue_tracker_client = IssueTrackerApiClient(config=config)
         self.health_client = HealthApiClient(config=config)
         self.version_client = VersionApiClient(config=config)
         self.questionnaire_client = QuestionnaireApiClient(config=config)
@@ -168,14 +170,14 @@ class IriusRiskApiClient:
         """Download the content of a generated report from a full URL."""
         return self.report_client.download_report_content_from_url(download_url)
     
-    # Issue Tracker API methods - delegate to report_client
+    # Issue Tracker API methods - delegate to issue_tracker_client
     def get_issue_tracker_profiles(self, page: int = 0, size: int = 9999) -> Dict[str, Any]:
         """Get all available issue tracker profiles."""
-        return self.report_client.get_issue_tracker_profiles(page, size)
-    
+        return self.issue_tracker_client.get_issue_tracker_profiles(page, size)
+
     def get_project_issue_trackers(self, project_id: str, page: int = 0, size: int = 9999) -> Dict[str, Any]:
         """Get issue trackers configured for a specific project."""
-        return self.report_client.get_project_issue_trackers(project_id, page, size)
+        return self.issue_tracker_client.get_project_issue_trackers(project_id, page, size)
 
 
 # Global API client instance - removed to prevent eager config loading

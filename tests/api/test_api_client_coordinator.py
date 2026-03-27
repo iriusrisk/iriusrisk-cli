@@ -16,9 +16,10 @@ class TestIriusRiskApiClientCoordinator:
         
         # Verify specialized clients are created
         assert hasattr(client, 'project_client')
-        assert hasattr(client, 'threat_client') 
+        assert hasattr(client, 'threat_client')
         assert hasattr(client, 'countermeasure_client')
         assert hasattr(client, 'report_client')
+        assert hasattr(client, 'issue_tracker_client')
         
         # Verify backward compatibility properties
         assert client.base_url == mock_config.api_base_url

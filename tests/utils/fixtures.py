@@ -204,8 +204,14 @@ def threat_service(mock_threat_repository):
 @pytest.fixture
 def countermeasure_service(mock_countermeasure_repository):
     """Fixture that provides a CountermeasureService with mock repository."""
+    from unittest.mock import Mock
     from iriusrisk_cli.services.countermeasure_service import CountermeasureService
-    return CountermeasureService(countermeasure_repository=mock_countermeasure_repository)
+    from iriusrisk_cli.repositories.issue_tracker_repository import IssueTrackerRepository
+    mock_issue_tracker_repository = Mock(spec=IssueTrackerRepository)
+    return CountermeasureService(
+        countermeasure_repository=mock_countermeasure_repository,
+        issue_tracker_repository=mock_issue_tracker_repository
+    )
 
 
 @pytest.fixture

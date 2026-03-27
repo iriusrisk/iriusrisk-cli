@@ -4,6 +4,7 @@ import logging
 from typing import Optional, Dict, List, Any
 
 from ..repositories.countermeasure_repository import CountermeasureRepository
+from ..repositories.issue_tracker_repository import IssueTrackerRepository
 from ..utils.project_resolution import resolve_project_id_to_uuid
 from ..utils.error_handling import handle_api_error, IriusRiskError
 
@@ -13,15 +14,19 @@ logger = logging.getLogger(__name__)
 class CountermeasureService:
     """Service for managing countermeasure operations."""
     
-    def __init__(self, countermeasure_repository=None):
+    def __init__(self, countermeasure_repository=None, issue_tracker_repository=None):
         """Initialize the countermeasure service.
-        
+
         Args:
-            countermeasure_repository: CountermeasureRepository instance (required for dependency injection)
+            countermeasure_repository: CountermeasureRepository instance (required)
+            issue_tracker_repository: IssueTrackerRepository instance (required)
         """
         if countermeasure_repository is None:
             raise ValueError("CountermeasureService requires a countermeasure_repository instance")
+        if issue_tracker_repository is None:
+            raise ValueError("CountermeasureService requires an issue_tracker_repository instance")
         self.countermeasure_repository = countermeasure_repository
+        self.issue_tracker_repository = issue_tracker_repository
     
     def list_countermeasures(self, project_id: str, page: int = 0, size: int = 20,
                            risk_level: Optional[str] = None, status: Optional[str] = None,
@@ -238,7 +243,7 @@ class CountermeasureService:
             if tracker:
                 logger.debug(f"Resolving specified issue tracker: {tracker}")
                 # Get available issue tracker profiles to resolve name/ID
-                profiles_response = self.countermeasure_repository.get_issue_tracker_profiles()
+                profiles_response = self.issue_tracker_repository.get_issue_tracker_profiles()
                 profiles_data = profiles_response.get('profiles', [])
                 logger.debug(f"Found {len(profiles_data)} available issue tracker profiles")
                 

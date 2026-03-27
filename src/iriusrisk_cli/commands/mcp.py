@@ -173,14 +173,9 @@ def _apply_prompt_customizations(tool_name: str, base_prompt: str) -> str:
         logger.info(f"No customizations found for {tool_name}")
         return base_prompt
     
-    # Get the .iriusrisk directory for resolving relative file paths
-    if project_root:
-        # Convert to Path if it's a string (handles both real usage and mocked tests)
-        if isinstance(project_root, str):
-            project_root = Path(project_root)
-        iriusrisk_dir = project_root / '.iriusrisk'
-    else:
-        iriusrisk_dir = Path.cwd() / '.iriusrisk'
+    # Get the .iriusrisk directory for resolving relative file paths.
+    # Config was read from Path.cwd()/.iriusrisk/project.json, so this is always the correct dir.
+    iriusrisk_dir = Path.cwd() / '.iriusrisk'
     
     # Handle replace first (it overrides everything)
     if 'replace' in customizations:

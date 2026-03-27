@@ -710,7 +710,7 @@ class TestIriusRiskApiClientIssueTrackerOperations:
         """Set up test client."""
         self.client = IriusRiskApiClient()
     
-    @patch('iriusrisk_cli.api.report_client.ReportApiClient._make_request')
+    @patch('iriusrisk_cli.api.issue_tracker_client.IssueTrackerApiClient._make_request')
     def test_get_issue_tracker_profiles(self, mock_request):
         """Test getting issue tracker profiles."""
         mock_response = {

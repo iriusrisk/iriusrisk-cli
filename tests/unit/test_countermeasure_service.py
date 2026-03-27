@@ -13,11 +13,18 @@ class TestCountermeasureService(ServiceTestBase):
     
     def setup_method(self):
         """Set up test fixtures."""
+        from unittest.mock import Mock
+        from iriusrisk_cli.repositories.issue_tracker_repository import IssueTrackerRepository
+
         super().setup_method()
         repositories = self.create_mock_repositories()
-        
-        # Create service with repository dependency
-        self.service = CountermeasureService(countermeasure_repository=repositories['countermeasure'])
+
+        self.mock_issue_tracker_repository = Mock(spec=IssueTrackerRepository)
+
+        self.service = CountermeasureService(
+            countermeasure_repository=repositories['countermeasure'],
+            issue_tracker_repository=self.mock_issue_tracker_repository
+        )
         self.mock_countermeasure_repository = repositories['countermeasure']
     
     def test_list_countermeasures_success(self):
@@ -185,7 +192,7 @@ class TestCountermeasureService(ServiceTestBase):
         issue_result = {'issueId': 'PROJ-123', 'issueLink': 'https://jira.example.com/PROJ-123'}
         
         self.mock_countermeasure_repository.find_countermeasure_by_reference_or_uuid.return_value = countermeasure_data
-        self.mock_countermeasure_repository.get_issue_tracker_profiles.return_value = profiles_result
+        self.mock_issue_tracker_repository.get_issue_tracker_profiles.return_value = profiles_result
         self.mock_countermeasure_repository.create_issue.return_value = issue_result
         
         with patch('iriusrisk_cli.services.countermeasure_service.resolve_project_id_to_uuid') as mock_resolve:
@@ -248,11 +255,11 @@ class TestCountermeasureService(ServiceTestBase):
         }
         
         self.mock_countermeasure_repository.find_countermeasure_by_reference_or_uuid.return_value = countermeasure_data
-        self.mock_countermeasure_repository.get_issue_tracker_profiles.return_value = profiles_result
-        
+        self.mock_issue_tracker_repository.get_issue_tracker_profiles.return_value = profiles_result
+
         with patch('iriusrisk_cli.services.countermeasure_service.resolve_project_id_to_uuid') as mock_resolve:
             mock_resolve.return_value = 'project-uuid'
-            
+
             # Act & Assert
             with pytest.raises(IriusRiskError, match="Issue tracker 'InvalidTracker' not found"):
                 self.service.create_countermeasure_issue('project-id', 'cm1', 'InvalidTracker')

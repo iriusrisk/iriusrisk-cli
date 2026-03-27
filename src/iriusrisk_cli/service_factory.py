@@ -7,6 +7,7 @@ from .config import Config
 from .repositories.project_repository import ProjectRepository
 from .repositories.threat_repository import ThreatRepository
 from .repositories.countermeasure_repository import CountermeasureRepository
+from .repositories.issue_tracker_repository import IssueTrackerRepository
 from .repositories.report_repository import ReportRepository
 from .repositories.version_repository import VersionRepository
 from .services.project_service import ProjectService
@@ -35,6 +36,7 @@ class ServiceFactory:
         self._project_repository = None
         self._threat_repository = None
         self._countermeasure_repository = None
+        self._issue_tracker_repository = None
         self._report_repository = None
         self._version_repository = None
         
@@ -44,6 +46,7 @@ class ServiceFactory:
         self._countermeasure_service = None
         self._report_service = None
         self._version_service = None
+
     
     @property
     def api_client(self) -> IriusRiskApiClient:
@@ -73,6 +76,14 @@ class ServiceFactory:
                 api_client=self._api_client.countermeasure_client
             )
         return self._countermeasure_repository
+
+    def get_issue_tracker_repository(self) -> IssueTrackerRepository:
+        """Get or create an IssueTrackerRepository instance."""
+        if self._issue_tracker_repository is None:
+            self._issue_tracker_repository = IssueTrackerRepository(
+                api_client=self._api_client.issue_tracker_client
+            )
+        return self._issue_tracker_repository
     
     def get_report_repository(self) -> ReportRepository:
         """Get or create a ReportRepository instance."""
@@ -112,7 +123,8 @@ class ServiceFactory:
         """Get or create a CountermeasureService instance with proper dependency injection."""
         if self._countermeasure_service is None:
             self._countermeasure_service = CountermeasureService(
-                countermeasure_repository=self.get_countermeasure_repository()
+                countermeasure_repository=self.get_countermeasure_repository(),
+                issue_tracker_repository=self.get_issue_tracker_repository()
             )
         return self._countermeasure_service
     
@@ -139,6 +151,7 @@ class ServiceFactory:
         self._project_repository = None
         self._threat_repository = None
         self._countermeasure_repository = None
+        self._issue_tracker_repository = None
         self._report_repository = None
         self._version_repository = None
         
