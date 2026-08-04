@@ -1,5 +1,7 @@
 # IriusRisk CLI
 
+> :warning: This software is deprecated and is now available as a hosted MCP production service. This repository is no longer maintained.
+> 
 An AI-powered threat modeling integration that brings IriusRisk security analysis directly into your development workflow. Designed primarily for use with AI-enabled IDEs through MCP (Model Context Protocol), this tool enables AI assistants to help you create threat models, analyze security risks, and implement countermeasures seamlessly within your coding environment.
 
 > :warning: This software has been released IriusRisk Labs as public beta. It is provided as-is, without warranty or guarantee of any kind. Features may change, data structures may evolve, and occasional issues should be expected. Use at your own discretion.
